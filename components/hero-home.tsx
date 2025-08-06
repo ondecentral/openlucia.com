@@ -5,17 +5,52 @@ import BusinessCategories from "@/components/business-categories";
 import LogoSection from "@/components/logoSection";
 import Link from "@/components/tracked-link";
 
-import { Suspense, useRef, useState } from "react";
+import { Suspense, useRef, useState, useEffect } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { useGLTF } from "@react-three/drei";
 import * as THREE from 'three'; // Import Three.js types
 import { PointerEvent as ReactPointerEvent } from 'react';
 
 import Spline from '@splinetool/react-spline';
+import FingerprintDashboardExample from "./fingerprint-dashboard-example";
 
+// Custom hook for scroll animations
+const useScrollAnimation = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        } else {
+          setIsVisible(false);
+        }
+      },
+      {
+        threshold: 0.1,
+        rootMargin: '0px 0px -100px 0px'
+      }
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => {
+      if (ref.current) {
+        observer.unobserve(ref.current);
+      }
+    };
+  }, []);
+
+  return { ref, isVisible };
+};
 
 export default function HeroHome() {
   const [pointer, setPointer] = useState({ x: 0, y: 0 });
+  const { ref: dashboardRef, isVisible: dashboardVisible } = useScrollAnimation();
 
   const sectionStyle = {
     backgroundImage: `url('../images/bg_img.svg')`,
@@ -273,6 +308,19 @@ export default function HeroHome() {
               <BusinessCategories />
             </div>
           </div>
+          
+          {/* Fingerprint Dashboard Section with scroll animation */}
+          <div 
+            ref={dashboardRef}
+            className={`transition-all duration-1000 ease-out ${
+              dashboardVisible 
+                ? 'opacity-100 translate-y-0' 
+                : 'opacity-0 translate-y-20'
+            }`}
+          >
+            <FingerprintDashboardExample />
+          </div>
+          
           <LogoSection />
         </div>
       {/* </div> */}
