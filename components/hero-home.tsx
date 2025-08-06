@@ -140,9 +140,9 @@ export default function HeroHome() {
         <div style={{ position: "relative", zIndex: 2 }}>
           <div className="mx-auto max-w-6xl px-4 sm:px-6">
             {/* Hero content */}
-            <div className="pb-12 pt-32 md:pb-20 md:pt-40">
+            <div className="pt-32 md:pt-40">
               {/* Section header */}
-              <div className="pb-12 text-center md:pb-16">
+              <div className="text-center md:pb-16">
                 <div
                   className="mb-6 border-y [border-image:linear-gradient(to_right,transparent,theme(colors.stone.300/.8),transparent)1]"
                   data-aos="zoom-y-out"
@@ -292,7 +292,7 @@ export default function HeroHome() {
               {/* Read docs button */}
               <div className="relative mt-8 before:absolute before:inset-0">
                 <div
-                  className="mx-auto max-w-xs sm:flex sm:max-w-none sm:justify-center"
+                  className="mx-auto pb-3 max-w-xs sm:flex sm:max-w-none sm:justify-center"
                   data-aos="zoom-y-out"
                   data-aos-delay={450}
                 >
@@ -310,17 +310,9 @@ export default function HeroHome() {
           </div>
           
           {/* Fingerprint Dashboard Section with scroll animation */}
-          <div 
-            ref={dashboardRef}
-            className={`transition-all duration-1000 ease-out ${
-              dashboardVisible 
-                ? 'opacity-100 translate-y-0' 
-                : 'opacity-0 translate-y-20'
-            }`}
-          >
+          <div>
             <FingerprintDashboardExample />
           </div>
-          
           <LogoSection />
         </div>
       {/* </div> */}
