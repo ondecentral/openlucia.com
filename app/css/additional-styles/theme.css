@@ -12,6 +12,163 @@
   @apply font-medium text-blue-500;
 }
 
+/* Custom highlight.js styles for TypeScript syntax highlighting */
+.hljs {
+  background: #000000 !important;
+  color: rgb(229 231 235) !important; /* white/grey for default text */
+  padding: 0 !important;
+}
+
+.hljs-keyword {
+  color: rgb(251 146 60) !important; /* orange for keywords like import, from, etc. */
+}
+
+.hljs-string {
+  color: rgb(134 239 172) !important; /* green for strings like 'lucia-sdk' */
+}
+
+.hljs-comment {
+  color: rgb(156 163 175) !important; /* gray for comments */
+}
+
+.hljs-number {
+  color: rgb(251 146 60) !important; /* orange for numbers */
+}
+
+.hljs-function {
+  color: rgb(253 186 116) !important; /* secondary orange for function calls like .init */
+}
+
+.hljs-title {
+  color: rgb(229 231 235) !important; /* white/grey for identifiers like LuciaSDK */
+}
+
+.hljs-params {
+  color: rgb(229 231 235) !important; /* white/grey for parameters */
+}
+
+.hljs-property {
+  color: rgb(134 239 172) !important; /* green for object properties like apiKey */
+}
+
+.hljs-variable {
+  color: rgb(229 231 235) !important; /* white/grey for variables */
+}
+
+.hljs-literal {
+  color: rgb(251 146 60) !important; /* orange for literals */
+}
+
+.hljs-type {
+  color: rgb(229 231 235) !important; /* white/grey for types */
+}
+
+.hljs-built_in {
+  color: rgb(229 231 235) !important; /* white/grey for built-ins */
+}
+
+.hljs-attr {
+  color: rgb(134 239 172) !important; /* green for attributes */
+}
+
+.hljs-operator {
+  color: rgb(229 231 235) !important; /* white/grey for operators */
+}
+
+.hljs-punctuation {
+  color: rgb(229 231 235) !important; /* white/grey for punctuation */
+}
+
+.hljs-regexp {
+  color: rgb(251 146 60) !important; /* orange for regex */
+}
+
+.hljs-template-tag {
+  color: rgb(251 146 60) !important; /* orange for template tags */
+}
+
+.hljs-template-variable {
+  color: rgb(251 146 60) !important; /* orange for template variables */
+}
+
+/* Custom punctuation classes */
+.brace-punctuation {
+  color: rgb(192 132 252) !important; /* purple for braces */
+}
+
+.paren-punctuation {
+  color: rgb(253 186 116) !important; /* secondary orange for parentheses */
+}
+
+/* Bash-specific styles */
+.language-bash .hljs-keyword {
+  color: rgb(251 146 60) !important; /* orange for bash keywords */
+}
+
+.language-bash .hljs-built_in {
+  color: rgb(134 239 172) !important; /* green for bash built-ins like npm, yarn */
+}
+
+.language-bash .hljs-comment {
+  color: rgb(156 163 175) !important; /* gray for bash comments */
+}
+
+.language-bash .hljs-string {
+  color: rgb(134 239 172) !important; /* green for bash strings */
+}
+
+.language-bash .hljs-variable {
+  color: rgb(229 231 235) !important; /* white/grey for bash variables */
+}
+
+.language-bash .hljs-number {
+  color: rgb(251 146 60) !important; /* orange for bash numbers */
+}
+
+/* Ensure identifiers are white/grey */
+.hljs-name,
+.hljs-variable.language_,
+.hljs-variable.constant_ {
+  color: rgb(229 231 235) !important; /* white/grey for identifiers */
+}
+
+/* Additional classes that might be used by highlight.js */
+.hljs-tag {
+  color: rgb(229 231 235) !important; /* white/grey for tags */
+}
+
+.hljs-symbol {
+  color: rgb(229 231 235) !important; /* white/grey for symbols */
+}
+
+.hljs-bullet {
+  color: rgb(229 231 235) !important; /* white/grey for bullets */
+}
+
+.hljs-addition {
+  color: rgb(229 231 235) !important; /* white/grey for additions */
+}
+
+.hljs-subst {
+  color: rgb(229 231 235) !important; /* white/grey for substitutions */
+}
+
+.hljs-meta {
+  color: rgb(229 231 235) !important; /* white/grey for meta */
+}
+
+.hljs-section {
+  color: rgb(229 231 235) !important; /* white/grey for sections */
+}
+
+.hljs-selector-id {
+  color: rgb(229 231 235) !important; /* white/grey for selector ids */
+}
+
+.hljs-selector-class {
+  color: rgb(229 231 235) !important; /* white/grey for selector classes */
+}
+
 /* Custom AOS animations */
 [data-aos="zoom-y-out"] {
   transform: scaleX(1.03);

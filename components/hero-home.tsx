@@ -142,7 +142,7 @@ export default function HeroHome() {
             {/* Hero content */}
             <div className="pt-32 md:pt-40">
               {/* Section header */}
-              <div className="text-center md:pb-16">
+              <div className="text-center md:pb-4">
                 <div
                   className="mb-6 border-y [border-image:linear-gradient(to_right,transparent,theme(colors.stone.300/.8),transparent)1]"
                   data-aos="zoom-y-out"
@@ -215,82 +215,13 @@ export default function HeroHome() {
                 </div>
               </div>
               {/* Hero image */}
-              <div
-                className="mx-auto max-w-3xl"
-                data-aos="zoom-y-out"
-                data-aos-delay={600}
-              >
-                <div className="relative aspect-video rounded-2xl bg-stone-900 px-5 py-3 shadow-xl before:pointer-events-none before:absolute before:-inset-5 before:border-y before:[border-image:linear-gradient(to_right,transparent,theme(colors.stone.300/.8),transparent)1] after:absolute after:-inset-5 after:-z-10 after:border-x after:[border-image:linear-gradient(to_bottom,transparent,theme(colors.stone.300/.8),transparent)1]">
-                  <div className="relative mb-8 flex items-center justify-between before:block before:h-[9px] before:w-[41px] before:bg-[length:16px_9px] before:[background-image:radial-gradient(circle_at_4.5px_4.5px,_theme(colors.stone.600)_4.5px,_transparent_0)] after:w-[41px]">
-                    <span className="text-[13px] font-medium text-white">
-                      luciaprotocol.com
-                    </span>
-                  </div>
-                  <div className="font-mono text-gray-500 [&_span]:opacity-0">
-                    <span className="animate-[code-1_10s_infinite] text-gray-400">
-                      // terminal
-                    </span>
-                    <br />
-                    <span className="animate-[code-1_10s_infinite] text-gray-200">
-                      npm install lucia-sdk
-                    </span>
-                    <br />
-                    <span className="animate-[code-1_10s_infinite]">
-                      Package successfully installed.
-                    </span>
-                    <br />
-                    <br />
-                    <span className="animate-[code-2_10s_infinite] text-gray-400">
-                      // app.js
-                    </span>
-                    <br />
-                    <span className="animate-[code-2_10s_infinite] text-gray-200 flex flex-inline gap-2">
-                       <div className="text-orange-400">import</div> LuciaSDK
-                      <div className="text-orange-400">from</div>
-                      <div className="text-green-300">'lucia-sdk'</div>;
-                    </span>
-                    <span className="animate-[code-3_10s_infinite] text-gray-200 flex flex-inline">
-                      {"LuciaSDK"}
-                      <div className="text-orange-400">.</div>
-                      <div className="text-orange-300">init</div>
-                      <div className="text-yellow-400">{"("}</div>
-                      <div className="text-purple-400">{"{"}</div>
-                    </span>
-                    <span className="animate-[code-4_10s_infinite]">
-                      &nbsp;// Get your API Key from https://ads.clickinsights.xyz
-                    </span>
-                    <br />
-                    <span className="animate-[code-4_10s_infinite] text-gray-200 flex flex-inline gap-2">
-                      &nbsp;apiKey:
-                      <div className="text-green-300">'your-api-here'</div>,
-                    </span>
-                    <span className="animate-[code-3_10s_infinite] text-gray-200 flex flex-inline">
-                      <div className="text-purple-400">{"}"}</div>
-                      <div className="text-yellow-400">{")"}</div>;
-                    </span>
-                    <br />
-                    <span className="animate-[code-5_10s_infinite] text-gray-400">
-                      // page.js
-                    </span>
-                    <br />
-                    <span className="animate-[code-5_10s_infinite] text-gray-200 flex flex-inline gap-2">
-                      <div className="text-orange-400">import</div> LuciaSDK
-                      <div className="text-orange-400">from</div>
-                      <div className="text-green-300">'lucia-sdk'</div>;
-                    </span>
-                    <span className="animate-[code-6_10s_infinite] text-gray-200 flex flex-inline">
-                      {"LuciaSDK"}
-                      <div className="text-orange-400">.</div>
-                      <div className="text-orange-300">pageView</div>
-                      <div className="text-yellow-400">{"("}</div>
-                      <div className="text-green-300">'your-page-here'</div>
-                      <div className="text-yellow-400">{")"}</div>
-                    </span>
-                  </div>
-                </div>
+              
+              {/* Dashboard Demo Section */}
+              <div>
+                <DashboardDemo />
               </div>
               {/* Read docs button */}
-              <div className="relative mt-8 before:absolute before:inset-0">
+              <div className="relative mt-4 before:absolute before:inset-0">
                 <div
                   className="mx-auto pb-3 max-w-xs sm:flex sm:max-w-none sm:justify-center"
                   data-aos="zoom-y-out"
@@ -310,11 +241,6 @@ export default function HeroHome() {
               </div>
               <BusinessCategories />
             </div>
-          </div>
-          
-          {/* Dashboard Demo Section */}
-          <div>
-            <DashboardDemo />
           </div>
           <LogoSection />
         </div>

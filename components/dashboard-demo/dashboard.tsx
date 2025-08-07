@@ -9,7 +9,7 @@ interface DashboardProps {
   totalUniqueIPs: number;
   totalUniqueGeolocations: number;
   totalWalletsDetected: number;
-  totalLuciaRewards: string;
+  totalRewards: string;
   totalAdsClicked: number;
   totalClickIds: number;
 }
@@ -21,7 +21,7 @@ const Dashboard: React.FC<DashboardProps> = ({
   totalUniqueIPs,
   totalUniqueGeolocations,
   totalWalletsDetected,
-  totalLuciaRewards,
+  totalRewards,
   totalAdsClicked,
   totalClickIds
 }) => {
@@ -29,9 +29,12 @@ const Dashboard: React.FC<DashboardProps> = ({
   const [expandedTabs, setExpandedTabs] = useState<Set<string>>(new Set());
   const [ipIndex, setIpIndex] = useState<Record<string, number>>({});
   const [walletIndex, setWalletIndex] = useState<Record<string, number>>({});
+  const [notification, setNotification] = useState<{ message: string; visible: boolean }>({ message: '', visible: false });
 
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
+    setNotification({ message: 'Copied to clipboard!', visible: true });
+    setTimeout(() => setNotification({ message: '', visible: false }), 2000);
   };
 
   // Filter visitors based on search term
@@ -86,6 +89,13 @@ const Dashboard: React.FC<DashboardProps> = ({
 
   return (
     <main className="w-full">
+      {/* Notification */}
+      {notification.visible && (
+        <div className="fixed top-4 right-4 z-50 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg transition-all duration-300">
+          {notification.message}
+        </div>
+      )}
+      
       <div className="bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden">
           <>
             {/* Visit Summary - Single Row */}
@@ -115,8 +125,8 @@ const Dashboard: React.FC<DashboardProps> = ({
                 <p className="text-sm font-semibold text-gray-600 mt-1">{totalWalletsDetected}</p>
               </div>
               <div className="p-3 border-r border-gray-200">
-                <p className="text-xs text-gray-400 font-semibold tracking-wider">LUCIA REWARDS DISTRIBUTED</p>
-                <p className="text-sm font-semibold text-gray-600 mt-1">{totalLuciaRewards}</p>
+                <p className="text-xs text-gray-400 font-semibold tracking-wider">TOTAL REWARDS DISTRIBUTED</p>
+                <p className="text-sm font-semibold text-gray-600 mt-1">{totalRewards}</p>
               </div>
               <div className="p-3 border-r border-gray-200">
                 <p className="text-xs text-gray-400 font-semibold tracking-wider">TOTAL ADS CLICKED</p>
@@ -146,8 +156,11 @@ const Dashboard: React.FC<DashboardProps> = ({
             <section className="p-3">
               <h2 className="text-xs text-gray-400 font-semibold tracking-wider mb-2">VISITORS</h2>
               <div className="space-y-2">
+
+                {/* Map through the visitors and display them in a tab */}
                 {filteredVisitors.map((visitor) => (
                   <div key={visitor.visitor_id} className="border border-gray-200 rounded-lg overflow-hidden">
+
                     {/* Tab Header */}
                     <button
                       onClick={() => toggleTab(visitor.visitor_id)}
@@ -162,23 +175,23 @@ const Dashboard: React.FC<DashboardProps> = ({
                         </span>
                       </div>
                       <div className="flex items-center gap-3">
-                        {/* Suspect Score */}
+                        {/* Risk Level */}
                         <div className={`border p-1 rounded text-center ${
-                          visitor.suspect_score >= 7 ? 'border-red-500' : 
-                          visitor.suspect_score >= 4 ? 'border-orange-500' : 
+                          visitor.risk_level >= 80 ? 'border-red-500' : 
+                          visitor.risk_level >= 50 ? 'border-orange-500' : 
                           'border-green-500'
                         }`}>
                           <p className={`text-xs font-semibold ${
-                            visitor.suspect_score >= 7 ? 'text-red-500' : 
-                            visitor.suspect_score >= 4 ? 'text-orange-500' : 
+                            visitor.risk_level >= 80 ? 'text-red-500' : 
+                            visitor.risk_level >= 50 ? 'text-orange-500' : 
                             'text-green-500'
-                          }`}>SUSPECT SCORE</p>
+                          }`}>RISK LEVEL</p>
                           <p className={`text-sm font-bold flex items-center justify-center gap-1 ${
-                            visitor.suspect_score >= 7 ? 'text-red-500' : 
-                            visitor.suspect_score >= 4 ? 'text-orange-500' : 
+                            visitor.risk_level >= 80 ? 'text-red-500' : 
+                            visitor.risk_level >= 50 ? 'text-orange-500' : 
                             'text-green-500'
                           }`}>
-                            {visitor.suspect_score} <TriangleAlert className="w-2.5 h-2.5" />
+                            {visitor.risk_level} <TriangleAlert className="w-2.5 h-2.5" />
                           </p>
                         </div>
                         <ChevronDown 
@@ -224,55 +237,79 @@ const Dashboard: React.FC<DashboardProps> = ({
                           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                             {/* Associated Emails */}
                             <div className="border border-gray-200 rounded-lg p-3">
-                              <h3 className="text-base font-semibold text-gray-600 mb-2 flex items-center gap-2">
+                              <h3 className="text-base font-semibold text-gray-600 mb-3 flex items-center justify-center gap-2 border-b border-gray-200 pb-2">
                                 <Mail className="text-orange-500 w-4 h-4" /> Associated Emails
                               </h3>
-                              <ul className="space-y-1.5 text-sm">
+                              <div className="space-y-2">
                                 {visitor.associated_emails.map((email, index) => (
-                                  <li key={index} className="flex items-center gap-1.5 text-gray-600">
-                                    <div className={`w-1.5 h-1.5 rounded-full ${index === 0 ? 'bg-green-500' : 'bg-gray-300'}`}></div>
-                                    <span className="truncate">{email}</span>
-                                  </li>
+                                  <div key={index} className="flex text-left justify-between p-1 bg-gray-50 rounded hover:bg-gray-100 transition-colors">
+                                    <span className="text-sm text-gray-600 truncate flex-1">{email}</span>
+                                    <button
+                                      onClick={() => copyToClipboard(email)}
+                                      className="text-gray-400 hover:text-gray-600 transition-colors ml-2"
+                                      title="Copy email"
+                                    >
+                                      <Copy className="w-3 h-3" />
+                                    </button>
+                                  </div>
                                 ))}
-                              </ul>
+                              </div>
                             </div>
 
                             {/* IP Addresses */}
                             <div className="border border-gray-200 rounded-lg p-3">
-                              <h3 className="text-base font-semibold text-gray-600 mb-2 flex items-center gap-2">
+                              <h3 className="text-base font-semibold text-gray-600 mb-3 flex items-center justify-center gap-2 border-b border-gray-200 pb-2">
                                 <MapPin className="text-orange-500 w-4 h-4" /> IP Addresses
                               </h3>
-                              <ul className="space-y-1.5 text-sm">
+                              <div className="space-y-2">
                                 {visitor.ip_addresses.map((ipData, index) => (
-                                  <li key={index} className="flex items-center gap-1.5 text-gray-600">
-                                    <div className={`w-1.5 h-1.5 rounded-full ${index === 0 ? 'bg-green-500' : 'bg-gray-300'}`}></div>
-                                    <div className="flex flex-col">
-                                      <span className="font-mono text-xs">{ipData.ip}</span>
-                                      <span className="text-xs text-gray-400">{ipData.location}</span>
+                                  <div key={index} className="p-1 text-left bg-gray-50 rounded hover:bg-gray-100 transition-colors">
+                                    <div className="flex items-center justify-between">
+                                      <div className="flex-1">
+                                        <div className="font-mono text-sm text-gray-600">{ipData.ip}</div>
+                                        <div className="text-xs text-gray-400">{ipData.location}</div>
+                                      </div>
+                                      <button
+                                        onClick={() => copyToClipboard(ipData.ip)}
+                                        className="text-gray-400 hover:text-gray-600 transition-colors ml-2"
+                                        title="Copy IP address"
+                                      >
+                                        <Copy className="w-3 h-3" />
+                                      </button>
                                     </div>
-                                  </li>
+                                  </div>
                                 ))}
-                              </ul>
+                              </div>
                             </div>
 
                             {/* Wallet Addresses */}
                             <div className="border border-gray-200 rounded-lg p-3">
-                              <h3 className="text-base font-semibold text-gray-600 mb-2 flex items-center gap-2">
+                              <h3 className="text-base font-semibold text-gray-600 mb-3 flex items-center justify-center gap-2 border-b border-gray-200 pb-2">
                                 <Wallet className="text-orange-500 w-4 h-4" /> Wallet Addresses
                               </h3>
-                              <ul className="space-y-1.5 text-sm">
+                              <div className="space-y-2">
                                 {visitor.wallets.map((wallet, index) => (
-                                  <li key={index} className="flex items-center gap-1.5 text-gray-600">
-                                    <div className={`w-1.5 h-1.5 rounded-full ${index === 0 ? 'bg-green-500' : 'bg-gray-300'}`}></div>
-                                    <div className="flex flex-col">
-                                      <span className="font-mono text-xs">{wallet.address.slice(0, 6)}...{wallet.address.slice(-4)}</span>
-                                      {wallet.ens_domain && (
-                                        <span className="text-xs text-orange-500">{wallet.ens_domain}</span>
-                                      )}
+                                  <div key={index} className="p-1 text-left bg-gray-50 rounded hover:bg-gray-100 transition-colors">
+                                    <div className="flex items-center justify-between">
+                                      <div className="flex-1">
+                                        <div className="font-mono text-sm text-gray-600">
+                                          {wallet.address.slice(0, 6)}...{wallet.address.slice(-4)}
+                                        </div>
+                                        {wallet.ens_domain && (
+                                          <div className="text-xs text-orange-500">{wallet.ens_domain}</div>
+                                        )}
+                                      </div>
+                                      <button
+                                        onClick={() => copyToClipboard(wallet.address)}
+                                        className="text-gray-400 hover:text-gray-600 transition-colors ml-2"
+                                        title="Copy wallet address"
+                                      >
+                                        <Copy className="w-3 h-3" />
+                                      </button>
                                     </div>
-                                  </li>
+                                  </div>
                                 ))}
-                              </ul>
+                              </div>
                             </div>
                           </div>
                         </section>

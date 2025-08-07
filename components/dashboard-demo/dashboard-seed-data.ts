@@ -43,8 +43,7 @@ export interface VisitorData {
   associated_emails: string[];
   transactions: Transaction[];
   visit_time: string;
-  suspect_score: number;
-  // New fields for counts
+  risk_level: number; 
   incognito_sessions: number;
   ads_clicked: number;
   click_ids: number;
@@ -154,7 +153,7 @@ export const sampleVisitors: VisitorData[] = [
     associated_emails: ['user.primary@email.com', 'secondary.email@domain.com'],
     transactions: sampleTransactions,
     visit_time: 'Now',
-    suspect_score: 7,
+    risk_level: 85, // Changed from suspect_score: 7
     incognito_sessions: 3,
     ads_clicked: 12,
     click_ids: 12,
@@ -179,7 +178,7 @@ export const sampleVisitors: VisitorData[] = [
     associated_emails: ['alice@example.com'],
     transactions: sampleTransactions,
     visit_time: '2 hours ago',
-    suspect_score: 3,
+    risk_level: 35, // Changed from suspect_score: 3
     incognito_sessions: 8,
     ads_clicked: 5,
     click_ids: 5,
@@ -223,7 +222,7 @@ export const sampleVisitors: VisitorData[] = [
     associated_emails: ['bob@example.com', 'bob.work@company.com'],
     transactions: sampleTransactions,
     visit_time: '1 day ago',
-    suspect_score: 5,
+    risk_level: 65, // Changed from suspect_score: 5
     incognito_sessions: 2,
     ads_clicked: 8,
     click_ids: 8,
@@ -258,7 +257,7 @@ export const dashboardStats = {
   totalUniqueIPs: 250,
   totalUniqueGeolocations: 180,
   totalWalletsDetected: 275,
-  totalLuciaRewards: '25 LUC',
+  totalRewards: '1,000 USDC',
   totalAdsClicked: 150,
   totalClickIds: 150
 };
