@@ -381,7 +381,7 @@ export default function CaseStudies() {
       </div>
       <div className="flex justify-center mt-10">
         <Link
-          className="btn justify-self-center w-full bg-white text-stone-800 shadow hover:bg-stone-50 sm:ml-4 sm:w-auto"
+          className="btn w-full outline outline-1 outline-slate-300 bg-transparent text-stone-800 shadow hover:drop-shadow-lg hover:outline-2 hover:outline-orange-500 hover:bg-orange-50 sm:ml-4 sm:w-auto"
           href="https://lucia-protocol.notion.site/Lucia-Ad-Attribution-Case-Studies-862e0f534eed441b9478366060a3b22b?pvs=25"
           target="_blank"
           aria-label="View Case Studies"

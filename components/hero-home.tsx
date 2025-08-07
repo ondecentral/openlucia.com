@@ -147,14 +147,14 @@ export default function HeroHome() {
                   className="mb-6 border-y [border-image:linear-gradient(to_right,transparent,theme(colors.stone.300/.8),transparent)1]"
                   data-aos="zoom-y-out"
                 >
-                  <div className="-mx-0.5 flex justify-center -space-x-3">
+                  <div className="py-1 -mx-0.5 flex justify-center -space-x-3">
                     <span className="rounded-full bg-gradient-to-r from-orange-400/80 to-orange-600/80 px-2 text-white">
                       AI model coming soon!
                     </span>
                   </div>
                 </div>
                 <h1
-                  className="mb-6 border-y text-5xl font-semibold [border-image:linear-gradient(to_right,transparent,theme(colors.stone.300/.8),transparent)1] md:text-6xl"
+                  className="py-2 mb-6 border-y text-5xl font-semibold [border-image:linear-gradient(to_right,transparent,theme(colors.stone.300/.8),transparent)1] md:text-6xl"
                   data-aos="zoom-y-out"
                   data-aos-delay={150}
                 >
@@ -170,7 +170,7 @@ export default function HeroHome() {
                     Know where your users came from, what they're doing, and
                     why.
                   </p>
-                  <div className="relative before:absolute before:inset-0 before:border-y before:[border-image:linear-gradient(to_right,transparent,theme(colors.stone.300/.8),transparent)1]">
+                  <div className="py-1 relative before:absolute before:inset-0 before:border-y before:[border-image:linear-gradient(to_right,transparent,theme(colors.stone.300/.8),transparent)1]">
                     <div
                       className="mx-auto max-w-xs sm:flex sm:max-w-none sm:justify-center"
                       data-aos="zoom-y-out"
@@ -203,7 +203,7 @@ export default function HeroHome() {
                         </span>
                       </Link>
                       <Link
-                        className="btn w-full bg-white text-stone-800 shadow hover:bg-stone-50 sm:ml-4 sm:w-auto"
+                        className="btn w-full outline outline-1 outline-slate-300 bg-transparent text-stone-800 shadow hover:drop-shadow-lg hover:outline-2 hover:outline-orange-500 hover:bg-orange-50 sm:ml-4 sm:w-auto"
                         href="https://ads.clickinsights.xyz"
                         target="_blank"
                         aria-label="Learn More Hero"
@@ -297,10 +297,13 @@ export default function HeroHome() {
                   data-aos-delay={450}
                 >
                   <a
-                    className="btn w-full outline outline-offset-2 outline-1 outline-slate-300 bg-transparent text-stone-800 shadow hover:drop-shadow-lg hover:outline-4 hover:outline-orange-500 hover:bg-orange-50 sm:ml-4 sm:w-auto"
+                    className="btn w-full outline outline-1 outline-slate-300 bg-transparent text-stone-800 shadow hover:drop-shadow-lg hover:outline-2 hover:outline-orange-500 hover:bg-orange-50 sm:ml-4 sm:w-auto"
                     href="https://docs.luciaprotocol.com/"
                     target="_blank"
                   >
+                    {/* btn w-full bg-white text-stone-800 shadow hover:bg-stone-50 sm:ml-4 sm:w-auto 
+                      className="btn w-full outline outline-offset-2 outline-1 outline-slate-300 bg-transparent text-stone-800 shadow hover:drop-shadow-lg hover:outline-2 hover:outline-orange-500 hover:bg-orange-50 sm:ml-4 sm:w-auto"
+                    */}
                     Read Docs
                   </a>
                 </div>

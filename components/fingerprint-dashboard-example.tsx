@@ -1,14 +1,10 @@
 "use client";
 
-import Image from "next/image";
-import FingerprintDashboardImage from "@/public/images/fingerprint-dashboard.png";
 import { useState, useEffect, useRef } from "react";
+import VisitorDashboard from "./fingerprint-dashboard";
 
 export default function FingerprintDashboardExample() {
   const [isExpanded, setIsExpanded] = useState(false);
-  
-
-
 
   const handleButtonClick = () => {
     setIsExpanded(!isExpanded);
@@ -85,12 +81,7 @@ export default function FingerprintDashboardExample() {
               </p>
             </div>
             <div className="relative">
-              <Image 
-                src={FingerprintDashboardImage} 
-                alt="Fingerprint Dashboard Example" 
-                className="w-full h-auto rounded-lg shadow-2xl"
-                priority
-              />
+              <VisitorDashboard />
             </div>
           </div>
         )}
