@@ -12,7 +12,7 @@ import * as THREE from 'three'; // Import Three.js types
 import { PointerEvent as ReactPointerEvent } from 'react';
 
 import Spline from '@splinetool/react-spline';
-import FingerprintDashboardExample from "./fingerprint-dashboard-example";
+import DashboardDemo from "./dashboard-demo/dashboard-demo";
 
 // Custom hook for scroll animations
 const useScrollAnimation = () => {
@@ -312,9 +312,9 @@ export default function HeroHome() {
             </div>
           </div>
           
-          {/* Fingerprint Dashboard Section with scroll animation */}
+          {/* Dashboard Demo Section */}
           <div>
-            <FingerprintDashboardExample />
+            <DashboardDemo />
           </div>
           <LogoSection />
         </div>
