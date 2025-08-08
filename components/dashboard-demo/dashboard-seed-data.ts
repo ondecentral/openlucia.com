@@ -125,9 +125,35 @@ export const sampleWallets: Wallet[] = [
     transactions: sampleTransactions
   },
   {
+    address: 'DuXjR8QNP1tJvW5DKcfGBzqiYj6N5DvsDfEP5ztDiYGE',
+    type: 'Phantom',
+    balance: '45.8 SOL',
+    first_seen: '2024-01-18',
+    last_seen: '2024-01-19',
+    transactions: sampleTransactions
+  },
+
+  {
+    address: '0x1234567890123456789012345678901234567890',
+    type: 'Ledger',
+    balance: '5.67 ETH',
+    ens_domain: 'bob.eth',
+    first_seen: '2024-01-10',
+    last_seen: '2024-01-21',
+    transactions: sampleTransactions
+  },
+  {
+    address: 'FidaeBkZkvDqi1GXNEwB8uWmj9Ngx2HXSX8jcVngJk1',
+    type: 'Backpack',
+    balance: '12.3 SOL',
+    first_seen: '2024-01-05',
+    last_seen: '2024-01-22',
+    transactions: sampleTransactions
+  },
+  {
     address: '0x742d35Cc6634C0532925a3b8D4C9db96C4b4d8b6',
-    type: 'WalletConnect',
-    balance: '0.85 ETH',
+    type: 'Trezor',
+    balance: '8.92 ETH',
     ens_domain: 'alice.eth',
     first_seen: '2024-01-18',
     last_seen: '2024-01-19',
@@ -252,12 +278,14 @@ export const sampleVisitors: VisitorData[] = [
 ];
 
 export const dashboardStats = {
-  totalVisits: 300,
-  totalIncognitoVisits: 45,
-  totalUniqueIPs: 250,
-  totalUniqueGeolocations: 180,
-  totalWalletsDetected: 275,
-  totalRewards: '1,000 USDC',
-  totalAdsClicked: 150,
-  totalClickIds: 150
+  totalVisits: 377,
+  totalIncognitoVisits: 42,
+  totalUniqueIPs: 251,
+  totalUniqueGeolocations: 137,
+  totalWalletsDetected: 293,
+  totalUSDTRewards: '574',
+  totalSOLRewards: '6.13',
+  totalETHRewards: '0.78',
+  totalAdsClicked: 148,
+  totalClickIds: 149
 };

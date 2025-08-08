@@ -47,8 +47,10 @@ export default function DashboardDemo() {
                       totalIncognitoVisits={dashboardStats.totalIncognitoVisits}
                       totalUniqueIPs={dashboardStats.totalUniqueIPs}
                       totalUniqueGeolocations={dashboardStats.totalUniqueGeolocations}
-                      totalWalletsDetected={dashboardStats.totalWalletsDetected}
-                      totalRewards={dashboardStats.totalRewards}
+                      totalWalletsDetected={dashboardStats.totalWalletsDetected}                  
+                      totalUSDTRewards={dashboardStats.totalUSDTRewards}
+                      totalSOLRewards={dashboardStats.totalSOLRewards}
+                      totalETHRewards={dashboardStats.totalETHRewards}
                       totalAdsClicked={dashboardStats.totalAdsClicked}
                       totalClickIds={dashboardStats.totalClickIds}
                     />

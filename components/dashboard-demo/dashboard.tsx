@@ -1,6 +1,19 @@
 import React, { useState, useMemo } from 'react';
 import { MapPin, ChevronUp, Wallet, Mail, Receipt, TriangleAlert, Copy, Search, ChevronDown } from 'lucide-react';
 import { VisitorData, Transaction, IPAddress, Wallet as WalletData } from './dashboard-seed-data';
+import {
+  TokenETH,
+  TokenSOL,
+  WalletLedger,
+  WalletMetamask,
+  WalletCoinbase,
+  WalletWalletConnect,
+  WalletBackpack,
+  WalletPhantom,
+  WalletTrezor,
+  TokenUSDT,
+} from '@web3icons/react'
+
 
 interface DashboardProps {
   visitors: VisitorData[];
@@ -9,10 +22,33 @@ interface DashboardProps {
   totalUniqueIPs: number;
   totalUniqueGeolocations: number;
   totalWalletsDetected: number;
-  totalRewards: string;
+  totalUSDTRewards: string;
+  totalSOLRewards: string;
+  totalETHRewards: string;
   totalAdsClicked: number;
   totalClickIds: number;
 }
+
+const getWalletIcon = (type: string) => {
+  switch (type.toLowerCase()) {
+    case 'metamask':
+      return <WalletMetamask size={24} variant="branded" />;
+    case 'walletconnect':
+      return <WalletWalletConnect size={24} variant="branded" />;
+    case 'ledger':
+      return <WalletLedger size={24} variant="branded" />;
+    case 'coinbase wallet':
+      return <WalletCoinbase size={24} variant="branded" />;
+    case 'backpack':
+      return <WalletBackpack size={24} variant="branded" />;
+    case 'phantom':
+      return <WalletPhantom size={24} variant="branded" />;
+    case 'trezor':
+      return <WalletTrezor size={24} variant="branded" />;
+    default:
+      return <Wallet className="w-6 h-6 text-orange-500" />;
+  }
+};
 
 const Dashboard: React.FC<DashboardProps> = ({
   visitors,
@@ -21,16 +57,24 @@ const Dashboard: React.FC<DashboardProps> = ({
   totalUniqueIPs,
   totalUniqueGeolocations,
   totalWalletsDetected,
-  totalRewards,
+  totalUSDTRewards,
+  totalSOLRewards,
+  totalETHRewards,
   totalAdsClicked,
   totalClickIds
 }) => {
+  // For search bar
   const [searchTerm, setSearchTerm] = useState('');
+
+  // For notification for copying to clipboard
+  const [notification, setNotification] = useState<{ message: string; visible: boolean }>({ message: '', visible: false });
+  
+  // For visitor tabs
   const [expandedTabs, setExpandedTabs] = useState<Set<string>>(new Set());
   const [ipIndex, setIpIndex] = useState<Record<string, number>>({});
   const [walletIndex, setWalletIndex] = useState<Record<string, number>>({});
-  const [notification, setNotification] = useState<{ message: string; visible: boolean }>({ message: '', visible: false });
-
+  
+  // For copying to clipboard and displaying notification
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
     setNotification({ message: 'Copied to clipboard!', visible: true });
@@ -109,7 +153,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                 <p className="text-sm font-semibold text-gray-600 mt-1">{totalIncognitoVisits}</p>
               </div>
               <div className="p-3 border-r border-gray-200">
-                <p className="text-xs text-gray-400 font-semibold tracking-wider">TOTAL UNIQUEIP ADDRESSES</p>
+                <p className="text-xs text-gray-400 font-semibold tracking-wider">TOTAL UNIQUE IP ADDRESSES</p>
                 <p className="text-sm font-semibold text-gray-600 mt-1">{totalUniqueIPs}</p>
               </div>
               <div className="p-3">
@@ -122,11 +166,27 @@ const Dashboard: React.FC<DashboardProps> = ({
             <section className="grid grid-cols-2 md:grid-cols-4 border-b border-gray-200">
               <div className="p-3 border-r border-gray-200">
                 <p className="text-xs text-gray-400 font-semibold tracking-wider">TOTAL WALLETS DETECTED</p>
-                <p className="text-sm font-semibold text-gray-600 mt-1">{totalWalletsDetected}</p>
+                <div className="flex justify-center items-center gap-2 mt-1">
+                  <p className="text-sm font-semibold text-gray-600">{totalWalletsDetected}</p>
+                  <WalletWalletConnect size={28} variant="branded"/>
+                </div>
               </div>
               <div className="p-3 border-r border-gray-200">
                 <p className="text-xs text-gray-400 font-semibold tracking-wider">TOTAL REWARDS DISTRIBUTED</p>
-                <p className="text-sm font-semibold text-gray-600 mt-1">{totalRewards}</p>
+                <div className="flex justify-center items-center gap-3 mt-1">
+                  <div className="flex items-center gap-1">
+                    <p className="text-sm font-semibold text-gray-600">{totalUSDTRewards}</p>
+                    <TokenUSDT size={32} variant="branded"/>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <p className="text-sm font-semibold text-gray-600">{totalSOLRewards}</p>
+                    <TokenSOL size={32} variant="branded"/>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <p className="text-sm font-semibold text-gray-600">{totalETHRewards}</p>
+                    <TokenETH size={38} variant="branded"/>
+                  </div>
+                </div>
               </div>
               <div className="p-3 border-r border-gray-200">
                 <p className="text-xs text-gray-400 font-semibold tracking-wider">TOTAL ADS CLICKED</p>
@@ -162,14 +222,26 @@ const Dashboard: React.FC<DashboardProps> = ({
                   <div key={visitor.visitor_id} className="border border-gray-200 rounded-lg overflow-hidden">
 
                     {/* Tab Header */}
-                    <button
+                    <div 
                       onClick={() => toggleTab(visitor.visitor_id)}
-                      className="w-full p-2 flex items-center justify-between bg-gray-50 hover:bg-gray-100 transition-colors"
+                      className="w-full p-2 flex items-center justify-between bg-gray-50 hover:bg-gray-100 transition-colors cursor-pointer"
                     >
                       <div className="flex items-center gap-3">
-                        <span className="font-mono text-sm font-medium text-gray-700">
-                          {visitor.visitor_id}
-                        </span>
+                        <div className="flex items-center gap-2">
+                          <span className="font-mono text-sm font-medium text-gray-700">
+                            {visitor.visitor_id}
+                          </span>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              copyToClipboard(visitor.visitor_id);
+                            }}
+                            className="text-gray-400 hover:text-gray-600 transition-colors"
+                            title="Copy visitor ID"
+                          >
+                            <Copy className="w-3 h-3" />
+                          </button>
+                        </div>
                         <span className="text-xs text-gray-500">
                           {visitor.visit_time}
                         </span>
@@ -200,7 +272,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                           }`} 
                         />
                       </div>
-                    </button>
+                    </div>
 
                     {/* Tab Content */}
                     {expandedTabs.has(visitor.visitor_id) && (
@@ -240,7 +312,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                               <h3 className="text-base font-semibold text-gray-600 mb-3 flex items-center justify-center gap-2 border-b border-gray-200 pb-2">
                                 <Mail className="text-orange-500 w-4 h-4" /> Associated Emails
                               </h3>
-                              <div className="space-y-2">
+                              <div className="space-y-2 max-h-[120px] overflow-y-auto pr-2">
                                 {visitor.associated_emails.map((email, index) => (
                                   <div key={index} className="flex text-left justify-between p-1 bg-gray-50 rounded hover:bg-gray-100 transition-colors">
                                     <span className="text-sm text-gray-600 truncate flex-1">{email}</span>
@@ -261,7 +333,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                               <h3 className="text-base font-semibold text-gray-600 mb-3 flex items-center justify-center gap-2 border-b border-gray-200 pb-2">
                                 <MapPin className="text-orange-500 w-4 h-4" /> IP Addresses
                               </h3>
-                              <div className="space-y-2">
+                              <div className="space-y-2 max-h-[120px] overflow-y-auto pr-2">
                                 {visitor.ip_addresses.map((ipData, index) => (
                                   <div key={index} className="p-1 text-left bg-gray-50 rounded hover:bg-gray-100 transition-colors">
                                     <div className="flex items-center justify-between">
@@ -287,7 +359,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                               <h3 className="text-base font-semibold text-gray-600 mb-3 flex items-center justify-center gap-2 border-b border-gray-200 pb-2">
                                 <Wallet className="text-orange-500 w-4 h-4" /> Wallet Addresses
                               </h3>
-                              <div className="space-y-2">
+                              <div className="space-y-2 max-h-[120px] overflow-y-auto pr-2">
                                 {visitor.wallets.map((wallet, index) => (
                                   <div key={index} className="p-1 text-left bg-gray-50 rounded hover:bg-gray-100 transition-colors">
                                     <div className="flex items-center justify-between">
@@ -432,7 +504,8 @@ const Dashboard: React.FC<DashboardProps> = ({
                                   <li className="flex justify-between items-center">
                                     <span className="text-gray-500">Wallet Type</span>
                                     <span className="font-medium flex items-center gap-1.5">
-                                      <div className="w-4 h-4 bg-orange-500 rounded"></div> {visitor.wallets[walletIndex[visitor.visitor_id] || 0]?.type || visitor.wallet_type}
+                                      {getWalletIcon(visitor.wallets[walletIndex[visitor.visitor_id] || 0]?.type || visitor.wallet_type)}
+                                      {visitor.wallets[walletIndex[visitor.visitor_id] || 0]?.type || visitor.wallet_type}
                                     </span>
                                   </li>
                                   <li className="flex justify-between items-center gap-1.5">
@@ -454,7 +527,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                                     </div>
                                   </li>
                                   <li className="flex justify-between items-center">
-                                    <span className="text-gray-500">Wallet Balance</span>
+                                    <span className="text-gray-500">Total Balance</span>
                                     <span className="font-medium">{visitor.wallets[walletIndex[visitor.visitor_id] || 0]?.balance || visitor.wallet_balance}</span>
                                   </li>
                                   <li className="flex justify-between items-center gap-1.5">
