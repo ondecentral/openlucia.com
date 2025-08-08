@@ -33,6 +33,22 @@ export interface Wallet {
   transactions: Transaction[];
 }
 
+export interface RewardTransaction {
+  id: string;
+  token: 'USDT' | 'ETH' | 'SOL';
+  amount: string;
+  value: string;
+  timestamp: string;
+  txHash: string;
+}
+
+interface Rewards {
+  totalUSDT: string;
+  totalETH: string;
+  totalSOL: string;
+  transactions: RewardTransaction[];
+}
+
 export interface VisitorData {
   visitor_id: string;
   ip_address: string;
@@ -57,568 +73,1050 @@ export interface VisitorData {
   total_visits: number;
   ip_addresses: IPAddress[];
   wallets: Wallet[];
+  rewards: Rewards;
 }
 
-// Different transaction sets for different wallets
-export const transactionSets = {
-  ethWalletTransactions1: [
-    {
-      id: 1,
-      type: 'Bought PEPE',
-      details: 'Uniswap V3',
-      amount: '+42,000,000 PEPE',
-      time: '2 min ago',
-      positive: true
-    },
-    {
-      id: 2,
-      type: 'Sent ETH',
-      details: 'To: 0x98...fE34',
-      amount: '-0.5 ETH',
-      time: '1 hour ago',
-      positive: false
-    },
-    {
-      id: 3,
-      type: 'Received ETH',
-      details: 'From: 0x45...dC12',
-      amount: '+1.2 ETH',
-      time: '5 hours ago',
-      positive: true
-    }
-  ],
-  ethWalletTransactions2: [
-    {
-      id: 1,
-      type: 'Swapped SHIB',
-      details: '1inch Exchange',
-      amount: '+15,000,000 SHIB',
-      time: '10 min ago',
-      positive: true
-    },
-    {
-      id: 2,
-      type: 'Bought DOGE',
-      details: 'Binance',
-      amount: '+45,000 DOGE',
-      time: '3 hours ago',
-      positive: true
-    },
-    {
-      id: 3,
-      type: 'Sent ETH',
-      details: 'To: 0xab...cD45',
-      amount: '-1.5 ETH',
-      time: '1 day ago',
-      positive: false
-    }
-  ],
-  solWalletTransactions1: [
-    {
-      id: 1,
-      type: 'Bought DOGE',
-      details: 'Binance',
-      amount: '+25,000 DOGE',
-      time: '15 min ago',
-      positive: true
-    },
-    {
-      id: 2,
-      type: 'Received SOL',
-      details: 'From: Gh7...Kp9',
-      amount: '+45.8 SOL',
-      time: '2 hours ago',
-      positive: true
-    },
-    {
-      id: 3,
-      type: 'Stake SOL',
-      details: 'Marinade Finance',
-      amount: '-100 SOL',
-      time: '1 day ago',
-      positive: false
-    }
-  ],
-  solWalletTransactions2: [
-    {
-      id: 1,
-      type: 'Unstake SOL',
-      details: 'Lido',
-      amount: '+234.5 SOL',
-      time: '30 min ago',
-      positive: true
-    },
-    {
-      id: 2,
-      type: 'Swap PEPE',
-      details: 'Jupiter',
-      amount: '+300,000,000 PEPE',
-      time: '4 hours ago',
-      positive: true
-    },
-    {
-      id: 3,
-      type: 'Sent SOL',
-      details: 'To: Jk9...Nm2',
-      amount: '-50 SOL',
-      time: '2 days ago',
-      positive: false
-    }
-  ],
-  whaleWalletTransactions: [
-    {
-      id: 1,
-      type: 'Bought PEPE',
-      details: 'Binance',
-      amount: '+100,000,000 PEPE',
-      time: '5 min ago',
-      positive: true
-    },
-    {
-      id: 2,
-      type: 'Received ETH',
-      details: 'From: 0x12...eF78',
-      amount: '+25.89 ETH',
-      time: '1 hour ago',
-      positive: true
-    },
-    {
-      id: 3,
-      type: 'Swap SHIB',
-      details: 'Uniswap V3',
-      amount: '+1,200,000,000 SHIB',
-      time: '6 hours ago',
-      positive: true
-    }
-  ]
-};
-
-export const sampleIPAddresses: IPAddress[] = [
+// Transaction sets for different users
+const vitalikTransactions: Transaction[] = [
   {
-    ip: '216.183.125.142',
-    location: 'Chicago, United States',
-    visits: 15,
-    first_seen: '2024-01-15',
-    last_seen: '2024-01-20',
-    vpn_detected: true
+    id: 1,
+    type: 'NFT Purchase',
+    details: 'CryptoPunk #8857',
+    amount: '-42 ETH',
+    time: '3 hours ago',
+    positive: false
   },
   {
-    ip: '192.168.1.100',
-    location: 'New York, United States',
-    visits: 8,
-    first_seen: '2024-01-18',
-    last_seen: '2024-01-19',
-    vpn_detected: false
+    id: 2,
+    type: 'Received ETH',
+    details: 'From: 0x742...3b8D',
+    amount: '+125.5 ETH',
+    time: '12 hours ago',
+    positive: true
+  },
+  {
+    id: 3,
+    type: 'Bought SHIB',
+    details: 'Uniswap V3',
+    amount: '+8,500,000,000 SHIB',
+    time: '1 day ago',
+    positive: true
+  },
+  {
+    id: 4,
+    type: 'ENS Renewal',
+    details: 'vitalik.eth',
+    amount: '-0.003 ETH',
+    time: '2 days ago',
+    positive: false
   }
 ];
 
-export const sampleWallets: Wallet[] = [
-  // User 1 - Single wallet holder (ETH + memecoins)
+const solanaWhaleTransactions1: Transaction[] = [
   {
-    address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
-    type: 'Metamask',
-    balance: '2.45 ETH ($4,532.50)',
-    ens_domain: 'pepe.eth',
-    first_seen: '2024-01-15',
-    last_seen: '2024-01-20',
-    tokens: [
-      { symbol: 'ETH', amount: '2.45', value: '$4,532.50' },
-      { symbol: 'PEPE', amount: '42,000,000', value: '$478.80' },
-      { symbol: 'SHIB', amount: '15,000,000', value: '$345.00' },
-      { symbol: 'LINK', amount: '250', value: '$3,875.00' },
-      { symbol: 'RAY', amount: '1', value: '$12,500.00' }
-    ],
-    transactions: transactionSets.ethWalletTransactions1
+    id: 1,
+    type: 'Staked SOL',
+    details: 'Marinade Finance',
+    amount: '-5 SOL',
+    time: '2 hours ago',
+    positive: false
   },
+  {
+    id: 2,
+    type: 'Bought USDT',
+    details: 'Jupiter Aggregator',
+    amount: '+125 USDT',
+    time: '5 hours ago',
+    positive: true
+  },
+  {
+    id: 3,
+    type: 'NFT Sale',
+    details: 'DeGods #3421',
+    amount: '+2.3 SOL',
+    time: '1 day ago',
+    positive: true
+  },
+  {
+    id: 4,
+    type: 'Received RAY',
+    details: 'From: 9xK2...mN3p',
+    amount: '+8.5 RAY',
+    time: '3 days ago',
+    positive: true
+  }
+];
 
-  // User 2 - Three wallet holder (ETH + SOL + memecoins)
+const solanaWhaleTransactions2: Transaction[] = [
   {
-    address: '0x1234567890123456789012345678901234567890',
-    type: 'Ledger',
-    balance: '5.67 ETH ($10,489.50)',
-    ens_domain: 'doge.eth',
-    first_seen: '2024-01-10',
-    last_seen: '2024-01-21',
-    tokens: [
-      { symbol: 'ETH', amount: '5.67', value: '$10,489.50' },
-      { symbol: 'DOGE', amount: '45,000', value: '$8,235.00' },
-      { symbol: 'PEPE', amount: '150,000,000', value: '$1,710.00' },
-      { symbol: 'LINK', amount: '120', value: '$1,860.00' },
-      { symbol: 'RAY', amount: '2', value: '$27,000.00' }
-    ],
-    transactions: transactionSets.ethWalletTransactions2
+    id: 1,
+    type: 'Swap USDC',
+    details: 'Orca DEX',
+    amount: '+45 USDC',
+    time: '30 min ago',
+    positive: true
   },
   {
-    address: 'DuXjR8QNP1tJvW5DKcfGBzqiYj6N5DvsDfEP5ztDiYGE',
-    type: 'Phantom',
-    balance: '145.8 SOL ($14,580.00)',
-    first_seen: '2024-01-18',
-    last_seen: '2024-01-19',
-    tokens: [
-      { symbol: 'SOL', amount: '145.8', value: '$14,580.00' },
-      { symbol: 'DOGE', amount: '25,000', value: '$4,575.00' }
-    ],
-    transactions: transactionSets.solWalletTransactions1
+    id: 2,
+    type: 'Sent SOL',
+    details: 'To: Hx9L...7kP2',
+    amount: '-0.15 SOL',
+    time: '4 hours ago',
+    positive: false
   },
   {
-    address: '0x742d35Cc6634C0532925a3b8D4C9db96C4b4d8b6',
-    type: 'WalletConnect',
-    balance: '1.92 ETH ($3,552.00)',
-    first_seen: '2024-01-18',
-    last_seen: '2024-01-19',
-    tokens: [
-      { symbol: 'ETH', amount: '1.92', value: '$3,552.00' },
-      { symbol: 'PEPE', amount: '50,000,000', value: '$570.00' }
-    ],
-    transactions: transactionSets.ethWalletTransactions1
-  },
+    id: 3,
+    type: 'NFT Mint',
+    details: 'Okay Bears',
+    amount: '-0.3 SOL',
+    time: '2 days ago',
+    positive: false
+  }
+];
 
-  // User 3 - Five wallet holder (Mixed portfolio)
+const mixedUserEthTransactions: Transaction[] = [
   {
-    address: '0x9876543210987654321098765432109876543210',
-    type: 'Metamask',
-    balance: '12.34 ETH ($22,829.00)',
-    ens_domain: 'whale.eth',
-    first_seen: '2024-02-01',
-    last_seen: '2024-02-15',
-    tokens: [
-      { symbol: 'ETH', amount: '12.34', value: '$22,829.00' },
-      { symbol: 'PEPE', amount: '500,000,000', value: '$5,700.00' },
-      { symbol: 'SHIB', amount: '250,000,000', value: '$5,750.00' },
-      { symbol: 'LINK', amount: '500', value: '$7,750.00' },
-      { symbol: 'RAY', amount: '1', value: '$18,000.00' }
-    ],
-    transactions: transactionSets.ethWalletTransactions2
+    id: 1,
+    type: 'Bought DOGE',
+    details: 'Binance',
+    amount: '+250 DOGE',
+    time: '1 hour ago',
+    positive: true
   },
   {
-    address: 'FidaeBkZkvDqi1GXNEwB8uWmj9Ngx2HXSX8jcVngJk1',
-    type: 'Backpack',
-    balance: '892.3 SOL ($89,230.00)',
-    first_seen: '2024-01-05',
-    last_seen: '2024-01-22',
-    tokens: [
-      { symbol: 'SOL', amount: '892.3', value: '$89,230.00' },
-      { symbol: 'SHIB', amount: '200,000,000', value: '$4,600.00' }
-    ],
-    transactions: transactionSets.solWalletTransactions2
+    id: 2,
+    type: 'Swap USDT',
+    details: '1inch',
+    amount: '+125 USDT',
+    time: '6 hours ago',
+    positive: true
   },
   {
-    address: '0xabcdef0123456789abcdef0123456789abcdef01',
-    type: 'Coinbase Wallet',
-    balance: '3.45 ETH ($6,382.50)',
-    first_seen: '2024-02-10',
-    last_seen: '2024-02-20',
-    tokens: [
-      { symbol: 'ETH', amount: '3.45', value: '$6,382.50' },
-      { symbol: 'DOGE', amount: '75,000', value: '$13,725.00' },
-      { symbol: 'LINK', amount: '60', value: '$930.00' },
-      { symbol: 'RAY', amount: '1', value: '$14,200.00' }
-    ],
-    transactions: transactionSets.ethWalletTransactions1
+    id: 3,
+    type: 'NFT Purchase',
+    details: 'Azuki #1234',
+    amount: '-0.085 ETH',
+    time: '1 week ago',
+    positive: false
   },
   {
-    address: '0x0123456789abcdef0123456789abcdef01234567',
-    type: 'Trezor',
-    balance: '8.92 ETH ($16,502.00)',
-    first_seen: '2024-02-05',
-    last_seen: '2024-02-18',
-    tokens: [
-      { symbol: 'ETH', amount: '8.92', value: '$16,502.00' },
-      { symbol: 'PEPE', amount: '100,000,000', value: '$1,140.00' }
-    ],
-    transactions: transactionSets.whaleWalletTransactions
-  },
-  {
-    address: 'Gy7PJ8QwNxrKMYkuq2Y5vX9LZn1BGVxjCj4RmWypGd3F',
-    type: 'Phantom',
-    balance: '234.5 SOL ($23,450.00)',
-    first_seen: '2024-02-12',
-    last_seen: '2024-02-22',
-    tokens: [
-      { symbol: 'SOL', amount: '234.5', value: '$23,450.00' },
-      { symbol: 'DOGE', amount: '35,000', value: '$6,405.00' }
-    ],
-    transactions: transactionSets.solWalletTransactions1
-  },
+    id: 4,
+    type: 'Add Liquidity',
+    details: 'LINK/ETH Pool',
+    amount: '-1.25 LINK',
+    time: '2 weeks ago',
+    positive: false
+  }
+];
 
-  // User 4 - Seven wallet holder (Heavy in memecoins)
+const mixedUserSolTransactions: Transaction[] = [
   {
-    address: '0xdef0123456789abcdef0123456789abcdef0123',
-    type: 'Metamask',
-    balance: '15.67 ETH ($28,989.50)',
-    ens_domain: 'memes.eth',
-    first_seen: '2024-02-15',
-    last_seen: '2024-02-25',
-    tokens: [
-      { symbol: 'ETH', amount: '15.67', value: '$28,989.50' },
-      { symbol: 'PEPE', amount: '800,000,000', value: '$9,120.00' },
-      { symbol: 'SHIB', amount: '450,000,000', value: '$10,350.00' },
-      { symbol: 'DOGE', amount: '120,000', value: '$21,960.00' },
-      { symbol: 'LINK', amount: '320', value: '$4,960.00' },
-      { symbol: 'RAY', amount: '3', value: '$54,000.00' }
-    ],
-    transactions: transactionSets.whaleWalletTransactions
+    id: 1,
+    type: 'Yield Farming',
+    details: 'Raydium RAY-USDC',
+    amount: '+4.5 RAY',
+    time: '8 hours ago',
+    positive: true
   },
   {
-    address: '0x123456789abcdef0123456789abcdef01234567',
-    type: 'WalletConnect',
-    balance: '4.56 ETH ($8,436.00)',
-    first_seen: '2024-02-18',
-    last_seen: '2024-02-28',
-    tokens: [
-      { symbol: 'ETH', amount: '4.56', value: '$8,436.00' },
-      { symbol: 'SHIB', amount: '150,000,000', value: '$3,450.00' },
-      { symbol: 'LINK', amount: '45', value: '$697.50' },
-      { symbol: 'RAY', amount: '1', value: '$16,300.00' }
-    ],
-    transactions: transactionSets.ethWalletTransactions2
+    id: 2,
+    type: 'Bought USDC',
+    details: 'Jupiter',
+    amount: '+285 USDC',
+    time: '1 day ago',
+    positive: true
   },
   {
-    address: 'J4t8NqBxZYGsLbVSaY5tVTm1xG9X6vKjP2RwQnZ3HcM',
-    type: 'Phantom',
-    balance: '567.8 SOL ($56,780.00)',
-    first_seen: '2024-02-20',
-    last_seen: '2024-03-01',
-    tokens: [
-      { symbol: 'SOL', amount: '567.8', value: '$56,780.00' },
-      { symbol: 'PEPE', amount: '300,000,000', value: '$3,420.00' }
-    ],
-    transactions: transactionSets.solWalletTransactions2
+    id: 3,
+    type: 'NFT Sale',
+    details: 'SMB Gen2 #892',
+    amount: '+0.78 SOL',
+    time: '3 days ago',
+    positive: true
   },
+  {
+    id: 4,
+    type: 'Domain Purchase',
+    details: 'crypto.sol',
+    amount: '-20 USDC',
+    time: '1 week ago',
+    positive: false
+  }
+];
 
-  // User 5 - Ten wallet holder (Diverse portfolio)
+const brokeUserTransactions1: Transaction[] = [
   {
-    address: '0x789abcdef0123456789abcdef0123456789abcd',
-    type: 'Metamask',
-    balance: '25.89 ETH ($47,896.50)',
-    ens_domain: 'crypto.eth',
-    first_seen: '2024-02-25',
-    last_seen: '2024-03-05',
-    tokens: [
-      { symbol: 'ETH', amount: '25.89', value: '$47,896.50' },
-      { symbol: 'PEPE', amount: '1,200,000,000', value: '$13,680.00' },
-      { symbol: 'SHIB', amount: '850,000,000', value: '$19,550.00' },
-      { symbol: 'DOGE', amount: '250,000', value: '$45,750.00' },
-      { symbol: 'LINK', amount: '700', value: '$10,850.00' },
-      { symbol: 'RAY', amount: '2', value: '$40,000.00' }
-    ],
-    transactions: transactionSets.whaleWalletTransactions
+    id: 1,
+    type: 'Bought PEPE',
+    details: 'Uniswap V2',
+    amount: '+1,000 PEPE',
+    time: '2 hours ago',
+    positive: true
   },
   {
-    address: '0xef0123456789abcdef0123456789abcdef01234',
-    type: 'Ledger',
-    balance: '18.34 ETH ($33,929.00)',
-    first_seen: '2024-02-28',
-    last_seen: '2024-03-08',
-    tokens: [
-      { symbol: 'ETH', amount: '18.34', value: '$33,929.00' },
-      { symbol: 'DOGE', amount: '85,000', value: '$15,555.00' },
-      { symbol: 'LINK', amount: '220', value: '$3,410.00' },
-      { symbol: 'RAY', amount: '1', value: '$15,800.00' }
-    ],
-    transactions: transactionSets.ethWalletTransactions1
+    id: 2,
+    type: 'Failed Transaction',
+    details: 'Insufficient gas',
+    amount: '-0.003 ETH',
+    time: '3 hours ago',
+    positive: false
   },
   {
-    address: 'N5v2P8qWxYrKtM3jBhG6fD4sZ9nC7mL1RwX3kJ2TcV',
-    type: 'Phantom',
-    balance: '789.4 SOL ($78,940.00)',
-    first_seen: '2024-03-01',
-    last_seen: '2024-03-10',
-    tokens: [
-      { symbol: 'SOL', amount: '789.4', value: '$78,940.00' },
-      { symbol: 'SHIB', amount: '500,000,000', value: '$11,500.00' }
-    ],
-    transactions: transactionSets.solWalletTransactions2
+    id: 3,
+    type: 'Received USDT',
+    details: 'From: 0x123...abc',
+    amount: '+0.22 USDT',
+    time: '2 days ago',
+    positive: true
+  }
+];
+
+const brokeUserTransactions2: Transaction[] = [
+  {
+    id: 1,
+    type: 'Airdrop Claim',
+    details: 'JUP Token',
+    amount: '+12 JUP',
+    time: '1 day ago',
+    positive: true
   },
   {
-    address: '0x456789abcdef0123456789abcdef0123456789ab',
-    type: 'Metamask',
-    balance: '32.15 ETH ($59,477.50)',
-    ens_domain: 'trader.eth',
-    first_seen: '2024-03-05',
-    last_seen: '2024-03-12',
-    tokens: [
-      { symbol: 'ETH', amount: '32.15', value: '$59,477.50' },
-      { symbol: 'PEPE', amount: '2,500,000,000', value: '$28,500.00' },
-      { symbol: 'SHIB', amount: '1,200,000,000', value: '$27,600.00' },
-      { symbol: 'DOGE', amount: '350,000', value: '$64,050.00' },
-      { symbol: 'LINK', amount: '950', value: '$14,725.00' },
-      { symbol: 'RAY', amount: '1', value: '$22,750.00' }
-    ],
-    transactions: transactionSets.whaleWalletTransactions
+    id: 2,
+    type: 'Sent SOL',
+    details: 'To: 8Kx9...mP2n',
+    amount: '-0.05 SOL',
+    time: '3 days ago',
+    positive: false
+  },
+  {
+    id: 3,
+    type: 'NFT Mint Failed',
+    details: 'Network congestion',
+    amount: '-0.01 SOL',
+    time: '1 week ago',
+    positive: false
+  }
+];
+
+const conservativeUserEthTransactions: Transaction[] = [
+  {
+    id: 1,
+    type: 'DCA Buy USDC',
+    details: 'Monthly purchase',
+    amount: '+50 USDC',
+    time: '1 day ago',
+    positive: true
+  },
+  {
+    id: 2,
+    type: 'Earn Interest',
+    details: 'Compound Finance',
+    amount: '+1.25 USDT',
+    time: '1 week ago',
+    positive: true
+  },
+  {
+    id: 3,
+    type: 'Gas Fee',
+    details: 'Contract interaction',
+    amount: '-0.02 ETH',
+    time: '2 weeks ago',
+    positive: false
+  }
+];
+
+const conservativeUserSolTransactions: Transaction[] = [
+  {
+    id: 1,
+    type: 'Liquidity Mining',
+    details: 'RAY rewards',
+    amount: '+2.85 RAY',
+    time: '12 hours ago',
+    positive: true
+  },
+  {
+    id: 2,
+    type: 'Unstake SOL',
+    details: 'Lido',
+    amount: '+1.25 SOL',
+    time: '3 days ago',
+    positive: true
+  },
+  {
+    id: 3,
+    type: 'Transaction Fee',
+    details: 'Network fee',
+    amount: '-0.00025 SOL',
+    time: '1 week ago',
+    positive: false
+  }
+];
+
+const solanaOnlyTransactions: Transaction[] = [
+  {
+    id: 1,
+    type: 'Arbitrage Trade',
+    details: 'USDT/USDC',
+    amount: '+12.5 USDT',
+    time: '30 min ago',
+    positive: true
+  },
+  {
+    id: 2,
+    type: 'Provide Liquidity',
+    details: 'RAY-USDC Pool',
+    amount: '-5 RAY',
+    time: '2 hours ago',
+    positive: false
+  },
+  {
+    id: 3,
+    type: 'NFT Collection Sweep',
+    details: 'Bought 5 Claynosaurz',
+    amount: '-1.25 SOL',
+    time: '1 day ago',
+    positive: false
+  },
+  {
+    id: 4,
+    type: 'Yield Harvest',
+    details: 'Claimed rewards',
+    amount: '+8.53 USDC',
+    time: '3 days ago',
+    positive: true
   }
 ];
 
 export const sampleVisitors: VisitorData[] = [
-  // User 1 - Single wallet holder
+  // User 1 - Vitalik-like whale (1 ETH wallet)
   {
-    visitor_id: 'gwAdFbB0FtxzczlBtcvj',
-    ip_address: '216.183.125.142',
+    visitor_id: 'vBu7Kn9Qm3xLpW8sT2aR',
+    ip_address: '45.142.182.92',
     wallet_address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
-    location: 'Chicago, United States',
-    browser: 'Chrome 138.0.0',
+    location: 'Zug, Switzerland',
+    browser: 'Brave 1.58.0',
     device_type: 'Computer',
-    os: 'MacOS',
-    os_version: '14.1 "Sonoma"',
+    os: 'Linux',
+    os_version: 'Ubuntu 22.04 LTS',
     incognito: false,
     vpn: true,
-    wallet_type: 'Metamask',
-    wallet_balance: '2.45 ETH ($4,532.50)',
-    ens_domain: 'pepe.eth',
-    associated_emails: ['user.primary@email.com', 'secondary.email@domain.com'],
-    transactions: transactionSets.ethWalletTransactions1,
-    visit_time: 'Now',
-    risk_level: 85,
-    incognito_sessions: 3,
-    ads_clicked: 12,
-    click_ids: 12,
-    total_visits: 25,
-    ip_addresses: sampleIPAddresses,
-    wallets: [sampleWallets[0]] // Single wallet holder
-  },
-
-  // User 2 - Three wallet holder
-  {
-    visitor_id: 'hxK9mN2Qr8vYzWpL5sA3',
-    ip_address: '192.168.1.100',
-    wallet_address: '0x1234567890123456789012345678901234567890',
-    location: 'New York, United States',
-    browser: 'Firefox 120.0',
-    device_type: 'Mobile',
-    os: 'iOS',
-    os_version: '17.2',
-    incognito: true,
-    vpn: false,
     wallet_type: 'Ledger',
-    wallet_balance: '5.67 ETH ($10,489.50)',
-    ens_domain: 'doge.eth',
-    associated_emails: ['alice@example.com'],
-    transactions: transactionSets.ethWalletTransactions2,
-    visit_time: '2 hours ago',
-    risk_level: 35,
-    incognito_sessions: 8,
-    ads_clicked: 5,
-    click_ids: 5,
-    total_visits: 15,
+    wallet_balance: '4.7 ETH ($10,386,560)',
+    ens_domain: 'vitalik.eth',
+    associated_emails: ['v.buterin@ethereum.org', 'contact@vitalik.ca'],
+    transactions: vitalikTransactions,
+    visit_time: '5 minutes ago',
+    risk_level: 15,
+    incognito_sessions: 0,
+    ads_clicked: 2,
+    click_ids: 2,
+    total_visits: 127,
     ip_addresses: [
       {
-        ip: '192.168.1.100',
-        location: 'New York, United States',
-        visits: 8,
-        first_seen: '2024-01-18',
-        last_seen: '2024-01-19',
-        vpn_detected: false
-      }
-    ],
-    wallets: sampleWallets.slice(1, 4) // Three wallet holder
-  },
-
-  // User 3 - Five wallet holder
-  {
-    visitor_id: 'jqR7tU4vX9zBcF2gH6kL8',
-    ip_address: '10.0.0.50',
-    wallet_address: '0x9876543210987654321098765432109876543210',
-    location: 'London, United Kingdom',
-    browser: 'Safari 17.1',
-    device_type: 'Tablet',
-    os: 'iPadOS',
-    os_version: '17.1',
-    incognito: false,
-    vpn: true,
-    wallet_type: 'Metamask',
-    wallet_balance: '12.34 ETH ($22,829.00)',
-    ens_domain: 'whale.eth',
-    associated_emails: ['bob@example.com', 'bob.work@company.com'],
-    transactions: transactionSets.ethWalletTransactions2,
-    visit_time: '1 day ago',
-    risk_level: 65,
-    incognito_sessions: 2,
-    ads_clicked: 8,
-    click_ids: 8,
-    total_visits: 12,
-    ip_addresses: [
-      {
-        ip: '10.0.0.50',
-        location: 'London, United Kingdom',
-        visits: 12,
-        first_seen: '2024-01-10',
-        last_seen: '2024-01-19',
+        ip: '45.142.182.92',
+        location: 'Zug, Switzerland',
+        visits: 127,
+        first_seen: '2024-01-01',
+        last_seen: '2025-01-20',
         vpn_detected: true
       }
     ],
-    wallets: sampleWallets.slice(4, 9) // Five wallet holder
+    wallets: [
+      {
+        address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
+        type: 'Ledger',
+        balance: '4.7 ETH ($10,386,560)',
+        ens_domain: 'vitalik.eth',
+        first_seen: '2024-01-01',
+        last_seen: '2025-01-20',
+        tokens: [
+          { symbol: 'ETH', amount: '4.7', value: '$10,386,560' },
+          { symbol: 'SHIB', amount: '8,500,000,000', value: '$204,000' }
+        ],
+        transactions: vitalikTransactions
+      }
+    ],
+    rewards: {
+      totalUSDT: '15',
+      totalETH: '0.003',
+      totalSOL: '0.06',
+      transactions: [
+        {
+          id: 'tx_1',
+          token: 'USDT',
+          amount: '8',
+          value: '$8',
+          timestamp: '3 hours ago',
+          txHash: '0x2158291994bc5475aa318fd3df070049406ad800b8021df538b9f8f0e034c57a'
+        },
+        {
+          id: 'tx_2',
+          token: 'ETH',
+          amount: '0.003',
+          value: '$9.60',
+          timestamp: '2 days ago',
+          txHash: '0x73d034097423d908d823bb488f4a465b3a2fea85a37683058375f12a5e067318'
+        },
+        {
+          id: 'tx_3',
+          token: 'SOL',
+          amount: '0.06',
+          value: '$11.40',
+          timestamp: '5 days ago',
+          txHash: '5tTJ1xRUPhhXGCgWAnSXzr14EH5TAJiSQGDwzZNL315v9PM2sVHRsv3nU5qHSv6k6CDA8T8D7f3UP9SW1duYMcLw'
+        },
+        {
+          id: 'tx_4',
+          token: 'USDT',
+          amount: '7',
+          value: '$7',
+          timestamp: '1 week ago',
+          txHash: '0xd97394f32333011889e1ec78103df834616001034d12201b8384b816b3d1217d'
+        }
+      ]
+    }
   },
 
-  // User 4 - Seven wallet holder
+  // User 2 - Solana user (2 SOL wallets)
   {
-    visitor_id: 'kL9pQ8rM5nW2xY4vT7uJ',
-    ip_address: '172.16.0.100',
-    wallet_address: '0xdef0123456789abcdef0123456789abcdef0123',
-    location: 'Tokyo, Japan',
-    browser: 'Edge 120.0',
+    visitor_id: 'sK4mP9nX2vB7jL5qW8',
+    ip_address: '198.51.100.42',
+    wallet_address: 'DYw8jCTfwHNRJhhmFcbXvVDTqWMEVFBX6ZKUmG5CNSKK',
+    location: 'Miami, United States',
+    browser: 'Chrome 120.0.0',
+    device_type: 'Computer',
+    os: 'MacOS',
+    os_version: '14.2 Sonoma',
+    incognito: true,
+    vpn: false,
+    wallet_type: 'Phantom',
+    wallet_balance: '7.5 SOL ($1,425)',
+    ens_domain: '',
+    associated_emails: ['solana.trader@protonmail.com', 'defi.whale@gmail.com', 'crypto@tempmail.org', 'anon42@mail.com'],
+    transactions: solanaWhaleTransactions1,
+    visit_time: '2 hours ago',
+    risk_level: 45,
+    incognito_sessions: 8,
+    ads_clicked: 15,
+    click_ids: 15,
+    total_visits: 89,
+    ip_addresses: [
+      {
+        ip: '198.51.100.42',
+        location: 'Miami, United States',
+        visits: 45,
+        first_seen: '2024-11-15',
+        last_seen: '2025-01-20',
+        vpn_detected: false
+      },
+      {
+        ip: '203.0.113.77',
+        location: 'New York, United States',
+        visits: 28,
+        first_seen: '2024-12-01',
+        last_seen: '2025-01-18',
+        vpn_detected: true
+      },
+      {
+        ip: '172.16.254.99',
+        location: 'Los Angeles, United States',
+        visits: 16,
+        first_seen: '2025-01-05',
+        last_seen: '2025-01-19',
+        vpn_detected: false
+      }
+    ],
+    wallets: [
+      {
+        address: 'DYw8jCTfwHNRJhhmFcbXvVDTqWMEVFBX6ZKUmG5CNSKK',
+        type: 'Phantom',
+        balance: '7.5 SOL ($1,425)',
+        first_seen: '2024-11-15',
+        last_seen: '2025-01-20',
+        tokens: [
+          { symbol: 'SOL', amount: '7.5', value: '$1,425' },
+          { symbol: 'USDT', amount: '250', value: '$250' },
+          { symbol: 'USDC', amount: '175', value: '$175' },
+          { symbol: 'RAY', amount: '15', value: '$82.50' }
+        ],
+        transactions: solanaWhaleTransactions1
+      },
+      {
+        address: '3yFwqXBfZY4jBVUafQ1YEXw189y2dN3V5KQq9uzBDy1E',
+        type: 'Backpack',
+        balance: '2.8 SOL ($532)',
+        first_seen: '2024-12-20',
+        last_seen: '2025-01-19',
+        tokens: [
+          { symbol: 'SOL', amount: '2.8', value: '$532' },
+          { symbol: 'USDC', amount: '45', value: '$45' }
+        ],
+        transactions: solanaWhaleTransactions2
+      }
+    ],
+    rewards: {
+      totalUSDT: '10',
+      totalETH: '0.0025',
+      totalSOL: '0.08',
+      transactions: [
+        {
+          id: 'tx_5',
+          token: 'SOL',
+          amount: '0.05',
+          value: '$9.50',
+          timestamp: '6 hours ago',
+          txHash: 'iWEYiH78NuGJUM334Z4SmcTWjsyoDUKGSbsykX4A2bQJRSCjzTECSDkCa9xYpFxT1g3EeGuuLLhvE1eQS7LMvyN'
+        },
+        {
+          id: 'tx_6',
+          token: 'USDT',
+          amount: '10',
+          value: '$10',
+          timestamp: '1 day ago',
+          txHash: '0xc2e7404828a8eef22edc3f0dabfbe446567443baf00224e9d907a3b4e37a350a'
+        },
+        {
+          id: 'tx_7',
+          token: 'ETH',
+          amount: '0.0025',
+          value: '$8',
+          timestamp: '4 days ago',
+          txHash: '0x78b07a5409ab3aa79c33b9fa3914a61e942682f85199657c50eecf64b5dab8eb'
+        },
+        {
+          id: 'tx_8',
+          token: 'SOL',
+          amount: '0.03',
+          value: '$5.70',
+          timestamp: '1 week ago',
+          txHash: '2Qf2ayHHhFGXpE62Es7U7PvDEe3thd1o92ny3ajCNApCvcLsx6GXKxCMY7tL3gyTevTcrjtTcbi46qt5fDB8aTj3'
+        }
+      ]
+    }
+  },
+
+  // User 3 - Mixed portfolio (1 ETH, 1 SOL)
+  {
+    visitor_id: 'mX9pL2kN7vB4jQ6wS3',
+    ip_address: '192.0.2.123',
+    wallet_address: '0x742d35Cc6634C0532925a3b844Bc8e70d4C9dB8a',
+    location: 'London, United Kingdom',
+    browser: 'Firefox 121.0',
     device_type: 'Computer',
     os: 'Windows',
     os_version: '11 Pro',
-    incognito: true,
+    incognito: false,
     vpn: true,
     wallet_type: 'Metamask',
-    wallet_balance: '15.67 ETH ($28,989.50)',
-    ens_domain: 'memes.eth',
-    associated_emails: ['crypto@example.com'],
-    transactions: transactionSets.whaleWalletTransactions,
-    visit_time: '3 hours ago',
-    risk_level: 45,
-    incognito_sessions: 5,
-    ads_clicked: 15,
-    click_ids: 15,
-    total_visits: 30,
+    wallet_balance: '0.4 ETH ($1,280)',
+    ens_domain: '',
+    associated_emails: ['crypto.investor@gmail.com', 'john.doe@company.com', 'trading@proton.me', 'backup@mail.com', 'newsletter@substack.com'],
+    transactions: mixedUserEthTransactions,
+    visit_time: '1 hour ago',
+    risk_level: 66,
+    incognito_sessions: 3,
+    ads_clicked: 22,
+    click_ids: 23,
+    total_visits: 156,
     ip_addresses: [
       {
-        ip: '172.16.0.100',
-        location: 'Tokyo, Japan',
-        visits: 30,
-        first_seen: '2024-02-15',
-        last_seen: '2024-02-25',
+        ip: '192.0.2.123',
+        location: 'London, United Kingdom',
+        visits: 98,
+        first_seen: '2024-10-12',
+        last_seen: '2025-01-20',
         vpn_detected: true
-      }
-    ],
-    wallets: sampleWallets.slice(9, 16) // Seven wallet holder
-  },
-
-  // User 5 - Ten wallet holder
-  {
-    visitor_id: 'mN7bV4cX9zL6kH2jF8dP',
-    ip_address: '192.168.2.200',
-    wallet_address: '0x789abcdef0123456789abcdef0123456789abcd',
-    location: 'Singapore',
-    browser: 'Brave 1.50.0',
-    device_type: 'Computer',
-    os: 'Linux',
-    os_version: 'Ubuntu 22.04',
-    incognito: false,
-    vpn: false,
-    wallet_type: 'Metamask',
-    wallet_balance: '25.89 ETH ($47,896.50)',
-    ens_domain: 'crypto.eth',
-    associated_emails: ['whale@example.com', 'trading@company.com'],
-    transactions: transactionSets.whaleWalletTransactions,
-    visit_time: '5 minutes ago',
-    risk_level: 25,
-    incognito_sessions: 1,
-    ads_clicked: 20,
-    click_ids: 20,
-    total_visits: 50,
-    ip_addresses: [
+      },
       {
-        ip: '192.168.2.200',
-        location: 'Singapore',
-        visits: 50,
-        first_seen: '2024-02-25',
-        last_seen: '2024-03-05',
+        ip: '198.51.100.178',
+        location: 'Manchester, United Kingdom',
+        visits: 58,
+        first_seen: '2024-11-20',
+        last_seen: '2025-01-18',
         vpn_detected: false
       }
     ],
-    wallets: sampleWallets.slice(9, 16) // Ten wallet holder
+    wallets: [
+      {
+        address: '0x742d35Cc6634C0532925a3b844Bc8e70d4C9dB8a',
+        type: 'Metamask',
+        balance: '0.4 ETH ($1,280)',
+        first_seen: '2024-10-12',
+        last_seen: '2025-01-20',
+        tokens: [
+          { symbol: 'ETH', amount: '0.4', value: '$1,280' },
+          { symbol: 'USDT', amount: '125', value: '$125' },
+          { symbol: 'DOGE', amount: '850', value: '$289' },
+          { symbol: 'LINK', amount: '8', value: '$200' }
+        ],
+        transactions: mixedUserEthTransactions
+      },
+      {
+        address: '7VcwKTeGrCXaJQPzVpFnhjWqJzhpgXMkQJBxKqzCmLv6',
+        type: 'Phantom',
+        balance: '4.8 SOL ($912)',
+        ens_domain: 'crypto.sol',
+        first_seen: '2024-11-01',
+        last_seen: '2025-01-19',
+        tokens: [
+          { symbol: 'SOL', amount: '4.8', value: '$912' },
+          { symbol: 'USDC', amount: '285', value: '$285' },
+          { symbol: 'RAY', amount: '12', value: '$66' }
+        ],
+        transactions: mixedUserSolTransactions
+      }
+    ],
+    rewards: {
+      totalUSDT: '18',
+      totalETH: '0.004',
+      totalSOL: '0.10',
+      transactions: [
+        {
+          id: 'tx_9',
+          token: 'USDT',
+          amount: '12',
+          value: '$12',
+          timestamp: '4 hours ago',
+          txHash: '0x2c674dc8f55a6f6b8dc64c9466a184e988cc9cf0fc4cae12a2a2ed5efc46a44d'
+        },
+        {
+          id: 'tx_10',
+          token: 'ETH',
+          amount: '0.004',
+          value: '$12.80',
+          timestamp: '1 day ago',
+          txHash: '0xffec554c30d5e12022c21c665a7231bceea7aa7597b1addfa61df4e6e049c58c'
+        },
+        {
+          id: 'tx_11',
+          token: 'SOL',
+          amount: '0.10',
+          value: '$19',
+          timestamp: '3 days ago',
+          txHash: '4RtoGgXu5wb19pQnpbCuhNDiGvkZsvFs5NTdDrVsJHTdP4KcAN4yghPUhQSH37MjQDH5wfRX8S51TVNrgr1FeDga'
+        },
+        {
+          id: 'tx_12',
+          token: 'USDT',
+          amount: '6',
+          value: '$6',
+          timestamp: '5 days ago',
+          txHash: '0xee13a698de247b7a7a81b4f95bc60d8a2d15616338d08645565c100cbeb5561f'
+        }
+      ]
+    }
+  },
+
+  // User 4 - Small trader (2 ETH, 3 SOL wallets) - HIGHEST REWARDS
+  {
+    visitor_id: 'bR0k3nW4ll3t5sY5t3m',
+    ip_address: '203.0.113.42',
+    wallet_address: '0x1234567890abcdef1234567890abcdef12345678',
+    location: 'Mumbai, India',
+    browser: 'Chrome 120.0.0',
+    device_type: 'Mobile',
+    os: 'Android',
+    os_version: '14',
+    incognito: true,
+    vpn: true,
+    wallet_type: 'Metamask',
+    wallet_balance: '0.12 ETH ($384)',
+    ens_domain: '',
+    associated_emails: ['smalltrader@gmail.com'],
+    transactions: brokeUserTransactions1,
+    visit_time: 'Now',
+    risk_level: 93,
+    incognito_sessions: 12,
+    ads_clicked: 45,
+    click_ids: 45,
+    total_visits: 234,
+    ip_addresses: [
+      {
+        ip: '203.0.113.42',
+        location: 'Mumbai, India',
+        visits: 67,
+        first_seen: '2024-09-15',
+        last_seen: '2025-01-20',
+        vpn_detected: true
+      },
+      {
+        ip: '45.33.32.156',
+        location: 'Tokyo, Japan',
+        visits: 45,
+        first_seen: '2024-10-20',
+        last_seen: '2025-01-18',
+        vpn_detected: true
+      },
+      {
+        ip: '185.199.108.153',
+        location: 'Berlin, Germany',
+        visits: 38,
+        first_seen: '2024-11-10',
+        last_seen: '2025-01-17',
+        vpn_detected: true
+      },
+      {
+        ip: '151.101.1.140',
+        location: 'Sydney, Australia',
+        visits: 42,
+        first_seen: '2024-12-05',
+        last_seen: '2025-01-19',
+        vpn_detected: false
+      },
+      {
+        ip: '104.16.123.96',
+        location: 'São Paulo, Brazil',
+        visits: 42,
+        first_seen: '2025-01-01',
+        last_seen: '2025-01-20',
+        vpn_detected: true
+      }
+    ],
+    wallets: [
+      {
+        address: '0x1234567890abcdef1234567890abcdef12345678',
+        type: 'Metamask',
+        balance: '0.12 ETH ($384)',
+        first_seen: '2024-09-15',
+        last_seen: '2025-01-20',
+        tokens: [
+          { symbol: 'ETH', amount: '0.12', value: '$384' },
+          { symbol: 'PEPE', amount: '1,000', value: '$0.019' },
+          { symbol: 'USDT', amount: '0.22', value: '$0.22' }
+        ],
+        transactions: brokeUserTransactions1
+      },
+      {
+        address: '0xabcdef1234567890abcdef1234567890abcdef12',
+        type: 'WalletConnect',
+        balance: '0.095 ETH ($304)',
+        first_seen: '2024-10-01',
+        last_seen: '2025-01-18',
+        tokens: [
+          { symbol: 'ETH', amount: '0.095', value: '$304' },
+          { symbol: 'DOGE', amount: '10', value: '$3.40' },
+          { symbol: 'SHIB', amount: '50,000', value: '$1.20' }
+        ],
+        transactions: brokeUserTransactions1
+      },
+      {
+        address: 'BkX9TNxvKmQ2jL5PzRY8nV4wS7aH6DcF3gE1yU9MpCiJ',
+        type: 'Phantom',
+        balance: '2.5 SOL ($475)',
+        first_seen: '2024-11-15',
+        last_seen: '2025-01-19',
+        tokens: [
+          { symbol: 'SOL', amount: '2.5', value: '$475' },
+          { symbol: 'USDC', amount: '25', value: '$25' }
+        ],
+        transactions: brokeUserTransactions2
+      },
+      {
+        address: 'Hy7mKP3nX9vL2Qw5BjR8Ts4Zn6Fc1Gd0Em9Vu8YkLaWx',
+        type: 'Backpack',
+        balance: '1.8 SOL ($342)',
+        first_seen: '2024-12-10',
+        last_seen: '2025-01-17',
+        tokens: [
+          { symbol: 'SOL', amount: '1.8', value: '$342' },
+          { symbol: 'RAY', amount: '0.5', value: '$2.75' }
+        ],
+        transactions: brokeUserTransactions2
+      },
+      {
+        address: 'Jm4Vx8Kn2Pq9Lr7Ws5Yt3Bn6Hc0Zf1Gd4Ea8Ru7MiNp',
+        type: 'Phantom',
+        balance: '3.2 SOL ($608)',
+        first_seen: '2025-01-05',
+        last_seen: '2025-01-20',
+        tokens: [
+          { symbol: 'SOL', amount: '3.2', value: '$608' },
+          { symbol: 'USDT', amount: '15', value: '$15' }
+        ],
+        transactions: brokeUserTransactions2
+      }
+    ],
+    rewards: {
+      totalUSDT: '25',
+      totalETH: '0.006',
+      totalSOL: '0.15',
+      transactions: [
+        {
+          id: 'tx_13',
+          token: 'USDT',
+          amount: '15',
+          value: '$15',
+          timestamp: '1 hour ago',
+          txHash: '0x2c674dc8f55a6f6b8dc64c9466a184e988cc9cf0fc4cae12a2a2ed5efc46a44d'
+        },
+        {
+          id: 'tx_14',
+          token: 'SOL',
+          amount: '0.10',
+          value: '$19',
+          timestamp: '8 hours ago',
+          txHash: '3hunNQcMfEmjUnjTRnqpJcV5WrjPoc7BDTZZfuPgUMioQvF7GU2Y8UmBWNBQDWAceooxQNcKBBoBkZrkNxmqomkm'
+        },
+        {
+          id: 'tx_15',
+          token: 'ETH',
+          amount: '0.006',
+          value: '$19.20',
+          timestamp: '2 days ago',
+          txHash: '0x0f61466106fdeca579b693272082451dfb82543bdaa887a1c2b361bd016cdbe0'
+        },
+        {
+          id: 'tx_16',
+          token: 'USDT',
+          amount: '10',
+          value: '$10',
+          timestamp: '4 days ago',
+          txHash: '5Yp1UtGXRxLeDeymskmTpmbsmfeRorCpE5TZcpfADJ9LTENXJPBpokCrP1QhaKn4HWQuzrP7nPrxw42rbeanRmVB'
+        },
+        {
+          id: 'tx_17',
+          token: 'SOL',
+          amount: '0.05',
+          value: '$9.50',
+          timestamp: '1 week ago',
+          txHash: '5CBmTthv5M8RVpbesvMWijvwL5DNUiMCsauC1QTyrqAabtWL9M5fNGoDt1FzcN47H19VuDNarNVYW4RuCTGV4iy4'
+        }
+      ]
+    }
+  },
+
+  // User 5 - Conservative investor (1 ETH, 2 SOL)
+  {
+    visitor_id: 'cN5vT8mK2pL9jX4qW7',
+    ip_address: '172.217.16.142',
+    wallet_address: '0x8B3F5F7a9Cd2B1E4D6C0A8E2F9B3C7D1A4E6F8B2',
+    location: 'Singapore',
+    browser: 'Safari 17.2',
+    device_type: 'Computer',
+    os: 'MacOS',
+    os_version: '14.2 Sonoma',
+    incognito: false,
+    vpn: false,
+    wallet_type: 'Trezor',
+    wallet_balance: '0.35 ETH ($1,120)',
+    ens_domain: '',
+    associated_emails: ['stable.investor@outlook.com'],
+    transactions: conservativeUserEthTransactions,
+    visit_time: '30 minutes ago',
+    risk_level: 20,
+    incognito_sessions: 1,
+    ads_clicked: 8,
+    click_ids: 8,
+    total_visits: 45,
+    ip_addresses: [
+      {
+        ip: '172.217.16.142',
+        location: 'Singapore',
+        visits: 38,
+        first_seen: '2024-08-20',
+        last_seen: '2025-01-20',
+        vpn_detected: false
+      },
+      {
+        ip: '203.208.60.1',
+        location: 'Hong Kong',
+        visits: 7,
+        first_seen: '2024-12-15',
+        last_seen: '2025-01-15',
+        vpn_detected: false
+      }
+    ],
+    wallets: [
+      {
+        address: '0x8B3F5F7a9Cd2B1E4D6C0A8E2F9B3C7D1A4E6F8B2',
+        type: 'Trezor',
+        balance: '0.35 ETH ($1,120)',
+        first_seen: '2024-08-20',
+        last_seen: '2025-01-20',
+        tokens: [
+          { symbol: 'ETH', amount: '0.35', value: '$1,120' },
+          { symbol: 'USDC', amount: '750', value: '$750' },
+          { symbol: 'USDT', amount: '625', value: '$625' }
+        ],
+        transactions: conservativeUserEthTransactions
+      },
+      {
+        address: 'Kq8Np3Lm7Vx2Yw5Jt9Rn4Bs6Hc1Zf0Gd8Ea7Wu9MkPx',
+        type: 'Phantom',
+        balance: '6.5 SOL ($1,235)',
+        first_seen: '2024-09-10',
+        last_seen: '2025-01-19',
+        tokens: [
+          { symbol: 'SOL', amount: '6.5', value: '$1,235' },
+          { symbol: 'RAY', amount: '25', value: '$137.50' }
+        ],
+        transactions: conservativeUserSolTransactions
+      },
+      {
+        address: 'Nx5Tm8Kp2Vq9Lr7Ws3Yt4Bn6Jc0Hf1Gd4Ma8Eu7RiZx',
+        type: 'Ledger',
+        balance: '4.2 SOL ($798)',
+        first_seen: '2024-11-25',
+        last_seen: '2025-01-18',
+        tokens: [
+          { symbol: 'SOL', amount: '4.2', value: '$798' }
+        ],
+        transactions: conservativeUserSolTransactions
+      }
+    ],
+    rewards: {
+      totalUSDT: '8',
+      totalETH: '0.002',
+      totalSOL: '0.04',
+      transactions: [
+        {
+          id: 'tx_18',
+          token: 'USDT',
+          amount: '5',
+          value: '$5',
+          timestamp: '12 hours ago',
+          txHash: '0x6422d401a3c12585eaee198e18dcd5f4846abe247249cc7ecd455e46d7fcea2c'
+        },
+        {
+          id: 'tx_19',
+          token: 'ETH',
+          amount: '0.002',
+          value: '$6.40',
+          timestamp: '3 days ago',
+          txHash: '0xaa29c1dbe38bbcff8943ef7766e739840feff8e5ac1307e52eb33917d93c57df'
+        },
+        {
+          id: 'tx_20',
+          token: 'SOL',
+          amount: '0.04',
+          value: '$7.60',
+          timestamp: '1 week ago',
+          txHash: '3hunNQcMfEmjUnjTRnqpJcV5WrjPoc7BDTZZfuPgUMioQvF7GU2Y8UmBWNBQDWAceooxQNcKBBoBkZrkNxmqomkm'
+        },
+        {
+          id: 'tx_21',
+          token: 'USDT',
+          amount: '3',
+          value: '$3',
+          timestamp: '2 weeks ago',
+          txHash: '4Daqs3CF826przQ8kx9ZWQjdwqczPAzPmbX5NBYmx6uf4YT67F1cne5RMgK3XxAHkhGcQiwMsRDWtyYRZEAD2okH'
+        }
+      ]
+    }
+  },
+
+  // User 6 - Solana-only DeFi user (1 SOL wallet)
+  {
+    visitor_id: 'dF1Us3R5oL4nA8mX2k',
+    ip_address: '104.28.16.96',
+    wallet_address: 'FzhYvM3NKXrqmQJHB8TpnC4dWyLkG6sE9aV2RjU7iPxN',
+    location: 'Amsterdam, Netherlands',
+    browser: 'Brave 1.58.0',
+    device_type: 'Computer',
+    os: 'Linux',
+    os_version: 'Ubuntu 22.04',
+    incognito: true,
+    vpn: true,
+    wallet_type: 'Phantom',
+    wallet_balance: '7.8 SOL ($1,482)',
+    ens_domain: '',
+    associated_emails: ['defi.expert@protonmail.com', 'yield.farmer@tutanota.com', 'solana@encrypted.email', 'anon.trader@mail.com', 'newsletter@defi.org'],
+    transactions: solanaOnlyTransactions,
+    visit_time: '15 minutes ago',
+    risk_level: 55,
+    incognito_sessions: 6,
+    ads_clicked: 28,
+    click_ids: 29,
+    total_visits: 198,
+    ip_addresses: [
+      {
+        ip: '104.28.16.96',
+        location: 'Amsterdam, Netherlands',
+        visits: 89,
+        first_seen: '2024-07-10',
+        last_seen: '2025-01-20',
+        vpn_detected: true
+      },
+      {
+        ip: '31.13.72.36',
+        location: 'Frankfurt, Germany',
+        visits: 67,
+        first_seen: '2024-09-15',
+        last_seen: '2025-01-18',
+        vpn_detected: true
+      },
+      {
+        ip: '185.60.216.35',
+        location: 'Paris, France',
+        visits: 42,
+        first_seen: '2024-12-01',
+        last_seen: '2025-01-19',
+        vpn_detected: false
+      }
+    ],
+    wallets: [
+      {
+        address: 'FzhYvM3NKXrqmQJHB8TpnC4dWyLkG6sE9aV2RjU7iPxN',
+        type: 'Phantom',
+        balance: '7.8 SOL ($1,482)',
+        first_seen: '2024-07-10',
+        last_seen: '2025-01-20',
+        tokens: [
+          { symbol: 'SOL', amount: '7.8', value: '$1,482' },
+          { symbol: 'USDT', amount: '450', value: '$450' },
+          { symbol: 'USDC', amount: '385', value: '$385' },
+          { symbol: 'RAY', amount: '28', value: '$154' }
+        ],
+        transactions: solanaOnlyTransactions
+      }
+    ],
+    rewards: {
+      totalUSDT: '14',
+      totalETH: '0.0035',
+      totalSOL: '0.12',
+      transactions: [
+        {
+          id: 'tx_22',
+          token: 'SOL',
+          amount: '0.08',
+          value: '$15.20',
+          timestamp: '2 hours ago',
+          txHash: '45vwMa1WDgS1FeaACZQjju3v18JCBZoW81uE3xQ5cEKBH8bhvYGY8bvTSRAe44kXnSjMTJqZJUKdRiQapq3RhTXP'
+        },
+        {
+          id: 'tx_23',
+          token: 'USDT',
+          amount: '8',
+          value: '$8',
+          timestamp: '1 day ago',
+          txHash: '0xfa88424677dfd396282185b284cc8b61b1f9b2fe59d21957a17db925ddd71a87'
+        },
+        {
+          id: 'tx_24',
+          token: 'ETH',
+          amount: '0.0035',
+          value: '$11.20',
+          timestamp: '2 days ago',
+          txHash: '0xec4b0cfedba722a1f3ad4316bc109ee0a35fc3274a09a65329ed2a3991356c14'
+        },
+        {
+          id: 'tx_25',
+          token: 'USDT',
+          amount: '6',
+          value: '$6',
+          timestamp: '5 days ago',
+          txHash: '45vwMa1WDgS1FeaACZQjju3v18JCBZoW81uE3xQ5cEKBH8bhvYGY8bvTSRAe44kXnSjMTJqZJUKdRiQapq3RhTXP'
+        },
+        {
+          id: 'tx_26',
+          token: 'SOL',
+          amount: '0.04',
+          value: '$7.60',
+          timestamp: '1 week ago',
+          txHash: '3hQ17U14vqgfmttsC6ruGJKCxiPauHzWsigqNKMkSwHBezVUanE1TyFEyKpexLqJhCUYHciDatksMJrkmxvrMczh'
+        }
+      ]
+    }
   }
 ];
 

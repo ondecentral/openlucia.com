@@ -32,13 +32,12 @@ This project includes Mapbox integration for displaying visitor locations on the
 
 1. Sign up for a free Mapbox account at [https://www.mapbox.com/](https://www.mapbox.com/)
 2. Get your access token from the Mapbox dashboard
-3. Create a `.env.local` file in the root directory and add:
+3. Update the `.env` file in the root directory and add:
    ```
    NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN=your_mapbox_access_token_here
    ```
 4. Restart your development server
 
-The Mapbox component will automatically geocode IP addresses and display them on an interactive map in the dashboard.
 
 ### Learn More
 

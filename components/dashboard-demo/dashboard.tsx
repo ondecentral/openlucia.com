@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
-import { MapPin, ChevronUp, Wallet, Mail, Receipt, TriangleAlert, Copy, Search, ChevronDown, MousePointerClick, Hash, Users, EyeOff, Network, Globe, Info, Eye, Target, Fingerprint, CreditCard } from 'lucide-react';
-import { VisitorData, Transaction, IPAddress, Wallet as WalletData } from './dashboard-seed-data';
+import { MapPin, ChevronUp, Wallet, Mail, Receipt, TriangleAlert, Copy, Search, ChevronDown, MousePointerClick, Hash, Users, EyeOff, Network, Globe, Info, Eye, Target, Fingerprint, CreditCard, ExternalLink } from 'lucide-react';
+import { VisitorData, Transaction, IPAddress, Wallet as WalletData, RewardTransaction } from './dashboard-seed-data';
 import MapboxMap from './mapbox-map';
 import {
   TokenETH,
@@ -18,6 +18,7 @@ import {
   TokenDOGE,
   TokenLINK,
   TokenRAY,
+  TokenUSDC,
 } from '@web3icons/react'
 
 
@@ -34,6 +35,22 @@ interface DashboardProps {
   totalAdsClicked: number;
   totalClickIds: number;
 }
+
+// Build the correct explorer URL for a given wallet address
+const getExplorerUrlForAddress = (address: string): string => {
+  const isEvm = /^0x[a-fA-F0-9]{40}$/.test(address || '');
+  return isEvm
+    ? `https://etherscan.io/address/${address}`
+    : `https://solscan.io/account/${address}`;
+};
+
+// Build the correct explorer URL for a given transaction hash
+const getExplorerUrlForTx = (txHash: string): string => {
+  const isEvmTx = /^0x([a-fA-F0-9]{64})$/.test(txHash || '');
+  return isEvmTx
+    ? `https://etherscan.io/tx/${txHash}`
+    : `https://solscan.io/tx/${txHash}`;
+};
 
 // Gets the wallet icon based on the wallet type
 const getWalletIcon = (type: string) => {
@@ -66,6 +83,8 @@ const getTokenIcon = (symbol: string, size: number = 24) => {
       return <TokenSOL size={size} variant="branded" />;
     case 'USDT':
       return <TokenUSDT size={size} variant="branded" />;
+    case 'USDC':
+      return <TokenUSDC size={size} variant="branded" />;
     case 'PEPE':
       return <TokenPEPE size={size} variant="branded" />;
     case 'SHIB':
@@ -554,13 +573,24 @@ const Dashboard: React.FC<DashboardProps> = ({
                                           <div className="text-xs text-orange-500">{wallet.ens_domain}</div>
                                         )}
                                       </div>
-                                      <button
-                                        onClick={() => copyToClipboard(wallet.address)}
-                                        className="text-gray-400 hover:text-gray-600 transition-colors ml-2"
-                                        title="Copy wallet address"
-                                      >
-                                        <Copy className="w-3 h-3" />
-                                      </button>
+                                      <div className="flex items-center">
+                                        <button
+                                          onClick={() => copyToClipboard(wallet.address)}
+                                          className="text-gray-400 hover:text-gray-600 transition-colors ml-2"
+                                          title="Copy wallet address"
+                                        >
+                                          <Copy className="w-3 h-3" />
+                                        </button>
+                                        <a
+                                          href={getExplorerUrlForAddress(wallet.address)}
+                                          target="_blank"
+                                          rel="noopener noreferrer"
+                                          className="text-gray-400 hover:text-orange-500 transition-colors ml-2"
+                                          title="View on explorer"
+                                        >
+                                          <ExternalLink className="w-3 h-3" />
+                                        </a>
+                                      </div>
                                     </div>
                                   </div>
                                 ))}
@@ -582,7 +612,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                                   <TokenUSDT size={24} variant="branded" />
                                   <span className="text-sm font-semibold text-gray-600">USDT</span>
                                 </div>
-                                <p className="text-lg font-bold text-gray-800">234</p>
+                                <p className="text-lg font-bold text-gray-800">{visitor.rewards?.totalUSDT ?? '0'}</p>
                                 <p className="text-xs text-gray-500">Total Received</p>
                               </div>
                               
@@ -592,7 +622,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                                   <TokenETH size={24} variant="branded" />
                                   <span className="text-sm font-semibold text-gray-600">ETH</span>
                                 </div>
-                                <p className="text-lg font-bold text-gray-800">0.12</p>
+                                <p className="text-lg font-bold text-gray-800">{visitor.rewards?.totalETH ?? '0'}</p>
                                 <p className="text-xs text-gray-500">Total Received</p>
                               </div>
                               
@@ -602,7 +632,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                                   <TokenSOL size={24} variant="branded" />
                                   <span className="text-sm font-semibold text-gray-600">SOL</span>
                                 </div>
-                                <p className="text-lg font-bold text-gray-800">2.45</p>
+                                <p className="text-lg font-bold text-gray-800">{visitor.rewards?.totalSOL ?? '0'}</p>
                                 <p className="text-xs text-gray-500">Total Received</p>
                               </div>
                             </div>
@@ -612,74 +642,47 @@ const Dashboard: React.FC<DashboardProps> = ({
                               <h4 className="text-sm font-semibold text-gray-600 mb-2 flex items-center gap-2">
                                 <Receipt className="text-orange-500 w-3 h-3" /> Recent Reward Transactions
                               </h4>
-                              <div className="max-h-[120px] overflow-y-auto border border-gray-200 rounded-lg">
-                                <div className="space-y-1 p-2">
-                                  {/* Sample reward transactions */}
-                                  <div 
-                                    className="flex items-center justify-between p-2 hover:bg-gray-50 rounded cursor-pointer transition-colors"
-                                    onClick={() => copyToClipboard('0x1234567890abcdef1234567890abcdef12345678')}
-                                  >
-                                    <div className="flex items-center gap-2">
-                                      <TokenUSDT size={16} variant="branded" />
-                                      <span className="text-sm font-mono text-gray-600">
-                                        0x1234...5678
-                                      </span>
-                                    </div>
-                                    <div className="text-right">
-                                      <p className="text-sm font-semibold text-green-600">+50 USDT</p>
-                                      <p className="text-xs text-gray-400">2 hours ago</p>
-                                    </div>
-                                  </div>
-                                  
-                                  <div 
-                                    className="flex items-center justify-between p-2 hover:bg-gray-50 rounded cursor-pointer transition-colors"
-                                    onClick={() => copyToClipboard('0xabcdef1234567890abcdef1234567890abcdef12')}
-                                  >
-                                    <div className="flex items-center gap-2">
-                                      <TokenETH size={16} variant="branded" />
-                                      <span className="text-sm font-mono text-gray-600">
-                                        0xabcd...ef12
-                                      </span>
-                                    </div>
-                                    <div className="text-right">
-                                      <p className="text-sm font-semibold text-green-600">+0.05 ETH</p>
-                                      <p className="text-xs text-gray-400">1 day ago</p>
-                                    </div>
-                                  </div>
-                                  
-                                  <div 
-                                    className="flex items-center justify-between p-2 hover:bg-gray-50 rounded cursor-pointer transition-colors"
-                                    onClick={() => copyToClipboard('0x567890abcdef1234567890abcdef1234567890ab')}
-                                  >
-                                    <div className="flex items-center gap-2">
-                                      <TokenSOL size={16} variant="branded" />
-                                      <span className="text-sm font-mono text-gray-600">
-                                        0x5678...90ab
-                                      </span>
-                                    </div>
-                                    <div className="text-right">
-                                      <p className="text-sm font-semibold text-green-600">+1.2 SOL</p>
-                                      <p className="text-xs text-gray-400">3 days ago</p>
-                                    </div>
-                                  </div>
-                                  
-                                  <div 
-                                    className="flex items-center justify-between p-2 hover:bg-gray-50 rounded cursor-pointer transition-colors"
-                                    onClick={() => copyToClipboard('0x901234567890abcdef1234567890abcdef123456')}
-                                  >
-                                    <div className="flex items-center gap-2">
-                                      <TokenUSDT size={16} variant="branded" />
-                                      <span className="text-sm font-mono text-gray-600">
-                                        0x9012...3456
-                                      </span>
-                                    </div>
-                                    <div className="text-right">
-                                      <p className="text-sm font-semibold text-green-600">+25 USDT</p>
-                                      <p className="text-xs text-gray-400">1 week ago</p>
-                                    </div>
+                                <div className="max-h-[120px] overflow-y-auto border border-gray-200 rounded-lg">
+                                  <div className="space-y-1 p-2">
+                                    {visitor.rewards?.transactions?.map((transaction: RewardTransaction) => (
+                                      <div
+                                        key={transaction.id}
+                                        className="flex items-center justify-between p-2 hover:bg-gray-50 rounded cursor-pointer transition-colors"
+                                        onClick={() => copyToClipboard(transaction.txHash)}
+                                      >
+                                        <div className="flex items-center gap-2">
+                                          {transaction.token === 'USDT' && <TokenUSDT size={16} variant="branded" />}
+                                          {transaction.token === 'ETH' && <TokenETH size={16} variant="branded" />}
+                                          {transaction.token === 'SOL' && <TokenSOL size={16} variant="branded" />}
+                                          <span className="text-sm font-mono text-gray-600">
+                                            {transaction.txHash.slice(0, 6)}...{transaction.txHash.slice(-4)}
+                                          </span>
+                                          <button
+                                            onClick={(e) => { e.stopPropagation(); copyToClipboard(transaction.txHash); }}
+                                            className="text-gray-400 hover:text-gray-600 transition-colors"
+                                            title="Copy transaction hash"
+                                          >
+                                            <Copy className="w-3 h-3" />
+                                          </button>
+                                          <a
+                                            href={getExplorerUrlForTx(transaction.txHash)}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="text-gray-400 hover:text-orange-500 transition-colors"
+                                            title="View on explorer"
+                                            onClick={(e) => e.stopPropagation()}
+                                          >
+                                            <ExternalLink className="w-3 h-3" />
+                                          </a>
+                                        </div>
+                                        <div className="text-right">
+                                          <p className="text-sm font-semibold text-green-600">+{transaction.amount} {transaction.token}</p>
+                                          <p className="text-xs text-gray-400">{transaction.timestamp}</p>
+                                        </div>
+                                      </div>
+                                    ))}
                                   </div>
                                 </div>
-                              </div>
                             </div>
                             
                             <div className="absolute bottom-2 left-2 group">
@@ -818,21 +821,32 @@ const Dashboard: React.FC<DashboardProps> = ({
                                   </li>
                                   <li className="flex justify-between items-center gap-1.5">
                                     <span className="text-gray-500">Wallet Address</span>
-                                    <div className="flex items-center gap-1.5">
-                                      <span className="font-mono text-xs bg-gray-100 p-0.5 rounded">
-                                        {visitor.wallets[walletIndex[visitor.visitor_id] || 0]?.address ? 
-                                          `${visitor.wallets[walletIndex[visitor.visitor_id] || 0].address.slice(0, 6)}...${visitor.wallets[walletIndex[visitor.visitor_id] || 0].address.slice(-4)}` :
-                                          `${visitor.wallet_address.slice(0, 6)}...${visitor.wallet_address.slice(-4)}`
-                                        }
-                                      </span>
-                                      <button 
-                                        onClick={() => copyToClipboard(visitor.wallets[walletIndex[visitor.visitor_id] || 0]?.address || visitor.wallet_address)}
-                                        className="text-gray-400 hover:text-gray-600 transition-colors"
-                                        title="Copy address"
-                                      >
-                                        <Copy className="w-4 h-4" />
-                                      </button>
-                                    </div>
+                                    {(() => {
+                                      const fullAddress = visitor.wallets[walletIndex[visitor.visitor_id] || 0]?.address || visitor.wallet_address;
+                                      return (
+                                        <div className="flex items-center gap-1.5">
+                                          <span className="font-mono text-xs bg-gray-100 p-0.5 rounded">
+                                            {fullAddress.slice(0, 6)}...{fullAddress.slice(-4)}
+                                          </span>
+                                          <button 
+                                            onClick={() => copyToClipboard(fullAddress)}
+                                            className="text-gray-400 hover:text-gray-600 transition-colors"
+                                            title="Copy address"
+                                          >
+                                            <Copy className="w-4 h-4" />
+                                          </button>
+                                          <a
+                                            href={getExplorerUrlForAddress(fullAddress)}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="text-gray-400 hover:text-orange-500 transition-colors"
+                                            title="View on explorer"
+                                          >
+                                            <ExternalLink className="w-4 h-4" />
+                                          </a>
+                                        </div>
+                                      );
+                                    })()}
                                   </li>
                                   <li className="flex justify-between items-center gap-1.5">
                                     <span className="text-gray-500">ENS/SNS Domain</span>
