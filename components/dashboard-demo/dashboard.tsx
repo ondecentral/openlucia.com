@@ -12,6 +12,11 @@ import {
   WalletPhantom,
   WalletTrezor,
   TokenUSDT,
+  TokenPEPE,
+  TokenSHIB,
+  TokenDOGE,
+  TokenLINK,
+  TokenRAY,
 } from '@web3icons/react'
 
 
@@ -50,6 +55,29 @@ const getWalletIcon = (type: string) => {
   }
 };
 
+const getTokenIcon = (symbol: string, size: number = 24) => {
+  switch ((symbol || '').toUpperCase()) {
+    case 'ETH':
+      return <TokenETH size={size} variant="branded" />;
+    case 'SOL':
+      return <TokenSOL size={size} variant="branded" />;
+    case 'USDT':
+      return <TokenUSDT size={size} variant="branded" />;
+    case 'PEPE':
+      return <TokenPEPE size={size} variant="branded" />;
+    case 'SHIB':
+      return <TokenSHIB size={size} variant="branded" />;
+    case 'DOGE':
+      return <TokenDOGE size={size} variant="branded" />;
+    case 'LINK':
+      return <TokenLINK size={size} variant="branded" />;
+    case 'RAY':
+      return <TokenRAY size={size} variant="branded" />;
+    default:
+      return <Wallet className={`w-${size/4} h-${size/4} text-orange-500`} />;
+  }
+};
+
 const Dashboard: React.FC<DashboardProps> = ({
   visitors,
   totalVisits,
@@ -71,6 +99,7 @@ const Dashboard: React.FC<DashboardProps> = ({
   
   // For visitor tabs
   const [expandedTabs, setExpandedTabs] = useState<Set<string>>(new Set());
+  const [expandedTokens, setExpandedTokens] = useState<Set<string>>(new Set());
   const [ipIndex, setIpIndex] = useState<Record<string, number>>({});
   const [walletIndex, setWalletIndex] = useState<Record<string, number>>({});
   
@@ -526,24 +555,104 @@ const Dashboard: React.FC<DashboardProps> = ({
                                       </button>
                                     </div>
                                   </li>
-                                  <li className="flex justify-between items-center">
-                                    <span className="text-gray-500">Total Balance</span>
-                                    <span className="font-medium">{visitor.wallets[walletIndex[visitor.visitor_id] || 0]?.balance || visitor.wallet_balance}</span>
-                                  </li>
                                   <li className="flex justify-between items-center gap-1.5">
-                                    <span className="text-gray-500">ENS Domain</span>
+                                    <span className="text-gray-500">ENS/SNS Domain</span>
                                     <div className="flex items-center gap-1.5">
                                       <span className="font-medium text-orange-500">{visitor.wallets[walletIndex[visitor.visitor_id] || 0]?.ens_domain || visitor.ens_domain}</span>
                                       <button 
                                         onClick={() => copyToClipboard(visitor.wallets[walletIndex[visitor.visitor_id] || 0]?.ens_domain || visitor.ens_domain)}
                                         className="text-gray-400 hover:text-gray-600 transition-colors"
-                                        title="Copy ENS domain"
+                                        title="Copy domain"
                                       >
                                         <Copy className="w-4 h-4" />
                                       </button>
                                     </div>
                                   </li>
+                                  <li className="flex justify-between items-center">
+                                    <span className="text-gray-500">Total Value</span>
+                                    <span className="font-medium">
+                                      {(() => {
+                                        const currentWallet = visitor.wallets[walletIndex[visitor.visitor_id] || 0];
+                                        const totalValue = currentWallet?.tokens.reduce((sum, token) => {
+                                          return sum + parseFloat(token.value.replace('$', '').replace(',', ''));
+                                        }, 0);
+                                        return totalValue ? `$${totalValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : '$0.00';
+                                      })()}
+                                    </span>
+                                  </li>
+                                  <li className="flex justify-between items-center">
+                                    <span className="text-gray-500">PNL (24h)</span>
+                                    {(() => {
+                                      const currentWallet = visitor.wallets[walletIndex[visitor.visitor_id] || 0];
+                                      const pnlPercent = currentWallet?.tokens.some(t => t.symbol === 'ETH') ? 12.4 :
+                                                       currentWallet?.tokens.some(t => t.symbol === 'SOL') ? 8.2 : 5.6;
+                                      const totalValue = currentWallet?.tokens.reduce((sum, token) => {
+                                        return sum + parseFloat(token.value.replace('$', '').replace(',', ''));
+                                      }, 0) || 0;
+                                      const pnlValue = (totalValue * (pnlPercent / 100));
+                                      return (
+                                        <span className={`font-medium ${pnlPercent >= 0 ? 'text-green-500' : 'text-red-500'}`}>
+                                          {pnlPercent >= 0 ? '+' : '-'}{Math.abs(pnlPercent)}% (${pnlValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })})
+                                        </span>
+                                      );
+                                    })()}
+                                  </li>
                                 </ul>
+                              </div>
+                              
+                              {/* Token Breakdown */}
+                              <div className="mt-2">
+                                <div 
+                                  onClick={() => setExpandedTokens(prev => {
+                                    const prevArray = Array.from(prev);
+                                    return new Set(
+                                      prevArray.includes(visitor.visitor_id)
+                                        ? prevArray.filter(id => id !== visitor.visitor_id)
+                                        : [...prevArray, visitor.visitor_id]
+                                    );
+                                  })}
+                                  className="border border-gray-200 rounded-lg p-3 cursor-pointer hover:bg-gray-50 transition-colors"
+                                >
+                                  <div className="flex items-center justify-between">
+                                    {(() => {
+                                      const currentWallet = visitor.wallets[walletIndex[visitor.visitor_id] || 0];
+                                      const mainToken = currentWallet?.tokens[0];
+                                      return (
+                                        <div className="flex items-center gap-2">
+                                          {getTokenIcon(mainToken?.symbol || '')}
+                                          <span className="font-medium">{mainToken?.amount} {mainToken?.symbol}</span>
+                                        </div>
+                                      );
+                                    })()}
+                                    <ChevronDown 
+                                      className={`w-4 h-4 text-gray-400 transition-transform ${
+                                        expandedTokens.has(visitor.visitor_id) ? 'rotate-180' : ''
+                                      }`}
+                                    />
+                                  </div>
+                                </div>
+                                
+                                {/* Expanded Token List */}
+                                {expandedTokens.has(visitor.visitor_id) && (
+                                  <div className="mt-2 border border-gray-200 rounded-lg p-3">
+                                    <div className="max-h-[240px] overflow-y-auto">
+                                      <ul className="space-y-3">
+                                        {(() => {
+                                          const currentWallet = visitor.wallets[walletIndex[visitor.visitor_id] || 0];
+                                          return currentWallet?.tokens.slice(1).map((token, index) => (
+                                            <li key={index} className="flex items-center justify-between">
+                                              <div className="flex items-center gap-2">
+                                                {getTokenIcon(token.symbol)}
+                                                <span className="font-medium">{token.amount} {token.symbol}</span>
+                                              </div>
+                                              <span className="text-sm text-gray-500">{token.value}</span>
+                                            </li>
+                                          ));
+                                        })()}
+                                      </ul>
+                                    </div>
+                                  </div>
+                                )}
                               </div>
                             </section>                        
                             <section className="p-3 pt-0">
