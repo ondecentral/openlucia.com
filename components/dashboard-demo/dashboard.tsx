@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
-import { MapPin, ChevronUp, Wallet, Mail, Receipt, TriangleAlert, Copy, Search, ChevronDown } from 'lucide-react';
+import { MapPin, ChevronUp, Wallet, Mail, Receipt, TriangleAlert, Copy, Search, ChevronDown, MousePointerClick, Hash, Users, EyeOff, Network, Globe, Info, Eye, Target, Fingerprint, CreditCard } from 'lucide-react';
 import { VisitorData, Transaction, IPAddress, Wallet as WalletData } from './dashboard-seed-data';
+import MapboxMap from './mapbox-map';
 import {
   TokenETH,
   TokenSOL,
@@ -34,6 +35,7 @@ interface DashboardProps {
   totalClickIds: number;
 }
 
+// Gets the wallet icon based on the wallet type
 const getWalletIcon = (type: string) => {
   switch (type.toLowerCase()) {
     case 'metamask':
@@ -55,6 +57,7 @@ const getWalletIcon = (type: string) => {
   }
 };
 
+// Gets the token icon based on the token symbol
 const getTokenIcon = (symbol: string, size: number = 24) => {
   switch ((symbol || '').toUpperCase()) {
     case 'ETH':
@@ -78,6 +81,9 @@ const getTokenIcon = (symbol: string, size: number = 24) => {
   }
 };
 
+/**
+ * Demo dashboard for data collected by the Lucia SDK.
+ */
 const Dashboard: React.FC<DashboardProps> = ({
   visitors,
   totalVisits,
@@ -103,6 +109,22 @@ const Dashboard: React.FC<DashboardProps> = ({
   const [ipIndex, setIpIndex] = useState<Record<string, number>>({});
   const [walletIndex, setWalletIndex] = useState<Record<string, number>>({});
   
+  // For rewards carousel (USDT, SOL, ETH)
+  const [rewardsIndex, setRewardsIndex] = useState<number>(0);
+  const rewards = useMemo(() => [
+    { symbol: 'USDT', value: totalUSDTRewards, icon: <TokenUSDT size={32} variant="branded" /> },
+    { symbol: 'SOL', value: totalSOLRewards, icon: <TokenSOL size={32} variant="branded" /> },
+    { symbol: 'ETH', value: totalETHRewards, icon: <TokenETH size={32} variant="branded" /> },
+  ], [totalUSDTRewards, totalSOLRewards, totalETHRewards]);
+
+  // Navigate through rewards carousel
+  const navigateRewards = (direction: 'prev' | 'next') => {
+    setRewardsIndex((current) => {
+      if (direction === 'next') return (current + 1) % rewards.length;
+      return current === 0 ? rewards.length - 1 : current - 1;
+    });
+  };
+
   // For copying to clipboard and displaying notification
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
@@ -132,6 +154,7 @@ const Dashboard: React.FC<DashboardProps> = ({
     setExpandedTabs(newExpandedTabs);
   };
 
+  // Navigate through IP addresses carousel
   const navigateIP = (visitorId: string, direction: 'prev' | 'next') => {
     const visitor = visitors.find(v => v.visitor_id === visitorId);
     if (!visitor || visitor.ip_addresses.length <= 1) return;
@@ -146,6 +169,7 @@ const Dashboard: React.FC<DashboardProps> = ({
     setIpIndex(prev => ({ ...prev, [visitorId]: newIndex }));
   };
 
+  // Navigate through wallet addresses carousel
   const navigateWallet = (visitorId: string, direction: 'prev' | 'next') => {
     const visitor = visitors.find(v => v.visitor_id === visitorId);
     if (!visitor || visitor.wallets.length <= 1) return;
@@ -172,58 +196,134 @@ const Dashboard: React.FC<DashboardProps> = ({
       <div className="bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden">
           <>
             {/* Visit Summary - Single Row */}
-            <section className="grid grid-cols-2 md:grid-cols-4 border-b border-gray-200">
-              <div className="p-3 border-r border-gray-200">
+            <section className="grid grid-cols-2 md:grid-cols-4 align-center border-b border-gray-200">
+              <div className="p-3 border-r border-gray-200 relative">
                 <p className="text-xs text-gray-400 font-semibold tracking-wider">TOTAL VISITS</p>
-                <p className="text-sm font-semibold text-gray-600 mt-1">{totalVisits}</p>
+                <div className="flex justify-center items-center gap-2 mt-1">
+                  <Users className="w-5 h-5 text-orange-500" />
+                  <p className="text-sm font-semibold text-gray-600">{totalVisits}</p>
+                </div>
+                <div className="absolute bottom-2 left-2 group">
+                  <Info className="w-3 h-3 text-gray-400 cursor-help" />
+                  <div className="absolute bottom-full left-0 mb-1 px-2 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10">
+                    +12.4% (24h)
+                  </div>
+                </div>
               </div>
-              <div className="p-3 border-r border-gray-200">
+              <div className="p-3 border-r border-gray-200 relative">
                 <p className="text-xs text-gray-400 font-semibold tracking-wider">TOTAL INCOGNITO VISITS</p>
-                <p className="text-sm font-semibold text-gray-600 mt-1">{totalIncognitoVisits}</p>
+                <div className="flex justify-center items-center gap-2 mt-1">
+                  <EyeOff className="w-5 h-5 text-orange-500" />
+                  <p className="text-sm font-semibold text-gray-600">{totalIncognitoVisits}</p>
+                </div>
+                <div className="absolute bottom-2 left-2 group">
+                  <Info className="w-3 h-3 text-gray-400 cursor-help" />
+                  <div className="absolute bottom-full left-0 mb-1 px-2 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10">
+                    -5.2% (24h)
+                  </div>
+                </div>
               </div>
-              <div className="p-3 border-r border-gray-200">
+              <div className="p-3 border-r border-gray-200 relative">
                 <p className="text-xs text-gray-400 font-semibold tracking-wider">TOTAL UNIQUE IP ADDRESSES</p>
-                <p className="text-sm font-semibold text-gray-600 mt-1">{totalUniqueIPs}</p>
+                <div className="flex justify-center items-center gap-2 mt-1">
+                  <Network className="w-5 h-5 text-orange-500" />
+                  <p className="text-sm font-semibold text-gray-600">{totalUniqueIPs}</p>
+                </div>
+                <div className="absolute bottom-2 left-2 group">
+                  <Info className="w-3 h-3 text-gray-400 cursor-help" />
+                  <div className="absolute bottom-full left-0 mb-1 px-2 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10">
+                    +8.7% (24h)
+                  </div>
+                </div>
               </div>
-              <div className="p-3">
+              <div className="p-3 relative">
                 <p className="text-xs text-gray-400 font-semibold tracking-wider">TOTAL UNIQUE GEOLOCATIONS</p>
-                <p className="text-sm font-semibold text-gray-600 mt-1">{totalUniqueGeolocations}</p>
+                <div className="flex justify-center items-center gap-2 mt-1">
+                  <Globe className="w-5 h-5 text-orange-500" />
+                  <p className="text-sm font-semibold text-gray-600">{totalUniqueGeolocations}</p>
+                </div>
+                <div className="absolute bottom-2 left-2 group">
+                  <Info className="w-3 h-3 text-gray-400 cursor-help" />
+                  <div className="absolute bottom-full left-0 mb-1 px-2 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10">
+                    +15.3% (24h)
+                  </div>
+                </div>
               </div>
             </section>
 
             {/* Lucia Summary - Single Row */}
-            <section className="grid grid-cols-2 md:grid-cols-4 border-b border-gray-200">
-              <div className="p-3 border-r border-gray-200">
+            <section className="grid grid-cols-2 md:grid-cols-4 align-center border-b border-gray-200">
+              <div className="p-3 border-r border-gray-200 relative">
                 <p className="text-xs text-gray-400 font-semibold tracking-wider">TOTAL WALLETS DETECTED</p>
                 <div className="flex justify-center items-center gap-2 mt-1">
+                  <Wallet className="w-5 h-5 text-orange-500" />
                   <p className="text-sm font-semibold text-gray-600">{totalWalletsDetected}</p>
-                  <WalletWalletConnect size={28} variant="branded"/>
                 </div>
-              </div>
-              <div className="p-3 border-r border-gray-200">
-                <p className="text-xs text-gray-400 font-semibold tracking-wider">TOTAL REWARDS DISTRIBUTED</p>
-                <div className="flex justify-center items-center gap-3 mt-1">
-                  <div className="flex items-center gap-1">
-                    <p className="text-sm font-semibold text-gray-600">{totalUSDTRewards}</p>
-                    <TokenUSDT size={32} variant="branded"/>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <p className="text-sm font-semibold text-gray-600">{totalSOLRewards}</p>
-                    <TokenSOL size={32} variant="branded"/>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <p className="text-sm font-semibold text-gray-600">{totalETHRewards}</p>
-                    <TokenETH size={38} variant="branded"/>
+                <div className="absolute bottom-2 left-2 group">
+                  <Info className="w-3 h-3 text-gray-400 cursor-help" />
+                  <div className="absolute bottom-full left-0 mb-1 px-2 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10">
+                    +23.1% (24h)
                   </div>
                 </div>
               </div>
-              <div className="p-3 border-r border-gray-200">
+              <div className="p-3 border-r border-gray-200 relative">
+                <div className="flex items-center justify-center gap-4">
+                  <button
+                    onClick={() => navigateRewards('prev')}
+                    className="text-gray-400 hover:text-gray-600 transition-colors"
+                    aria-label="Previous reward"
+                  >
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M15 18L9 12L15 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </button>
+                  <p className="text-xs text-gray-400 font-semibold tracking-wider">REWARDS DISTRIBUTED</p>
+                  <button
+                    onClick={() => navigateRewards('next')}
+                    className="text-gray-400 hover:text-gray-600 transition-colors"
+                    aria-label="Next reward"
+                  >
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M9 18L15 12L9 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </button>
+                </div>
+                <div className="flex justify-center items-center gap-2 mt-1">
+                  {rewards[rewardsIndex].icon}
+                  <p className="text-sm font-semibold text-gray-600">{rewards[rewardsIndex].value}</p>
+                </div>
+                <div className="absolute bottom-2 left-2 group">
+                  <Info className="w-3 h-3 text-gray-400 cursor-help" />
+                  <div className="absolute bottom-full left-0 mb-1 px-2 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10">
+                    +18.9% (24h)
+                  </div>
+                </div>
+              </div>
+              <div className="p-3 border-r border-gray-200 relative">
                 <p className="text-xs text-gray-400 font-semibold tracking-wider">TOTAL ADS CLICKED</p>
-                <p className="text-sm font-semibold text-gray-600 mt-1">{totalAdsClicked}</p>
+                <div className="flex justify-center items-center gap-2 mt-1">
+                  <MousePointerClick className="w-5 h-5 text-orange-500" />
+                  <p className="text-sm font-semibold text-gray-600">{totalAdsClicked}</p>
+                </div>
+                <div className="absolute bottom-2 left-2 group">
+                  <Info className="w-3 h-3 text-gray-400 cursor-help" />
+                  <div className="absolute bottom-full left-0 mb-1 px-2 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10">
+                    +7.3% (24h)
+                  </div>
+                </div>
               </div>
-              <div className="p-3">
+              <div className="p-3 relative">
                 <p className="text-xs text-gray-400 font-semibold tracking-wider">TOTAL CLICK IDS</p>
-                <p className="text-sm font-semibold text-gray-600 mt-1">{totalClickIds}</p>
+                <div className="flex justify-center items-center gap-2 mt-1">
+                  <Hash className="w-5 h-5 text-orange-500" />
+                  <p className="text-sm font-semibold text-gray-600">{totalClickIds}</p>
+                </div>
+                <div className="absolute bottom-2 left-2 group">
+                  <Info className="w-3 h-3 text-gray-400 cursor-help" />
+                  <div className="absolute bottom-full left-0 mb-1 px-2 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10">
+                    +9.1% (24h)
+                  </div>
+                </div>
               </div>
             </section>
 
@@ -309,29 +409,83 @@ const Dashboard: React.FC<DashboardProps> = ({
                         {/* Visitor Info Row - Top */}
                         <section className="p-3 border-b border-gray-200">                  
                           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 mb-3">
-                            <div className="text-center">
+                            <div className="text-center relative">
                               <p className="text-xs text-gray-400 font-semibold tracking-wider">INCOGNITO SESSIONS</p>
-                              <p className="text-sm font-semibold text-gray-600">{visitor.incognito_sessions}</p>
+                              <div className="flex justify-center items-center gap-2 mt-1">
+                                <EyeOff className="w-4 h-4 text-orange-500" />
+                                <p className="text-sm font-semibold text-gray-600">{visitor.incognito_sessions}</p>
+                              </div>
+                              <div className="absolute bottom-0 left-1 group">
+                                <Info className="w-2.5 h-2.5 text-gray-400 cursor-help" />
+                                <div className="absolute bottom-full left-0 mb-1 px-2 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10">
+                                  +15.2% (24h)
+                                </div>
+                              </div>
                             </div>
-                            <div className="text-center">
+                            <div className="text-center relative">
                               <p className="text-xs text-gray-400 font-semibold tracking-wider">ADS CLICKED</p>
-                              <p className="text-sm font-semibold text-gray-600">{visitor.ads_clicked}</p>
+                              <div className="flex justify-center items-center gap-2 mt-1">
+                                <Target className="w-4 h-4 text-orange-500" />
+                                <p className="text-sm font-semibold text-gray-600">{visitor.ads_clicked}</p>
+                              </div>
+                              <div className="absolute bottom-0 left-1 group">
+                                <Info className="w-2.5 h-2.5 text-gray-400 cursor-help" />
+                                <div className="absolute bottom-full left-0 mb-1 px-2 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10">
+                                  +8.7% (24h)
+                                </div>
+                              </div>
                             </div>
-                            <div className="text-center">
+                            <div className="text-center relative">
                               <p className="text-xs text-gray-400 font-semibold tracking-wider">CLICK IDS</p>
-                              <p className="text-sm font-semibold text-gray-600">{visitor.click_ids}</p>
+                              <div className="flex justify-center items-center gap-2 mt-1">
+                                <Fingerprint className="w-4 h-4 text-orange-500" />
+                                <p className="text-sm font-semibold text-gray-600">{visitor.click_ids}</p>
+                              </div>
+                              <div className="absolute bottom-0 left-1 group">
+                                <Info className="w-2.5 h-2.5 text-gray-400 cursor-help" />
+                                <div className="absolute bottom-full left-0 mb-1 px-2 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10">
+                                  +12.4% (24h)
+                                </div>
+                              </div>
                             </div>
-                            <div className="text-center">
+                            <div className="text-center relative">
                               <p className="text-xs text-gray-400 font-semibold tracking-wider">TOTAL VISITS</p>
-                              <p className="text-sm font-semibold text-gray-600">{visitor.total_visits}</p>
+                              <div className="flex justify-center items-center gap-2 mt-1">
+                                <Users className="w-4 h-4 text-orange-500" />
+                                <p className="text-sm font-semibold text-gray-600">{visitor.total_visits}</p>
+                              </div>
+                              <div className="absolute bottom-0 left-1 group">
+                                <Info className="w-2.5 h-2.5 text-gray-400 cursor-help" />
+                                <div className="absolute bottom-full left-0 mb-1 px-2 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10">
+                                  +6.3% (24h)
+                                </div>
+                              </div>
                             </div>
-                            <div className="text-center">
+                            <div className="text-center relative">
                               <p className="text-xs text-gray-400 font-semibold tracking-wider">IP ADDRESSES</p>
-                              <p className="text-sm font-semibold text-gray-600">{visitor.ip_addresses.length}</p>
+                              <div className="flex justify-center items-center gap-2 mt-1">
+                                <Network className="w-4 h-4 text-orange-500" />
+                                <p className="text-sm font-semibold text-gray-600">{visitor.ip_addresses.length}</p>
+                              </div>
+                              <div className="absolute bottom-0 left-1 group">
+                                <Info className="w-2.5 h-2.5 text-gray-400 cursor-help" />
+                                <div className="absolute bottom-full left-0 mb-1 px-2 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10">
+                                  +3.8% (24h)
+                                </div>
+                              </div>
                             </div>
-                            <div className="text-center">
+                            <div className="text-center relative">
                               <p className="text-xs text-gray-400 font-semibold tracking-wider">WALLETS</p>
-                              <p className="text-sm font-semibold text-gray-600">{visitor.wallets.length}</p>
+                              <div className="flex justify-center items-center gap-2 mt-1">
+                                <Wallet className="w-4 h-4 text-orange-500" />
+                                <p className="text-sm font-semibold text-gray-600">{visitor.wallets.length}</p>
+                              </div>
+                              <div className="absolute bottom-0 left-1 group">
+                                <Info className="w-2.5 h-2.5 text-gray-400 cursor-help" />
+                                <div className="absolute bottom-full left-0 mb-1 px-2 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10">
+                                  +18.9% (24h)
+                                </div>
+                              </div>
                             </div>
                           </div>
                           {/* Associated Emails, IP Addresses, and Wallet Addresses */}
@@ -413,6 +567,128 @@ const Dashboard: React.FC<DashboardProps> = ({
                               </div>
                             </div>
                           </div>
+
+                          {/* Rewards Received Section */}
+                          <div className="mt-4 border border-gray-200 rounded-lg p-3 relative">
+                            <h3 className="text-base font-semibold text-gray-600 mb-3 flex items-center gap-2">
+                              <CreditCard className="text-orange-500 w-4 h-4" /> Rewards Received
+                            </h3>
+                            
+                            {/* Three Column Layout for Rewards */}
+                            <div className="grid grid-cols-3 gap-4 mb-4">
+                              {/* USDT Column */}
+                              <div className="text-center p-3 bg-gray-50 rounded-lg">
+                                <div className="flex justify-center items-center gap-2 mb-2">
+                                  <TokenUSDT size={24} variant="branded" />
+                                  <span className="text-sm font-semibold text-gray-600">USDT</span>
+                                </div>
+                                <p className="text-lg font-bold text-gray-800">234</p>
+                                <p className="text-xs text-gray-500">Total Received</p>
+                              </div>
+                              
+                              {/* ETH Column */}
+                              <div className="text-center p-3 bg-gray-50 rounded-lg">
+                                <div className="flex justify-center items-center gap-2 mb-2">
+                                  <TokenETH size={24} variant="branded" />
+                                  <span className="text-sm font-semibold text-gray-600">ETH</span>
+                                </div>
+                                <p className="text-lg font-bold text-gray-800">0.12</p>
+                                <p className="text-xs text-gray-500">Total Received</p>
+                              </div>
+                              
+                              {/* SOL Column */}
+                              <div className="text-center p-3 bg-gray-50 rounded-lg">
+                                <div className="flex justify-center items-center gap-2 mb-2">
+                                  <TokenSOL size={24} variant="branded" />
+                                  <span className="text-sm font-semibold text-gray-600">SOL</span>
+                                </div>
+                                <p className="text-lg font-bold text-gray-800">2.45</p>
+                                <p className="text-xs text-gray-500">Total Received</p>
+                              </div>
+                            </div>
+                            
+                            {/* Recent Transactions */}
+                            <div className="border-t border-gray-200 pt-3">
+                              <h4 className="text-sm font-semibold text-gray-600 mb-2 flex items-center gap-2">
+                                <Receipt className="text-orange-500 w-3 h-3" /> Recent Reward Transactions
+                              </h4>
+                              <div className="max-h-[120px] overflow-y-auto border border-gray-200 rounded-lg">
+                                <div className="space-y-1 p-2">
+                                  {/* Sample reward transactions */}
+                                  <div 
+                                    className="flex items-center justify-between p-2 hover:bg-gray-50 rounded cursor-pointer transition-colors"
+                                    onClick={() => copyToClipboard('0x1234567890abcdef1234567890abcdef12345678')}
+                                  >
+                                    <div className="flex items-center gap-2">
+                                      <TokenUSDT size={16} variant="branded" />
+                                      <span className="text-sm font-mono text-gray-600">
+                                        0x1234...5678
+                                      </span>
+                                    </div>
+                                    <div className="text-right">
+                                      <p className="text-sm font-semibold text-green-600">+50 USDT</p>
+                                      <p className="text-xs text-gray-400">2 hours ago</p>
+                                    </div>
+                                  </div>
+                                  
+                                  <div 
+                                    className="flex items-center justify-between p-2 hover:bg-gray-50 rounded cursor-pointer transition-colors"
+                                    onClick={() => copyToClipboard('0xabcdef1234567890abcdef1234567890abcdef12')}
+                                  >
+                                    <div className="flex items-center gap-2">
+                                      <TokenETH size={16} variant="branded" />
+                                      <span className="text-sm font-mono text-gray-600">
+                                        0xabcd...ef12
+                                      </span>
+                                    </div>
+                                    <div className="text-right">
+                                      <p className="text-sm font-semibold text-green-600">+0.05 ETH</p>
+                                      <p className="text-xs text-gray-400">1 day ago</p>
+                                    </div>
+                                  </div>
+                                  
+                                  <div 
+                                    className="flex items-center justify-between p-2 hover:bg-gray-50 rounded cursor-pointer transition-colors"
+                                    onClick={() => copyToClipboard('0x567890abcdef1234567890abcdef1234567890ab')}
+                                  >
+                                    <div className="flex items-center gap-2">
+                                      <TokenSOL size={16} variant="branded" />
+                                      <span className="text-sm font-mono text-gray-600">
+                                        0x5678...90ab
+                                      </span>
+                                    </div>
+                                    <div className="text-right">
+                                      <p className="text-sm font-semibold text-green-600">+1.2 SOL</p>
+                                      <p className="text-xs text-gray-400">3 days ago</p>
+                                    </div>
+                                  </div>
+                                  
+                                  <div 
+                                    className="flex items-center justify-between p-2 hover:bg-gray-50 rounded cursor-pointer transition-colors"
+                                    onClick={() => copyToClipboard('0x901234567890abcdef1234567890abcdef123456')}
+                                  >
+                                    <div className="flex items-center gap-2">
+                                      <TokenUSDT size={16} variant="branded" />
+                                      <span className="text-sm font-mono text-gray-600">
+                                        0x9012...3456
+                                      </span>
+                                    </div>
+                                    <div className="text-right">
+                                      <p className="text-sm font-semibold text-green-600">+25 USDT</p>
+                                      <p className="text-xs text-gray-400">1 week ago</p>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            
+                            <div className="absolute bottom-2 left-2 group">
+                              <Info className="w-3 h-3 text-gray-400 cursor-help" />
+                              <div className="absolute bottom-full left-0 mb-1 px-2 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10">
+                                +25.7% (24h)
+                              </div>
+                            </div>
+                          </div>
                         </section>
 
                         {/* Main Content Grid - Equal Layout: 50% left, 50% right */}
@@ -443,8 +719,11 @@ const Dashboard: React.FC<DashboardProps> = ({
                               </div>
                               <div className="border border-gray-200 rounded-lg">
                                 <div className="border-t border-gray-200">
-                                  <div className="h-48 overflow-hidden bg-gray-100 flex items-center justify-center">
-                                    <MapPin className="text-orange-500 w-8 h-8" />
+                                  <div className="h-48 overflow-hidden bg-gray-100">
+                                    <MapboxMap 
+                                      location={visitor.ip_addresses[ipIndex[visitor.visitor_id] || 0]?.location || visitor.location}
+                                      className="h-full w-full"
+                                    />
                                   </div>
                                   
                                 </div>
