@@ -1,4 +1,4 @@
-name: github action test - Deploy to EC2
+name: Bot Test
 
 on:
   push:
@@ -18,7 +18,7 @@ jobs:
   bot-test:
     runs-on: ubuntu-latest
     environment: ${{ github.ref_name == 'main' && 'production' || 'staging' }}
-    
+
     services:
       postgres:
         image: postgres:15
@@ -30,9 +30,7 @@ jobs:
           - 5432:5432
 
       api:
-        image: ghcr.io/ondecentral/${{ vars.REPO_NAME }}:${{ inputs.backend_tag || 'test' }}
-        # TODO: when https://github.com/ondecentral/fk-backend/pull/70 is merged and released, the following image is to be used
-        # image: ghcr.io/ondecentral/fk-backend:${{ inputs.backend_tag || (github.event.pull_request.base.ref == 'main' && 'latest') || inputs.image_tag || 'staging' }}
+        image: ghcr.io/ondecentral/fk-backend:${{ inputs.backend_tag || (github.event.pull_request.base.ref == 'main' && 'latest') || inputs.image_tag || 'staging' }}
         env:
           DB_HOST: postgres
           DB_PORT: 5432
@@ -57,7 +55,7 @@ jobs:
           - ${{ vars.NODE_PORT }}:${{ vars.NODE_PORT }}
         credentials:
           username: ${{ github.actor }}
-          password: ${{ secrets.GH_PAT_CLASSIC }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
     - name: Checkout code
@@ -81,7 +79,7 @@ jobs:
           fi
           sleep 5
         done
-      
+
     - name: Check backend service accessibility
       run: |
         MAX_RETRIES=4
@@ -95,7 +93,7 @@ jobs:
           fi
           sleep 5
         done
-        
+
     - name: Install frontend dependencies
       run: npm ci
 
@@ -122,7 +120,7 @@ jobs:
     - name: Install ts-node
       run: |
         npm i -D ts-node
-        
+
     - name: Run authenticate to get token
       run: |
         TOKEN=$(npx ts-node test/authenticate.ts)
@@ -146,7 +144,7 @@ jobs:
     - name: Build frontend project
       run: |
         npm run build
-  
+
     - name: Run bot-test
       run: |
         npm start &
@@ -160,87 +158,3 @@ jobs:
         npm run test:bot  # Replace with your Playwright test command
         # Kill the server after tests complete
         kill $SERVER_PID
-
-  deploy:
-    needs: bot-test
-    runs-on: ubuntu-latest
-    environment: ${{ github.ref_name == 'main' && 'production' || 'staging' }}
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-
-    - name: Set up Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: 18
-
-    - name: Install frontend dependencies
-      run: npm ci
-
-    - name: Build frontend project
-      run: |
-        npm run build
-      env:
-        NEXT_PUBLIC_API_KEY: ${{ secrets.API_KEY }}
-        NEXT_PUBLIC_BASE_URL: ${{ github.ref_name == 'main' && vars.BASE_URL_PROD || vars.BASE_URL_STAGING }}
-  
-    - name: Deploy to EC2
-      env:
-        SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
-        SSH_HOST: ${{ vars.EC2_HOST }}
-        SSH_USERNAME: ${{ secrets.EC2_USER }}
-      run: |
-        exit 0
-        mkdir -p ~/.ssh
-        echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
-
-        if [[ "${{ github.ref_name }}" == "main" ]]; then
-          PRJ_DIR="/var/www/${{ vars.PRJ_PROD_DIR }}"
-          PORT="3001"
-        else
-          PRJ_DIR="/var/www/${{ vars.PRJ_STAGE_DIR }}"
-          PORT="3000"
-        fi
-
-        echo "Deploying to $PRJ_DIR on EC2"
-
-        # Ensure Node.js and pm2 are installed only if not present
-        ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa "$SSH_USERNAME@$SSH_HOST" "
-          if ! command -v node > /dev/null; then
-            echo 'Node.js not found. Installing Node.js...' && \
-            curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash - && \
-            sudo apt-get install -y nodejs
-          else
-            echo 'Node.js is already installed.'
-          fi
-
-          if ! command -v pm2 > /dev/null; then
-            echo 'pm2 not found. Installing pm2...' && \
-            sudo npm install -g pm2
-          else
-            echo 'pm2 is already installed.'
-          fi
-
-          sudo mkdir -p $PRJ_DIR && \
-          sudo chown -R $SSH_USERNAME:$SSH_USERNAME $PRJ_DIR
-
-          echo 'Uploading built files to the EC2 instance'
-        "
-
-        # Upload built files to the EC2 instance
-        # scp -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa -r .next package.json public "$SSH_USERNAME@$SSH_HOST:$PRJ_DIR"
-        rsync -avz -e "ssh -i ~/.ssh/id_rsa" --progress .next package.json public "$SSH_USERNAME@$SSH_HOST:$PRJ_DIR"
-
-        # Start or restart the application using PM2
-        ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa "$SSH_USERNAME@$SSH_HOST" << EOF
-          cd $PRJ_DIR
-          echo "Installing dependencies and starting the app"
-          npm install --production
-          echo "Checking if port $PORT is in use"
-          fuser -k $PORT/tcp
-          pm2 delete $PRJ_DIR || true
-          pm2 start npm --name $PRJ_DIR -- start -- -p $PORT
-          pm2 save
-        EOF
