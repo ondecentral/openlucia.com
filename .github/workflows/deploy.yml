@@ -1,4 +1,4 @@
-name: github action staging & production - Deploy to EC2
+name: github action staging & production
 
 on:
   push:
