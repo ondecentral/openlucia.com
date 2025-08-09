@@ -26,6 +26,19 @@ The `pages/api` directory is mapped to `/api/*`. Files in this directory are tre
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
+### Mapbox Integration
+
+This project includes Mapbox integration for displaying visitor locations on the dashboard. To enable this feature:
+
+1. Sign up for a free Mapbox account at [https://www.mapbox.com/](https://www.mapbox.com/)
+2. Get your access token from the Mapbox dashboard
+3. Update the `.env` file in the root directory and add:
+   ```
+   NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN=your_mapbox_access_token_here
+   ```
+4. Restart your development server
+
+
 ### Learn More
 
 To learn more about Next.js, take a look at the following resources:
