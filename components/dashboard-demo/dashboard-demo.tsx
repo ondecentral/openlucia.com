@@ -54,9 +54,9 @@ export default function DashboardDemo() {
 
   return (
     <section className="relative">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+      <div className="mx-auto max-w-6xl px-1 sm:px-6">
         <div className={isDeveloper ? "text-left" : "text-center"}>
-          <div className="border-b [border-image:linear-gradient(to_right,transparent,theme(colors.stone.300/.8),transparent)1] pb-6">
+          <div className="border-b [border-image:linear-gradient(to_right,transparent,theme(colors.stone.300/.8),transparent)1] py-6">
             {/* Dashboard Content */}
             <div className="relative bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden">
               {/* Dashboard Header */}

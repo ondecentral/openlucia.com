@@ -374,29 +374,39 @@ const Dashboard: React.FC<DashboardProps> = ({
                       onClick={() => toggleTab(visitor.visitor_id)}
                       className="w-full p-2 flex items-center justify-between bg-gray-50 hover:bg-gray-100 transition-colors cursor-pointer"
                     >
-                      <div className="flex items-center gap-3">
+                      {/* Left side - Visitor ID and timestamp stacked on mobile */}
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 min-w-0 flex-1">
                         <div className="flex items-center gap-2">
-                          <span className="font-mono text-sm font-medium text-gray-700">
-                            {visitor.visitor_id}
+                          <span className="font-mono text-sm font-medium text-gray-700 md:truncate">
+                            {/* Responsive ID display: base=...last4, ≥360px=first4...last4, ≥md=full */}
+                            <span className="hidden md:inline">{visitor.visitor_id}</span>
+                            <span className="hidden min-[360px]:inline md:hidden">
+                              {visitor.visitor_id.slice(0, 4)}...{visitor.visitor_id.slice(-4)}
+                            </span>
+                            <span className="inline min-[360px]:hidden">
+                              ...{visitor.visitor_id.slice(-4)}
+                            </span>
                           </span>
                           <button
                             onClick={(e) => {
                               e.stopPropagation();
                               copyToClipboard(visitor.visitor_id);
                             }}
-                            className="text-gray-400 hover:text-gray-600 transition-colors"
+                            className="text-gray-400 hover:text-gray-600 transition-colors flex-shrink-0"
                             title="Copy visitor ID"
                           >
                             <Copy className="w-3 h-3" />
                           </button>
                         </div>
-                        <span className="text-xs text-gray-500">
+                        <span className="text-xs text-gray-500 w-full text-left sm:w-auto sm:text-left sm:ml-0">
                           {visitor.visit_time}
                         </span>
                       </div>
-                      <div className="flex items-center gap-3">
+                      
+                      {/* Right side - Risk level and chevron */}
+                      <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
                         {/* Risk Level */}
-                        <div className={`border p-1 rounded text-center ${
+                        <div className={`border p-1 rounded text-center min-w-[60px] ${
                           visitor.risk_level >= 80 ? 'border-red-500' : 
                           visitor.risk_level >= 50 ? 'border-orange-500' : 
                           'border-green-500'
@@ -415,7 +425,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                           </p>
                         </div>
                         <ChevronDown 
-                          className={`w-4 h-4 text-gray-400 transition-transform ${
+                          className={`w-4 h-4 text-gray-400 transition-transform flex-shrink-0 ${
                             expandedTabs.has(visitor.visitor_id) ? 'rotate-180' : ''
                           }`} 
                         />
@@ -507,6 +517,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                               </div>
                             </div>
                           </div>
+                          
                           {/* Associated Emails, IP Addresses, and Wallet Addresses */}
                           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                             {/* Associated Emails */}
@@ -610,7 +621,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                               <div className="text-center p-3 bg-gray-50 rounded-lg">
                                 <div className="flex justify-center items-center gap-2 mb-2">
                                   <TokenUSDT size={24} variant="branded" />
-                                  <span className="text-sm font-semibold text-gray-600">USDT</span>
+                                  <span className="hidden min-[410px]:inline text-sm font-semibold text-gray-600">USDT</span>
                                 </div>
                                 <p className="text-lg font-bold text-gray-800">{visitor.rewards?.totalUSDT ?? '0'}</p>
                                 <p className="text-xs text-gray-500">Total Received</p>
@@ -620,7 +631,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                               <div className="text-center p-3 bg-gray-50 rounded-lg">
                                 <div className="flex justify-center items-center gap-2 mb-2">
                                   <TokenETH size={24} variant="branded" />
-                                  <span className="text-sm font-semibold text-gray-600">ETH</span>
+                                  <span className="hidden min-[410px]:inline text-sm font-semibold text-gray-600">ETH</span>
                                 </div>
                                 <p className="text-lg font-bold text-gray-800">{visitor.rewards?.totalETH ?? '0'}</p>
                                 <p className="text-xs text-gray-500">Total Received</p>
@@ -630,7 +641,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                               <div className="text-center p-3 bg-gray-50 rounded-lg">
                                 <div className="flex justify-center items-center gap-2 mb-2">
                                   <TokenSOL size={24} variant="branded" />
-                                  <span className="text-sm font-semibold text-gray-600">SOL</span>
+                                  <span className="hidden min-[410px]:inline text-sm font-semibold text-gray-600">SOL</span>
                                 </div>
                                 <p className="text-lg font-bold text-gray-800">{visitor.rewards?.totalSOL ?? '0'}</p>
                                 <p className="text-xs text-gray-500">Total Received</p>
@@ -643,19 +654,20 @@ const Dashboard: React.FC<DashboardProps> = ({
                                 <Receipt className="text-orange-500 w-3 h-3" /> Recent Reward Transactions
                               </h4>
                                 <div className="max-h-[120px] overflow-y-auto border border-gray-200 rounded-lg">
-                                  <div className="space-y-1 p-2">
+                                  <div className="space-y-1 p-1">
                                     {visitor.rewards?.transactions?.map((transaction: RewardTransaction) => (
                                       <div
                                         key={transaction.id}
-                                        className="flex items-center justify-between p-2 hover:bg-gray-50 rounded cursor-pointer transition-colors"
+                                        className="flex flex-col min-[360px]:flex-row min-[360px]:items-center min-[360px]:justify-between p-2 hover:bg-gray-50 rounded cursor-pointer transition-colors"
                                         onClick={() => copyToClipboard(transaction.txHash)}
                                       >
-                                        <div className="flex items-center gap-2">
+                                        {/* Transaction Hash and Time - Single row on mobile, left side on 360px+ */}
+                                        <div className="flex items-center justify-center gap-2 min-[360px]:justify-start min-[360px]:flex-1">
                                           {transaction.token === 'USDT' && <TokenUSDT size={16} variant="branded" />}
                                           {transaction.token === 'ETH' && <TokenETH size={16} variant="branded" />}
                                           {transaction.token === 'SOL' && <TokenSOL size={16} variant="branded" />}
                                           <span className="text-sm font-mono text-gray-600">
-                                            {transaction.txHash.slice(0, 6)}...{transaction.txHash.slice(-4)}
+                                            {transaction.txHash.slice(0, 4)}...{transaction.txHash.slice(-4)}
                                           </span>
                                           <button
                                             onClick={(e) => { e.stopPropagation(); copyToClipboard(transaction.txHash); }}
@@ -674,10 +686,14 @@ const Dashboard: React.FC<DashboardProps> = ({
                                           >
                                             <ExternalLink className="w-3 h-3" />
                                           </a>
+                                          {/* Time - Only visible on 426px+ screens, positioned after the buttons */}
+                                          <span className="hidden min-[426px]:inline text-xs text-gray-400 ml-4">
+                                            {transaction.timestamp}
+                                          </span>
                                         </div>
-                                        <div className="text-right">
+                                        {/* Amount - Right side on all screen sizes */}
+                                        <div className="flex justify-center min-[360px]:justify-end min-[360px]:flex-shrink-0">
                                           <p className="text-sm font-semibold text-green-600">+{transaction.amount} {transaction.token}</p>
-                                          <p className="text-xs text-gray-400">{transaction.timestamp}</p>
                                         </div>
                                       </div>
                                     ))}

@@ -138,7 +138,7 @@ export default function HeroHome() {
           />
         </div> */}
         <div style={{ position: "relative", zIndex: 2 }}>
-          <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <div className="mx-auto max-w-6xl">
             {/* Hero content */}
             <div className="pt-32 md:pt-40">
               {/* Section header */}
