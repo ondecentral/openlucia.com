@@ -12,7 +12,7 @@ import * as THREE from 'three'; // Import Three.js types
 import { PointerEvent as ReactPointerEvent } from 'react';
 
 import Spline from '@splinetool/react-spline';
-import DashboardDemo from "./dashboard-demo/dashboard-demo";
+import DashboardDemo from "./dashboard-demo";
 
 // Custom hook for scroll animations
 const useScrollAnimation = () => {

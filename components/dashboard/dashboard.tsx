@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
-import { MapPin, ChevronUp, Wallet, Mail, Receipt, TriangleAlert, Copy, Search, ChevronDown, MousePointerClick, Hash, Users, EyeOff, Network, Globe, Info, Eye, Target, Fingerprint, CreditCard, ExternalLink } from 'lucide-react';
-import { VisitorData, Transaction, IPAddress, Wallet as WalletData, RewardTransaction } from './dashboard-seed-data';
+import { MapPin, Wallet, Mail, Receipt, TriangleAlert, Copy, Search, ChevronDown, MousePointerClick, Hash, Users, EyeOff, Network, Globe, Info, Target, Fingerprint, CreditCard, ExternalLink } from 'lucide-react';
+import { VisitorData, Wallet as WalletData, RewardTransaction } from './dashboard-seed-data';
 import MapboxMap from './mapbox-map';
 import {
   TokenETH,
@@ -216,7 +216,7 @@ const Dashboard: React.FC<DashboardProps> = ({
           <>
             {/* Visit Summary - Single Row */}
             <section className="grid grid-cols-2 md:grid-cols-4 align-center border-b border-gray-200">
-              <div className="p-3 border-r border-gray-200 relative">
+              <div className="p-3 border-r border-b md:border-b-0 border-gray-200 relative">
                 <p className="text-xs text-gray-400 font-semibold tracking-wider">TOTAL VISITS</p>
                 <div className="flex justify-center items-center gap-2 mt-1">
                   <Users className="w-5 h-5 text-orange-500" />
@@ -229,7 +229,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                   </div>
                 </div>
               </div>
-              <div className="p-3 border-r border-gray-200 relative">
+              <div className="p-3 md:border-r border-b md:border-b-0 border-gray-200 relative">
                 <p className="text-xs text-gray-400 font-semibold tracking-wider">TOTAL INCOGNITO VISITS</p>
                 <div className="flex justify-center items-center gap-2 mt-1">
                   <EyeOff className="w-5 h-5 text-orange-500" />
@@ -242,7 +242,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                   </div>
                 </div>
               </div>
-              <div className="p-3 border-r border-gray-200 relative">
+              <div className="p-3 border-r md:border-b-0 border-gray-200 relative">
                 <p className="text-xs text-gray-400 font-semibold tracking-wider">TOTAL UNIQUE IP ADDRESSES</p>
                 <div className="flex justify-center items-center gap-2 mt-1">
                   <Network className="w-5 h-5 text-orange-500" />
@@ -272,7 +272,7 @@ const Dashboard: React.FC<DashboardProps> = ({
 
             {/* Lucia Summary - Single Row */}
             <section className="grid grid-cols-2 md:grid-cols-4 align-center border-b border-gray-200">
-              <div className="p-3 border-r border-gray-200 relative">
+              <div className="p-3 border-r border-b md:border-b-0 border-gray-200 relative">
                 <p className="text-xs text-gray-400 font-semibold tracking-wider">TOTAL WALLETS DETECTED</p>
                 <div className="flex justify-center items-center gap-2 mt-1">
                   <Wallet className="w-5 h-5 text-orange-500" />
@@ -285,7 +285,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                   </div>
                 </div>
               </div>
-              <div className="p-3 border-r border-gray-200 relative">
+              <div className="p-3 md:border-r border-b md:border-b-0 border-gray-200 relative">
                 <div className="flex items-center justify-center gap-4">
                   <button
                     onClick={() => navigateRewards('prev')}
@@ -318,7 +318,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                   </div>
                 </div>
               </div>
-              <div className="p-3 border-r border-gray-200 relative">
+              <div className="p-3 border-r md:border-b-0 border-gray-200 relative">
                 <p className="text-xs text-gray-400 font-semibold tracking-wider">TOTAL ADS CLICKED</p>
                 <div className="flex justify-center items-center gap-2 mt-1">
                   <MousePointerClick className="w-5 h-5 text-orange-500" />

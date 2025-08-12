@@ -161,7 +161,7 @@ export const BottomRightPopup: React.FC<PopupProps> = ({ onAccept, onDeny }) => 
       </p>
       <p className="mb-4">
         The best part? <br />
-        <span className="text-orange-400">YOU GET REWARDED WHEN SOMEONE BUYS YOUR DATA!</span>{" "}
+        <span className="text-orange-400">YOU GET REWARDED WHEN SOMEONE LICENSES YOUR DATA!</span>{" "}
       </p>
       
       {/* Terms and Privacy Buttons */}

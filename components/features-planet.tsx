@@ -70,7 +70,7 @@ export default function FeaturesPlanet() {
               <div className="flex flex-col gap-y-4 justify-center mt-8">
                 {/* Button #1 */}
                 <Button
-                  className={`flex h-8 flex-1 items-center gap-2.5 whitespace-nowrap rounded-lg p-6 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-200 ${keyFeature === 1 ? "relative  bg-stone-800 outline outline-stone-700 before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:border before:border-transparent before: before:[mask-composite:exclude_!important] before:[mask:linear-gradient(white_0_0)_padding-box,_linear-gradient(white_0_0)]" : "opacity-65 transition-opacity hover:opacity-90"}`}
+                  className={`flex h-8 flex-1 items-center gap-2.5 whitespace-nowrap rounded-lg p-6 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-200 ${keyFeature === 1 ? "relative  bg-stone-800 outline outline-stone-700 before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:border before:border-transparent before: before:[mask-composite:exclude_!important] before:[mask:linear-gradient(white_0_0)_padding-box,_linear-gradient(white_0_0)]" : "opacity-65 transition-opacity hover:opacity-90 hover:bg-stone-800 hover:outline hover:outline-stone-700"}`}
                   aria-pressed={keyFeature === 1}
                   aria-label="Supported Platforms"
                   onClick={() => setKeyFeature(1)}
@@ -96,7 +96,7 @@ export default function FeaturesPlanet() {
 
                 {/* Button #2 */}
                 <Button
-                  className={`flex h-8 flex-1 items-center gap-2.5 whitespace-nowrap rounded-lg p-6 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-200 ${keyFeature === 2 ? "relative  bg-stone-800 outline outline-stone-700 before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:border before:border-transparent before: before:[mask-composite:exclude_!important] before:[mask:linear-gradient(white_0_0)_padding-box,_linear-gradient(white_0_0)]" : "opacity-65 transition-opacity hover:opacity-90"}`}
+                  className={`flex h-8 flex-1 items-center gap-2.5 whitespace-nowrap rounded-lg p-6 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-200 ${keyFeature === 2 ? "relative  bg-stone-800 outline outline-stone-700 before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:border before:border-transparent before: before:[mask-composite:exclude_!important] before:[mask:linear-gradient(white_0_0)_padding-box,_linear-gradient(white_0_0)]" : "opacity-65 transition-opacity hover:opacity-90 hover:bg-stone-800 hover:outline hover:outline-stone-700"}`}
                   aria-pressed={keyFeature === 2}
                   aria-label="Real-time Metrics"
                   onClick={() => setKeyFeature(2)}
@@ -122,7 +122,7 @@ export default function FeaturesPlanet() {
 
                 {/* Button #3 */}
                 <Button
-                  className={`flex h-8 flex-1 items-center gap-2.5 whitespace-nowrap rounded-lg p-6 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-200 ${keyFeature === 3 ? "relative  bg-stone-800 outline outline-stone-700 before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:border before:border-transparent before: before:[mask-composite:exclude_!important] before:[mask:linear-gradient(white_0_0)_padding-box,_linear-gradient(white_0_0)]" : "opacity-65 transition-opacity hover:opacity-90"}`}
+                  className={`flex h-8 flex-1 items-center gap-2.5 whitespace-nowrap rounded-lg p-6 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-200 ${keyFeature === 3 ? "relative  bg-stone-800 outline outline-stone-700 before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:border before:border-transparent before: before:[mask-composite:exclude_!important] before:[mask:linear-gradient(white_0_0)_padding-box,_linear-gradient(white_0_0)]" : "opacity-65 transition-opacity hover:opacity-90 hover:bg-stone-800 hover:outline hover:outline-stone-700"}`}
                   aria-pressed={keyFeature === 3}
                   aria-label="AI-Driven Insights"
                   onClick={() => setKeyFeature(3)}
