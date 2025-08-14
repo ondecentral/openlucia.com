@@ -1,6 +1,6 @@
 export const metadata = {
-  title: "Home – Lucia Protocol",
-  description: "Web2 & Web3 Ad Attribution Platform",
+  title: "The Web3 Intelligence Layer",
+  description: "Ultimate attribution Platform",
 };
 
 import Hero from "@/components/hero-home";
