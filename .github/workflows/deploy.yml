@@ -147,8 +147,18 @@ jobs:
         role-session-name: GitHub_to_AWS_via_FederatedOIDC
         aws-region: us-east-1
 
-    - name: Sync S3 bucket
-      run: aws s3 sync ./dist s3://${{ secrets.S3_BUCKET_NAME }} --delete
+    # Note: S3 deployment replaced by Amplify
+    # Keep this workflow for testing and manual deployments if needed
+    - name: Archive build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-files
+        path: .next/
+        retention-days: 7
 
-    - name: Invalidate CloudFront cache
-      run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"
+    # Optional: Deploy to S3 for backup or alternative hosting
+    # - name: Sync S3 bucket
+    #   run: aws s3 sync ./.next s3://${{ secrets.S3_BUCKET_NAME }} --delete
+    # 
+    # - name: Invalidate CloudFront cache
+    #   run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"
