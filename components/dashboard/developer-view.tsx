@@ -6,7 +6,7 @@ import CodeBlock from "./code-block";
 const DeveloperView = () => {  
     return (
       // INSTALL INSTRUCTIONS
-      <div className="text-left font-mono text-sm p-6">
+      <div className="text-left font-mono text-sm lg:p-6">
         <div className="mb-6">
           <h3 className="text-lg font-semibold text-gray-800 mb-4">Install the Lucia-Browser-SDK:</h3>
           <CodeBlock code={`$ npm install lucia-sdk

@@ -12,7 +12,7 @@ import * as THREE from 'three'; // Import Three.js types
 import { PointerEvent as ReactPointerEvent } from 'react';
 
 import Spline from '@splinetool/react-spline';
-import DashboardDemo from "./dashboard-demo/dashboard-demo";
+import DashboardDemo from "./dashboard-demo";
 
 // Custom hook for scroll animations
 const useScrollAnimation = () => {
@@ -138,7 +138,7 @@ export default function HeroHome() {
           />
         </div> */}
         <div style={{ position: "relative", zIndex: 2 }}>
-          <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <div className="mx-auto max-w-6xl">
             {/* Hero content */}
             <div className="pt-32 md:pt-40">
               {/* Section header */}

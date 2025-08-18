@@ -143,7 +143,7 @@ export const ConfirmModal: React.FC<{ onBack: () => void }> = ({ onBack }) => (
 
 // Main Popup for when user clicks opt out from the dashboard
 export const BottomRightPopup: React.FC<PopupProps> = ({ onAccept, onDeny }) => (
-  <div className="fixed bottom-4 right-4 bg-gray-900 p-6 rounded-lg shadow-lg text-white z-50 max-w-xl">
+  <div className="fixed bottom-0 right-0 left-0 mx-auto w-full md:bottom-4 md:right-4 md:left-auto md:mx-0 md:w-auto bg-gray-900 p-6 rounded-lg shadow-lg text-white z-50 max-w-xl">
     {/* Header with Logo */}
     <div className="flex items-center justify-center gap-2 mb-4 pb-4 border-b border-gray-700">
       <div className="text-sm text-gray-400">Powered by:</div>
@@ -161,7 +161,7 @@ export const BottomRightPopup: React.FC<PopupProps> = ({ onAccept, onDeny }) => 
       </p>
       <p className="mb-4">
         The best part? <br />
-        <span className="text-orange-400">YOU GET REWARDED WHEN SOMEONE BUYS YOUR DATA!</span>{" "}
+        <span className="text-orange-400">YOU GET REWARDED WHEN SOMEONE LICENSES YOUR DATA!</span>{" "}
       </p>
       
       {/* Terms and Privacy Buttons */}
