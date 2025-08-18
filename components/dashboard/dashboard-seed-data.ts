@@ -391,7 +391,7 @@ export const sampleVisitors: VisitorData[] = [
   // User 1 - Vitalik-like whale (1 ETH wallet)
   {
     visitor_id: 'vBu7Kn9Qm3xLpW8sT2aR',
-    ip_address: '45.142.182.92',
+    ip_address: '***.***2.182.92',
     wallet_address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
     location: 'Zug, Switzerland',
     browser: 'Brave 1.58.0',
@@ -413,7 +413,7 @@ export const sampleVisitors: VisitorData[] = [
     total_visits: 127,
     ip_addresses: [
       {
-        ip: '45.142.182.92',
+        ip: '***.***2.182.92',
         location: 'Zug, Switzerland',
         visits: 127,
         first_seen: '2024-01-01',
@@ -480,7 +480,7 @@ export const sampleVisitors: VisitorData[] = [
   // User 2 - Solana user (2 SOL wallets)
   {
     visitor_id: 'sK4mP9nX2vB7jL5qW8',
-    ip_address: '198.51.100.42',
+    ip_address: '***.***0.100.42',
     wallet_address: 'DYw8jCTfwHNRJhhmFcbXvVDTqWMEVFBX6ZKUmG5CNSKK',
     location: 'Miami, United States',
     browser: 'Chrome 120.0.0',
@@ -502,7 +502,7 @@ export const sampleVisitors: VisitorData[] = [
     total_visits: 89,
     ip_addresses: [
       {
-        ip: '198.51.100.42',
+        ip: '***.***0.100.42',
         location: 'Miami, United States',
         visits: 45,
         first_seen: '2024-11-15',
@@ -510,7 +510,7 @@ export const sampleVisitors: VisitorData[] = [
         vpn_detected: false
       },
       {
-        ip: '203.0.113.77',
+        ip: '***.***3.113.77',
         location: 'New York, United States',
         visits: 28,
         first_seen: '2024-12-01',
@@ -518,7 +518,7 @@ export const sampleVisitors: VisitorData[] = [
         vpn_detected: true
       },
       {
-        ip: '172.16.254.99',
+        ip: '***.***6.254.99',
         location: 'Los Angeles, United States',
         visits: 16,
         first_seen: '2025-01-05',
@@ -598,7 +598,7 @@ export const sampleVisitors: VisitorData[] = [
   // User 3 - Mixed portfolio (1 ETH, 1 SOL)
   {
     visitor_id: 'mX9pL2kN7vB4jQ6wS3',
-    ip_address: '192.0.2.123',
+    ip_address: '***.***2.2.123',
     wallet_address: '0x742d35Cc6634C0532925a3b844Bc8e70d4C9dB8a',
     location: 'London, United Kingdom',
     browser: 'Firefox 121.0',
@@ -620,7 +620,7 @@ export const sampleVisitors: VisitorData[] = [
     total_visits: 156,
     ip_addresses: [
       {
-        ip: '192.0.2.123',
+        ip: '***.***2.2.123',
         location: 'London, United Kingdom',
         visits: 98,
         first_seen: '2024-10-12',
@@ -628,7 +628,7 @@ export const sampleVisitors: VisitorData[] = [
         vpn_detected: true
       },
       {
-        ip: '198.51.100.178',
+        ip: '***.***1.100.178',
         location: 'Manchester, United Kingdom',
         visits: 58,
         first_seen: '2024-11-20',
@@ -710,7 +710,7 @@ export const sampleVisitors: VisitorData[] = [
   // User 4 - Small trader (2 ETH, 3 SOL wallets) - HIGHEST REWARDS
   {
     visitor_id: 'bR0k3nW4ll3t5sY5t3m',
-    ip_address: '203.0.113.42',
+    ip_address: '***.***3.113.42',
     wallet_address: '0x1234567890abcdef1234567890abcdef12345678',
     location: 'Mumbai, India',
     browser: 'Chrome 120.0.0',
@@ -732,7 +732,7 @@ export const sampleVisitors: VisitorData[] = [
     total_visits: 234,
     ip_addresses: [
       {
-        ip: '203.0.113.42',
+        ip: '***.***3.113.42',
         location: 'Mumbai, India',
         visits: 67,
         first_seen: '2024-09-15',
@@ -740,7 +740,7 @@ export const sampleVisitors: VisitorData[] = [
         vpn_detected: true
       },
       {
-        ip: '45.33.32.156',
+        ip: '***.***3.32.156',
         location: 'Tokyo, Japan',
         visits: 45,
         first_seen: '2024-10-20',
@@ -748,7 +748,7 @@ export const sampleVisitors: VisitorData[] = [
         vpn_detected: true
       },
       {
-        ip: '185.199.108.153',
+        ip: '***.***9.108.153',
         location: 'Berlin, Germany',
         visits: 38,
         first_seen: '2024-11-10',
@@ -756,7 +756,7 @@ export const sampleVisitors: VisitorData[] = [
         vpn_detected: true
       },
       {
-        ip: '151.101.1.140',
+        ip: '***.***1.1.140',
         location: 'Sydney, Australia',
         visits: 42,
         first_seen: '2024-12-05',
@@ -764,7 +764,7 @@ export const sampleVisitors: VisitorData[] = [
         vpn_detected: false
       },
       {
-        ip: '104.16.123.96',
+        ip: '***.***6.123.96',
         location: 'São Paulo, Brazil',
         visits: 42,
         first_seen: '2025-01-01',
@@ -888,7 +888,7 @@ export const sampleVisitors: VisitorData[] = [
   // User 5 - Conservative investor (1 ETH, 2 SOL)
   {
     visitor_id: 'cN5vT8mK2pL9jX4qW7',
-    ip_address: '172.217.16.142',
+    ip_address: '***.***7.16.142',
     wallet_address: '0x8B3F5F7a9Cd2B1E4D6C0A8E2F9B3C7D1A4E6F8B2',
     location: 'Singapore',
     browser: 'Safari 17.2',
@@ -910,7 +910,7 @@ export const sampleVisitors: VisitorData[] = [
     total_visits: 45,
     ip_addresses: [
       {
-        ip: '172.217.16.142',
+        ip: '***.***7.16.142',
         location: 'Singapore',
         visits: 38,
         first_seen: '2024-08-20',
@@ -918,7 +918,7 @@ export const sampleVisitors: VisitorData[] = [
         vpn_detected: false
       },
       {
-        ip: '203.208.60.1',
+        ip: '***.***8.60.1',
         location: 'Hong Kong',
         visits: 7,
         first_seen: '2024-12-15',
@@ -1008,7 +1008,7 @@ export const sampleVisitors: VisitorData[] = [
   // User 6 - Solana-only DeFi user (1 SOL wallet)
   {
     visitor_id: 'dF1Us3R5oL4nA8mX2k',
-    ip_address: '104.28.16.96',
+    ip_address: '***.***8.16.96',
     wallet_address: 'FzhYvM3NKXrqmQJHB8TpnC4dWyLkG6sE9aV2RjU7iPxN',
     location: 'Amsterdam, Netherlands',
     browser: 'Brave 1.58.0',
@@ -1030,7 +1030,7 @@ export const sampleVisitors: VisitorData[] = [
     total_visits: 198,
     ip_addresses: [
       {
-        ip: '104.28.16.96',
+        ip: '***.***8.16.96',
         location: 'Amsterdam, Netherlands',
         visits: 89,
         first_seen: '2024-07-10',
@@ -1038,7 +1038,7 @@ export const sampleVisitors: VisitorData[] = [
         vpn_detected: true
       },
       {
-        ip: '31.13.72.36',
+        ip: '***.***3.72.36',
         location: 'Frankfurt, Germany',
         visits: 67,
         first_seen: '2024-09-15',
@@ -1046,7 +1046,7 @@ export const sampleVisitors: VisitorData[] = [
         vpn_detected: true
       },
       {
-        ip: '185.60.216.35',
+        ip: '***.***0.216.35',
         location: 'Paris, France',
         visits: 42,
         first_seen: '2024-12-01',
