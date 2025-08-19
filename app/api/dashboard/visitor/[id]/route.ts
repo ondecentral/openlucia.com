@@ -1,11 +1,24 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getVisitorById } from "@/lib/dashboard-service";
+import { getVisitorByIdWithCache } from "@/lib/dashboard-service-cached";
+import {
+  checkRateLimit,
+  AppRouterRateLimitConfigs,
+} from "@/lib/rate-limit-app-router";
 
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> },
 ) {
   try {
+    // Apply rate limiting
+    const rateLimitResponse = await checkRateLimit(
+      request,
+      AppRouterRateLimitConfigs.VISITOR_DETAILS,
+    );
+    if (rateLimitResponse) {
+      return rateLimitResponse;
+    }
+
     const { id: visitorId } = await params;
 
     // Validate visitor ID
@@ -16,8 +29,8 @@ export async function GET(
       );
     }
 
-    // Get visitor data
-    const visitor = await getVisitorById(visitorId);
+    // Get cached visitor data
+    const visitor = await getVisitorByIdWithCache(visitorId);
 
     if (!visitor) {
       return NextResponse.json({ error: "Visitor not found" }, { status: 404 });
@@ -27,6 +40,7 @@ export async function GET(
       success: true,
       data: visitor,
       timestamp: new Date().toISOString(),
+      cached: true, // Indicate this might be cached data
     });
   } catch (error) {
     console.error("Visitor API error:", error);

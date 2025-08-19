@@ -1,8 +1,21 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getVisitors } from "@/lib/dashboard-service";
+import { getVisitorsWithCache } from "@/lib/dashboard-service-cached";
+import {
+  checkRateLimit,
+  AppRouterRateLimitConfigs,
+} from "@/lib/rate-limit-app-router";
 
 export async function GET(request: NextRequest) {
   try {
+    // Apply rate limiting
+    const rateLimitResponse = await checkRateLimit(
+      request,
+      AppRouterRateLimitConfigs.VISITORS,
+    );
+    if (rateLimitResponse) {
+      return rateLimitResponse;
+    }
+
     // Parse query parameters
     const searchParams = request.nextUrl.searchParams;
     const page = parseInt(searchParams.get("page") || "1");
@@ -23,13 +36,14 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // Get visitors data
-    const result = await getVisitors({ page, limit, search });
+    // Get cached visitors data
+    const result = await getVisitorsWithCache({ page, limit, search });
 
     return NextResponse.json({
       success: true,
       data: result,
       timestamp: new Date().toISOString(),
+      cached: true, // Indicate this might be cached data
     });
   } catch (error) {
     console.error("Visitors API error:", error);

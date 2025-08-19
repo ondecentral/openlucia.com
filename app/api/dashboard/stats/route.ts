@@ -1,9 +1,22 @@
-import { NextResponse } from "next/server";
-import { getDashboardStats } from "@/lib/dashboard-service";
+import { NextRequest, NextResponse } from "next/server";
+import { getDashboardStatsWithCache } from "@/lib/dashboard-service-cached";
 import { testConnection } from "@/lib/database";
+import {
+  checkRateLimit,
+  AppRouterRateLimitConfigs,
+} from "@/lib/rate-limit-app-router";
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
+    // Apply rate limiting
+    const rateLimitResponse = await checkRateLimit(
+      request,
+      AppRouterRateLimitConfigs.DASHBOARD,
+    );
+    if (rateLimitResponse) {
+      return rateLimitResponse;
+    }
+
     // Test database connection first
     const connectionTest = await testConnection();
     if (!connectionTest.success) {
@@ -16,14 +29,17 @@ export async function GET() {
       );
     }
 
-    // Get dashboard statistics
-    const stats = await getDashboardStats();
+    // Get cached dashboard statistics
+    const stats = await getDashboardStatsWithCache();
 
-    return NextResponse.json({
+    const response = NextResponse.json({
       success: true,
       data: stats,
       timestamp: new Date().toISOString(),
+      cached: true, // Indicate this might be cached data
     });
+
+    return response;
   } catch (error) {
     console.error("Dashboard stats API error:", error);
     return NextResponse.json(
