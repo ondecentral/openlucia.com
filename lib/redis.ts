@@ -65,7 +65,7 @@ export class RedisCache {
    */
   static async set(
     key: string,
-    value: any,
+    value: unknown,
     ttlSeconds: number = 300,
   ): Promise<boolean> {
     try {

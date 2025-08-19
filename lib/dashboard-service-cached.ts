@@ -1,4 +1,4 @@
-import { query, getClientId } from "./database";
+import { getClientId } from "./database";
 import { RedisCache, CacheKeys } from "./redis";
 import {
   DashboardStats,

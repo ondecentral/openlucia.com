@@ -34,9 +34,9 @@ export function getPool(): Pool {
 /**
  * Execute a database query with automatic client management
  */
-export async function query<T extends QueryResultRow = any>(
+export async function query<T extends QueryResultRow = QueryResultRow>(
   text: string,
-  params?: any[],
+  params?: unknown[],
 ): Promise<QueryResult<T>> {
   const pool = getPool();
 

@@ -148,29 +148,34 @@ export function useVisitors(
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
 
-  const loadVisitors = async (newOptions = options) => {
-    setLoading(true);
-    setError(null);
-    try {
-      const data = await fetchVisitors(newOptions);
-      setVisitors(data.visitors);
-      setTotal(data.total);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Unknown error");
-    } finally {
-      setLoading(false);
-    }
-  };
+  const { page, limit, search } = options;
+
+  const loadVisitors = React.useCallback(
+    async (newOptions?: typeof options) => {
+      setLoading(true);
+      setError(null);
+      try {
+        const data = await fetchVisitors(newOptions || { page, limit, search });
+        setVisitors(data.visitors);
+        setTotal(data.total);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "Unknown error");
+      } finally {
+        setLoading(false);
+      }
+    },
+    [page, limit, search],
+  );
 
   React.useEffect(() => {
-    loadVisitors(options);
-  }, [options.page, options.limit, options.search]);
+    loadVisitors();
+  }, [loadVisitors]);
 
   return {
     visitors,
     total,
     loading,
     error,
-    reload: () => loadVisitors(options),
+    reload: () => loadVisitors({ page, limit, search }),
   };
 }

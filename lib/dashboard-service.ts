@@ -4,7 +4,6 @@ import {
   PageViewRow,
   ButtonClickRow,
   LuciaUserRow,
-  WalletRow,
   VisitorAggregateRow,
   transformToVisitorData,
   transformToVisitorDataArray,
@@ -158,7 +157,7 @@ export async function getVisitors(
   try {
     // Build search condition
     let searchCondition = "";
-    let searchParams: (string | number)[] = [clientId];
+    const searchParams: (string | number)[] = [clientId];
 
     if (options.search) {
       searchCondition = `

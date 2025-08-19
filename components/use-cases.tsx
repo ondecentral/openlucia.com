@@ -2,49 +2,55 @@
 
 import { useState } from "react";
 import useMasonry from "@/utils/useMasonry";
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 import Link from "@/components/tracked-link";
 
 const use_cases = [
   {
     img: "/images/case_studies/case-study-1.svg",
     title: "Centralized Exchange",
-    subtext: "Some really cool subtext that summarizes centralized exchange goes here.",
+    subtext:
+      "Some really cool subtext that summarizes centralized exchange goes here.",
     link: "https://www.notion.so/lucia-protocol/Lucia-Ad-Attribution-Case-Studies-862e0f534eed441b9478366060a3b22b?pvs=4#9b116da320204e79bfa773f4733108da",
     categories: [1, 2],
   },
   {
     img: "/images/case_studies/case-study-2.png",
     title: "Crypto wallet company",
-    subtext: "Some really cool subtext that summarizes crypto wallet company goes here.",
+    subtext:
+      "Some really cool subtext that summarizes crypto wallet company goes here.",
     link: "https://www.notion.so/lucia-protocol/Lucia-Ad-Attribution-Case-Studies-862e0f534eed441b9478366060a3b22b?pvs=4#1640a26b45f341f1ba3b3b7d17e5d9ce",
     categories: [1, 2, 3, 4, 5],
   },
   {
     img: "/images/case_studies/case-study-3.png",
     title: "De-Fi platform",
-    subtext: "Some really cool subtext that summarizes multi-wallet user tracking goes here.",
+    subtext:
+      "Some really cool subtext that summarizes multi-wallet user tracking goes here.",
     link: "https://www.notion.so/lucia-protocol/Lucia-Ad-Attribution-Case-Studies-862e0f534eed441b9478366060a3b22b?pvs=4#468cb5c5dbcf4526bbbe614280f3f751",
     categories: [1, 2, 3, 4],
   },
   {
     img: "/images/case_studies/case-study-4.png",
     title: "L1 blockchain",
-    subtext: "Some really cool subtext that summarizes multi-wallet user tracking goes here.",
+    subtext:
+      "Some really cool subtext that summarizes multi-wallet user tracking goes here.",
     link: "https://www.notion.so/lucia-protocol/Lucia-Ad-Attribution-Case-Studies-862e0f534eed441b9478366060a3b22b?pvs=4#166aa7098511496d883115ff00365b2e",
     categories: [1, 2, 3],
   },
   {
     img: "/images/case_studies/case-study-5.png",
     title: "Manufacturer using biodegradable PLA",
-    subtext: "Some really cool subtext that summarizes multi-wallet user tracking goes here.",
+    subtext:
+      "Some really cool subtext that summarizes multi-wallet user tracking goes here.",
     link: "https://www.notion.so/lucia-protocol/Lucia-Ad-Attribution-Case-Studies-862e0f534eed441b9478366060a3b22b?pvs=4#1016136c5cc880789b32d055877378e9",
     categories: [1, 4, 5],
   },
   {
     img: "../images/dashboard_img.svg",
     title: "Building a data driven user acquisition method",
-    subtext: "Some really cool subtext that summarizes multi-wallet user tracking goes here.",
+    subtext:
+      "Some really cool subtext that summarizes multi-wallet user tracking goes here.",
     link: "https://www.notion.so/lucia-protocol/Lucia-Ad-Attribution-Case-Studies-862e0f534eed441b9478366060a3b22b?pvs=4#fd0b817f9cc944efb515578f45186a96",
     categories: [1, 2, 5, 6],
   },
@@ -211,9 +217,7 @@ export default function UseCases() {
           >
             {use_cases.map((useCase, index) => (
               <div key={index} className="group">
-                <UseCase useCase={useCase} category={category}>
-                  {useCase.title}
-                </UseCase>
+                <UseCase useCase={useCase} category={category} />
               </div>
             ))}
           </div>
@@ -226,7 +230,6 @@ export default function UseCases() {
 export function UseCase({
   useCase,
   category,
-  children,
 }: {
   useCase: {
     img: string;
@@ -236,7 +239,6 @@ export function UseCase({
     categories: number[];
   };
   category: number;
-  children: React.ReactNode;
 }) {
   return (
     <article
@@ -245,16 +247,14 @@ export function UseCase({
       <div className="flex flex-col gap-4">
         {/* Card title */}
         <header>
-            <span className="text-lg font-medium text-stone-700">
-                {useCase.title}
-            </span>
-            <br />
-            <span className="text-stone-500">
-                {useCase.subtext}
-            </span>
+          <span className="text-lg font-medium text-stone-700">
+            {useCase.title}
+          </span>
+          <br />
+          <span className="text-stone-500">{useCase.subtext}</span>
         </header>
         <div>
-        <Image
+          <Image
             className="inline-flex shrink-0 aspect-video"
             src={useCase.img}
             width={400}
@@ -263,18 +263,16 @@ export function UseCase({
           />
         </div>
         <div className="flex items-center gap-3">
-        <div
-              className="max-w-xs sm:flex sm:max-w-none sm:justify-center"
+          <div className="max-w-xs sm:flex sm:max-w-none sm:justify-center">
+            <Link
+              className="btn w-full outline outline-offset-2 outline-1 outline-slate-300 bg-transparent text-stone-800 shadow hover:drop-shadow-lg hover:outline-4 hover:outline-orange-500 hover:bg-orange-50 sm:ml-4 sm:w-auto"
+              href={useCase.link}
+              target="_blank"
+              aria-label="Learn More Use Case"
             >
-              <Link
-                className="btn w-full outline outline-offset-2 outline-1 outline-slate-300 bg-transparent text-stone-800 shadow hover:drop-shadow-lg hover:outline-4 hover:outline-orange-500 hover:bg-orange-50 sm:ml-4 sm:w-auto"
-                href={useCase.link}
-                target="_blank"
-                aria-label="Learn More Use Case"
-              >
-                Learn more
-              </Link>
-            </div>
+              Learn more
+            </Link>
+          </div>
         </div>
       </div>
     </article>

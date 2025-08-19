@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Logo from "@/public/images/logo.svg";
-import Logo01 from "@/public/images/logo-01.svg";
 import Logo03 from "@/public/images/logo-03.svg";
 import Logo09 from "@/public/images/logo-09.svg";
 import Discord from "@/public/images/discord.svg";

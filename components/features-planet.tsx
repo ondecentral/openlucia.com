@@ -1,14 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-
 import Image from "next/image";
-import PlanetImg from "@/public/images/planet.png";
-import PlanetOverlayImg from "@/public/images/planet-overlay.svg";
-import PlanetTagImg01 from "@/public/images/planet-tag-01.png";
-import PlanetTagImg02 from "@/public/images/planet-tag-02.png";
-import PlanetTagImg03 from "@/public/images/planet-tag-03.png";
-import PlanetTagImg04 from "@/public/images/planet-tag-04.png";
 import Button from "@/components/tracked-button";
 
 export default function FeaturesPlanet() {
@@ -40,7 +33,7 @@ export default function FeaturesPlanet() {
 
   // Conditionally render the img element based on the selected keyFeature
   const currentFeature = keyFeatures.find((feature) =>
-    feature.keyFeature.includes(keyFeature)
+    feature.keyFeature.includes(keyFeature),
   );
 
   return (
@@ -60,10 +53,13 @@ export default function FeaturesPlanet() {
                 // className="text-3xl font-bold text-stone-200 md:text-4xl mb-4"
                 className="animate-[gradient_6s_linear_infinite] bg-[linear-gradient(to_right,theme(colors.orange.300),theme(colors.orange.500),theme(colors.orange.400),theme(colors.orange.500),theme(colors.orange.300))] bg-[length:200%_auto] bg-clip-text pb-4 font-nacelle text-3xl font-semibold text-transparent md:text-4xl"
               >
-                Web3-Centric Marketing Campaigns: Designed with KOLs, DOAs and Protocols in mind
+                Web3-Centric Marketing Campaigns: Designed with KOLs, DOAs and
+                Protocols in mind
               </h2>
               <span className="text-stone-400 text-lg mb-4">
-                Our platform leverages next-level technology to deliver data-driven predictions and trends that keep you ahead of the curve.
+                Our platform leverages next-level technology to deliver
+                data-driven predictions and trends that keep you ahead of the
+                curve.
               </span>
 
               {/* Button container */}
@@ -89,7 +85,9 @@ export default function FeaturesPlanet() {
                       Seamless Integration
                     </span>
                     <span className="text-stone-500 break-words whitespace-normal">
-                      Integration with major social media platforms (e.g. Twitter, Discord, Telegram, LinkedIn, and Google) for comprehensive data collection.
+                      Integration with major social media platforms (e.g.
+                      Twitter, Discord, Telegram, LinkedIn, and Google) for
+                      comprehensive data collection.
                     </span>
                   </div>
                 </Button>
@@ -115,7 +113,9 @@ export default function FeaturesPlanet() {
                       Real-time Metrics
                     </span>
                     <span className="text-stone-500 break-words whitespace-normal">
-                      Comprehensive suite of insights derived from SDK, designed to enhance your understanding of user engagement and conversion metrics.
+                      Comprehensive suite of insights derived from SDK, designed
+                      to enhance your understanding of user engagement and
+                      conversion metrics.
                     </span>
                   </div>
                 </Button>
@@ -141,18 +141,21 @@ export default function FeaturesPlanet() {
                       AI-Driven Insights
                     </span>
                     <span className="text-stone-500 break-words whitespace-normal">
-                      Leverage AI for deeper understanding and optimization of ad campaigns.
+                      Leverage AI for deeper understanding and optimization of
+                      ad campaigns.
                     </span>
                   </div>
-                  </Button>
+                </Button>
               </div>
             </div>
 
             {/* Right Column: Image */}
             <div className="w-full">
-              <img
-                src={currentFeature?.img}
-                alt={currentFeature?.alt}
+              <Image
+                src={currentFeature?.img || ""}
+                alt={currentFeature?.alt || ""}
+                width={600}
+                height={400}
                 className="w-full h-full object-cover"
               />
             </div>
@@ -203,7 +206,8 @@ export default function FeaturesPlanet() {
                 <span>Hybrid Ecosystems</span>
               </h3>
               <p className="text-[15px] text-stone-400">
-                Bridging Web2 and Web3 for unified insights across all ecosystems.
+                Bridging Web2 and Web3 for unified insights across all
+                ecosystems.
               </p>
             </article>
             {/* <article>

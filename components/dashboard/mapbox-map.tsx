@@ -1,20 +1,22 @@
-import React, { useEffect, useRef, useState } from 'react';
-import mapboxgl from 'mapbox-gl';
-import 'mapbox-gl/dist/mapbox-gl.css';
+import React, { useEffect, useRef, useState } from "react";
+import mapboxgl from "mapbox-gl";
+import "mapbox-gl/dist/mapbox-gl.css";
 
 // You'll need to set this in your environment variables
-mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || '';
+mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || "";
 
 interface MapboxMapProps {
   location?: string;
   className?: string;
 }
 
-const MapboxMap: React.FC<MapboxMapProps> = ({ location, className = '' }) => {
+const MapboxMap: React.FC<MapboxMapProps> = ({ location, className = "" }) => {
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<mapboxgl.Map | null>(null);
   const marker = useRef<mapboxgl.Marker | null>(null);
-  const [coordinates, setCoordinates] = useState<[number, number]>([-74.006, 40.7128]); // Default to NYC
+  const [coordinates, setCoordinates] = useState<[number, number]>([
+    -74.006, 40.7128,
+  ]); // Default to NYC
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -35,23 +37,22 @@ const MapboxMap: React.FC<MapboxMapProps> = ({ location, className = '' }) => {
           let response;
           try {
             response = await fetch(
-                `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodedLocation}.json?access_token=${mapboxgl.accessToken}`,
-                {
-                  method: 'GET',
-                  headers: {
-                    'Accept': 'application/json',
-                  },
-                  signal: controller.signal,
-                }
-              );
+              `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodedLocation}.json?access_token=${mapboxgl.accessToken}`,
+              {
+                method: "GET",
+                headers: {
+                  Accept: "application/json",
+                },
+                signal: controller.signal,
+              },
+            );
           } catch (error) {
-
-            console.error('Error in geocoding process:', error);
-            return
+            console.error("Error in geocoding process:", error);
+            return;
           }
-          
+
           clearTimeout(timeoutId);
-          
+
           if (response.ok) {
             const data = await response.json();
             if (data.features && data.features.length > 0) {
@@ -66,8 +67,7 @@ const MapboxMap: React.FC<MapboxMapProps> = ({ location, className = '' }) => {
         } else {
           setCoordinates([-74.006, 40.7128]); // Default to NYC
         }
-
-      } catch (error) {
+      } catch {
         setCoordinates([-74.006, 40.7128]); // Default to NYC
       } finally {
         setIsLoading(false);
@@ -82,7 +82,7 @@ const MapboxMap: React.FC<MapboxMapProps> = ({ location, className = '' }) => {
 
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
-      style: 'mapbox://styles/mapbox/streets-v12',
+      style: "mapbox://styles/mapbox/streets-v12",
       center: coordinates,
       zoom: 15,
       pitch: 60, // More dramatic 3D tilt
@@ -92,47 +92,47 @@ const MapboxMap: React.FC<MapboxMapProps> = ({ location, className = '' }) => {
     });
 
     // Disable telemetry/analytics
-    map.current.on('load', () => {
+    map.current.on("load", () => {
       if (map.current) {
         // Enable 3D buildings
         map.current.addLayer({
-          'id': '3d-buildings',
-          'source': 'composite',
-          'source-layer': 'building',
-          'filter': ['==', 'extrude', 'true'],
-          'type': 'fill-extrusion',
-          'minzoom': 15,
-          'paint': {
-            'fill-extrusion-color': '#aaa',
-            'fill-extrusion-height': [
-              'interpolate',
-              ['linear'],
-              ['zoom'],
+          id: "3d-buildings",
+          source: "composite",
+          "source-layer": "building",
+          filter: ["==", "extrude", "true"],
+          type: "fill-extrusion",
+          minzoom: 15,
+          paint: {
+            "fill-extrusion-color": "#aaa",
+            "fill-extrusion-height": [
+              "interpolate",
+              ["linear"],
+              ["zoom"],
               15,
               0,
               15.05,
-              ['get', 'height']
+              ["get", "height"],
             ],
-            'fill-extrusion-base': [
-              'interpolate',
-              ['linear'],
-              ['zoom'],
+            "fill-extrusion-base": [
+              "interpolate",
+              ["linear"],
+              ["zoom"],
               15,
               0,
               15.05,
-              ['get', 'min_height']
+              ["get", "min_height"],
             ],
-            'fill-extrusion-opacity': 0.8
-          }
+            "fill-extrusion-opacity": 0.8,
+          },
         });
       }
     });
 
     // Add navigation controls
-    map.current.addControl(new mapboxgl.NavigationControl(), 'top-right');
+    map.current.addControl(new mapboxgl.NavigationControl(), "top-right");
 
     // Create marker
-    marker.current = new mapboxgl.Marker({ color: '#f97316' }) // Orange color to match theme
+    marker.current = new mapboxgl.Marker({ color: "#f97316" }) // Orange color to match theme
       .setLngLat(coordinates)
       .addTo(map.current);
 
@@ -147,16 +147,16 @@ const MapboxMap: React.FC<MapboxMapProps> = ({ location, className = '' }) => {
         map.current = null;
       }
     };
-  }, []);
+  }, [coordinates]);
 
   useEffect(() => {
     if (map.current && marker.current && !isLoading) {
       map.current.setCenter(coordinates);
-      map.current.flyTo({ 
-        center: coordinates, 
+      map.current.flyTo({
+        center: coordinates,
         zoom: 15,
         pitch: 60,
-        bearing: 0
+        bearing: 0,
       });
       marker.current.setLngLat(coordinates);
     }
@@ -164,10 +164,17 @@ const MapboxMap: React.FC<MapboxMapProps> = ({ location, className = '' }) => {
 
   if (!mapboxgl.accessToken) {
     return (
-      <div className={`bg-gray-100 flex items-center justify-center ${className}`}>
+      <div
+        className={`bg-gray-100 flex items-center justify-center ${className}`}
+      >
         <div className="text-center p-4">
-          <p className="text-gray-500 text-sm">Mapbox access token not configured</p>
-          <p className="text-gray-400 text-xs">Please set NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN in your environment variables</p>
+          <p className="text-gray-500 text-sm">
+            Mapbox access token not configured
+          </p>
+          <p className="text-gray-400 text-xs">
+            Please set NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN in your environment
+            variables
+          </p>
         </div>
       </div>
     );

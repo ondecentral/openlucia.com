@@ -7,10 +7,168 @@ import {
   sampleVisitors,
 } from "../components/dashboard/dashboard-seed-data";
 
+// Type guards for better type safety
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function isString(value: unknown): value is string {
+  return typeof value === "string";
+}
+
+function isNumber(value: unknown): value is number {
+  return typeof value === "number";
+}
+
+function isBoolean(value: unknown): value is boolean {
+  return typeof value === "boolean";
+}
+
+function isStringArray(value: unknown): value is string[] {
+  return (
+    Array.isArray(value) && value.every((item) => typeof item === "string")
+  );
+}
+
+// Typed interfaces for JSONB structures
+interface WalletJSONBData {
+  walletAddress?: string;
+  walletName?: string;
+  solanaAddress?: string;
+  solWalletName?: string;
+}
+
+interface AgentData {
+  os?: {
+    name?: string;
+    version?: string;
+  };
+  browser?: {
+    name?: string;
+    version?: string;
+    major?: string;
+  };
+}
+
+interface LocationInfo {
+  vpn_detected?: boolean;
+  additional_ips?: Array<{
+    ip?: string;
+    location?: string;
+    visits?: number;
+    first_seen?: string;
+    last_seen?: string;
+    vpn_detected?: boolean;
+  }>;
+}
+
+interface BrowserData {
+  incognito?: boolean;
+  incognito_sessions?: number;
+}
+
+interface DeviceData {
+  touch?: boolean;
+}
+
+interface ScreenData {
+  width?: number;
+  height?: number;
+}
+
+// Safe parsing functions to replace 'as' assertions
+function parseWalletData(data: unknown): WalletJSONBData {
+  if (!isRecord(data)) return {};
+
+  return {
+    walletAddress: isString(data.walletAddress)
+      ? data.walletAddress
+      : undefined,
+    walletName: isString(data.walletName) ? data.walletName : undefined,
+    solanaAddress: isString(data.solanaAddress)
+      ? data.solanaAddress
+      : undefined,
+    solWalletName: isString(data.solWalletName)
+      ? data.solWalletName
+      : undefined,
+  };
+}
+
+function parseAgentData(data: unknown): AgentData {
+  if (!isRecord(data)) return {};
+
+  const osData = isRecord(data.os) ? data.os : {};
+  const browserData = isRecord(data.browser) ? data.browser : {};
+
+  return {
+    os: {
+      name: isString(osData.name) ? osData.name : undefined,
+      version: isString(osData.version) ? osData.version : undefined,
+    },
+    browser: {
+      name: isString(browserData.name) ? browserData.name : undefined,
+      version: isString(browserData.version) ? browserData.version : undefined,
+      major: isString(browserData.major) ? browserData.major : undefined,
+    },
+  };
+}
+
+function parseLocationInfo(data: unknown): LocationInfo {
+  if (!isRecord(data)) return {};
+
+  return {
+    vpn_detected: isBoolean(data.vpn_detected) ? data.vpn_detected : undefined,
+    additional_ips: Array.isArray(data.additional_ips)
+      ? data.additional_ips.map((ip) => ({
+          ip: isRecord(ip) && isString(ip.ip) ? ip.ip : undefined,
+          location:
+            isRecord(ip) && isString(ip.location) ? ip.location : undefined,
+          visits: isRecord(ip) && isNumber(ip.visits) ? ip.visits : undefined,
+          first_seen:
+            isRecord(ip) && isString(ip.first_seen) ? ip.first_seen : undefined,
+          last_seen:
+            isRecord(ip) && isString(ip.last_seen) ? ip.last_seen : undefined,
+          vpn_detected:
+            isRecord(ip) && isBoolean(ip.vpn_detected)
+              ? ip.vpn_detected
+              : undefined,
+        }))
+      : undefined,
+  };
+}
+
+function parseBrowserData(data: unknown): BrowserData {
+  if (!isRecord(data)) return {};
+
+  return {
+    incognito: isBoolean(data.incognito) ? data.incognito : undefined,
+    incognito_sessions: isNumber(data.incognito_sessions)
+      ? data.incognito_sessions
+      : undefined,
+  };
+}
+
+function parseDeviceData(data: unknown): DeviceData {
+  if (!isRecord(data)) return {};
+
+  return {
+    touch: isBoolean(data.touch) ? data.touch : undefined,
+  };
+}
+
+function parseScreenData(data: unknown): ScreenData {
+  if (!isRecord(data)) return {};
+
+  return {
+    width: isNumber(data.width) ? data.width : undefined,
+    height: isNumber(data.height) ? data.height : undefined,
+  };
+}
+
 // Database row interfaces based on schema analysis
 export interface FingerprintRow {
   id: number;
-  data: any; // JSONB
+  data: Record<string, unknown>; // JSONB
   os?: string;
   timezone?: string;
   agent?: string;
@@ -24,17 +182,17 @@ export interface FingerprintRow {
   country?: string;
   city?: string;
   state?: string;
-  location_info?: any; // JSONB
+  location_info?: Record<string, unknown>; // JSONB
   session_id?: string;
   sdk_version?: string;
   origin?: string;
-  device_data?: any; // JSONB
-  screen_data?: any; // JSONB
-  browser_data?: any; // JSONB
-  permissions_data?: any; // JSONB
-  storage_data?: any; // JSONB
-  wallet_data?: any; // JSONB
-  agent_data?: any; // JSONB
+  device_data?: Record<string, unknown>; // JSONB
+  screen_data?: Record<string, unknown>; // JSONB
+  browser_data?: Record<string, unknown>; // JSONB
+  permissions_data?: Record<string, unknown>; // JSONB
+  storage_data?: Record<string, unknown>; // JSONB
+  wallet_data?: Record<string, unknown>; // JSONB
+  agent_data?: Record<string, unknown>; // JSONB
   createdAt: string;
   updatedAt: string;
 }
@@ -66,7 +224,7 @@ export interface ButtonClickRow {
 
 export interface LuciaUserRow {
   id: number;
-  info?: any; // JSONB
+  info?: Record<string, unknown>; // JSONB
   local_storage_hash_id: string;
   user_id?: number;
   unique_hash?: string;
@@ -132,40 +290,38 @@ function calculateRiskLevel(data: {
  * Extract wallet information from JSONB data (Real structure: {walletName, solWalletName, solanaAddress, walletAddress})
  */
 function extractWallets(
-  walletData: any,
+  walletData: unknown,
   walletRows?: WalletRow[],
 ): WalletData[] {
   const wallets: WalletData[] = [];
+  const parsedWalletData = parseWalletData(walletData);
 
-  // From fingerprint wallet_data JSONB (Real structure from database)
-  if (walletData && typeof walletData === "object" && walletData !== null) {
-    // Ethereum wallet
-    if (walletData.walletAddress) {
-      wallets.push({
-        address: walletData.walletAddress,
-        type: walletData.walletName || "Unknown",
-        balance: "0", // Balance not available in fingerprint data
-        ens_domain: "",
-        first_seen: new Date().toISOString(),
-        last_seen: new Date().toISOString(),
-        tokens: [],
-        transactions: [],
-      });
-    }
+  // Ethereum wallet
+  if (parsedWalletData.walletAddress) {
+    wallets.push({
+      address: parsedWalletData.walletAddress,
+      type: parsedWalletData.walletName || "Unknown",
+      balance: "0", // Balance not available in fingerprint data
+      ens_domain: "",
+      first_seen: new Date().toISOString(),
+      last_seen: new Date().toISOString(),
+      tokens: [],
+      transactions: [],
+    });
+  }
 
-    // Solana wallet
-    if (walletData.solanaAddress) {
-      wallets.push({
-        address: walletData.solanaAddress,
-        type: walletData.solWalletName || "Unknown",
-        balance: "0", // Balance not available in fingerprint data
-        ens_domain: "",
-        first_seen: new Date().toISOString(),
-        last_seen: new Date().toISOString(),
-        tokens: [],
-        transactions: [],
-      });
-    }
+  // Solana wallet
+  if (parsedWalletData.solanaAddress) {
+    wallets.push({
+      address: parsedWalletData.solanaAddress,
+      type: parsedWalletData.solWalletName || "Unknown",
+      balance: "0", // Balance not available in fingerprint data
+      ens_domain: "",
+      first_seen: new Date().toISOString(),
+      last_seen: new Date().toISOString(),
+      tokens: [],
+      transactions: [],
+    });
   }
 
   // From separate wallet table
@@ -216,35 +372,21 @@ function obscureIPAddress(ip: string): string {
 /**
  * Parse agent_data JSONB field to extract OS and browser info
  */
-function parseAgentData(agentData: any): {
+function parseAgentDataToInfo(agentData: unknown): {
   os: string;
   osVersion: string;
   browser: string;
   browserVersion: string;
 } {
-  const defaultResponse = {
-    os: "Unknown",
-    osVersion: "Unknown",
-    browser: "Unknown",
-    browserVersion: "Unknown",
+  const parsed = parseAgentData(agentData);
+
+  return {
+    os: parsed.os?.name || "Unknown",
+    osVersion: parsed.os?.version || "Unknown",
+    browser: parsed.browser?.name || "Unknown",
+    browserVersion:
+      parsed.browser?.version || parsed.browser?.major || "Unknown",
   };
-
-  if (!agentData || typeof agentData !== "object") {
-    return defaultResponse;
-  }
-
-  try {
-    const os = agentData.os?.name || "Unknown";
-    const osVersion = agentData.os?.version || "Unknown";
-    const browser = agentData.browser?.name || "Unknown";
-    const browserVersion =
-      agentData.browser?.version || agentData.browser?.major || "Unknown";
-
-    return { os, osVersion, browser, browserVersion };
-  } catch (error) {
-    console.warn("Error parsing agent_data:", error);
-    return defaultResponse;
-  }
 }
 
 /**
@@ -285,6 +427,7 @@ function getMockWalletDataForDemo(visitorIndex: number): {
  */
 function extractIPAddresses(fingerprint: FingerprintRow): IPAddress[] {
   const ips: IPAddress[] = [];
+  const locationInfo = parseLocationInfo(fingerprint.location_info);
 
   // Primary IP from fingerprint (obscured for privacy)
   if (fingerprint.ip) {
@@ -297,15 +440,15 @@ function extractIPAddresses(fingerprint: FingerprintRow): IPAddress[] {
       visits: 1, // We'd need additional queries to get visit count per IP
       first_seen: fingerprint.createdAt,
       last_seen: fingerprint.updatedAt,
-      vpn_detected: fingerprint.location_info?.vpn_detected || false,
+      vpn_detected: locationInfo.vpn_detected || false,
     });
   }
 
   // Additional IPs from location_info JSONB
-  if (fingerprint.location_info?.additional_ips) {
-    fingerprint.location_info.additional_ips.forEach((ipInfo: any) => {
+  if (locationInfo.additional_ips) {
+    locationInfo.additional_ips.forEach((ipInfo) => {
       ips.push({
-        ip: obscureIPAddress(ipInfo.ip),
+        ip: obscureIPAddress(ipInfo.ip || "Unknown"),
         location: ipInfo.location || "Unknown",
         visits: ipInfo.visits || 1,
         first_seen: ipInfo.first_seen || fingerprint.createdAt,
@@ -371,31 +514,34 @@ export function transformToVisitorData(
     wallets: walletRows,
   } = aggregate;
 
-  // Extract data from JSONB fields (real structure from database)
-  const deviceData = fingerprint.device_data || {};
-  const browserData = fingerprint.browser_data || {};
+  // Extract data from JSONB fields (real structure from database) using safe parsing
+  const deviceData = parseDeviceData(fingerprint.device_data);
+  const browserData = parseBrowserData(fingerprint.browser_data);
   const walletData = fingerprint.wallet_data;
-  const locationInfo = fingerprint.location_info || {};
-  const screenData = fingerprint.data?.screen || {};
+  const locationInfo = parseLocationInfo(fingerprint.location_info);
+  const screenData = parseScreenData(fingerprint.data?.screen);
 
   // Parse agent_data for proper OS and browser info
-  const agentInfo = parseAgentData(fingerprint.agent_data);
+  const agentInfo = parseAgentDataToInfo(fingerprint.agent_data);
 
   // Get mock wallet data for demo (spread across visitors)
   const mockWalletData = getMockWalletDataForDemo(visitorIndex);
 
   // Determine device type from device capabilities and screen size
-  const getDeviceType = () => {
+  const getDeviceType = (): string => {
     if (deviceData.touch) return "Mobile";
-    if (screenData.width && screenData.width < 768) return "Mobile";
-    if (screenData.width && screenData.width < 1024) return "Tablet";
+
+    const width = screenData.width || 0;
+    if (width < 768) return "Mobile";
+    if (width < 1024) return "Tablet";
     return "Computer";
   };
 
   // Calculate metrics
   const realWallets = extractWallets(walletData, walletRows);
+  const parsedWalletData = parseWalletData(walletData);
   const hasRealWallet =
-    walletData && (walletData.walletAddress || walletData.solanaAddress);
+    parsedWalletData.walletAddress || parsedWalletData.solanaAddress;
   const wallets = hasRealWallet ? realWallets : mockWalletData.wallets; // Use mock data if no real wallet
   const ipAddresses = extractIPAddresses(fingerprint);
   const incognitoSessions =
@@ -461,7 +607,11 @@ export function transformToVisitorData(
       ? wallets[0]?.ens_domain || ""
       : mockWalletData.ensDomain,
     associated_emails: hasRealWallet
-      ? lucia_user?.info?.emails || []
+      ? lucia_user?.info &&
+        isRecord(lucia_user.info) &&
+        isStringArray(lucia_user.info.emails)
+        ? lucia_user.info.emails
+        : []
       : mockWalletData.associatedEmails,
     transactions: hasRealWallet
       ? generateMockTransactions()
