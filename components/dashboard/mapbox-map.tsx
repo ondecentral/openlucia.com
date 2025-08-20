@@ -1,22 +1,24 @@
-import React, { useEffect, useRef, useState } from "react";
-import mapboxgl from "mapbox-gl";
-import "mapbox-gl/dist/mapbox-gl.css";
+import React, { useEffect, useRef, useState } from 'react';
+import mapboxgl from 'mapbox-gl';
+import 'mapbox-gl/dist/mapbox-gl.css';
 
 // You'll need to set this in your environment variables
-mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || "";
+mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || '';
 
 interface MapboxMapProps {
   location?: string;
   className?: string;
+  circleRadius?: number; // Radius in meters for the location circle
 }
 
-const MapboxMap: React.FC<MapboxMapProps> = ({ location, className = "" }) => {
+const MapboxMap: React.FC<MapboxMapProps> = ({
+  location,
+  className = '',
+  circleRadius = 500, // Default 500 meter radius
+}) => {
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<mapboxgl.Map | null>(null);
-  const marker = useRef<mapboxgl.Marker | null>(null);
-  const [coordinates, setCoordinates] = useState<[number, number]>([
-    -74.006, 40.7128,
-  ]); // Default to NYC
+  const [coordinates, setCoordinates] = useState<[number, number]>([-74.006, 40.7128]); // Default to NYC
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -39,15 +41,15 @@ const MapboxMap: React.FC<MapboxMapProps> = ({ location, className = "" }) => {
             response = await fetch(
               `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodedLocation}.json?access_token=${mapboxgl.accessToken}`,
               {
-                method: "GET",
+                method: 'GET',
                 headers: {
-                  Accept: "application/json",
+                  Accept: 'application/json',
                 },
                 signal: controller.signal,
-              },
+              }
             );
           } catch (error) {
-            console.error("Error in geocoding process:", error);
+            console.error('Error in geocoding process:', error);
             return;
           }
 
@@ -82,7 +84,7 @@ const MapboxMap: React.FC<MapboxMapProps> = ({ location, className = "" }) => {
 
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
-      style: "mapbox://styles/mapbox/streets-v12",
+      style: 'mapbox://styles/mapbox/streets-v12',
       center: coordinates,
       zoom: 15,
       pitch: 60, // More dramatic 3D tilt
@@ -92,65 +94,122 @@ const MapboxMap: React.FC<MapboxMapProps> = ({ location, className = "" }) => {
     });
 
     // Disable telemetry/analytics
-    map.current.on("load", () => {
+    map.current.on('load', () => {
       if (map.current) {
         // Enable 3D buildings
         map.current.addLayer({
-          id: "3d-buildings",
-          source: "composite",
-          "source-layer": "building",
-          filter: ["==", "extrude", "true"],
-          type: "fill-extrusion",
+          id: '3d-buildings',
+          source: 'composite',
+          'source-layer': 'building',
+          filter: ['==', 'extrude', 'true'],
+          type: 'fill-extrusion',
           minzoom: 15,
           paint: {
-            "fill-extrusion-color": "#aaa",
-            "fill-extrusion-height": [
-              "interpolate",
-              ["linear"],
-              ["zoom"],
+            'fill-extrusion-color': '#aaa',
+            'fill-extrusion-height': [
+              'interpolate',
+              ['linear'],
+              ['zoom'],
               15,
               0,
               15.05,
-              ["get", "height"],
+              ['get', 'height'],
             ],
-            "fill-extrusion-base": [
-              "interpolate",
-              ["linear"],
-              ["zoom"],
+            'fill-extrusion-base': [
+              'interpolate',
+              ['linear'],
+              ['zoom'],
               15,
               0,
               15.05,
-              ["get", "min_height"],
+              ['get', 'min_height'],
             ],
-            "fill-extrusion-opacity": 0.8,
+            'fill-extrusion-opacity': 0.8,
+          },
+        });
+
+        // Add location circle source and layers
+        map.current.addSource('location-circle', {
+          type: 'geojson',
+          data: {
+            type: 'Feature',
+            geometry: {
+              type: 'Point',
+              coordinates: coordinates,
+            },
+            properties: {},
+          },
+        });
+
+        // Add the filled circle layer
+        map.current.addLayer({
+          id: 'location-circle-fill',
+          type: 'circle',
+          source: 'location-circle',
+          paint: {
+            'circle-radius': [
+              'interpolate',
+              ['linear'],
+              ['zoom'],
+              8,
+              circleRadius / 50, // At zoom 8, radius = circleRadius/50 pixels
+              12,
+              circleRadius / 25, // At zoom 12, radius = circleRadius/25 pixels
+              16,
+              circleRadius / 15, // At zoom 16, radius = circleRadius/15 pixels
+              20,
+              circleRadius / 8, // At zoom 20, radius = circleRadius/8 pixels
+            ],
+            'circle-color': '#f97316', // Orange color to match theme
+            'circle-opacity': 0.3,
+            'circle-stroke-width': 2,
+            'circle-stroke-color': '#f97316',
+            'circle-stroke-opacity': 0.8,
+          },
+        });
+
+        // Add a perimeter outline layer for better visibility
+        map.current.addLayer({
+          id: 'location-circle-outline',
+          type: 'circle',
+          source: 'location-circle',
+          paint: {
+            'circle-radius': [
+              'interpolate',
+              ['linear'],
+              ['zoom'],
+              8,
+              circleRadius / 50,
+              12,
+              circleRadius / 25,
+              16,
+              circleRadius / 15,
+              20,
+              circleRadius / 8,
+            ],
+            'circle-color': 'transparent',
+            'circle-stroke-width': 3,
+            'circle-stroke-color': '#ea580c', // Darker orange for perimeter
+            'circle-stroke-opacity': 1,
           },
         });
       }
     });
 
     // Add navigation controls
-    map.current.addControl(new mapboxgl.NavigationControl(), "top-right");
-
-    // Create marker
-    marker.current = new mapboxgl.Marker({ color: "#f97316" }) // Orange color to match theme
-      .setLngLat(coordinates)
-      .addTo(map.current);
+    map.current.addControl(new mapboxgl.NavigationControl(), 'top-right');
 
     // Cleanup function
     return () => {
-      if (marker.current) {
-        marker.current.remove();
-        marker.current = null;
-      }
       if (map.current) {
         map.current.remove();
         map.current = null;
       }
     };
-  }, [coordinates]);
+  }, [coordinates, circleRadius]);
 
   useEffect(() => {
-    if (map.current && marker.current && !isLoading) {
+    if (map.current && !isLoading) {
       map.current.setCenter(coordinates);
       map.current.flyTo({
         center: coordinates,
@@ -158,22 +217,29 @@ const MapboxMap: React.FC<MapboxMapProps> = ({ location, className = "" }) => {
         pitch: 60,
         bearing: 0,
       });
-      marker.current.setLngLat(coordinates);
+
+      // Update the circle source with new coordinates
+      const source = map.current.getSource('location-circle');
+      if (source && source.type === 'geojson') {
+        (source as mapboxgl.GeoJSONSource).setData({
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: coordinates,
+          },
+          properties: {},
+        });
+      }
     }
   }, [coordinates, isLoading]);
 
   if (!mapboxgl.accessToken) {
     return (
-      <div
-        className={`bg-gray-100 flex items-center justify-center ${className}`}
-      >
+      <div className={`bg-gray-100 flex items-center justify-center ${className}`}>
         <div className="text-center p-4">
-          <p className="text-gray-500 text-sm">
-            Mapbox access token not configured
-          </p>
+          <p className="text-gray-500 text-sm">Mapbox access token not configured</p>
           <p className="text-gray-400 text-xs">
-            Please set NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN in your environment
-            variables
+            Please set NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN in your environment variables
           </p>
         </div>
       </div>

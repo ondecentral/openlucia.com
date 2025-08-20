@@ -1,33 +1,27 @@
-"use client";
+'use client';
 
-import { useEffect } from "react";
-import LuciaSDK from "lucia-sdk";
+import { useEffect } from 'react';
+import LuciaSDK from 'lucia-sdk';
 
-import AOS from "aos";
-import "aos/dist/aos.css";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
-import Header from "@/components/ui/header";
-import Footer from "@/components/ui/footer";
-import TwitterPixel from "@/components/TwitterPixel";
-import { trackTwitterConversion } from "@/utils/twitter-tracking";
+import Header from '@/components/ui/header';
+import Footer from '@/components/ui/footer';
+import TwitterPixel from '@/components/TwitterPixel';
+import { trackTwitterConversion } from '@/utils/twitter-tracking';
 
-export default function DefaultLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function DefaultLayout({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     AOS.init({
       once: true,
-      disable: "phone",
+      disable: 'phone',
       duration: 700,
-      easing: "ease-out-cubic",
+      easing: 'ease-out-cubic',
     });
 
     // Track a page view
     LuciaSDK.pageView(window.location.pathname);
-    // Track Twitter conversion
-    trackTwitterConversion();
   }, []);
 
   return (
