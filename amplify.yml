@@ -22,3 +22,10 @@ frontend:
     variables:
       NEXT_TELEMETRY_DISABLED: 1
       NODE_OPTIONS: '--max-old-space-size=4096'
+      # Database
+      DATABASE_URL: $DATABASE_URL
+      CLIENT_ID: $CLIENT_ID
+      # Redis configuration  
+      REDIS_HOST: $REDIS_HOST
+      REDIS_PORT: $REDIS_PORT
+      REDIS_PASSWORD: $REDIS_PASSWORD
