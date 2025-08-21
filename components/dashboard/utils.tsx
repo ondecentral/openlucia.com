@@ -18,6 +18,8 @@ import {
   TokenRAY,
   TokenUSDC,
 } from '@web3icons/react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faApple, faWindows, faLinux, faAndroid } from '@fortawesome/free-brands-svg-icons';
 
 export const getExplorerUrlForAddress = (address: string): string => {
   const isEvm = /^0x[a-fA-F0-9]{40}$/.test(address || '');
@@ -159,5 +161,22 @@ export const getValuationLabel = (usdTotal: number): string => {
       return 'XXL';
     default:
       return 'Unknown';
+  }
+};
+
+export const getOSIcon = (os: string) => {
+  switch (os.toLowerCase()) {
+    case 'macos':
+    case 'ios':
+    case 'ipados':
+      return <FontAwesomeIcon icon={faApple} />; // Apple placeholder
+    case 'windows':
+      return <FontAwesomeIcon icon={faWindows} />; // Windows placeholder
+    case 'linux':
+      return <FontAwesomeIcon icon={faLinux} />; // Linux placeholder
+    case 'android':
+      return <FontAwesomeIcon icon={faAndroid} />; // Android placeholder
+    default:
+      return <span className="text-lg">💻</span>; // Generic placeholder
   }
 };

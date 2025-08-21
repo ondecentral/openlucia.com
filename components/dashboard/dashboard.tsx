@@ -56,7 +56,6 @@ const Dashboard: React.FC<DashboardProps> = ({
   }>({ message: '', visible: false });
   const [expandedTabs, setExpandedTabs] = useState<Set<string>>(new Set());
   const [expandedTokens, setExpandedTokens] = useState<Set<string>>(new Set());
-  const [ipIndex, setIpIndex] = useState<Record<string, number>>({});
   const [walletIndex, setWalletIndex] = useState<Record<string, number>>({});
   const [rewardsIndex, setRewardsIndex] = useState<number>(0);
   const [visitsIndex, setVisitsIndex] = useState<number>(0);
@@ -177,22 +176,6 @@ const Dashboard: React.FC<DashboardProps> = ({
     setExpandedTabs(newExpandedTabs);
   };
 
-  // Navigate through the device history for a visitor with multiple devices
-  const navigateIP = (visitorId: string, direction: 'prev' | 'next') => {
-    const visitor = visitors.find(v => v.visitor_id === visitorId);
-    if (!visitor || visitor.ip_addresses.length <= 1) return;
-
-    const currentIndex = ipIndex[visitorId] || 0;
-    const newIndex =
-      direction === 'next'
-        ? (currentIndex + 1) % visitor.ip_addresses.length
-        : currentIndex === 0
-          ? visitor.ip_addresses.length - 1
-          : currentIndex - 1;
-
-    setIpIndex(prev => ({ ...prev, [visitorId]: newIndex }));
-  };
-
   // Navigate through the wallets details if a visitor has multiple wallets
   const navigateWallet = (visitorId: string, direction: 'prev' | 'next') => {
     const visitor = visitors.find(v => v.visitor_id === visitorId);
@@ -278,11 +261,9 @@ const Dashboard: React.FC<DashboardProps> = ({
                 key={visitor.visitor_id}
                 visitor={visitor}
                 isExpanded={expandedTabs.has(visitor.visitor_id)}
-                ipIndex={ipIndex[visitor.visitor_id] || 0}
                 walletIndex={walletIndex[visitor.visitor_id] || 0}
                 expandedTokens={expandedTokens.has(visitor.visitor_id)}
                 onToggleTab={() => toggleTab(visitor.visitor_id)}
-                onNavigateIP={direction => navigateIP(visitor.visitor_id, direction)}
                 onNavigateWallet={direction => navigateWallet(visitor.visitor_id, direction)}
                 onToggleTokens={() =>
                   setExpandedTokens(prev => {

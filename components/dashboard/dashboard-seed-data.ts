@@ -16,6 +16,23 @@ export interface IPAddress {
   vpn_detected: boolean;
 }
 
+export interface Device {
+  id: string;
+  type: string;
+  device_name: string;
+  os: string;
+  os_version: string;
+  browsers: Array<{
+    name: string;
+    version: string;
+    last_used: string;
+  }>;
+  incognito: boolean;
+  ip_addresses: IPAddress[];
+  first_seen: string;
+  last_seen: string;
+}
+
 interface Token {
   symbol: string;
   amount: string;
@@ -74,6 +91,7 @@ export interface VisitorData {
   ip_addresses: IPAddress[];
   wallets: Wallet[];
   rewards: Rewards;
+  devices: Device[];
 }
 
 // Transaction sets for different users
@@ -476,6 +494,67 @@ export const sampleVisitors: VisitorData[] = [
         },
       ],
     },
+    devices: [
+      {
+        id: 'device_1',
+        type: 'Computer',
+        device_name: 'MacBook Pro',
+        os: 'Linux',
+        os_version: 'Ubuntu 22.04 LTS',
+        browsers: [
+          {
+            name: 'Brave',
+            version: '1.58.0',
+            last_used: '2025-01-20',
+          },
+          {
+            name: 'Firefox',
+            version: '121.0',
+            last_used: '2025-01-19',
+          },
+        ],
+        incognito: false,
+        ip_addresses: [
+          {
+            ip: '***.***2.182.92',
+            location: 'Zug, Switzerland',
+            visits: 127,
+            first_seen: '2024-01-01',
+            last_seen: '2025-01-20',
+            vpn_detected: true,
+          },
+        ],
+        first_seen: '2024-01-01',
+        last_seen: '2025-01-20',
+      },
+      {
+        id: 'device_1b',
+        type: 'Mobile',
+        device_name: 'iPhone 15 Pro',
+        os: 'iOS',
+        os_version: '17.2',
+        browsers: [
+          {
+            name: 'Safari Mobile',
+            version: '17.2',
+            last_used: '2025-01-20',
+          },
+        ],
+        incognito: false,
+        ip_addresses: [
+          {
+            ip: '***.***2.182.93',
+            location: 'Zug, Switzerland',
+            visits: 23,
+            first_seen: '2024-06-15',
+            last_seen: '2025-01-20',
+            vpn_detected: true,
+          },
+        ],
+        first_seen: '2024-06-15',
+        last_seen: '2025-01-20',
+      },
+    ],
   },
 
   // User 2 - Solana user (2 SOL wallets)
@@ -601,6 +680,83 @@ export const sampleVisitors: VisitorData[] = [
         },
       ],
     },
+    devices: [
+      {
+        id: 'device_2',
+        type: 'Computer',
+        device_name: 'MacBook Air',
+        os: 'MacOS',
+        os_version: '14.2 Sonoma',
+        browsers: [
+          {
+            name: 'Chrome',
+            version: '120.0.0',
+            last_used: '2025-01-20',
+          },
+          {
+            name: 'Safari',
+            version: '17.2',
+            last_used: '2025-01-19',
+          },
+        ],
+        incognito: true,
+        ip_addresses: [
+          {
+            ip: '***.***0.100.42',
+            location: 'Miami, United States',
+            visits: 45,
+            first_seen: '2024-11-15',
+            last_seen: '2025-01-20',
+            vpn_detected: false,
+          },
+          {
+            ip: '***.***3.113.77',
+            location: 'New York, United States',
+            visits: 28,
+            first_seen: '2024-12-01',
+            last_seen: '2025-01-18',
+            vpn_detected: true,
+          },
+          {
+            ip: '***.***6.254.99',
+            location: 'Los Angeles, United States',
+            visits: 16,
+            first_seen: '2025-01-05',
+            last_seen: '2025-01-19',
+            vpn_detected: false,
+          },
+        ],
+        first_seen: '2024-11-15',
+        last_seen: '2025-01-20',
+      },
+      {
+        id: 'device_2b',
+        type: 'Tablet',
+        device_name: 'iPad Pro',
+        os: 'iPadOS',
+        os_version: '17.2',
+        browsers: [
+          {
+            name: 'Safari',
+            version: '17.2',
+            last_used: '2025-01-19',
+          },
+        ],
+        incognito: false,
+        ip_addresses: [
+          {
+            ip: '***.***0.100.43',
+            location: 'Miami, United States',
+            visits: 12,
+            first_seen: '2024-12-01',
+            last_seen: '2025-01-19',
+            vpn_detected: false,
+          },
+        ],
+        first_seen: '2024-12-01',
+        last_seen: '2025-01-19',
+      },
+    ],
   },
 
   // User 3 - Mixed portfolio (1 ETH, 1 SOL)
@@ -720,6 +876,48 @@ export const sampleVisitors: VisitorData[] = [
         },
       ],
     },
+    devices: [
+      {
+        id: 'device_3',
+        type: 'Computer',
+        device_name: 'Dell XPS 13',
+        os: 'Windows',
+        os_version: '11 Pro',
+        browsers: [
+          {
+            name: 'Firefox',
+            version: '121.0',
+            last_used: '2025-01-20',
+          },
+          {
+            name: 'Edge',
+            version: '120.0',
+            last_used: '2025-01-18',
+          },
+        ],
+        incognito: false,
+        ip_addresses: [
+          {
+            ip: '***.***2.2.123',
+            location: 'London, United Kingdom',
+            visits: 98,
+            first_seen: '2024-10-12',
+            last_seen: '2025-01-20',
+            vpn_detected: true,
+          },
+          {
+            ip: '***.***1.100.178',
+            location: 'Manchester, United Kingdom',
+            visits: 58,
+            first_seen: '2024-11-20',
+            last_seen: '2025-01-18',
+            vpn_detected: false,
+          },
+        ],
+        first_seen: '2024-10-12',
+        last_seen: '2025-01-20',
+      },
+    ],
   },
 
   // User 4 - Small trader (2 ETH, 3 SOL wallets) - HIGHEST REWARDS
@@ -901,6 +1099,72 @@ export const sampleVisitors: VisitorData[] = [
         },
       ],
     },
+    devices: [
+      {
+        id: 'device_4',
+        type: 'Mobile',
+        device_name: 'Samsung Galaxy S24',
+        os: 'Android',
+        os_version: '14',
+        browsers: [
+          {
+            name: 'Chrome',
+            version: '120.0.0',
+            last_used: '2025-01-20',
+          },
+          {
+            name: 'Samsung Internet',
+            version: '23.0',
+            last_used: '2025-01-19',
+          },
+        ],
+        incognito: true,
+        ip_addresses: [
+          {
+            ip: '***.***3.113.42',
+            location: 'Mumbai, India',
+            visits: 67,
+            first_seen: '2024-09-15',
+            last_seen: '2025-01-20',
+            vpn_detected: true,
+          },
+          {
+            ip: '***.***3.32.156',
+            location: 'Tokyo, Japan',
+            visits: 45,
+            first_seen: '2024-10-20',
+            last_seen: '2025-01-18',
+            vpn_detected: true,
+          },
+          {
+            ip: '***.***9.108.153',
+            location: 'Berlin, Germany',
+            visits: 38,
+            first_seen: '2024-11-10',
+            last_seen: '2025-01-17',
+            vpn_detected: true,
+          },
+          {
+            ip: '***.***1.1.140',
+            location: 'Sydney, Australia',
+            visits: 42,
+            first_seen: '2024-12-05',
+            last_seen: '2025-01-19',
+            vpn_detected: false,
+          },
+          {
+            ip: '***.***6.123.96',
+            location: 'São Paulo, Brazil',
+            visits: 42,
+            first_seen: '2025-01-01',
+            last_seen: '2025-01-20',
+            vpn_detected: true,
+          },
+        ],
+        first_seen: '2024-09-15',
+        last_seen: '2025-01-20',
+      },
+    ],
   },
 
   // User 5 - Conservative investor (1 ETH, 2 SOL)
@@ -1021,6 +1285,43 @@ export const sampleVisitors: VisitorData[] = [
         },
       ],
     },
+    devices: [
+      {
+        id: 'device_5',
+        type: 'Computer',
+        device_name: 'MacBook Pro',
+        os: 'MacOS',
+        os_version: '14.2 Sonoma',
+        browsers: [
+          {
+            name: 'Safari',
+            version: '17.2',
+            last_used: '2025-01-20',
+          },
+        ],
+        incognito: false,
+        ip_addresses: [
+          {
+            ip: '***.***7.16.142',
+            location: 'Singapore',
+            visits: 38,
+            first_seen: '2024-08-20',
+            last_seen: '2025-01-20',
+            vpn_detected: false,
+          },
+          {
+            ip: '***.***8.60.1',
+            location: 'Hong Kong',
+            visits: 7,
+            first_seen: '2024-12-15',
+            last_seen: '2025-01-15',
+            vpn_detected: false,
+          },
+        ],
+        first_seen: '2024-08-20',
+        last_seen: '2025-01-20',
+      },
+    ],
   },
 
   // User 6 - Solana-only DeFi user (1 SOL wallet)
@@ -1144,6 +1445,56 @@ export const sampleVisitors: VisitorData[] = [
         },
       ],
     },
+    devices: [
+      {
+        id: 'device_6',
+        type: 'Computer',
+        device_name: 'MacBook Pro',
+        os: 'Linux',
+        os_version: 'Ubuntu 22.04',
+        browsers: [
+          {
+            name: 'Brave',
+            version: '1.58.0',
+            last_used: '2025-01-20',
+          },
+          {
+            name: 'Firefox',
+            version: '121.0',
+            last_used: '2025-01-19',
+          },
+        ],
+        incognito: true,
+        ip_addresses: [
+          {
+            ip: '***.***8.16.96',
+            location: 'Amsterdam, Netherlands',
+            visits: 89,
+            first_seen: '2024-07-10',
+            last_seen: '2025-01-20',
+            vpn_detected: true,
+          },
+          {
+            ip: '***.***3.72.36',
+            location: 'Frankfurt, Germany',
+            visits: 67,
+            first_seen: '2024-09-15',
+            last_seen: '2025-01-18',
+            vpn_detected: true,
+          },
+          {
+            ip: '***.***0.216.35',
+            location: 'Paris, France',
+            visits: 42,
+            first_seen: '2024-12-01',
+            last_seen: '2025-01-19',
+            vpn_detected: false,
+          },
+        ],
+        first_seen: '2024-07-10',
+        last_seen: '2025-01-20',
+      },
+    ],
   },
 ];
 
