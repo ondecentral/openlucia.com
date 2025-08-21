@@ -107,9 +107,6 @@ const WalletDetailsSection: React.FC<WalletDetailsSectionProps> = ({
             <h3 className="text-base font-semibold text-gray-600 mb-3 flex items-center gap-2">
               <Wallet className="text-orange-500 w-4 h-4" /> Wallet Details
             </h3>
-            <div className="flex items-center ">
-              <span className="text-xl">{getValuationEmoji(getWalletTotalUsd(currentWallet))}</span>
-            </div>
           </div>
 
           <ul className="space-y-2 text-sm">
@@ -172,7 +169,15 @@ const WalletDetailsSection: React.FC<WalletDetailsSectionProps> = ({
               </div>
             </li>
             <li className="flex justify-between items-center">
-              <span className="text-gray-500">Total Value</span>
+              <div>
+                <div className="flex items-center gap-1.5">
+                  <span className="text-gray-500">Total Value</span>
+                  <span className="text-xl">
+                    {getValuationEmoji(getWalletTotalUsd(currentWallet))}
+                  </span>
+                </div>
+              </div>
+
               <span className="font-medium">{calculateTotalValue()}</span>
             </li>
             <li className="flex justify-between items-center">

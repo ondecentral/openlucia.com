@@ -3,17 +3,15 @@ import { VisitorData } from './dashboard-seed-data';
 import VisitorTabHeader from './VisitorTabHeader';
 import VisitorInfoSection from './VisitorInfoSection';
 import RewardsSection from './RewardsSection';
-import DeviceHistorySection from './DeviceHistorySection';
+import DevicesSection from './DevicesSection';
 import WalletDetailsSection from './WalletDetailsSection';
 
 interface VisitorTabProps {
   visitor: VisitorData;
   isExpanded: boolean;
-  ipIndex: number;
   walletIndex: number;
   expandedTokens: boolean;
   onToggleTab: () => void;
-  onNavigateIP: (direction: 'prev' | 'next') => void;
   onNavigateWallet: (direction: 'prev' | 'next') => void;
   onToggleTokens: () => void;
   onCopyToClipboard: (text: string) => void;
@@ -22,11 +20,9 @@ interface VisitorTabProps {
 const VisitorTab: React.FC<VisitorTabProps> = ({
   visitor,
   isExpanded,
-  ipIndex,
   walletIndex,
   expandedTokens,
   onToggleTab,
-  onNavigateIP,
   onNavigateWallet,
   onToggleTokens,
   onCopyToClipboard,
@@ -48,11 +44,7 @@ const VisitorTab: React.FC<VisitorTabProps> = ({
 
           <div className="grid grid-cols-1 lg:grid-cols-2">
             <div className="lg:border-r border-gray-200">
-              <DeviceHistorySection
-                visitor={visitor}
-                ipIndex={ipIndex}
-                onNavigateIP={onNavigateIP}
-              />
+              <DevicesSection visitor={visitor} />
             </div>
 
             <div className="lg:col-span-1">
