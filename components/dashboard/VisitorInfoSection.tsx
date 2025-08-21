@@ -16,7 +16,12 @@ import {
   Globe,
 } from 'lucide-react';
 import { VisitorData } from './dashboard-seed-data';
-import { getExplorerUrlForAddress } from './utils';
+import {
+  getExplorerUrlForAddress,
+  getVisitorTotalUsd,
+  getValuationEmoji,
+  getValuationLabel,
+} from './utils';
 import VisitsCarousel from './VisitsCarousel';
 import DeviceViewsCarousel from './DeviceViewsCarousel';
 import StatCard from './StatCard';
@@ -30,6 +35,7 @@ const VisitorInfoSection: React.FC<VisitorInfoSectionProps> = ({ visitor, onCopy
   const [visitsIndex, setVisitsIndex] = useState<number>(0);
   const [deviceViewsIndex, setDeviceViewsIndex] = useState<number>(0);
 
+  // Visits to be displayed in the visits carousel
   const visits = useMemo(
     () => [
       {
@@ -48,6 +54,7 @@ const VisitorInfoSection: React.FC<VisitorInfoSectionProps> = ({ visitor, onCopy
     [visitor.total_visits, visitor.incognito_sessions]
   );
 
+  // Device views to be displayed in the device views carousel
   const deviceViews = useMemo(
     () => [
       {
@@ -66,6 +73,7 @@ const VisitorInfoSection: React.FC<VisitorInfoSectionProps> = ({ visitor, onCopy
     []
   );
 
+  // Navigate through the visits carousel
   const navigateVisits = (direction: 'prev' | 'next') => {
     setVisitsIndex(current => {
       if (direction === 'next') return (current + 1) % visits.length;
@@ -73,6 +81,7 @@ const VisitorInfoSection: React.FC<VisitorInfoSectionProps> = ({ visitor, onCopy
     });
   };
 
+  // Navigate through the device views carousel
   const navigateDeviceViews = (direction: 'prev' | 'next') => {
     setDeviceViewsIndex(current => {
       if (direction === 'next') return (current + 1) % deviceViews.length;
@@ -81,6 +90,7 @@ const VisitorInfoSection: React.FC<VisitorInfoSectionProps> = ({ visitor, onCopy
   };
   return (
     <>
+      {/* Visits and device views section */}
       <section className="grid grid-cols-2 md:grid-cols-4 align-center border-b border-gray-200">
         <VisitsCarousel currentVisit={visits[visitsIndex]} onNavigate={navigateVisits} />
         <DeviceViewsCarousel
@@ -102,6 +112,7 @@ const VisitorInfoSection: React.FC<VisitorInfoSectionProps> = ({ visitor, onCopy
           className=""
         />
       </section>
+      {/* Wallets, valuation, most active, and IP addresses section */}
       <section className="grid grid-cols-2 md:grid-cols-4 align-center border-b border-gray-200">
         <StatCard
           title="WALLETS"
@@ -111,9 +122,13 @@ const VisitorInfoSection: React.FC<VisitorInfoSectionProps> = ({ visitor, onCopy
         />
         <StatCard
           title="VALUATION"
-          value="🐋"
-          icon={<span className="text-2xl">🐋</span>}
-          tooltip="Whale Status"
+          // value={getValuationEmoji(getVisitorTotalUsd(visitor.wallets))}
+          icon={
+            <span className="text-2xl">
+              {getValuationEmoji(getVisitorTotalUsd(visitor.wallets))}
+            </span>
+          }
+          tooltip={`Wallet valuation: ${getValuationLabel(getVisitorTotalUsd(visitor.wallets))} ($${getVisitorTotalUsd(visitor.wallets).toLocaleString()})`}
           className="border-r md:border-b-0"
         />
         <StatCard
@@ -130,6 +145,102 @@ const VisitorInfoSection: React.FC<VisitorInfoSectionProps> = ({ visitor, onCopy
           tooltip="+3.8% (24h)"
           className=""
         />
+      </section>
+
+      <section className="grid grid-cols-1 md:grid-cols-3 gap-1.5 p-3">
+        <div className="border border-gray-200 rounded-lg p-3">
+          <h3 className="text-base font-semibold text-gray-600 mb-3 flex items-center justify-center gap-2 border-b border-gray-200 pb-2">
+            <Mail className="text-orange-500 w-4 h-4" /> Associated Emails
+          </h3>
+          <div className="space-y-2 max-h-[120px] overflow-y-auto pr-2">
+            {visitor.associated_emails.map((email, index) => (
+              <div
+                key={index}
+                className="flex text-left justify-between p-1 bg-gray-50 rounded hover:bg-gray-100 transition-colors"
+              >
+                <span className="text-sm text-gray-600 truncate flex-1">{email}</span>
+                <button
+                  onClick={() => onCopyToClipboard(email)}
+                  className="text-gray-400 hover:text-gray-600 transition-colors ml-2"
+                  title="Copy email"
+                >
+                  <Copy className="w-3 h-3" />
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="border border-gray-200 rounded-lg p-3">
+          <h3 className="text-base font-semibold text-gray-600 mb-3 flex items-center justify-center gap-2 border-b border-gray-200 pb-2">
+            <MapPin className="text-orange-500 w-4 h-4" /> IP Addresses
+          </h3>
+          <div className="space-y-2 max-h-[120px] overflow-y-auto pr-2">
+            {visitor.ip_addresses.map((ipData, index) => (
+              <div
+                key={index}
+                className="p-1 text-left bg-gray-50 rounded hover:bg-gray-100 transition-colors"
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex-1">
+                    <div className="font-mono text-sm text-gray-600">{ipData.ip}</div>
+                    <div className="text-xs text-gray-400">{ipData.location}</div>
+                  </div>
+                  <button
+                    onClick={() => onCopyToClipboard(ipData.ip)}
+                    className="text-gray-400 hover:text-gray-600 transition-colors ml-2"
+                    title="Copy IP address"
+                  >
+                    <Copy className="w-3 h-3" />
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="border border-gray-200 rounded-lg p-3">
+          <h3 className="text-base font-semibold text-gray-600 mb-3 flex items-center justify-center gap-2 border-b border-gray-200 pb-2">
+            <Wallet className="text-orange-500 w-4 h-4" /> Wallet Addresses
+          </h3>
+          <div className="space-y-2 max-h-[120px] overflow-y-auto pr-2">
+            {visitor.wallets.map((wallet, index) => (
+              <div
+                key={index}
+                className="p-1 text-left bg-gray-50 rounded hover:bg-gray-100 transition-colors"
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex-1">
+                    <div className="font-mono text-sm text-gray-600">
+                      {wallet.address.slice(0, 6)}...{wallet.address.slice(-4)}
+                    </div>
+                    {wallet.ens_domain && (
+                      <div className="text-xs text-orange-500">{wallet.ens_domain}</div>
+                    )}
+                  </div>
+                  <div className="flex items-center">
+                    <button
+                      onClick={() => onCopyToClipboard(wallet.address)}
+                      className="text-gray-400 hover:text-gray-600 transition-colors ml-2"
+                      title="Copy wallet address"
+                    >
+                      <Copy className="w-3 h-3" />
+                    </button>
+                    <a
+                      href={getExplorerUrlForAddress(wallet.address)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-400 hover:text-orange-500 transition-colors ml-2"
+                      title="View on explorer"
+                    >
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </section>
     </>
   );

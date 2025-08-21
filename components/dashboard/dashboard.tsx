@@ -62,6 +62,7 @@ const Dashboard: React.FC<DashboardProps> = ({
   const [visitsIndex, setVisitsIndex] = useState<number>(0);
   const [deviceViewsIndex, setDeviceViewsIndex] = useState<number>(0);
 
+  // Rewards to be displayed in the rewards carousel
   const rewards = useMemo(
     () => [
       {
@@ -83,6 +84,7 @@ const Dashboard: React.FC<DashboardProps> = ({
     [totalUSDTRewards, totalSOLRewards, totalETHRewards]
   );
 
+  // Visits to be displayed in the visits carousel
   const visits = useMemo(
     () => [
       {
@@ -101,6 +103,7 @@ const Dashboard: React.FC<DashboardProps> = ({
     [totalVisits, totalIncognitoVisits]
   );
 
+  // Device views to be displayed in the device views carousel
   const deviceViews = useMemo(
     () => [
       {
@@ -119,6 +122,7 @@ const Dashboard: React.FC<DashboardProps> = ({
     []
   );
 
+  // Navigate through the rewards carousel
   const navigateRewards = (direction: 'prev' | 'next') => {
     setRewardsIndex(current => {
       if (direction === 'next') return (current + 1) % rewards.length;
@@ -126,6 +130,7 @@ const Dashboard: React.FC<DashboardProps> = ({
     });
   };
 
+  // Navigate through the visits carousel
   const navigateVisits = (direction: 'prev' | 'next') => {
     setVisitsIndex(current => {
       if (direction === 'next') return (current + 1) % visits.length;
@@ -133,6 +138,7 @@ const Dashboard: React.FC<DashboardProps> = ({
     });
   };
 
+  // Navigate through the device views carousel
   const navigateDeviceViews = (direction: 'prev' | 'next') => {
     setDeviceViewsIndex(current => {
       if (direction === 'next') return (current + 1) % deviceViews.length;
@@ -140,12 +146,14 @@ const Dashboard: React.FC<DashboardProps> = ({
     });
   };
 
+  // Copy to clipboard
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
     setNotification({ message: 'Copied to clipboard!', visible: true });
     setTimeout(() => setNotification({ message: '', visible: false }), 2000);
   };
 
+  // Filter visitors based on search term
   const filteredVisitors = useMemo(() => {
     if (!searchTerm) return visitors;
 
@@ -158,6 +166,7 @@ const Dashboard: React.FC<DashboardProps> = ({
     );
   }, [visitors, searchTerm]);
 
+  // Toggle the expanded tab for a visitor
   const toggleTab = (visitorId: string) => {
     const newExpandedTabs = new Set(expandedTabs);
     if (newExpandedTabs.has(visitorId)) {
@@ -168,6 +177,7 @@ const Dashboard: React.FC<DashboardProps> = ({
     setExpandedTabs(newExpandedTabs);
   };
 
+  // Navigate through the device history for a visitor with multiple devices
   const navigateIP = (visitorId: string, direction: 'prev' | 'next') => {
     const visitor = visitors.find(v => v.visitor_id === visitorId);
     if (!visitor || visitor.ip_addresses.length <= 1) return;
@@ -183,6 +193,7 @@ const Dashboard: React.FC<DashboardProps> = ({
     setIpIndex(prev => ({ ...prev, [visitorId]: newIndex }));
   };
 
+  // Navigate through the wallets details if a visitor has multiple wallets
   const navigateWallet = (visitorId: string, direction: 'prev' | 'next') => {
     const visitor = visitors.find(v => v.visitor_id === visitorId);
     if (!visitor || visitor.wallets.length <= 1) return;
@@ -208,6 +219,7 @@ const Dashboard: React.FC<DashboardProps> = ({
 
       <div className="bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden">
         <section className="grid grid-cols-2 md:grid-cols-4 align-center border-b border-gray-200">
+          {/* Visits and device views section */}
           <VisitsCarousel currentVisit={visits[visitsIndex]} onNavigate={navigateVisits} />
           <DeviceViewsCarousel
             currentDevice={deviceViews[deviceViewsIndex]}
@@ -229,6 +241,7 @@ const Dashboard: React.FC<DashboardProps> = ({
           />
         </section>
 
+        {/* Stats section */}
         <section className="grid grid-cols-2 md:grid-cols-4 align-center border-b border-gray-200">
           <StatCard
             title="TOTAL WALLETS DETECTED"
@@ -256,6 +269,7 @@ const Dashboard: React.FC<DashboardProps> = ({
 
         <SearchBar searchTerm={searchTerm} onSearchChange={setSearchTerm} />
 
+        {/* Visitors tabs section */}
         <section className="p-3">
           <h2 className="text-xs text-gray-400 font-semibold tracking-wider mb-2">VISITORS</h2>
           <div className="space-y-2">

@@ -66,7 +66,7 @@ export interface VisitorData {
   associated_emails: string[];
   transactions: Transaction[];
   visit_time: string;
-  risk_level: number; 
+  risk_level: number;
   incognito_sessions: number;
   ads_clicked: number;
   click_ids: number;
@@ -84,7 +84,7 @@ const vitalikTransactions: Transaction[] = [
     details: 'CryptoPunk #8857',
     amount: '-42 ETH',
     time: '3 hours ago',
-    positive: false
+    positive: false,
   },
   {
     id: 2,
@@ -92,7 +92,7 @@ const vitalikTransactions: Transaction[] = [
     details: 'From: 0x742...3b8D',
     amount: '+125.5 ETH',
     time: '12 hours ago',
-    positive: true
+    positive: true,
   },
   {
     id: 3,
@@ -100,7 +100,7 @@ const vitalikTransactions: Transaction[] = [
     details: 'Uniswap V3',
     amount: '+8,500,000,000 SHIB',
     time: '1 day ago',
-    positive: true
+    positive: true,
   },
   {
     id: 4,
@@ -108,8 +108,8 @@ const vitalikTransactions: Transaction[] = [
     details: 'vitalik.eth',
     amount: '-0.003 ETH',
     time: '2 days ago',
-    positive: false
-  }
+    positive: false,
+  },
 ];
 
 const solanaWhaleTransactions1: Transaction[] = [
@@ -119,7 +119,7 @@ const solanaWhaleTransactions1: Transaction[] = [
     details: 'Marinade Finance',
     amount: '-5 SOL',
     time: '2 hours ago',
-    positive: false
+    positive: false,
   },
   {
     id: 2,
@@ -127,7 +127,7 @@ const solanaWhaleTransactions1: Transaction[] = [
     details: 'Jupiter Aggregator',
     amount: '+125 USDT',
     time: '5 hours ago',
-    positive: true
+    positive: true,
   },
   {
     id: 3,
@@ -135,7 +135,7 @@ const solanaWhaleTransactions1: Transaction[] = [
     details: 'DeGods #3421',
     amount: '+2.3 SOL',
     time: '1 day ago',
-    positive: true
+    positive: true,
   },
   {
     id: 4,
@@ -143,8 +143,8 @@ const solanaWhaleTransactions1: Transaction[] = [
     details: 'From: 9xK2...mN3p',
     amount: '+8.5 RAY',
     time: '3 days ago',
-    positive: true
-  }
+    positive: true,
+  },
 ];
 
 const solanaWhaleTransactions2: Transaction[] = [
@@ -154,7 +154,7 @@ const solanaWhaleTransactions2: Transaction[] = [
     details: 'Orca DEX',
     amount: '+45 USDC',
     time: '30 min ago',
-    positive: true
+    positive: true,
   },
   {
     id: 2,
@@ -162,7 +162,7 @@ const solanaWhaleTransactions2: Transaction[] = [
     details: 'To: Hx9L...7kP2',
     amount: '-0.15 SOL',
     time: '4 hours ago',
-    positive: false
+    positive: false,
   },
   {
     id: 3,
@@ -170,8 +170,8 @@ const solanaWhaleTransactions2: Transaction[] = [
     details: 'Okay Bears',
     amount: '-0.3 SOL',
     time: '2 days ago',
-    positive: false
-  }
+    positive: false,
+  },
 ];
 
 const mixedUserEthTransactions: Transaction[] = [
@@ -181,7 +181,7 @@ const mixedUserEthTransactions: Transaction[] = [
     details: 'Binance',
     amount: '+250 DOGE',
     time: '1 hour ago',
-    positive: true
+    positive: true,
   },
   {
     id: 2,
@@ -189,7 +189,7 @@ const mixedUserEthTransactions: Transaction[] = [
     details: '1inch',
     amount: '+125 USDT',
     time: '6 hours ago',
-    positive: true
+    positive: true,
   },
   {
     id: 3,
@@ -197,7 +197,7 @@ const mixedUserEthTransactions: Transaction[] = [
     details: 'Azuki #1234',
     amount: '-0.085 ETH',
     time: '1 week ago',
-    positive: false
+    positive: false,
   },
   {
     id: 4,
@@ -205,8 +205,8 @@ const mixedUserEthTransactions: Transaction[] = [
     details: 'LINK/ETH Pool',
     amount: '-1.25 LINK',
     time: '2 weeks ago',
-    positive: false
-  }
+    positive: false,
+  },
 ];
 
 const mixedUserSolTransactions: Transaction[] = [
@@ -216,7 +216,7 @@ const mixedUserSolTransactions: Transaction[] = [
     details: 'Raydium RAY-USDC',
     amount: '+4.5 RAY',
     time: '8 hours ago',
-    positive: true
+    positive: true,
   },
   {
     id: 2,
@@ -224,7 +224,7 @@ const mixedUserSolTransactions: Transaction[] = [
     details: 'Jupiter',
     amount: '+285 USDC',
     time: '1 day ago',
-    positive: true
+    positive: true,
   },
   {
     id: 3,
@@ -232,7 +232,7 @@ const mixedUserSolTransactions: Transaction[] = [
     details: 'SMB Gen2 #892',
     amount: '+0.78 SOL',
     time: '3 days ago',
-    positive: true
+    positive: true,
   },
   {
     id: 4,
@@ -240,8 +240,8 @@ const mixedUserSolTransactions: Transaction[] = [
     details: 'crypto.sol',
     amount: '-20 USDC',
     time: '1 week ago',
-    positive: false
-  }
+    positive: false,
+  },
 ];
 
 const brokeUserTransactions1: Transaction[] = [
@@ -251,7 +251,7 @@ const brokeUserTransactions1: Transaction[] = [
     details: 'Uniswap V2',
     amount: '+1,000 PEPE',
     time: '2 hours ago',
-    positive: true
+    positive: true,
   },
   {
     id: 2,
@@ -259,7 +259,7 @@ const brokeUserTransactions1: Transaction[] = [
     details: 'Insufficient gas',
     amount: '-0.003 ETH',
     time: '3 hours ago',
-    positive: false
+    positive: false,
   },
   {
     id: 3,
@@ -267,8 +267,8 @@ const brokeUserTransactions1: Transaction[] = [
     details: 'From: 0x123...abc',
     amount: '+0.22 USDT',
     time: '2 days ago',
-    positive: true
-  }
+    positive: true,
+  },
 ];
 
 const brokeUserTransactions2: Transaction[] = [
@@ -278,7 +278,7 @@ const brokeUserTransactions2: Transaction[] = [
     details: 'JUP Token',
     amount: '+12 JUP',
     time: '1 day ago',
-    positive: true
+    positive: true,
   },
   {
     id: 2,
@@ -286,7 +286,7 @@ const brokeUserTransactions2: Transaction[] = [
     details: 'To: 8Kx9...mP2n',
     amount: '-0.05 SOL',
     time: '3 days ago',
-    positive: false
+    positive: false,
   },
   {
     id: 3,
@@ -294,8 +294,8 @@ const brokeUserTransactions2: Transaction[] = [
     details: 'Network congestion',
     amount: '-0.01 SOL',
     time: '1 week ago',
-    positive: false
-  }
+    positive: false,
+  },
 ];
 
 const conservativeUserEthTransactions: Transaction[] = [
@@ -305,7 +305,7 @@ const conservativeUserEthTransactions: Transaction[] = [
     details: 'Monthly purchase',
     amount: '+50 USDC',
     time: '1 day ago',
-    positive: true
+    positive: true,
   },
   {
     id: 2,
@@ -313,7 +313,7 @@ const conservativeUserEthTransactions: Transaction[] = [
     details: 'Compound Finance',
     amount: '+1.25 USDT',
     time: '1 week ago',
-    positive: true
+    positive: true,
   },
   {
     id: 3,
@@ -321,8 +321,8 @@ const conservativeUserEthTransactions: Transaction[] = [
     details: 'Contract interaction',
     amount: '-0.02 ETH',
     time: '2 weeks ago',
-    positive: false
-  }
+    positive: false,
+  },
 ];
 
 const conservativeUserSolTransactions: Transaction[] = [
@@ -332,7 +332,7 @@ const conservativeUserSolTransactions: Transaction[] = [
     details: 'RAY rewards',
     amount: '+2.85 RAY',
     time: '12 hours ago',
-    positive: true
+    positive: true,
   },
   {
     id: 2,
@@ -340,7 +340,7 @@ const conservativeUserSolTransactions: Transaction[] = [
     details: 'Lido',
     amount: '+1.25 SOL',
     time: '3 days ago',
-    positive: true
+    positive: true,
   },
   {
     id: 3,
@@ -348,8 +348,8 @@ const conservativeUserSolTransactions: Transaction[] = [
     details: 'Network fee',
     amount: '-0.00025 SOL',
     time: '1 week ago',
-    positive: false
-  }
+    positive: false,
+  },
 ];
 
 const solanaOnlyTransactions: Transaction[] = [
@@ -359,7 +359,7 @@ const solanaOnlyTransactions: Transaction[] = [
     details: 'USDT/USDC',
     amount: '+12.5 USDT',
     time: '30 min ago',
-    positive: true
+    positive: true,
   },
   {
     id: 2,
@@ -367,7 +367,7 @@ const solanaOnlyTransactions: Transaction[] = [
     details: 'RAY-USDC Pool',
     amount: '-5 RAY',
     time: '2 hours ago',
-    positive: false
+    positive: false,
   },
   {
     id: 3,
@@ -375,7 +375,7 @@ const solanaOnlyTransactions: Transaction[] = [
     details: 'Bought 5 Claynosaurz',
     amount: '-1.25 SOL',
     time: '1 day ago',
-    positive: false
+    positive: false,
   },
   {
     id: 4,
@@ -383,8 +383,8 @@ const solanaOnlyTransactions: Transaction[] = [
     details: 'Claimed rewards',
     amount: '+8.53 USDC',
     time: '3 days ago',
-    positive: true
-  }
+    positive: true,
+  },
 ];
 
 export const sampleVisitors: VisitorData[] = [
@@ -418,8 +418,8 @@ export const sampleVisitors: VisitorData[] = [
         visits: 127,
         first_seen: '2024-01-01',
         last_seen: '2025-01-20',
-        vpn_detected: true
-      }
+        vpn_detected: true,
+      },
     ],
     wallets: [
       {
@@ -430,11 +430,11 @@ export const sampleVisitors: VisitorData[] = [
         first_seen: '2024-01-01',
         last_seen: '2025-01-20',
         tokens: [
-          { symbol: 'ETH', amount: '4.7', value: '$10,386,560' },
-          { symbol: 'SHIB', amount: '8,500,000,000', value: '$204,000' }
+          { symbol: 'ETH', amount: '4.7', value: '$19,978' },
+          { symbol: 'SHIB', amount: '8,500,000,000', value: '$105,000' },
         ],
-        transactions: vitalikTransactions
-      }
+        transactions: vitalikTransactions,
+      },
     ],
     rewards: {
       totalUSDT: '15',
@@ -447,7 +447,7 @@ export const sampleVisitors: VisitorData[] = [
           amount: '8',
           value: '$8',
           timestamp: '3 hours ago',
-          txHash: '0x2158291994bc5475aa318fd3df070049406ad800b8021df538b9f8f0e034c57a'
+          txHash: '0x2158291994bc5475aa318fd3df070049406ad800b8021df538b9f8f0e034c57a',
         },
         {
           id: 'tx_2',
@@ -455,7 +455,7 @@ export const sampleVisitors: VisitorData[] = [
           amount: '0.003',
           value: '$9.60',
           timestamp: '2 days ago',
-          txHash: '0x73d034097423d908d823bb488f4a465b3a2fea85a37683058375f12a5e067318'
+          txHash: '0x73d034097423d908d823bb488f4a465b3a2fea85a37683058375f12a5e067318',
         },
         {
           id: 'tx_3',
@@ -463,7 +463,8 @@ export const sampleVisitors: VisitorData[] = [
           amount: '0.06',
           value: '$11.40',
           timestamp: '5 days ago',
-          txHash: '5tTJ1xRUPhhXGCgWAnSXzr14EH5TAJiSQGDwzZNL315v9PM2sVHRsv3nU5qHSv6k6CDA8T8D7f3UP9SW1duYMcLw'
+          txHash:
+            '5tTJ1xRUPhhXGCgWAnSXzr14EH5TAJiSQGDwzZNL315v9PM2sVHRsv3nU5qHSv6k6CDA8T8D7f3UP9SW1duYMcLw',
         },
         {
           id: 'tx_4',
@@ -471,10 +472,10 @@ export const sampleVisitors: VisitorData[] = [
           amount: '7',
           value: '$7',
           timestamp: '1 week ago',
-          txHash: '0xd97394f32333011889e1ec78103df834616001034d12201b8384b816b3d1217d'
-        }
-      ]
-    }
+          txHash: '0xd97394f32333011889e1ec78103df834616001034d12201b8384b816b3d1217d',
+        },
+      ],
+    },
   },
 
   // User 2 - Solana user (2 SOL wallets)
@@ -492,7 +493,12 @@ export const sampleVisitors: VisitorData[] = [
     wallet_type: 'Phantom',
     wallet_balance: '7.5 SOL ($1,425)',
     ens_domain: '',
-    associated_emails: ['solana.trader@protonmail.com', 'defi.whale@gmail.com', 'crypto@tempmail.org', 'anon42@mail.com'],
+    associated_emails: [
+      'solana.trader@protonmail.com',
+      'defi.whale@gmail.com',
+      'crypto@tempmail.org',
+      'anon42@mail.com',
+    ],
     transactions: solanaWhaleTransactions1,
     visit_time: '5 minutes ago',
     risk_level: 45,
@@ -507,7 +513,7 @@ export const sampleVisitors: VisitorData[] = [
         visits: 45,
         first_seen: '2024-11-15',
         last_seen: '2025-01-20',
-        vpn_detected: false
+        vpn_detected: false,
       },
       {
         ip: '***.***3.113.77',
@@ -515,7 +521,7 @@ export const sampleVisitors: VisitorData[] = [
         visits: 28,
         first_seen: '2024-12-01',
         last_seen: '2025-01-18',
-        vpn_detected: true
+        vpn_detected: true,
       },
       {
         ip: '***.***6.254.99',
@@ -523,8 +529,8 @@ export const sampleVisitors: VisitorData[] = [
         visits: 16,
         first_seen: '2025-01-05',
         last_seen: '2025-01-19',
-        vpn_detected: false
-      }
+        vpn_detected: false,
+      },
     ],
     wallets: [
       {
@@ -537,9 +543,9 @@ export const sampleVisitors: VisitorData[] = [
           { symbol: 'SOL', amount: '7.5', value: '$1,425' },
           { symbol: 'USDT', amount: '250', value: '$250' },
           { symbol: 'USDC', amount: '175', value: '$175' },
-          { symbol: 'RAY', amount: '15', value: '$82.50' }
+          { symbol: 'RAY', amount: '15', value: '$82.50' },
         ],
-        transactions: solanaWhaleTransactions1
+        transactions: solanaWhaleTransactions1,
       },
       {
         address: '3yFwqXBfZY4jBVUafQ1YEXw189y2dN3V5KQq9uzBDy1E',
@@ -549,10 +555,10 @@ export const sampleVisitors: VisitorData[] = [
         last_seen: '2025-01-19',
         tokens: [
           { symbol: 'SOL', amount: '2.8', value: '$532' },
-          { symbol: 'USDC', amount: '45', value: '$45' }
+          { symbol: 'USDC', amount: '45', value: '$45' },
         ],
-        transactions: solanaWhaleTransactions2
-      }
+        transactions: solanaWhaleTransactions2,
+      },
     ],
     rewards: {
       totalUSDT: '10',
@@ -565,7 +571,8 @@ export const sampleVisitors: VisitorData[] = [
           amount: '0.05',
           value: '$9.50',
           timestamp: '6 hours ago',
-          txHash: 'iWEYiH78NuGJUM334Z4SmcTWjsyoDUKGSbsykX4A2bQJRSCjzTECSDkCa9xYpFxT1g3EeGuuLLhvE1eQS7LMvyN'
+          txHash:
+            'iWEYiH78NuGJUM334Z4SmcTWjsyoDUKGSbsykX4A2bQJRSCjzTECSDkCa9xYpFxT1g3EeGuuLLhvE1eQS7LMvyN',
         },
         {
           id: 'tx_6',
@@ -573,7 +580,7 @@ export const sampleVisitors: VisitorData[] = [
           amount: '10',
           value: '$10',
           timestamp: '1 day ago',
-          txHash: '0xc2e7404828a8eef22edc3f0dabfbe446567443baf00224e9d907a3b4e37a350a'
+          txHash: '0xc2e7404828a8eef22edc3f0dabfbe446567443baf00224e9d907a3b4e37a350a',
         },
         {
           id: 'tx_7',
@@ -581,7 +588,7 @@ export const sampleVisitors: VisitorData[] = [
           amount: '0.0025',
           value: '$8',
           timestamp: '4 days ago',
-          txHash: '0x78b07a5409ab3aa79c33b9fa3914a61e942682f85199657c50eecf64b5dab8eb'
+          txHash: '0x78b07a5409ab3aa79c33b9fa3914a61e942682f85199657c50eecf64b5dab8eb',
         },
         {
           id: 'tx_8',
@@ -589,10 +596,11 @@ export const sampleVisitors: VisitorData[] = [
           amount: '0.03',
           value: '$5.70',
           timestamp: '1 week ago',
-          txHash: '2Qf2ayHHhFGXpE62Es7U7PvDEe3thd1o92ny3ajCNApCvcLsx6GXKxCMY7tL3gyTevTcrjtTcbi46qt5fDB8aTj3'
-        }
-      ]
-    }
+          txHash:
+            '2Qf2ayHHhFGXpE62Es7U7PvDEe3thd1o92ny3ajCNApCvcLsx6GXKxCMY7tL3gyTevTcrjtTcbi46qt5fDB8aTj3',
+        },
+      ],
+    },
   },
 
   // User 3 - Mixed portfolio (1 ETH, 1 SOL)
@@ -610,7 +618,13 @@ export const sampleVisitors: VisitorData[] = [
     wallet_type: 'Metamask',
     wallet_balance: '0.4 ETH ($1,280)',
     ens_domain: '',
-    associated_emails: ['crypto.investor@gmail.com', 'john.doe@company.com', 'trading@proton.me', 'backup@mail.com', 'newsletter@substack.com'],
+    associated_emails: [
+      'crypto.investor@gmail.com',
+      'john.doe@company.com',
+      'trading@proton.me',
+      'backup@mail.com',
+      'newsletter@substack.com',
+    ],
     transactions: mixedUserEthTransactions,
     visit_time: '47 minutes ago',
     risk_level: 66,
@@ -625,7 +639,7 @@ export const sampleVisitors: VisitorData[] = [
         visits: 98,
         first_seen: '2024-10-12',
         last_seen: '2025-01-20',
-        vpn_detected: true
+        vpn_detected: true,
       },
       {
         ip: '***.***1.100.178',
@@ -633,8 +647,8 @@ export const sampleVisitors: VisitorData[] = [
         visits: 58,
         first_seen: '2024-11-20',
         last_seen: '2025-01-18',
-        vpn_detected: false
-      }
+        vpn_detected: false,
+      },
     ],
     wallets: [
       {
@@ -647,9 +661,9 @@ export const sampleVisitors: VisitorData[] = [
           { symbol: 'ETH', amount: '0.4', value: '$1,280' },
           { symbol: 'USDT', amount: '125', value: '$125' },
           { symbol: 'DOGE', amount: '850', value: '$289' },
-          { symbol: 'LINK', amount: '8', value: '$200' }
+          { symbol: 'LINK', amount: '8', value: '$200' },
         ],
-        transactions: mixedUserEthTransactions
+        transactions: mixedUserEthTransactions,
       },
       {
         address: '7VcwKTeGrCXaJQPzVpFnhjWqJzhpgXMkQJBxKqzCmLv6',
@@ -661,10 +675,10 @@ export const sampleVisitors: VisitorData[] = [
         tokens: [
           { symbol: 'SOL', amount: '4.8', value: '$912' },
           { symbol: 'USDC', amount: '285', value: '$285' },
-          { symbol: 'RAY', amount: '12', value: '$66' }
+          { symbol: 'RAY', amount: '12', value: '$66' },
         ],
-        transactions: mixedUserSolTransactions
-      }
+        transactions: mixedUserSolTransactions,
+      },
     ],
     rewards: {
       totalUSDT: '18',
@@ -677,7 +691,7 @@ export const sampleVisitors: VisitorData[] = [
           amount: '12',
           value: '$12',
           timestamp: '4 hours ago',
-          txHash: '0x2c674dc8f55a6f6b8dc64c9466a184e988cc9cf0fc4cae12a2a2ed5efc46a44d'
+          txHash: '0x2c674dc8f55a6f6b8dc64c9466a184e988cc9cf0fc4cae12a2a2ed5efc46a44d',
         },
         {
           id: 'tx_10',
@@ -685,7 +699,7 @@ export const sampleVisitors: VisitorData[] = [
           amount: '0.004',
           value: '$12.80',
           timestamp: '1 day ago',
-          txHash: '0xffec554c30d5e12022c21c665a7231bceea7aa7597b1addfa61df4e6e049c58c'
+          txHash: '0xffec554c30d5e12022c21c665a7231bceea7aa7597b1addfa61df4e6e049c58c',
         },
         {
           id: 'tx_11',
@@ -693,7 +707,8 @@ export const sampleVisitors: VisitorData[] = [
           amount: '0.10',
           value: '$19',
           timestamp: '3 days ago',
-          txHash: '4RtoGgXu5wb19pQnpbCuhNDiGvkZsvFs5NTdDrVsJHTdP4KcAN4yghPUhQSH37MjQDH5wfRX8S51TVNrgr1FeDga'
+          txHash:
+            '4RtoGgXu5wb19pQnpbCuhNDiGvkZsvFs5NTdDrVsJHTdP4KcAN4yghPUhQSH37MjQDH5wfRX8S51TVNrgr1FeDga',
         },
         {
           id: 'tx_12',
@@ -701,10 +716,10 @@ export const sampleVisitors: VisitorData[] = [
           amount: '6',
           value: '$6',
           timestamp: '5 days ago',
-          txHash: '0xee13a698de247b7a7a81b4f95bc60d8a2d15616338d08645565c100cbeb5561f'
-        }
-      ]
-    }
+          txHash: '0xee13a698de247b7a7a81b4f95bc60d8a2d15616338d08645565c100cbeb5561f',
+        },
+      ],
+    },
   },
 
   // User 4 - Small trader (2 ETH, 3 SOL wallets) - HIGHEST REWARDS
@@ -737,7 +752,7 @@ export const sampleVisitors: VisitorData[] = [
         visits: 67,
         first_seen: '2024-09-15',
         last_seen: '2025-01-20',
-        vpn_detected: true
+        vpn_detected: true,
       },
       {
         ip: '***.***3.32.156',
@@ -745,7 +760,7 @@ export const sampleVisitors: VisitorData[] = [
         visits: 45,
         first_seen: '2024-10-20',
         last_seen: '2025-01-18',
-        vpn_detected: true
+        vpn_detected: true,
       },
       {
         ip: '***.***9.108.153',
@@ -753,7 +768,7 @@ export const sampleVisitors: VisitorData[] = [
         visits: 38,
         first_seen: '2024-11-10',
         last_seen: '2025-01-17',
-        vpn_detected: true
+        vpn_detected: true,
       },
       {
         ip: '***.***1.1.140',
@@ -761,7 +776,7 @@ export const sampleVisitors: VisitorData[] = [
         visits: 42,
         first_seen: '2024-12-05',
         last_seen: '2025-01-19',
-        vpn_detected: false
+        vpn_detected: false,
       },
       {
         ip: '***.***6.123.96',
@@ -769,8 +784,8 @@ export const sampleVisitors: VisitorData[] = [
         visits: 42,
         first_seen: '2025-01-01',
         last_seen: '2025-01-20',
-        vpn_detected: true
-      }
+        vpn_detected: true,
+      },
     ],
     wallets: [
       {
@@ -782,9 +797,9 @@ export const sampleVisitors: VisitorData[] = [
         tokens: [
           { symbol: 'ETH', amount: '0.12', value: '$384' },
           { symbol: 'PEPE', amount: '1,000', value: '$0.019' },
-          { symbol: 'USDT', amount: '0.22', value: '$0.22' }
+          { symbol: 'USDT', amount: '0.22', value: '$0.22' },
         ],
-        transactions: brokeUserTransactions1
+        transactions: brokeUserTransactions1,
       },
       {
         address: '0xabcdef1234567890abcdef1234567890abcdef12',
@@ -795,9 +810,9 @@ export const sampleVisitors: VisitorData[] = [
         tokens: [
           { symbol: 'ETH', amount: '0.095', value: '$304' },
           { symbol: 'DOGE', amount: '10', value: '$3.40' },
-          { symbol: 'SHIB', amount: '50,000', value: '$1.20' }
+          { symbol: 'SHIB', amount: '50,000', value: '$1.20' },
         ],
-        transactions: brokeUserTransactions1
+        transactions: brokeUserTransactions1,
       },
       {
         address: 'BkX9TNxvKmQ2jL5PzRY8nV4wS7aH6DcF3gE1yU9MpCiJ',
@@ -807,9 +822,9 @@ export const sampleVisitors: VisitorData[] = [
         last_seen: '2025-01-19',
         tokens: [
           { symbol: 'SOL', amount: '2.5', value: '$475' },
-          { symbol: 'USDC', amount: '25', value: '$25' }
+          { symbol: 'USDC', amount: '25', value: '$25' },
         ],
-        transactions: brokeUserTransactions2
+        transactions: brokeUserTransactions2,
       },
       {
         address: 'Hy7mKP3nX9vL2Qw5BjR8Ts4Zn6Fc1Gd0Em9Vu8YkLaWx',
@@ -819,9 +834,9 @@ export const sampleVisitors: VisitorData[] = [
         last_seen: '2025-01-17',
         tokens: [
           { symbol: 'SOL', amount: '1.8', value: '$342' },
-          { symbol: 'RAY', amount: '0.5', value: '$2.75' }
+          { symbol: 'RAY', amount: '0.5', value: '$2.75' },
         ],
-        transactions: brokeUserTransactions2
+        transactions: brokeUserTransactions2,
       },
       {
         address: 'Jm4Vx8Kn2Pq9Lr7Ws5Yt3Bn6Hc0Zf1Gd4Ea8Ru7MiNp',
@@ -831,10 +846,10 @@ export const sampleVisitors: VisitorData[] = [
         last_seen: '2025-01-20',
         tokens: [
           { symbol: 'SOL', amount: '3.2', value: '$608' },
-          { symbol: 'USDT', amount: '15', value: '$15' }
+          { symbol: 'USDT', amount: '15', value: '$15' },
         ],
-        transactions: brokeUserTransactions2
-      }
+        transactions: brokeUserTransactions2,
+      },
     ],
     rewards: {
       totalUSDT: '25',
@@ -847,7 +862,7 @@ export const sampleVisitors: VisitorData[] = [
           amount: '15',
           value: '$15',
           timestamp: '1 hour ago',
-          txHash: '0x2c674dc8f55a6f6b8dc64c9466a184e988cc9cf0fc4cae12a2a2ed5efc46a44d'
+          txHash: '0x2c674dc8f55a6f6b8dc64c9466a184e988cc9cf0fc4cae12a2a2ed5efc46a44d',
         },
         {
           id: 'tx_14',
@@ -855,7 +870,8 @@ export const sampleVisitors: VisitorData[] = [
           amount: '0.10',
           value: '$19',
           timestamp: '8 hours ago',
-          txHash: '3hunNQcMfEmjUnjTRnqpJcV5WrjPoc7BDTZZfuPgUMioQvF7GU2Y8UmBWNBQDWAceooxQNcKBBoBkZrkNxmqomkm'
+          txHash:
+            '3hunNQcMfEmjUnjTRnqpJcV5WrjPoc7BDTZZfuPgUMioQvF7GU2Y8UmBWNBQDWAceooxQNcKBBoBkZrkNxmqomkm',
         },
         {
           id: 'tx_15',
@@ -863,7 +879,7 @@ export const sampleVisitors: VisitorData[] = [
           amount: '0.006',
           value: '$19.20',
           timestamp: '2 days ago',
-          txHash: '0x0f61466106fdeca579b693272082451dfb82543bdaa887a1c2b361bd016cdbe0'
+          txHash: '0x0f61466106fdeca579b693272082451dfb82543bdaa887a1c2b361bd016cdbe0',
         },
         {
           id: 'tx_16',
@@ -871,7 +887,8 @@ export const sampleVisitors: VisitorData[] = [
           amount: '10',
           value: '$10',
           timestamp: '4 days ago',
-          txHash: '5Yp1UtGXRxLeDeymskmTpmbsmfeRorCpE5TZcpfADJ9LTENXJPBpokCrP1QhaKn4HWQuzrP7nPrxw42rbeanRmVB'
+          txHash:
+            '5Yp1UtGXRxLeDeymskmTpmbsmfeRorCpE5TZcpfADJ9LTENXJPBpokCrP1QhaKn4HWQuzrP7nPrxw42rbeanRmVB',
         },
         {
           id: 'tx_17',
@@ -879,10 +896,11 @@ export const sampleVisitors: VisitorData[] = [
           amount: '0.05',
           value: '$9.50',
           timestamp: '1 week ago',
-          txHash: '5CBmTthv5M8RVpbesvMWijvwL5DNUiMCsauC1QTyrqAabtWL9M5fNGoDt1FzcN47H19VuDNarNVYW4RuCTGV4iy4'
-        }
-      ]
-    }
+          txHash:
+            '5CBmTthv5M8RVpbesvMWijvwL5DNUiMCsauC1QTyrqAabtWL9M5fNGoDt1FzcN47H19VuDNarNVYW4RuCTGV4iy4',
+        },
+      ],
+    },
   },
 
   // User 5 - Conservative investor (1 ETH, 2 SOL)
@@ -915,7 +933,7 @@ export const sampleVisitors: VisitorData[] = [
         visits: 38,
         first_seen: '2024-08-20',
         last_seen: '2025-01-20',
-        vpn_detected: false
+        vpn_detected: false,
       },
       {
         ip: '***.***8.60.1',
@@ -923,8 +941,8 @@ export const sampleVisitors: VisitorData[] = [
         visits: 7,
         first_seen: '2024-12-15',
         last_seen: '2025-01-15',
-        vpn_detected: false
-      }
+        vpn_detected: false,
+      },
     ],
     wallets: [
       {
@@ -936,9 +954,9 @@ export const sampleVisitors: VisitorData[] = [
         tokens: [
           { symbol: 'ETH', amount: '0.35', value: '$1,120' },
           { symbol: 'USDC', amount: '750', value: '$750' },
-          { symbol: 'USDT', amount: '625', value: '$625' }
+          { symbol: 'USDT', amount: '625', value: '$625' },
         ],
-        transactions: conservativeUserEthTransactions
+        transactions: conservativeUserEthTransactions,
       },
       {
         address: 'Kq8Np3Lm7Vx2Yw5Jt9Rn4Bs6Hc1Zf0Gd8Ea7Wu9MkPx',
@@ -948,9 +966,9 @@ export const sampleVisitors: VisitorData[] = [
         last_seen: '2025-01-19',
         tokens: [
           { symbol: 'SOL', amount: '6.5', value: '$1,235' },
-          { symbol: 'RAY', amount: '25', value: '$137.50' }
+          { symbol: 'RAY', amount: '25', value: '$137.50' },
         ],
-        transactions: conservativeUserSolTransactions
+        transactions: conservativeUserSolTransactions,
       },
       {
         address: 'Nx5Tm8Kp2Vq9Lr7Ws3Yt4Bn6Jc0Hf1Gd4Ma8Eu7RiZx',
@@ -958,11 +976,9 @@ export const sampleVisitors: VisitorData[] = [
         balance: '4.2 SOL ($798)',
         first_seen: '2024-11-25',
         last_seen: '2025-01-18',
-        tokens: [
-          { symbol: 'SOL', amount: '4.2', value: '$798' }
-        ],
-        transactions: conservativeUserSolTransactions
-      }
+        tokens: [{ symbol: 'SOL', amount: '4.2', value: '$798' }],
+        transactions: conservativeUserSolTransactions,
+      },
     ],
     rewards: {
       totalUSDT: '8',
@@ -975,7 +991,7 @@ export const sampleVisitors: VisitorData[] = [
           amount: '5',
           value: '$5',
           timestamp: '12 hours ago',
-          txHash: '0x6422d401a3c12585eaee198e18dcd5f4846abe247249cc7ecd455e46d7fcea2c'
+          txHash: '0x6422d401a3c12585eaee198e18dcd5f4846abe247249cc7ecd455e46d7fcea2c',
         },
         {
           id: 'tx_19',
@@ -983,7 +999,7 @@ export const sampleVisitors: VisitorData[] = [
           amount: '0.002',
           value: '$6.40',
           timestamp: '3 days ago',
-          txHash: '0xaa29c1dbe38bbcff8943ef7766e739840feff8e5ac1307e52eb33917d93c57df'
+          txHash: '0xaa29c1dbe38bbcff8943ef7766e739840feff8e5ac1307e52eb33917d93c57df',
         },
         {
           id: 'tx_20',
@@ -991,7 +1007,8 @@ export const sampleVisitors: VisitorData[] = [
           amount: '0.04',
           value: '$7.60',
           timestamp: '1 week ago',
-          txHash: '3hunNQcMfEmjUnjTRnqpJcV5WrjPoc7BDTZZfuPgUMioQvF7GU2Y8UmBWNBQDWAceooxQNcKBBoBkZrkNxmqomkm'
+          txHash:
+            '3hunNQcMfEmjUnjTRnqpJcV5WrjPoc7BDTZZfuPgUMioQvF7GU2Y8UmBWNBQDWAceooxQNcKBBoBkZrkNxmqomkm',
         },
         {
           id: 'tx_21',
@@ -999,10 +1016,11 @@ export const sampleVisitors: VisitorData[] = [
           amount: '3',
           value: '$3',
           timestamp: '2 weeks ago',
-          txHash: '4Daqs3CF826przQ8kx9ZWQjdwqczPAzPmbX5NBYmx6uf4YT67F1cne5RMgK3XxAHkhGcQiwMsRDWtyYRZEAD2okH'
-        }
-      ]
-    }
+          txHash:
+            '4Daqs3CF826przQ8kx9ZWQjdwqczPAzPmbX5NBYmx6uf4YT67F1cne5RMgK3XxAHkhGcQiwMsRDWtyYRZEAD2okH',
+        },
+      ],
+    },
   },
 
   // User 6 - Solana-only DeFi user (1 SOL wallet)
@@ -1020,7 +1038,13 @@ export const sampleVisitors: VisitorData[] = [
     wallet_type: 'Phantom',
     wallet_balance: '7.8 SOL ($1,482)',
     ens_domain: '',
-    associated_emails: ['defi.expert@protonmail.com', 'yield.farmer@tutanota.com', 'solana@encrypted.email', 'anon.trader@mail.com', 'newsletter@defi.org'],
+    associated_emails: [
+      'defi.expert@protonmail.com',
+      'yield.farmer@tutanota.com',
+      'solana@encrypted.email',
+      'anon.trader@mail.com',
+      'newsletter@defi.org',
+    ],
     transactions: solanaOnlyTransactions,
     visit_time: '3 days ago',
     risk_level: 55,
@@ -1035,7 +1059,7 @@ export const sampleVisitors: VisitorData[] = [
         visits: 89,
         first_seen: '2024-07-10',
         last_seen: '2025-01-20',
-        vpn_detected: true
+        vpn_detected: true,
       },
       {
         ip: '***.***3.72.36',
@@ -1043,7 +1067,7 @@ export const sampleVisitors: VisitorData[] = [
         visits: 67,
         first_seen: '2024-09-15',
         last_seen: '2025-01-18',
-        vpn_detected: true
+        vpn_detected: true,
       },
       {
         ip: '***.***0.216.35',
@@ -1051,8 +1075,8 @@ export const sampleVisitors: VisitorData[] = [
         visits: 42,
         first_seen: '2024-12-01',
         last_seen: '2025-01-19',
-        vpn_detected: false
-      }
+        vpn_detected: false,
+      },
     ],
     wallets: [
       {
@@ -1065,10 +1089,10 @@ export const sampleVisitors: VisitorData[] = [
           { symbol: 'SOL', amount: '7.8', value: '$1,482' },
           { symbol: 'USDT', amount: '450', value: '$450' },
           { symbol: 'USDC', amount: '385', value: '$385' },
-          { symbol: 'RAY', amount: '28', value: '$154' }
+          { symbol: 'RAY', amount: '28', value: '$154' },
         ],
-        transactions: solanaOnlyTransactions
-      }
+        transactions: solanaOnlyTransactions,
+      },
     ],
     rewards: {
       totalUSDT: '14',
@@ -1081,7 +1105,8 @@ export const sampleVisitors: VisitorData[] = [
           amount: '0.08',
           value: '$15.20',
           timestamp: '2 hours ago',
-          txHash: '45vwMa1WDgS1FeaACZQjju3v18JCBZoW81uE3xQ5cEKBH8bhvYGY8bvTSRAe44kXnSjMTJqZJUKdRiQapq3RhTXP'
+          txHash:
+            '45vwMa1WDgS1FeaACZQjju3v18JCBZoW81uE3xQ5cEKBH8bhvYGY8bvTSRAe44kXnSjMTJqZJUKdRiQapq3RhTXP',
         },
         {
           id: 'tx_23',
@@ -1089,7 +1114,7 @@ export const sampleVisitors: VisitorData[] = [
           amount: '8',
           value: '$8',
           timestamp: '1 day ago',
-          txHash: '0xfa88424677dfd396282185b284cc8b61b1f9b2fe59d21957a17db925ddd71a87'
+          txHash: '0xfa88424677dfd396282185b284cc8b61b1f9b2fe59d21957a17db925ddd71a87',
         },
         {
           id: 'tx_24',
@@ -1097,7 +1122,7 @@ export const sampleVisitors: VisitorData[] = [
           amount: '0.0035',
           value: '$11.20',
           timestamp: '2 days ago',
-          txHash: '0xec4b0cfedba722a1f3ad4316bc109ee0a35fc3274a09a65329ed2a3991356c14'
+          txHash: '0xec4b0cfedba722a1f3ad4316bc109ee0a35fc3274a09a65329ed2a3991356c14',
         },
         {
           id: 'tx_25',
@@ -1105,7 +1130,8 @@ export const sampleVisitors: VisitorData[] = [
           amount: '6',
           value: '$6',
           timestamp: '5 days ago',
-          txHash: '45vwMa1WDgS1FeaACZQjju3v18JCBZoW81uE3xQ5cEKBH8bhvYGY8bvTSRAe44kXnSjMTJqZJUKdRiQapq3RhTXP'
+          txHash:
+            '45vwMa1WDgS1FeaACZQjju3v18JCBZoW81uE3xQ5cEKBH8bhvYGY8bvTSRAe44kXnSjMTJqZJUKdRiQapq3RhTXP',
         },
         {
           id: 'tx_26',
@@ -1113,11 +1139,12 @@ export const sampleVisitors: VisitorData[] = [
           amount: '0.04',
           value: '$7.60',
           timestamp: '1 week ago',
-          txHash: '3hQ17U14vqgfmttsC6ruGJKCxiPauHzWsigqNKMkSwHBezVUanE1TyFEyKpexLqJhCUYHciDatksMJrkmxvrMczh'
-        }
-      ]
-    }
-  }
+          txHash:
+            '3hQ17U14vqgfmttsC6ruGJKCxiPauHzWsigqNKMkSwHBezVUanE1TyFEyKpexLqJhCUYHciDatksMJrkmxvrMczh',
+        },
+      ],
+    },
+  },
 ];
 
 export const dashboardStats = {
@@ -1130,5 +1157,5 @@ export const dashboardStats = {
   totalSOLRewards: '6.13',
   totalETHRewards: '0.78',
   totalAdsClicked: 148,
-  totalClickIds: 149
+  totalClickIds: 149,
 };
