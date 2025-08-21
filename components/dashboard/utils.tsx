@@ -1,5 +1,5 @@
 import React from 'react';
-import { Wallet } from 'lucide-react';
+import { Wallet, Smartphone, Tablet, Monitor } from 'lucide-react';
 import {
   TokenETH,
   TokenSOL,
@@ -169,14 +169,26 @@ export const getOSIcon = (os: string) => {
     case 'macos':
     case 'ios':
     case 'ipados':
-      return <FontAwesomeIcon icon={faApple} />; // Apple placeholder
+      return <FontAwesomeIcon icon={faApple} size="lg" />; // Apple placeholder
     case 'windows':
-      return <FontAwesomeIcon icon={faWindows} />; // Windows placeholder
+      return <FontAwesomeIcon icon={faWindows} size="lg" />; // Windows placeholder
     case 'linux':
-      return <FontAwesomeIcon icon={faLinux} />; // Linux placeholder
+      return <FontAwesomeIcon icon={faLinux} size="lg" />; // Linux placeholder
     case 'android':
-      return <FontAwesomeIcon icon={faAndroid} />; // Android placeholder
+      return <FontAwesomeIcon icon={faAndroid} size="lg" />; // Android placeholder
     default:
       return <span className="text-lg">💻</span>; // Generic placeholder
+  }
+};
+
+export const getDeviceIcon = (deviceType: string) => {
+  switch (deviceType.toLowerCase()) {
+    case 'mobile':
+      return <Smartphone className="w-4 h-4 text-orange-500" />;
+    case 'tablet':
+      return <Tablet className="w-4 h-4 text-orange-500" />;
+    case 'computer':
+    default:
+      return <Monitor className="w-4 h-4 text-orange-500" />;
   }
 };

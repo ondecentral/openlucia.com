@@ -19,7 +19,6 @@ export interface IPAddress {
 export interface Device {
   id: string;
   type: string;
-  device_name: string;
   os: string;
   os_version: string;
   browsers: Array<{
@@ -406,158 +405,7 @@ const solanaOnlyTransactions: Transaction[] = [
 ];
 
 export const sampleVisitors: VisitorData[] = [
-  // User 1 - Vitalik-like whale (1 ETH wallet)
-  {
-    visitor_id: 'vBu7Kn9Qm3xLpW8sT2aR',
-    ip_address: '***.***2.182.92',
-    wallet_address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
-    location: 'Zug, Switzerland',
-    browser: 'Brave 1.58.0',
-    device_type: 'Computer',
-    os: 'Linux',
-    os_version: 'Ubuntu 22.04 LTS',
-    incognito: false,
-    vpn: true,
-    wallet_type: 'Ledger',
-    wallet_balance: '4.7 ETH ($10,386,560)',
-    ens_domain: 'vitalik.eth',
-    associated_emails: ['v.buterin@ethereum.org', 'contact@vitalik.ca'],
-    transactions: vitalikTransactions,
-    visit_time: 'Now',
-    risk_level: 15,
-    incognito_sessions: 0,
-    ads_clicked: 2,
-    click_ids: 2,
-    total_visits: 127,
-    ip_addresses: [
-      {
-        ip: '***.***2.182.92',
-        location: 'Zug, Switzerland',
-        visits: 127,
-        first_seen: '2024-01-01',
-        last_seen: '2025-01-20',
-        vpn_detected: true,
-      },
-    ],
-    wallets: [
-      {
-        address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
-        type: 'Ledger',
-        balance: '4.7 ETH ($10,386,560)',
-        ens_domain: 'vitalik.eth',
-        first_seen: '2024-01-01',
-        last_seen: '2025-01-20',
-        tokens: [
-          { symbol: 'ETH', amount: '4.7', value: '$19,978' },
-          { symbol: 'SHIB', amount: '8,500,000,000', value: '$105,000' },
-        ],
-        transactions: vitalikTransactions,
-      },
-    ],
-    rewards: {
-      totalUSDT: '15',
-      totalETH: '0.003',
-      totalSOL: '0.06',
-      transactions: [
-        {
-          id: 'tx_1',
-          token: 'USDT',
-          amount: '8',
-          value: '$8',
-          timestamp: '3 hours ago',
-          txHash: '0x2158291994bc5475aa318fd3df070049406ad800b8021df538b9f8f0e034c57a',
-        },
-        {
-          id: 'tx_2',
-          token: 'ETH',
-          amount: '0.003',
-          value: '$9.60',
-          timestamp: '2 days ago',
-          txHash: '0x73d034097423d908d823bb488f4a465b3a2fea85a37683058375f12a5e067318',
-        },
-        {
-          id: 'tx_3',
-          token: 'SOL',
-          amount: '0.06',
-          value: '$11.40',
-          timestamp: '5 days ago',
-          txHash:
-            '5tTJ1xRUPhhXGCgWAnSXzr14EH5TAJiSQGDwzZNL315v9PM2sVHRsv3nU5qHSv6k6CDA8T8D7f3UP9SW1duYMcLw',
-        },
-        {
-          id: 'tx_4',
-          token: 'USDT',
-          amount: '7',
-          value: '$7',
-          timestamp: '1 week ago',
-          txHash: '0xd97394f32333011889e1ec78103df834616001034d12201b8384b816b3d1217d',
-        },
-      ],
-    },
-    devices: [
-      {
-        id: 'device_1',
-        type: 'Computer',
-        device_name: 'MacBook Pro',
-        os: 'Linux',
-        os_version: 'Ubuntu 22.04 LTS',
-        browsers: [
-          {
-            name: 'Brave',
-            version: '1.58.0',
-            last_used: '2025-01-20',
-          },
-          {
-            name: 'Firefox',
-            version: '121.0',
-            last_used: '2025-01-19',
-          },
-        ],
-        incognito: false,
-        ip_addresses: [
-          {
-            ip: '***.***2.182.92',
-            location: 'Zug, Switzerland',
-            visits: 127,
-            first_seen: '2024-01-01',
-            last_seen: '2025-01-20',
-            vpn_detected: true,
-          },
-        ],
-        first_seen: '2024-01-01',
-        last_seen: '2025-01-20',
-      },
-      {
-        id: 'device_1b',
-        type: 'Mobile',
-        device_name: 'iPhone 15 Pro',
-        os: 'iOS',
-        os_version: '17.2',
-        browsers: [
-          {
-            name: 'Safari Mobile',
-            version: '17.2',
-            last_used: '2025-01-20',
-          },
-        ],
-        incognito: false,
-        ip_addresses: [
-          {
-            ip: '***.***2.182.93',
-            location: 'Zug, Switzerland',
-            visits: 23,
-            first_seen: '2024-06-15',
-            last_seen: '2025-01-20',
-            vpn_detected: true,
-          },
-        ],
-        first_seen: '2024-06-15',
-        last_seen: '2025-01-20',
-      },
-    ],
-  },
-
-  // User 2 - Solana user (2 SOL wallets)
+  // User 1 - Solana user (2 SOL wallets)
   {
     visitor_id: 'sK4mP9nX2vB7jL5qW8',
     ip_address: '***.***0.100.42',
@@ -579,7 +427,7 @@ export const sampleVisitors: VisitorData[] = [
       'anon42@mail.com',
     ],
     transactions: solanaWhaleTransactions1,
-    visit_time: '5 minutes ago',
+    visit_time: 'Now',
     risk_level: 45,
     incognito_sessions: 8,
     ads_clicked: 15,
@@ -684,7 +532,6 @@ export const sampleVisitors: VisitorData[] = [
       {
         id: 'device_2',
         type: 'Computer',
-        device_name: 'MacBook Air',
         os: 'MacOS',
         os_version: '14.2 Sonoma',
         browsers: [
@@ -732,7 +579,6 @@ export const sampleVisitors: VisitorData[] = [
       {
         id: 'device_2b',
         type: 'Tablet',
-        device_name: 'iPad Pro',
         os: 'iPadOS',
         os_version: '17.2',
         browsers: [
@@ -759,168 +605,7 @@ export const sampleVisitors: VisitorData[] = [
     ],
   },
 
-  // User 3 - Mixed portfolio (1 ETH, 1 SOL)
-  {
-    visitor_id: 'mX9pL2kN7vB4jQ6wS3',
-    ip_address: '***.***2.2.123',
-    wallet_address: '0x742d35Cc6634C0532925a3b844Bc8e70d4C9dB8a',
-    location: 'London, United Kingdom',
-    browser: 'Firefox 121.0',
-    device_type: 'Computer',
-    os: 'Windows',
-    os_version: '11 Pro',
-    incognito: false,
-    vpn: true,
-    wallet_type: 'Metamask',
-    wallet_balance: '0.4 ETH ($1,280)',
-    ens_domain: '',
-    associated_emails: [
-      'crypto.investor@gmail.com',
-      'john.doe@company.com',
-      'trading@proton.me',
-      'backup@mail.com',
-      'newsletter@substack.com',
-    ],
-    transactions: mixedUserEthTransactions,
-    visit_time: '47 minutes ago',
-    risk_level: 66,
-    incognito_sessions: 3,
-    ads_clicked: 22,
-    click_ids: 23,
-    total_visits: 156,
-    ip_addresses: [
-      {
-        ip: '***.***2.2.123',
-        location: 'London, United Kingdom',
-        visits: 98,
-        first_seen: '2024-10-12',
-        last_seen: '2025-01-20',
-        vpn_detected: true,
-      },
-      {
-        ip: '***.***1.100.178',
-        location: 'Manchester, United Kingdom',
-        visits: 58,
-        first_seen: '2024-11-20',
-        last_seen: '2025-01-18',
-        vpn_detected: false,
-      },
-    ],
-    wallets: [
-      {
-        address: '0x742d35Cc6634C0532925a3b844Bc8e70d4C9dB8a',
-        type: 'Metamask',
-        balance: '0.4 ETH ($1,280)',
-        first_seen: '2024-10-12',
-        last_seen: '2025-01-20',
-        tokens: [
-          { symbol: 'ETH', amount: '0.4', value: '$1,280' },
-          { symbol: 'USDT', amount: '125', value: '$125' },
-          { symbol: 'DOGE', amount: '850', value: '$289' },
-          { symbol: 'LINK', amount: '8', value: '$200' },
-        ],
-        transactions: mixedUserEthTransactions,
-      },
-      {
-        address: '7VcwKTeGrCXaJQPzVpFnhjWqJzhpgXMkQJBxKqzCmLv6',
-        type: 'Phantom',
-        balance: '4.8 SOL ($912)',
-        ens_domain: 'crypto.sol',
-        first_seen: '2024-11-01',
-        last_seen: '2025-01-19',
-        tokens: [
-          { symbol: 'SOL', amount: '4.8', value: '$912' },
-          { symbol: 'USDC', amount: '285', value: '$285' },
-          { symbol: 'RAY', amount: '12', value: '$66' },
-        ],
-        transactions: mixedUserSolTransactions,
-      },
-    ],
-    rewards: {
-      totalUSDT: '18',
-      totalETH: '0.004',
-      totalSOL: '0.10',
-      transactions: [
-        {
-          id: 'tx_9',
-          token: 'USDT',
-          amount: '12',
-          value: '$12',
-          timestamp: '4 hours ago',
-          txHash: '0x2c674dc8f55a6f6b8dc64c9466a184e988cc9cf0fc4cae12a2a2ed5efc46a44d',
-        },
-        {
-          id: 'tx_10',
-          token: 'ETH',
-          amount: '0.004',
-          value: '$12.80',
-          timestamp: '1 day ago',
-          txHash: '0xffec554c30d5e12022c21c665a7231bceea7aa7597b1addfa61df4e6e049c58c',
-        },
-        {
-          id: 'tx_11',
-          token: 'SOL',
-          amount: '0.10',
-          value: '$19',
-          timestamp: '3 days ago',
-          txHash:
-            '4RtoGgXu5wb19pQnpbCuhNDiGvkZsvFs5NTdDrVsJHTdP4KcAN4yghPUhQSH37MjQDH5wfRX8S51TVNrgr1FeDga',
-        },
-        {
-          id: 'tx_12',
-          token: 'USDT',
-          amount: '6',
-          value: '$6',
-          timestamp: '5 days ago',
-          txHash: '0xee13a698de247b7a7a81b4f95bc60d8a2d15616338d08645565c100cbeb5561f',
-        },
-      ],
-    },
-    devices: [
-      {
-        id: 'device_3',
-        type: 'Computer',
-        device_name: 'Dell XPS 13',
-        os: 'Windows',
-        os_version: '11 Pro',
-        browsers: [
-          {
-            name: 'Firefox',
-            version: '121.0',
-            last_used: '2025-01-20',
-          },
-          {
-            name: 'Edge',
-            version: '120.0',
-            last_used: '2025-01-18',
-          },
-        ],
-        incognito: false,
-        ip_addresses: [
-          {
-            ip: '***.***2.2.123',
-            location: 'London, United Kingdom',
-            visits: 98,
-            first_seen: '2024-10-12',
-            last_seen: '2025-01-20',
-            vpn_detected: true,
-          },
-          {
-            ip: '***.***1.100.178',
-            location: 'Manchester, United Kingdom',
-            visits: 58,
-            first_seen: '2024-11-20',
-            last_seen: '2025-01-18',
-            vpn_detected: false,
-          },
-        ],
-        first_seen: '2024-10-12',
-        last_seen: '2025-01-20',
-      },
-    ],
-  },
-
-  // User 4 - Small trader (2 ETH, 3 SOL wallets) - HIGHEST REWARDS
+  // User 2 - Small trader (2 ETH, 3 SOL wallets) - HIGHEST REWARDS
   {
     visitor_id: 'bR0k3nW4ll3t5sY5t3m',
     ip_address: '***.***3.113.42',
@@ -937,7 +622,7 @@ export const sampleVisitors: VisitorData[] = [
     ens_domain: '',
     associated_emails: ['smalltrader@gmail.com'],
     transactions: brokeUserTransactions1,
-    visit_time: '1 hour ago',
+    visit_time: '5 minutes ago',
     risk_level: 93,
     incognito_sessions: 12,
     ads_clicked: 45,
@@ -1103,7 +788,6 @@ export const sampleVisitors: VisitorData[] = [
       {
         id: 'device_4',
         type: 'Mobile',
-        device_name: 'Samsung Galaxy S24',
         os: 'Android',
         os_version: '14',
         browsers: [
@@ -1162,6 +846,315 @@ export const sampleVisitors: VisitorData[] = [
           },
         ],
         first_seen: '2024-09-15',
+        last_seen: '2025-01-20',
+      },
+    ],
+  },
+
+  // User 3 - Mixed portfolio (1 ETH, 1 SOL)
+  {
+    visitor_id: 'mX9pL2kN7vB4jQ6wS3',
+    ip_address: '***.***2.2.123',
+    wallet_address: '0x742d35Cc6634C0532925a3b844Bc8e70d4C9dB8a',
+    location: 'London, United Kingdom',
+    browser: 'Firefox 121.0',
+    device_type: 'Computer',
+    os: 'Windows',
+    os_version: '11 Pro',
+    incognito: false,
+    vpn: true,
+    wallet_type: 'Metamask',
+    wallet_balance: '0.4 ETH ($1,280)',
+    ens_domain: '',
+    associated_emails: [
+      'crypto.investor@gmail.com',
+      'john.doe@company.com',
+      'trading@proton.me',
+      'backup@mail.com',
+      'newsletter@substack.com',
+    ],
+    transactions: mixedUserEthTransactions,
+    visit_time: '47 minutes ago',
+    risk_level: 66,
+    incognito_sessions: 3,
+    ads_clicked: 22,
+    click_ids: 23,
+    total_visits: 156,
+    ip_addresses: [
+      {
+        ip: '***.***2.2.123',
+        location: 'London, United Kingdom',
+        visits: 98,
+        first_seen: '2024-10-12',
+        last_seen: '2025-01-20',
+        vpn_detected: true,
+      },
+      {
+        ip: '***.***1.100.178',
+        location: 'Manchester, United Kingdom',
+        visits: 58,
+        first_seen: '2024-11-20',
+        last_seen: '2025-01-18',
+        vpn_detected: false,
+      },
+    ],
+    wallets: [
+      {
+        address: '0x742d35Cc6634C0532925a3b844Bc8e70d4C9dB8a',
+        type: 'Metamask',
+        balance: '0.4 ETH ($1,280)',
+        first_seen: '2024-10-12',
+        last_seen: '2025-01-20',
+        tokens: [
+          { symbol: 'ETH', amount: '0.4', value: '$1,280' },
+          { symbol: 'USDT', amount: '125', value: '$125' },
+          { symbol: 'DOGE', amount: '850', value: '$289' },
+          { symbol: 'LINK', amount: '8', value: '$200' },
+        ],
+        transactions: mixedUserEthTransactions,
+      },
+      {
+        address: '7VcwKTeGrCXaJQPzVpFnhjWqJzhpgXMkQJBxKqzCmLv6',
+        type: 'Phantom',
+        balance: '4.8 SOL ($912)',
+        ens_domain: 'crypto.sol',
+        first_seen: '2024-11-01',
+        last_seen: '2025-01-19',
+        tokens: [
+          { symbol: 'SOL', amount: '4.8', value: '$912' },
+          { symbol: 'USDC', amount: '285', value: '$285' },
+          { symbol: 'RAY', amount: '12', value: '$66' },
+        ],
+        transactions: mixedUserSolTransactions,
+      },
+    ],
+    rewards: {
+      totalUSDT: '18',
+      totalETH: '0.004',
+      totalSOL: '0.10',
+      transactions: [
+        {
+          id: 'tx_9',
+          token: 'USDT',
+          amount: '12',
+          value: '$12',
+          timestamp: '4 hours ago',
+          txHash: '0x2c674dc8f55a6f6b8dc64c9466a184e988cc9cf0fc4cae12a2a2ed5efc46a44d',
+        },
+        {
+          id: 'tx_10',
+          token: 'ETH',
+          amount: '0.004',
+          value: '$12.80',
+          timestamp: '1 day ago',
+          txHash: '0xffec554c30d5e12022c21c665a7231bceea7aa7597b1addfa61df4e6e049c58c',
+        },
+        {
+          id: 'tx_11',
+          token: 'SOL',
+          amount: '0.10',
+          value: '$19',
+          timestamp: '3 days ago',
+          txHash:
+            '4RtoGgXu5wb19pQnpbCuhNDiGvkZsvFs5NTdDrVsJHTdP4KcAN4yghPUhQSH37MjQDH5wfRX8S51TVNrgr1FeDga',
+        },
+        {
+          id: 'tx_12',
+          token: 'USDT',
+          amount: '6',
+          value: '$6',
+          timestamp: '5 days ago',
+          txHash: '0xee13a698de247b7a7a81b4f95bc60d8a2d15616338d08645565c100cbeb5561f',
+        },
+      ],
+    },
+    devices: [
+      {
+        id: 'device_3',
+        type: 'Computer',
+        os: 'Windows',
+        os_version: '11 Pro',
+        browsers: [
+          {
+            name: 'Firefox',
+            version: '121.0',
+            last_used: '2025-01-20',
+          },
+          {
+            name: 'Edge',
+            version: '120.0',
+            last_used: '2025-01-18',
+          },
+        ],
+        incognito: false,
+        ip_addresses: [
+          {
+            ip: '***.***2.2.123',
+            location: 'London, United Kingdom',
+            visits: 98,
+            first_seen: '2024-10-12',
+            last_seen: '2025-01-20',
+            vpn_detected: true,
+          },
+          {
+            ip: '***.***1.100.178',
+            location: 'Manchester, United Kingdom',
+            visits: 58,
+            first_seen: '2024-11-20',
+            last_seen: '2025-01-18',
+            vpn_detected: false,
+          },
+        ],
+        first_seen: '2024-10-12',
+        last_seen: '2025-01-20',
+      },
+    ],
+  },
+
+  // User 4 - Vitalik-like whale (1 ETH wallet)
+  {
+    visitor_id: 'vBu7Kn9Qm3xLpW8sT2aR',
+    ip_address: '***.***2.182.92',
+    wallet_address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
+    location: 'Zug, Switzerland',
+    browser: 'Brave 1.58.0',
+    device_type: 'Computer',
+    os: 'Linux',
+    os_version: 'Ubuntu 22.04 LTS',
+    incognito: false,
+    vpn: true,
+    wallet_type: 'Ledger',
+    wallet_balance: '4.7 ETH ($10,386,560)',
+    ens_domain: 'vitalik.eth',
+    associated_emails: ['v.buterin@ethereum.org', 'contact@vitalik.ca'],
+    transactions: vitalikTransactions,
+    visit_time: '1 hour ago',
+    risk_level: 15,
+    incognito_sessions: 0,
+    ads_clicked: 2,
+    click_ids: 2,
+    total_visits: 127,
+    ip_addresses: [
+      {
+        ip: '***.***2.182.92',
+        location: 'Zug, Switzerland',
+        visits: 127,
+        first_seen: '2024-01-01',
+        last_seen: '2025-01-20',
+        vpn_detected: true,
+      },
+    ],
+    wallets: [
+      {
+        address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
+        type: 'Ledger',
+        balance: '4.7 ETH ($10,386,560)',
+        ens_domain: 'vitalik.eth',
+        first_seen: '2024-01-01',
+        last_seen: '2025-01-20',
+        tokens: [
+          { symbol: 'ETH', amount: '4.7', value: '$19,978' },
+          { symbol: 'SHIB', amount: '8,500,000,000', value: '$105,000' },
+        ],
+        transactions: vitalikTransactions,
+      },
+    ],
+    rewards: {
+      totalUSDT: '15',
+      totalETH: '0.003',
+      totalSOL: '0.06',
+      transactions: [
+        {
+          id: 'tx_1',
+          token: 'USDT',
+          amount: '8',
+          value: '$8',
+          timestamp: '3 hours ago',
+          txHash: '0x2158291994bc5475aa318fd3df070049406ad800b8021df538b9f8f0e034c57a',
+        },
+        {
+          id: 'tx_2',
+          token: 'ETH',
+          amount: '0.003',
+          value: '$9.60',
+          timestamp: '2 days ago',
+          txHash: '0x73d034097423d908d823bb488f4a465b3a2fea85a37683058375f12a5e067318',
+        },
+        {
+          id: 'tx_3',
+          token: 'SOL',
+          amount: '0.06',
+          value: '$11.40',
+          timestamp: '5 days ago',
+          txHash:
+            '5tTJ1xRUPhhXGCgWAnSXzr14EH5TAJiSQGDwzZNL315v9PM2sVHRsv3nU5qHSv6k6CDA8T8D7f3UP9SW1duYMcLw',
+        },
+        {
+          id: 'tx_4',
+          token: 'USDT',
+          amount: '7',
+          value: '$7',
+          timestamp: '1 week ago',
+          txHash: '0xd97394f32333011889e1ec78103df834616001034d12201b8384b816b3d1217d',
+        },
+      ],
+    },
+    devices: [
+      {
+        id: 'device_1',
+        type: 'Computer',
+        os: 'Linux',
+        os_version: 'Ubuntu 22.04 LTS',
+        browsers: [
+          {
+            name: 'Brave',
+            version: '1.58.0',
+            last_used: '2025-01-20',
+          },
+          {
+            name: 'Firefox',
+            version: '121.0',
+            last_used: '2025-01-19',
+          },
+        ],
+        incognito: false,
+        ip_addresses: [
+          {
+            ip: '***.***2.182.92',
+            location: 'Zug, Switzerland',
+            visits: 127,
+            first_seen: '2024-01-01',
+            last_seen: '2025-01-20',
+            vpn_detected: true,
+          },
+        ],
+        first_seen: '2024-01-01',
+        last_seen: '2025-01-20',
+      },
+      {
+        id: 'device_1b',
+        type: 'Mobile',
+        os: 'iOS',
+        os_version: '17.2',
+        browsers: [
+          {
+            name: 'Safari Mobile',
+            version: '17.2',
+            last_used: '2025-01-20',
+          },
+        ],
+        incognito: false,
+        ip_addresses: [
+          {
+            ip: '***.***2.182.93',
+            location: 'Zug, Switzerland',
+            visits: 23,
+            first_seen: '2024-06-15',
+            last_seen: '2025-01-20',
+            vpn_detected: true,
+          },
+        ],
+        first_seen: '2024-06-15',
         last_seen: '2025-01-20',
       },
     ],
@@ -1289,7 +1282,6 @@ export const sampleVisitors: VisitorData[] = [
       {
         id: 'device_5',
         type: 'Computer',
-        device_name: 'MacBook Pro',
         os: 'MacOS',
         os_version: '14.2 Sonoma',
         browsers: [
@@ -1449,7 +1441,6 @@ export const sampleVisitors: VisitorData[] = [
       {
         id: 'device_6',
         type: 'Computer',
-        device_name: 'MacBook Pro',
         os: 'Linux',
         os_version: 'Ubuntu 22.04',
         browsers: [

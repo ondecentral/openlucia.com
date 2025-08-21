@@ -14,6 +14,7 @@ import {
   Smartphone,
   Monitor,
   Globe,
+  Tablet,
 } from 'lucide-react';
 import { VisitorData } from './dashboard-seed-data';
 import {
@@ -64,7 +65,13 @@ const VisitorInfoSection: React.FC<VisitorInfoSectionProps> = ({ visitor, onCopy
         tooltip: '+18.2% (24h)',
       },
       {
-        title: 'DESKTOP VIEWS',
+        title: 'TABLET VIEWS',
+        value: 2, // Hardcoded value
+        icon: <Tablet className="w-5 h-5 text-orange-500" />,
+        tooltip: '+18.2% (24h)',
+      },
+      {
+        title: 'COMPUTER VIEWS',
         value: 154, // Hardcoded value
         icon: <Monitor className="w-5 h-5 text-orange-500" />,
         tooltip: '+9.7% (24h)',
@@ -147,12 +154,12 @@ const VisitorInfoSection: React.FC<VisitorInfoSectionProps> = ({ visitor, onCopy
         />
       </section>
 
-      <section className="grid grid-cols-1 md:grid-cols-3 gap-1.5 p-3">
-        <div className="border border-gray-200 rounded-lg p-3">
+      <section className="grid grid-cols-1 md:grid-cols-3 gap-1.5 p-1">
+        <div className="border border-gray-200 rounded-lg p-1.5">
           <h3 className="text-base font-semibold text-gray-600 mb-3 flex items-center justify-center gap-2 border-b border-gray-200 pb-2">
             <Mail className="text-orange-500 w-4 h-4" /> Associated Emails
           </h3>
-          <div className="space-y-2 max-h-[120px] overflow-y-auto pr-2">
+          <div className="space-y-2 max-h-[120px] overflow-y-auto">
             {visitor.associated_emails.map((email, index) => (
               <div
                 key={index}
@@ -171,11 +178,11 @@ const VisitorInfoSection: React.FC<VisitorInfoSectionProps> = ({ visitor, onCopy
           </div>
         </div>
 
-        <div className="border border-gray-200 rounded-lg p-3">
+        <div className="border border-gray-200 rounded-lg p-1.5">
           <h3 className="text-base font-semibold text-gray-600 mb-3 flex items-center justify-center gap-2 border-b border-gray-200 pb-2">
             <MapPin className="text-orange-500 w-4 h-4" /> IP Addresses
           </h3>
-          <div className="space-y-2 max-h-[120px] overflow-y-auto pr-2">
+          <div className="space-y-2 max-h-[120px] overflow-y-auto ">
             {visitor.ip_addresses.map((ipData, index) => (
               <div
                 key={index}
@@ -199,11 +206,11 @@ const VisitorInfoSection: React.FC<VisitorInfoSectionProps> = ({ visitor, onCopy
           </div>
         </div>
 
-        <div className="border border-gray-200 rounded-lg p-3">
+        <div className="border border-gray-200 rounded-lg p-1.5">
           <h3 className="text-base font-semibold text-gray-600 mb-3 flex items-center justify-center gap-2 border-b border-gray-200 pb-2">
             <Wallet className="text-orange-500 w-4 h-4" /> Wallet Addresses
           </h3>
-          <div className="space-y-2 max-h-[120px] overflow-y-auto pr-2">
+          <div className="space-y-2 max-h-[120px] overflow-y-auto ">
             {visitor.wallets.map((wallet, index) => (
               <div
                 key={index}
