@@ -1,28 +1,18 @@
-import React, { ReactNode } from "react";
-import { Info } from "lucide-react";
+import React, { ReactNode } from 'react';
+import { Info } from 'lucide-react';
 
 interface StatCardProps {
   title: string;
-  value: string | number;
+  value?: string | number;
   icon: ReactNode;
   tooltip: string;
   className?: string;
 }
 
-const StatCard: React.FC<StatCardProps> = ({
-  title,
-  value,
-  icon,
-  tooltip,
-  className = "",
-}) => {
+const StatCard: React.FC<StatCardProps> = ({ title, value, icon, tooltip, className = '' }) => {
   return (
-    <div
-      className={`p-3 border-r border-b md:border-b-0 border-gray-200 relative ${className}`}
-    >
-      <p className="text-xs text-gray-400 font-semibold tracking-wider">
-        {title}
-      </p>
+    <div className={`p-3 border-r border-b md:border-b-0 border-gray-200 relative ${className}`}>
+      <p className="text-xs text-gray-400 font-semibold tracking-wider">{title}</p>
       <div className="flex justify-center items-center gap-2 mt-1">
         {icon}
         <p className="text-sm font-semibold text-gray-600">{value}</p>

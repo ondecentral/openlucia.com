@@ -62,7 +62,7 @@ const DeviceHistorySection: React.FC<DeviceHistorySectionProps> = ({
           </button>
         </div>
         <div className="border border-gray-200 rounded-lg">
-          <div className="border-t border-gray-200">
+          <div className="border-t rounded-lg border-gray-200">
             <div className="h-48 overflow-hidden bg-gray-100">
               <MapboxMap
                 location={visitor.ip_addresses[ipIndex]?.location || visitor.location}
