@@ -236,7 +236,7 @@ const MapboxMap: React.FC<MapboxMapProps> = ({
   if (!mapboxgl.accessToken) {
     return (
       <div className={`bg-gray-100 flex items-center justify-center ${className}`}>
-        <div className="text-center p-4">
+        <div className="text-center p-1">
           <p className="text-gray-500 text-sm">Mapbox access token not configured</p>
           <p className="text-gray-400 text-xs">
             Please set NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN in your environment variables
@@ -251,12 +251,12 @@ const MapboxMap: React.FC<MapboxMapProps> = ({
       {isLoading && (
         <div className="absolute inset-0 bg-gray-100 flex items-center justify-center z-10">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-orange-500 mx-auto"></div>
+            <div className="animate-spin h-8 w-8 border-b-2 border-orange-500 mx-auto"></div>
             <p className="text-gray-500 text-sm mt-2">Loading map...</p>
           </div>
         </div>
       )}
-      <div ref={mapContainer} className="w-full h-full rounded-lg" />
+      <div ref={mapContainer} className="w-full h-full rounded-b-lg" />
     </div>
   );
 };

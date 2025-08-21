@@ -9,6 +9,7 @@ import {
   Wallet,
   Smartphone,
   Monitor,
+  Tablet,
 } from 'lucide-react';
 import { VisitorData } from './dashboard-seed-data';
 import { TokenETH, TokenSOL, TokenUSDT } from '@web3icons/react';
@@ -112,7 +113,13 @@ const Dashboard: React.FC<DashboardProps> = ({
         tooltip: '+18.2% (24h)',
       },
       {
-        title: 'DESKTOP VIEWS',
+        title: 'TABLET VIEWS',
+        value: 40, // Hardcoded value
+        icon: <Tablet className="w-5 h-5 text-orange-500" />,
+        tooltip: '-18.2% (24h)',
+      },
+      {
+        title: 'COMPUTER VIEWS',
         value: 1953, // Hardcoded value
         icon: <Monitor className="w-5 h-5 text-orange-500" />,
         tooltip: '+9.7% (24h)',
