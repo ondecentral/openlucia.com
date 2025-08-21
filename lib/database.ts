@@ -7,13 +7,25 @@ let pool: Pool | null = null;
  * Get or create a PostgreSQL connection pool
  */
 export function getPool(): Pool {
+  // Parse the connection string to modify SSL settings
+  const connectionUrl = new URL(process.env.DATABASE_URL!);
+
   if (!pool) {
     pool = new Pool({
-      connectionString: process.env.DATABASE_URL,
+      host: connectionUrl.hostname,
+      port: parseInt(connectionUrl.port) || 5432,
+      database: connectionUrl.pathname.slice(1),
+      user: connectionUrl.username,
+      password: connectionUrl.password,
       // Connection pool configuration
       max: 10, // Maximum number of connections
       idleTimeoutMillis: 30000, // Close idle connections after 30 seconds
       connectionTimeoutMillis: 2000, // Return error after 2 seconds if connection cannot be established
+      // SSL configuration - accept self-signed certificates
+      ssl: {
+        rejectUnauthorized: false,
+        checkServerIdentity: () => undefined,
+      },
     });
 
     // Handle pool errors
@@ -38,7 +50,7 @@ export async function query<T extends QueryResultRow = QueryResultRow>(
   text: string,
   params?: unknown[],
 ): Promise<QueryResult<T>> {
-  const pool = getPool();
+  const pool = await getPool();
 
   try {
     const start = Date.now();

@@ -25,7 +25,7 @@ frontend:
       # Database
       DATABASE_URL: $DATABASE_URL
       CLIENT_ID: $CLIENT_ID
-      # Redis configuration  
+      # Redis configuration
       REDIS_HOST: $REDIS_HOST
       REDIS_PORT: $REDIS_PORT
       REDIS_PASSWORD: $REDIS_PASSWORD
