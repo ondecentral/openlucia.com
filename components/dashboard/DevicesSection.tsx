@@ -157,9 +157,7 @@ const DevicesSection: React.FC<DeviceHistorySectionProps> = ({ visitor }) => {
                           >
                             <div className="flex items-center justify-between">
                               <div className="flex-1">
-                                <div className="text-sm text-gray-600">
-                                  {browser.name} {browser.version}
-                                </div>
+                                <div className="text-sm text-gray-600">{browser.name}</div>
                               </div>
                             </div>
                           </div>
@@ -174,7 +172,7 @@ const DevicesSection: React.FC<DeviceHistorySectionProps> = ({ visitor }) => {
                       <div className="flex items-center justify-between p-1">
                         <div className="flex-1"></div>
                         <h4 className="text-sm font-medium text-gray-600 flex items-center gap-2">
-                          <span className="text-green-500">🌍</span> IP Address Details
+                          <span className="text-green-500">🌍</span> IP Addresses
                         </h4>
                         <div className="flex-1 flex justify-end">
                           {hasMultipleIPs && (

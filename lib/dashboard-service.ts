@@ -1,4 +1,4 @@
-import { query, getClientId } from "./database";
+import { query, getClientId } from './database';
 import {
   FingerprintRow,
   PageViewRow,
@@ -7,8 +7,8 @@ import {
   VisitorAggregateRow,
   transformToVisitorData,
   transformToVisitorDataArray,
-} from "./transforms";
-import { VisitorData } from "@/components/dashboard/dashboard-seed-data";
+} from './transforms';
+import { VisitorData } from '@/components/dashboard/dashboard-seed-data';
 
 /**
  * Dashboard statistics interface
@@ -46,7 +46,7 @@ export async function getDashboardStats(): Promise<DashboardStats> {
       INNER JOIN page_view pv ON f.id = pv.fingerprint_id  
       WHERE pv.client_id = $1
     `,
-      [clientId],
+      [clientId]
     );
 
     const stats = visitsQuery.rows[0] || {
@@ -68,7 +68,7 @@ export async function getDashboardStats(): Promise<DashboardStats> {
         OR f.data->'browser'->>'incognito' = 'true'
       )
     `,
-      [clientId],
+      [clientId]
     );
 
     // Get wallet count (check for non-null wallet_data)
@@ -85,7 +85,7 @@ export async function getDashboardStats(): Promise<DashboardStats> {
         OR f.wallet_data->>'solanaAddress' IS NOT NULL
       )
     `,
-      [clientId],
+      [clientId]
     );
 
     // Get button clicks (ads clicked and total click IDs)
@@ -97,26 +97,25 @@ export async function getDashboardStats(): Promise<DashboardStats> {
       FROM button_click
       WHERE client_id = $1
     `,
-      [clientId],
+      [clientId]
     );
 
     const clickStats = clicksQuery.rows[0] || { total_clicks: 0, ad_clicks: 0 };
 
     return {
       totalVisits: parseInt(stats.total_visits) || 0,
-      totalIncognitoVisits:
-        parseInt(incognitoQuery.rows[0]?.incognito_visits) || 0,
+      totalIncognitoVisits: parseInt(incognitoQuery.rows[0]?.incognito_visits) || 0,
       totalUniqueIPs: parseInt(stats.unique_ips) || 0,
       totalUniqueGeolocations: parseInt(stats.unique_locations) || 0,
       totalWalletsDetected: parseInt(walletQuery.rows[0]?.wallet_count) || 0,
-      totalUSDTRewards: "0", // Mock for now - would need rewards system
-      totalSOLRewards: "0", // Mock for now - would need rewards system
-      totalETHRewards: "0", // Mock for now - would need rewards system
+      totalUSDTRewards: '0', // Mock for now - would need rewards system
+      totalSOLRewards: '0', // Mock for now - would need rewards system
+      totalETHRewards: '0', // Mock for now - would need rewards system
       totalAdsClicked: parseInt(clickStats.ad_clicks) || 0,
       totalClickIds: parseInt(clickStats.total_clicks) || 0,
     };
   } catch (error) {
-    console.error("Error fetching dashboard stats:", error);
+    console.error('Error fetching dashboard stats:', error);
 
     // Return zero stats if database query fails
     return {
@@ -125,9 +124,9 @@ export async function getDashboardStats(): Promise<DashboardStats> {
       totalUniqueIPs: 0,
       totalUniqueGeolocations: 0,
       totalWalletsDetected: 0,
-      totalUSDTRewards: "0",
-      totalSOLRewards: "0",
-      totalETHRewards: "0",
+      totalUSDTRewards: '0',
+      totalSOLRewards: '0',
+      totalETHRewards: '0',
       totalAdsClicked: 0,
       totalClickIds: 0,
     };
@@ -142,7 +141,7 @@ export async function getVisitors(
     page?: number;
     limit?: number;
     search?: string;
-  } = {},
+  } = {}
 ): Promise<{
   visitors: VisitorData[];
   total: number;
@@ -156,7 +155,7 @@ export async function getVisitors(
 
   try {
     // Build search condition
-    let searchCondition = "";
+    let searchCondition = '';
     const searchParams: (string | number)[] = [clientId];
 
     if (options.search) {
@@ -178,7 +177,7 @@ export async function getVisitors(
       INNER JOIN page_view pv ON f.id = pv.fingerprint_id
       WHERE pv.client_id = $1 ${searchCondition}
     `,
-      searchParams,
+      searchParams
     );
 
     const total = parseInt(countQuery.rows[0]?.total) || 0;
@@ -198,11 +197,11 @@ export async function getVisitors(
       ORDER BY f.id DESC, f."createdAt" DESC
       LIMIT $${searchParams.length + 1} OFFSET $${searchParams.length + 2}
     `,
-      [...searchParams, limit, offset],
+      [...searchParams, limit, offset]
     );
 
     // Get associated data for each fingerprint
-    const fingerprintIds = fingerprintsQuery.rows.map((f) => f.id);
+    const fingerprintIds = fingerprintsQuery.rows.map(f => f.id);
 
     if (fingerprintIds.length === 0) {
       return { visitors: [], total: 0, page, limit };
@@ -216,7 +215,7 @@ export async function getVisitors(
       INNER JOIN fingerprints f ON f.lucia_user_id = lu.id
       WHERE f.id = ANY($1)
     `,
-      [fingerprintIds],
+      [fingerprintIds]
     );
 
     // Get page views
@@ -226,7 +225,7 @@ export async function getVisitors(
       WHERE fingerprint_id = ANY($1) AND client_id = $2
       ORDER BY created_at DESC
     `,
-      [fingerprintIds, clientId],
+      [fingerprintIds, clientId]
     );
 
     // Get button clicks
@@ -236,37 +235,31 @@ export async function getVisitors(
       WHERE fingerprint_id = ANY($1) AND client_id = $2
       ORDER BY created_at DESC
     `,
-      [fingerprintIds, clientId],
+      [fingerprintIds, clientId]
     );
 
     // Build aggregated data
-    const aggregates: VisitorAggregateRow[] = fingerprintsQuery.rows.map(
-      (fingerprint) => {
-        const lucia_user = luciaUsersQuery.rows.find(
-          (lu) => lu.id === fingerprint.lucia_user_id,
-        );
-        const page_views = pageViewsQuery.rows.filter(
-          (pv) => pv.fingerprint_id === fingerprint.id,
-        );
-        const button_clicks = buttonClicksQuery.rows.filter(
-          (bc) => bc.fingerprint_id === fingerprint.id,
-        );
+    const aggregates: VisitorAggregateRow[] = fingerprintsQuery.rows.map(fingerprint => {
+      const lucia_user = luciaUsersQuery.rows.find(lu => lu.id === fingerprint.lucia_user_id);
+      const page_views = pageViewsQuery.rows.filter(pv => pv.fingerprint_id === fingerprint.id);
+      const button_clicks = buttonClicksQuery.rows.filter(
+        bc => bc.fingerprint_id === fingerprint.id
+      );
 
-        return {
-          fingerprint,
-          lucia_user,
-          page_views,
-          button_clicks,
-          wallets: [], // Could fetch from wallet table if needed
-        };
-      },
-    );
+      return {
+        fingerprint,
+        lucia_user,
+        page_views,
+        button_clicks,
+        wallets: [], // Could fetch from wallet table if needed
+      };
+    });
 
     const visitors = transformToVisitorDataArray(aggregates);
 
     return { visitors, total, page, limit };
   } catch (error) {
-    console.error("Error fetching visitors:", error);
+    console.error('Error fetching visitors:', error);
     return { visitors: [], total: 0, page, limit };
   }
 }
@@ -274,9 +267,7 @@ export async function getVisitors(
 /**
  * Get detailed information for a specific visitor
  */
-export async function getVisitorById(
-  visitorId: string,
-): Promise<VisitorData | null> {
+export async function getVisitorById(visitorId: string): Promise<VisitorData | null> {
   const clientId = getClientId();
 
   try {
@@ -289,7 +280,7 @@ export async function getVisitorById(
       WHERE f."profileHash" LIKE $1 AND pv.client_id = $2
       LIMIT 1
     `,
-      [`${visitorId}%`, clientId],
+      [`${visitorId}%`, clientId]
     );
 
     if (fingerprintQuery.rows.length === 0) {
@@ -299,35 +290,34 @@ export async function getVisitorById(
     const fingerprint = fingerprintQuery.rows[0];
 
     // Get associated data
-    const [luciaUserQuery, pageViewsQuery, buttonClicksQuery] =
-      await Promise.all([
-        fingerprint.lucia_user_id
-          ? query<LuciaUserRow>(
-              `
+    const [luciaUserQuery, pageViewsQuery, buttonClicksQuery] = await Promise.all([
+      fingerprint.lucia_user_id
+        ? query<LuciaUserRow>(
+            `
         SELECT * FROM lucia_user WHERE id = $1
       `,
-              [fingerprint.lucia_user_id],
-            )
-          : Promise.resolve({ rows: [] }),
+            [fingerprint.lucia_user_id]
+          )
+        : Promise.resolve({ rows: [] }),
 
-        query<PageViewRow>(
-          `
+      query<PageViewRow>(
+        `
         SELECT * FROM page_view 
         WHERE fingerprint_id = $1 AND client_id = $2
         ORDER BY created_at DESC
       `,
-          [fingerprint.id, clientId],
-        ),
+        [fingerprint.id, clientId]
+      ),
 
-        query<ButtonClickRow>(
-          `
+      query<ButtonClickRow>(
+        `
         SELECT * FROM button_click 
         WHERE fingerprint_id = $1 AND client_id = $2
         ORDER BY created_at DESC
       `,
-          [fingerprint.id, clientId],
-        ),
-      ]);
+        [fingerprint.id, clientId]
+      ),
+    ]);
 
     const aggregate: VisitorAggregateRow = {
       fingerprint,
@@ -339,7 +329,7 @@ export async function getVisitorById(
 
     return transformToVisitorData(aggregate, 0);
   } catch (error) {
-    console.error("Error fetching visitor:", error);
+    console.error('Error fetching visitor:', error);
     return null;
   }
 }
