@@ -24,7 +24,6 @@ export interface Device {
   browsers: Array<{
     name: string;
     version: string;
-    last_used: string;
   }>;
   incognito: boolean;
   ip_addresses: IPAddress[];
@@ -538,12 +537,10 @@ export const sampleVisitors: VisitorData[] = [
           {
             name: 'Chrome',
             version: '120.0.0',
-            last_used: '2025-01-20',
           },
           {
             name: 'Safari',
             version: '17.2',
-            last_used: '2025-01-19',
           },
         ],
         incognito: true,
@@ -585,7 +582,6 @@ export const sampleVisitors: VisitorData[] = [
           {
             name: 'Safari',
             version: '17.2',
-            last_used: '2025-01-19',
           },
         ],
         incognito: false,
@@ -794,12 +790,10 @@ export const sampleVisitors: VisitorData[] = [
           {
             name: 'Chrome',
             version: '120.0.0',
-            last_used: '2025-01-20',
           },
           {
             name: 'Samsung Internet',
             version: '23.0',
-            last_used: '2025-01-19',
           },
         ],
         incognito: true,
@@ -978,12 +972,10 @@ export const sampleVisitors: VisitorData[] = [
           {
             name: 'Firefox',
             version: '121.0',
-            last_used: '2025-01-20',
           },
           {
             name: 'Edge',
             version: '120.0',
-            last_used: '2025-01-18',
           },
         ],
         incognito: false,
@@ -1109,12 +1101,10 @@ export const sampleVisitors: VisitorData[] = [
           {
             name: 'Brave',
             version: '1.58.0',
-            last_used: '2025-01-20',
           },
           {
             name: 'Firefox',
             version: '121.0',
-            last_used: '2025-01-19',
           },
         ],
         incognito: false,
@@ -1138,9 +1128,8 @@ export const sampleVisitors: VisitorData[] = [
         os_version: '17.2',
         browsers: [
           {
-            name: 'Safari Mobile',
+            name: 'Safari',
             version: '17.2',
-            last_used: '2025-01-20',
           },
         ],
         incognito: false,
@@ -1288,7 +1277,6 @@ export const sampleVisitors: VisitorData[] = [
           {
             name: 'Safari',
             version: '17.2',
-            last_used: '2025-01-20',
           },
         ],
         incognito: false,
@@ -1447,12 +1435,10 @@ export const sampleVisitors: VisitorData[] = [
           {
             name: 'Brave',
             version: '1.58.0',
-            last_used: '2025-01-20',
           },
           {
             name: 'Firefox',
             version: '121.0',
-            last_used: '2025-01-19',
           },
         ],
         incognito: true,

@@ -140,10 +140,10 @@ const VisitorInfoSection: React.FC<VisitorInfoSectionProps> = ({ visitor, onCopy
         />
         <StatCard
           title="MOST ACTIVE"
-          value="Afternoon"
-          icon={<span className="text-2xl">☀️</span>}
-          tooltip="Peak Time"
-          className="border-r md:border-b-0"
+          value="N/A"
+          icon={<span className="text-2xl"></span>}
+          tooltip="Coming soon!"
+          className="border-r md:border-b-0 text-gray-400"
         />
         <StatCard
           title="IP ADDRESSES"
