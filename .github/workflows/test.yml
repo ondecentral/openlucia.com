@@ -58,103 +58,103 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: 18
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
 
-    - name: Wait for PostgreSQL to be ready
-      run: |
-        MAX_RETRIES=4
-        RETRY_COUNT=0
-        while ! pg_isready -h localhost -p 5432; do
-          echo "Waiting for PostgreSQL..."
-          RETRY_COUNT=$((RETRY_COUNT + 1))
-          if [ "$RETRY_COUNT" -ge "$MAX_RETRIES" ]; then
-            echo "PostgreSQL is not ready after $((MAX_RETRIES * 5)) seconds."
+      - name: Wait for PostgreSQL to be ready
+        run: |
+          MAX_RETRIES=4
+          RETRY_COUNT=0
+          while ! pg_isready -h localhost -p 5432; do
+            echo "Waiting for PostgreSQL..."
+            RETRY_COUNT=$((RETRY_COUNT + 1))
+            if [ "$RETRY_COUNT" -ge "$MAX_RETRIES" ]; then
+              echo "PostgreSQL is not ready after $((MAX_RETRIES * 5)) seconds."
+              exit 1
+            fi
+            sleep 5
+          done
+
+      - name: Check backend service accessibility
+        run: |
+          MAX_RETRIES=4
+          RETRY_COUNT=0
+          while ! curl -s 127.0.0.1:${{ vars.NODE_PORT }}; do
+            echo "Waiting for backend service to be accessible..."
+            RETRY_COUNT=$((RETRY_COUNT + 1))
+            if [ "$RETRY_COUNT" -ge "$MAX_RETRIES" ]; then
+              echo "Backend service is not accessible after $((MAX_RETRIES * 5)) seconds."
+              exit 1
+            fi
+            sleep 5
+          done
+
+      - name: Install frontend dependencies
+        run: npm ci
+
+      - name: Set environment variables
+        id: set_env_vars
+        run: |
+          if [[ "${GITHUB_REF_NAME}" == "main" ]]; then
+            echo "NODE_ENV=production" >> $GITHUB_ENV
+          elif [[ "${GITHUB_REF_NAME}" == "develop" ]]; then
+            echo "NODE_ENV=staging" >> $GITHUB_ENV
+          else
+            echo "NODE_ENV=dev" >> $GITHUB_ENV
+          fi
+          echo "NEXT_PUBLIC_BASE_URL=http://127.0.0.1:${{vars.NODE_PORT}}" >> $GITHUB_ENV
+
+      - name: Install Playwright Browsers
+        run: |
+          if ! npm list playwright; then
+            echo "Playwright is not installed, installing Playwright..."
+            npm install playwright
+          fi
+          npx playwright install
+
+      - name: Install ts-node
+        run: |
+          npm i -D ts-node
+
+      - name: Run authenticate to get token
+        run: |
+          TOKEN=$(npx ts-node test/authenticate.ts)
+          if [ -z "$TOKEN" ]; then
+            echo "Failed to generate TOKEN"
             exit 1
           fi
-          sleep 5
-        done
+          echo "TOKEN=$TOKEN" >> $GITHUB_ENV
 
-    - name: Check backend service accessibility
-      run: |
-        MAX_RETRIES=4
-        RETRY_COUNT=0
-        while ! curl -s 127.0.0.1:${{ vars.NODE_PORT }}; do
-          echo "Waiting for backend service to be accessible..."
-          RETRY_COUNT=$((RETRY_COUNT + 1))
-          if [ "$RETRY_COUNT" -ge "$MAX_RETRIES" ]; then
-            echo "Backend service is not accessible after $((MAX_RETRIES * 5)) seconds."
+      - name: Run api-key-gen to get api key
+        run: |
+          NEXT_PUBLIC_API_KEY=$(npx ts-node test/api-key-gen.ts)
+          if [ -z "$NEXT_PUBLIC_API_KEY" ]; then
+            echo "Failed to generate API key"
             exit 1
           fi
-          sleep 5
-        done
+          echo "NEXT_PUBLIC_API_KEY=$NEXT_PUBLIC_API_KEY" >> $GITHUB_ENV
+        env:
+          TOKEN: ${{ env.TOKEN }}
 
-    - name: Install frontend dependencies
-      run: npm ci
+      - name: Build frontend project
+        run: |
+          npm run build
 
-    - name: Set environment variables
-      id: set_env_vars
-      run: |
-        if [[ "${GITHUB_REF_NAME}" == "main" ]]; then
-          echo "NODE_ENV=production" >> $GITHUB_ENV
-        elif [[ "${GITHUB_REF_NAME}" == "develop" ]]; then
-          echo "NODE_ENV=staging" >> $GITHUB_ENV
-        else
-          echo "NODE_ENV=dev" >> $GITHUB_ENV
-        fi
-        echo "NEXT_PUBLIC_BASE_URL=http://127.0.0.1:${{vars.NODE_PORT}}" >> $GITHUB_ENV
-
-    - name: Install Playwright Browsers
-      run: |
-        if ! npm list playwright; then
-          echo "Playwright is not installed, installing Playwright..."
-          npm install playwright
-        fi
-        npx playwright install
-
-    - name: Install ts-node
-      run: |
-        npm i -D ts-node
-
-    - name: Run authenticate to get token
-      run: |
-        TOKEN=$(npx ts-node test/authenticate.ts)
-        if [ -z "$TOKEN" ]; then
-          echo "Failed to generate TOKEN"
-          exit 1
-        fi
-        echo "TOKEN=$TOKEN" >> $GITHUB_ENV
-
-    - name: Run api-key-gen to get api key
-      run: |
-        NEXT_PUBLIC_API_KEY=$(npx ts-node test/api-key-gen.ts)
-        if [ -z "$NEXT_PUBLIC_API_KEY" ]; then
-          echo "Failed to generate API key"
-          exit 1
-        fi
-        echo "NEXT_PUBLIC_API_KEY=$NEXT_PUBLIC_API_KEY" >> $GITHUB_ENV
-      env:
-        TOKEN: ${{ env.TOKEN }}
-
-    - name: Build frontend project
-      run: |
-        npm run build
-
-    - name: Run bot-test
-      run: |
-        npm start &
-        SERVER_PID=$!
-        echo "Waiting for the server to start..."
-        # Wait for the server to be ready (replace the curl URL with your app's health check or main endpoint)
-        until curl -s http://localhost:3000 > /dev/null; do
-          sleep 5
-        done
-        echo "Server is up. Running Playwright tests..."
-        npm run test:bot  # Replace with your Playwright test command
-        # Kill the server after tests complete
-        kill $SERVER_PID
+      - name: Run bot-test
+        run: |
+          npm start &
+          SERVER_PID=$!
+          echo "Waiting for the server to start..."
+          # Wait for the server to be ready (replace the curl URL with your app's health check or main endpoint)
+          until curl -s http://localhost:3000 > /dev/null; do
+            sleep 5
+          done
+          echo "Server is up. Running Playwright tests..."
+          npm run test:bot  # Replace with your Playwright test command
+          # Kill the server after tests complete
+          kill $SERVER_PID

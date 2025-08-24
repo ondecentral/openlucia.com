@@ -2,13 +2,13 @@ import Accordion from "./accordion";
 
 export default function FAQs() {
   return (
-    <div className="mx-auto pb-20 max-w-6xl px-4 sm:px-6">
+    <div className="mx-auto max-w-6xl px-4 pb-20 sm:px-6">
       {/* Header section */}
       <div className="mx-auto max-w-3xl pb-12 text-center">
         <h2
           data-aos="zoom-y-out"
           data-aos-delay={150}
-          className="font-extralight text-3xl text-black pb-4 md:text-5xl"
+          className="pb-4 text-3xl font-extralight text-black md:text-5xl"
         >
           We&apos;re here to answer all your questions.
         </h2>

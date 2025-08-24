@@ -8,7 +8,7 @@ const DeveloperView = () => {
     // INSTALL INSTRUCTIONS
     <div className="text-left font-mono text-sm lg:p-6">
       <div className="mb-6">
-        <h3 className="text-lg font-semibold text-gray-800 mb-4">
+        <h3 className="mb-4 text-lg font-semibold text-gray-800">
           Install the Lucia-Browser-SDK:
         </h3>
         <CodeBlock
@@ -21,7 +21,7 @@ $ yarn add lucia-sdk`}
 
       {/* INITIALIZE EXAMPLE */}
       <div className="mb-6">
-        <h3 className="text-lg font-semibold text-gray-800 mb-4">
+        <h3 className="mb-4 text-lg font-semibold text-gray-800">
           Initialize the SDK in your application:
         </h3>
         <CodeBlock
@@ -35,10 +35,10 @@ LuciaSDK.init({
 
       {/* WALLET LOGIN EXAMPLE */}
       <div className="mb-6">
-        <h3 className="text-lg font-semibold text-gray-800 mb-4">
+        <h3 className="mb-4 text-lg font-semibold text-gray-800">
           Wallet Login Tracking
         </h3>
-        <p className="text-gray-600 mb-4">
+        <p className="mb-4 text-gray-600">
           The SDK provides methods to track wallet connections and user
           information. Here&apos;s how to implement wallet tracking in a login
           function:

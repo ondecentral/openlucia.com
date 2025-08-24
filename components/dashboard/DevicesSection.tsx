@@ -1,16 +1,27 @@
-import React, { useState } from 'react';
-import { ChevronDown, ChevronRight, Smartphone, Monitor, Tablet, Copy } from 'lucide-react';
-import { VisitorData, Device } from './dashboard-seed-data';
-import MapboxMap from './mapbox-map';
-import { getDeviceIcon, getOSIcon } from './utils';
+import React, { useState } from "react";
+import {
+  ChevronDown,
+  ChevronRight,
+  Smartphone,
+  Monitor,
+  Tablet,
+  Copy,
+} from "lucide-react";
+import { VisitorData, Device } from "./dashboard-seed-data";
+import MapboxMap from "./mapbox-map";
+import { getDeviceIcon, getOSIcon } from "./utils";
 
 interface DeviceHistorySectionProps {
   visitor: VisitorData;
 }
 
 const DevicesSection: React.FC<DeviceHistorySectionProps> = ({ visitor }) => {
-  const [expandedDevices, setExpandedDevices] = useState<Set<string>>(new Set());
-  const [deviceIPIndex, setDeviceIPIndex] = useState<Record<string, number>>({});
+  const [expandedDevices, setExpandedDevices] = useState<Set<string>>(
+    new Set(),
+  );
+  const [deviceIPIndex, setDeviceIPIndex] = useState<Record<string, number>>(
+    {},
+  );
 
   // Toggle device expansion
   const toggleDevice = (deviceId: string) => {
@@ -24,19 +35,19 @@ const DevicesSection: React.FC<DeviceHistorySectionProps> = ({ visitor }) => {
   };
 
   // Navigate between IP addresses within a device
-  const navigateIP = (deviceId: string, direction: 'prev' | 'next') => {
-    const device = visitor.devices.find(d => d.id === deviceId);
+  const navigateIP = (deviceId: string, direction: "prev" | "next") => {
+    const device = visitor.devices.find((d) => d.id === deviceId);
     if (!device || device.ip_addresses.length <= 1) return;
 
     const currentIndex = deviceIPIndex[deviceId] || 0;
     const newIndex =
-      direction === 'next'
+      direction === "next"
         ? (currentIndex + 1) % device.ip_addresses.length
         : currentIndex === 0
           ? device.ip_addresses.length - 1
           : currentIndex - 1;
 
-    setDeviceIPIndex(prev => ({ ...prev, [deviceId]: newIndex }));
+    setDeviceIPIndex((prev) => ({ ...prev, [deviceId]: newIndex }));
   };
 
   // Get the current IP address for a device for mapbox map
@@ -47,21 +58,24 @@ const DevicesSection: React.FC<DeviceHistorySectionProps> = ({ visitor }) => {
 
   return (
     <section className="p-1">
-      <h2 className="text-xs text-gray-400 font-semibold tracking-wider mb-3">
+      <h2 className="mb-3 text-xs font-semibold tracking-wider text-gray-400">
         ASSOCIATED DEVICES
       </h2>
 
       <div className="space-y-3">
-        {visitor.devices.map(device => {
+        {visitor.devices.map((device) => {
           const isExpanded = expandedDevices.has(device.id);
           const currentIP = getCurrentIPAddress(device);
           const hasMultipleIPs = device.ip_addresses.length > 1;
 
           return (
-            <div key={device.id} className="border border-gray-200 rounded-lg overflow-hidden">
+            <div
+              key={device.id}
+              className="overflow-hidden rounded-lg border border-gray-200"
+            >
               {/* Device Header - Clickable */}
               <div
-                className="p-1 cursor-pointer hover:bg-gray-50 transition-colors"
+                className="cursor-pointer p-1 transition-colors hover:bg-gray-50"
                 onClick={() => toggleDevice(device.id)}
               >
                 <div className="flex items-center justify-between">
@@ -69,42 +83,43 @@ const DevicesSection: React.FC<DeviceHistorySectionProps> = ({ visitor }) => {
                   <div className="flex items-center justify-between gap-2">
                     {/* Device Icon + Abbreviation */}
                     <div className="flex flex-col items-center justify-center">
-                      <div className="w-8 h-8 flex items-center justify-center">
+                      <div className="flex h-8 w-8 items-center justify-center">
                         {getDeviceIcon(device.type)}
                       </div>
-                      <span className="text-xs text-gray-500 font-medium mt-1">
+                      <span className="mt-1 text-xs font-medium text-gray-500">
                         {device.type.toUpperCase().slice(0, 3)}
                       </span>
                     </div>
 
                     {/* OS Icon */}
                     <div className="flex items-center justify-center">
-                      <div className="w-8 h-8 flex items-center justify-center">
+                      <div className="flex h-8 w-8 items-center justify-center">
                         {getOSIcon(device.os)}
                       </div>
                     </div>
 
                     {/* IP Count */}
                     <div className="flex items-center justify-center">
-                      <p className="text-sm text-gray-500 font-medium">
-                        {device.ip_addresses.length} IP{device.ip_addresses.length !== 1 ? 's' : ''}
+                      <p className="text-sm font-medium text-gray-500">
+                        {device.ip_addresses.length} IP
+                        {device.ip_addresses.length !== 1 ? "s" : ""}
                       </p>
                     </div>
                   </div>
 
                   {/* OS Version + Chevron */}
-                  <div className="flex items-center justify-between gap-2 min-w-0">
-                    <div className="flex-1 min-w-0 mr-2">
-                      <h3 className="font-medium text-gray-700 text-xs break-words leading-tight">
+                  <div className="flex min-w-0 items-center justify-between gap-2">
+                    <div className="mr-2 min-w-0 flex-1">
+                      <h3 className="break-words text-xs font-medium leading-tight text-gray-700">
                         {device.os_version}
                       </h3>
                     </div>
                     {/* Expand/Collapse Icon - Always visible */}
                     <div className="flex-shrink-0">
                       {isExpanded ? (
-                        <ChevronDown className="w-4 h-4 text-gray-400" />
+                        <ChevronDown className="h-4 w-4 text-gray-400" />
                       ) : (
-                        <ChevronRight className="w-4 h-4 text-gray-400" />
+                        <ChevronRight className="h-4 w-4 text-gray-400" />
                       )}
                     </div>
                   </div>
@@ -116,26 +131,33 @@ const DevicesSection: React.FC<DeviceHistorySectionProps> = ({ visitor }) => {
                 <div className="border-t border-gray-200">
                   {/* Device Information */}
                   <div className="p-1">
-                    <div className="mb-2 p-1.5 bg-gray-50 rounded-lg">
-                      <h4 className="text-sm font-medium text-gray-600 mb-2 text-center flex items-center justify-center gap-2">
-                        <span className="text-blue-500">💻</span> Device Information
+                    <div className="mb-2 rounded-lg bg-gray-50 p-1.5">
+                      <h4 className="mb-2 flex items-center justify-center gap-2 text-center text-sm font-medium text-gray-600">
+                        <span className="text-blue-500">💻</span> Device
+                        Information
                       </h4>
                       <ul className="space-y-2 text-sm">
-                        <li className="flex justify-between items-center">
+                        <li className="flex items-center justify-between">
                           <span className="text-gray-500">Device Type</span>
                           <span className="font-medium">{device.type}</span>
                         </li>
-                        <li className="flex justify-between items-center">
+                        <li className="flex items-center justify-between">
                           <span className="text-gray-500">OS Version</span>
-                          <span className="font-medium">{device.os_version}</span>
+                          <span className="font-medium">
+                            {device.os_version}
+                          </span>
                         </li>
-                        <li className="flex justify-between items-center">
+                        <li className="flex items-center justify-between">
                           <span className="text-gray-500">First Seen</span>
-                          <span className="font-medium">{device.first_seen}</span>
+                          <span className="font-medium">
+                            {device.first_seen}
+                          </span>
                         </li>
-                        <li className="flex justify-between items-center">
+                        <li className="flex items-center justify-between">
                           <span className="text-gray-500">Last Seen</span>
-                          <span className="font-medium">{visitor.visit_time}</span>
+                          <span className="font-medium">
+                            {visitor.visit_time}
+                          </span>
                         </li>
                       </ul>
                     </div>
@@ -143,21 +165,23 @@ const DevicesSection: React.FC<DeviceHistorySectionProps> = ({ visitor }) => {
 
                   {/* Browsers Section */}
                   <div className="px-1">
-                    <div className="border border-gray-200 mb-2 rounded-lg p-1.5">
+                    <div className="mb-2 rounded-lg border border-gray-200 p-1.5">
                       <div className="flex items-center justify-center">
-                        <h4 className="text-sm font-medium text-gray-600 mb-2 flex items-center gap-2">
+                        <h4 className="mb-2 flex items-center gap-2 text-sm font-medium text-gray-600">
                           <span className="text-orange-500">🌐</span> Browsers
                         </h4>
                       </div>
-                      <div className="space-y-2 max-h-[120px] overflow-y-auto">
+                      <div className="max-h-[120px] space-y-2 overflow-y-auto">
                         {device.browsers.map((browser, index) => (
                           <div
                             key={index}
-                            className="p-1 text-left bg-gray-50 rounded hover:bg-gray-100 transition-colors"
+                            className="rounded bg-gray-50 p-1 text-left transition-colors hover:bg-gray-100"
                           >
                             <div className="flex items-center justify-between">
                               <div className="flex-1">
-                                <div className="text-sm text-gray-600">{browser.name}</div>
+                                <div className="text-sm text-gray-600">
+                                  {browser.name}
+                                </div>
                               </div>
                             </div>
                           </div>
@@ -168,24 +192,30 @@ const DevicesSection: React.FC<DeviceHistorySectionProps> = ({ visitor }) => {
 
                   {/* IP Details Section */}
                   <div className="px-1 pb-1">
-                    <div className="border border-gray-200 rounded-t-lg">
+                    <div className="rounded-t-lg border border-gray-200">
                       <div className="flex items-center justify-between p-1">
                         <div className="flex-1"></div>
-                        <h4 className="text-sm font-medium text-gray-600 flex items-center gap-2">
-                          <span className="text-green-500">🌍</span> IP Addresses
+                        <h4 className="flex items-center gap-2 text-sm font-medium text-gray-600">
+                          <span className="text-green-500">🌍</span> IP
+                          Addresses
                         </h4>
-                        <div className="flex-1 flex justify-end">
+                        <div className="flex flex-1 justify-end">
                           {hasMultipleIPs && (
                             <div className="flex items-center gap-2">
                               <button
-                                onClick={e => {
+                                onClick={(e) => {
                                   e.stopPropagation();
-                                  navigateIP(device.id, 'prev');
+                                  navigateIP(device.id, "prev");
                                 }}
-                                className="text-gray-400 hover:text-gray-600 transition-colors"
+                                className="text-gray-400 transition-colors hover:text-gray-600"
                                 title="Previous IP"
                               >
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                <svg
+                                  width="16"
+                                  height="16"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                >
                                   <path
                                     d="M15 18L9 12L15 6"
                                     stroke="currentColor"
@@ -196,17 +226,23 @@ const DevicesSection: React.FC<DeviceHistorySectionProps> = ({ visitor }) => {
                                 </svg>
                               </button>
                               <span className="text-xs text-gray-500">
-                                {deviceIPIndex[device.id] + 1 || 1} of {device.ip_addresses.length}
+                                {deviceIPIndex[device.id] + 1 || 1} of{" "}
+                                {device.ip_addresses.length}
                               </span>
                               <button
-                                onClick={e => {
+                                onClick={(e) => {
                                   e.stopPropagation();
-                                  navigateIP(device.id, 'next');
+                                  navigateIP(device.id, "next");
                                 }}
-                                className="text-gray-400 hover:text-gray-600 transition-colors"
+                                className="text-gray-400 transition-colors hover:text-gray-600"
                                 title="Next IP"
                               >
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                <svg
+                                  width="16"
+                                  height="16"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                >
                                   <path
                                     d="M9 18L15 12L9 6"
                                     stroke="currentColor"
@@ -222,34 +258,38 @@ const DevicesSection: React.FC<DeviceHistorySectionProps> = ({ visitor }) => {
                       </div>
 
                       <ul className="text-sm">
-                        <li className="flex justify-between items-center p-1.5 border-b border-gray-200">
+                        <li className="flex items-center justify-between border-b border-gray-200 p-1.5">
                           <span className="text-gray-500">IP Address</span>
-                          <span className="font-mono text-xs bg-gray-100 p-0.5 rounded">
+                          <span className="rounded bg-gray-100 p-0.5 font-mono text-xs">
                             {currentIP.ip}
                           </span>
                         </li>
-                        <li className="flex justify-between items-center p-1.5 border-b border-gray-200">
+                        <li className="flex items-center justify-between border-b border-gray-200 p-1.5">
                           <span className="text-gray-500">Location</span>
-                          <span className="font-medium">{currentIP.location}</span>
-                        </li>
-                        <li
-                          className={`flex justify-between items-center p-1.5 border-b ${currentIP.vpn_detected ? 'bg-red-50' : 'bg-green-50'}`}
-                        >
-                          <span className="text-gray-500">VPN</span>
-                          <span
-                            className={`font-semibold ${currentIP.vpn_detected ? 'text-red-600' : 'text-green-600'}`}
-                          >
-                            {currentIP.vpn_detected ? 'Detected' : 'Not Detected'}
+                          <span className="font-medium">
+                            {currentIP.location}
                           </span>
                         </li>
                         <li
-                          className={`flex justify-between items-center p-1.5 ${device.incognito ? 'bg-red-50' : 'bg-green-50'}`}
+                          className={`flex items-center justify-between border-b p-1.5 ${currentIP.vpn_detected ? "bg-red-50" : "bg-green-50"}`}
+                        >
+                          <span className="text-gray-500">VPN</span>
+                          <span
+                            className={`font-semibold ${currentIP.vpn_detected ? "text-red-600" : "text-green-600"}`}
+                          >
+                            {currentIP.vpn_detected
+                              ? "Detected"
+                              : "Not Detected"}
+                          </span>
+                        </li>
+                        <li
+                          className={`flex items-center justify-between p-1.5 ${device.incognito ? "bg-red-50" : "bg-green-50"}`}
                         >
                           <span className="text-gray-500">Incognito Mode</span>
                           <span
-                            className={`font-semibold ${device.incognito ? 'text-red-600' : 'text-green-600'}`}
+                            className={`font-semibold ${device.incognito ? "text-red-600" : "text-green-600"}`}
                           >
-                            {device.incognito ? 'Yes' : 'No'}
+                            {device.incognito ? "Yes" : "No"}
                           </span>
                         </li>
                       </ul>
@@ -258,8 +298,11 @@ const DevicesSection: React.FC<DeviceHistorySectionProps> = ({ visitor }) => {
 
                   {/* Map Section */}
                   <div className="px-1 pb-1">
-                    <div className="h-48 overflow-hidden bg-gray-100 rounded-b-lg">
-                      <MapboxMap location={currentIP.location} className="h-full w-full" />
+                    <div className="h-48 overflow-hidden rounded-b-lg bg-gray-100">
+                      <MapboxMap
+                        location={currentIP.location}
+                        className="h-full w-full"
+                      />
                     </div>
                   </div>
                 </div>

@@ -10,7 +10,7 @@ const dm_sans = DM_Sans({
   display: "swap",
 });
 
-if (typeof window !== 'undefined') {
+if (typeof window !== "undefined") {
   LuciaSDK.init({
     debugURL: process.env.NEXT_PUBLIC_BASE_URL || "",
     apiKey: process.env.NEXT_PUBLIC_API_KEY || "",
@@ -25,7 +25,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body
-        className={`${dm_sans.variable} bg-stone-50 font-dm_sans tracking-tight text-stone-900 antialiased`}
+        className={`${dm_sans.variable} font-dm_sans bg-stone-50 tracking-tight text-stone-900 antialiased`}
       >
         <div className="flex min-h-screen flex-col overflow-hidden supports-[overflow:clip]:overflow-clip">
           {children}

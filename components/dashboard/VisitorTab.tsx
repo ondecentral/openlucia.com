@@ -1,10 +1,10 @@
-import React from 'react';
-import { VisitorData } from './dashboard-seed-data';
-import VisitorTabHeader from './VisitorTabHeader';
-import VisitorInfoSection from './VisitorInfoSection';
-import RewardsSection from './RewardsSection';
-import DevicesSection from './DevicesSection';
-import WalletDetailsSection from './WalletDetailsSection';
+import React from "react";
+import { VisitorData } from "./dashboard-seed-data";
+import VisitorTabHeader from "./VisitorTabHeader";
+import VisitorInfoSection from "./VisitorInfoSection";
+import RewardsSection from "./RewardsSection";
+import DevicesSection from "./DevicesSection";
+import WalletDetailsSection from "./WalletDetailsSection";
 
 interface VisitorTabProps {
   visitor: VisitorData;
@@ -12,7 +12,7 @@ interface VisitorTabProps {
   walletIndex: number;
   expandedTokens: boolean;
   onToggleTab: () => void;
-  onNavigateWallet: (direction: 'prev' | 'next') => void;
+  onNavigateWallet: (direction: "prev" | "next") => void;
   onToggleTokens: () => void;
   onCopyToClipboard: (text: string) => void;
 }
@@ -28,7 +28,7 @@ const VisitorTab: React.FC<VisitorTabProps> = ({
   onCopyToClipboard,
 }) => {
   return (
-    <div className="border border-gray-200 rounded-lg overflow-hidden">
+    <div className="overflow-hidden rounded-lg border border-gray-200">
       <VisitorTabHeader
         visitor={visitor}
         isExpanded={isExpanded}
@@ -38,12 +38,18 @@ const VisitorTab: React.FC<VisitorTabProps> = ({
 
       {isExpanded && (
         <div className="border-t border-gray-200">
-          <VisitorInfoSection visitor={visitor} onCopyToClipboard={onCopyToClipboard} />
+          <VisitorInfoSection
+            visitor={visitor}
+            onCopyToClipboard={onCopyToClipboard}
+          />
 
-          <RewardsSection visitor={visitor} onCopyToClipboard={onCopyToClipboard} />
+          <RewardsSection
+            visitor={visitor}
+            onCopyToClipboard={onCopyToClipboard}
+          />
 
           <div className="grid grid-cols-1 lg:grid-cols-2">
-            <div className="lg:border-r border-gray-200">
+            <div className="border-gray-200 lg:border-r">
               <DevicesSection visitor={visitor} />
             </div>
 

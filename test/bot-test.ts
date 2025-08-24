@@ -1,5 +1,5 @@
-const { chromium } = require('playwright');
-const dotenv = require('dotenv');
+const { chromium } = require("playwright");
+const dotenv = require("dotenv");
 dotenv.config();
 
 const runBotTests = async () => {
@@ -9,163 +9,182 @@ const runBotTests = async () => {
   let allTestsPassed: boolean = true;
   const token = process.env.TOKEN;
   const bots = [
-    { 
-      userAgent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+    {
+      userAgent:
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
       viewport: { width: 1710, height: 1107 },
       deviceScaleFactor: 2,
       isMobile: false,
-      locale: 'en-US',
-      timezoneId: 'America/New_York',
+      locale: "en-US",
+      timezoneId: "America/New_York",
       plugins: [
-        { name: 'PDF Viewer' },
-        { name: 'Chrome PDF Viewer' },
-        { name: 'Chromium PDF Viewer' },
-        { name: 'Microsoft Edge PDF Viewer' },
-        { name: 'WebKit built-in PDF' },
+        { name: "PDF Viewer" },
+        { name: "Chrome PDF Viewer" },
+        { name: "Chromium PDF Viewer" },
+        { name: "Microsoft Edge PDF Viewer" },
+        { name: "WebKit built-in PDF" },
       ],
       hardwareConcurrency: 8,
       deviceMemory: 8,
-    }, { 
-      userAgent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Safari/605.1.15",
+    },
+    {
+      userAgent:
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Safari/605.1.15",
       viewport: { width: 1710, height: 1107 },
       deviceScaleFactor: 2,
       isMobile: false,
-      locale: 'en-US',
-      timezoneId: 'America/New_York',
+      locale: "en-US",
+      timezoneId: "America/New_York",
       plugins: [
-        { name: 'PDF Viewer' },
-        { name: 'Chrome PDF Viewer' },
-        { name: 'Chromium PDF Viewer' },
-        { name: 'Microsoft Edge PDF Viewer' },
-        { name: 'WebKit built-in PDF' },
+        { name: "PDF Viewer" },
+        { name: "Chrome PDF Viewer" },
+        { name: "Chromium PDF Viewer" },
+        { name: "Microsoft Edge PDF Viewer" },
+        { name: "WebKit built-in PDF" },
       ],
       hardwareConcurrency: 8,
       deviceMemory: 8,
-    }, { 
-      userAgent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36 OPR/115.0.0.0",
+    },
+    {
+      userAgent:
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36 OPR/115.0.0.0",
       viewport: { width: 1710, height: 1107 },
       deviceScaleFactor: 2,
       isMobile: false,
-      locale: 'en-US',
-      timezoneId: 'America/New_York',
+      locale: "en-US",
+      timezoneId: "America/New_York",
       plugins: [
-        { name: 'PDF Viewer' },
-        { name: 'Chrome PDF Viewer' },
-        { name: 'Chromium PDF Viewer' },
-        { name: 'Microsoft Edge PDF Viewer' },
-        { name: 'WebKit built-in PDF' },
+        { name: "PDF Viewer" },
+        { name: "Chrome PDF Viewer" },
+        { name: "Chromium PDF Viewer" },
+        { name: "Microsoft Edge PDF Viewer" },
+        { name: "WebKit built-in PDF" },
       ],
       hardwareConcurrency: 8,
       deviceMemory: 8,
-    }, { 
-      userAgent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:133.0) Gecko/20100101 Firefox/133.0",
+    },
+    {
+      userAgent:
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:133.0) Gecko/20100101 Firefox/133.0",
       viewport: { width: 1710, height: 1107 },
       deviceScaleFactor: 2,
       isMobile: false,
-      locale: 'en-US',
-      timezoneId: 'America/New_York',
+      locale: "en-US",
+      timezoneId: "America/New_York",
       plugins: [
-        { name: 'PDF Viewer' },
-        { name: 'Chrome PDF Viewer' },
-        { name: 'Chromium PDF Viewer' },
-        { name: 'Microsoft Edge PDF Viewer' },
-        { name: 'WebKit built-in PDF' },
+        { name: "PDF Viewer" },
+        { name: "Chrome PDF Viewer" },
+        { name: "Chromium PDF Viewer" },
+        { name: "Microsoft Edge PDF Viewer" },
+        { name: "WebKit built-in PDF" },
       ],
       hardwareConcurrency: 8,
       deviceMemory: 8,
-    }, { 
-      userAgent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Cypress/13.17.0 Chrome/118.0.5993.159 Electron/27.3.10 Safari/537.36",
+    },
+    {
+      userAgent:
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Cypress/13.17.0 Chrome/118.0.5993.159 Electron/27.3.10 Safari/537.36",
       viewport: { width: 1710, height: 1107 },
       deviceScaleFactor: 2,
       isMobile: false,
-      locale: 'en-US',
-      timezoneId: 'America/New_York',
+      locale: "en-US",
+      timezoneId: "America/New_York",
       plugins: [
-        { name: 'PDF Viewer' },
-        { name: 'Chrome PDF Viewer' },
-        { name: 'Chromium PDF Viewer' },
-        { name: 'Microsoft Edge PDF Viewer' },
-        { name: 'WebKit built-in PDF' },
+        { name: "PDF Viewer" },
+        { name: "Chrome PDF Viewer" },
+        { name: "Chromium PDF Viewer" },
+        { name: "Microsoft Edge PDF Viewer" },
+        { name: "WebKit built-in PDF" },
       ],
       hardwareConcurrency: 8,
       deviceMemory: 8,
-    }, { 
-      userAgent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+    },
+    {
+      userAgent:
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
       viewport: { width: 1710, height: 1107 },
       deviceScaleFactor: 2,
       isMobile: false,
-      locale: 'en-US',
-      timezoneId: 'America/New_York',
+      locale: "en-US",
+      timezoneId: "America/New_York",
       plugins: [
-        { name: 'PDF Viewer' },
-        { name: 'Chrome PDF Viewer' },
-        { name: 'Chromium PDF Viewer' },
-        { name: 'Microsoft Edge PDF Viewer' },
-        { name: 'WebKit built-in PDF' },
+        { name: "PDF Viewer" },
+        { name: "Chrome PDF Viewer" },
+        { name: "Chromium PDF Viewer" },
+        { name: "Microsoft Edge PDF Viewer" },
+        { name: "WebKit built-in PDF" },
       ],
       hardwareConcurrency: 8,
       deviceMemory: 8,
-    }, { 
-      userAgent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Safari/605.1.15",
+    },
+    {
+      userAgent:
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Safari/605.1.15",
       viewport: { width: 1710, height: 1107 },
       deviceScaleFactor: 2,
       isMobile: false,
-      locale: 'en-US',
-      timezoneId: 'America/New_York',
+      locale: "en-US",
+      timezoneId: "America/New_York",
       plugins: [
-        { name: 'PDF Viewer' },
-        { name: 'Chrome PDF Viewer' },
-        { name: 'Chromium PDF Viewer' },
-        { name: 'Microsoft Edge PDF Viewer' },
-        { name: 'WebKit built-in PDF' },
+        { name: "PDF Viewer" },
+        { name: "Chrome PDF Viewer" },
+        { name: "Chromium PDF Viewer" },
+        { name: "Microsoft Edge PDF Viewer" },
+        { name: "WebKit built-in PDF" },
       ],
       hardwareConcurrency: 8,
       deviceMemory: 8,
-    }, { 
-      userAgent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36 OPR/115.0.0.0",
+    },
+    {
+      userAgent:
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36 OPR/115.0.0.0",
       viewport: { width: 1710, height: 1107 },
       deviceScaleFactor: 2,
       isMobile: false,
-      locale: 'en-US',
-      timezoneId: 'America/New_York',
+      locale: "en-US",
+      timezoneId: "America/New_York",
       plugins: [
-        { name: 'PDF Viewer' },
-        { name: 'Chrome PDF Viewer' },
-        { name: 'Chromium PDF Viewer' },
-        { name: 'Microsoft Edge PDF Viewer' },
-        { name: 'WebKit built-in PDF' },
+        { name: "PDF Viewer" },
+        { name: "Chrome PDF Viewer" },
+        { name: "Chromium PDF Viewer" },
+        { name: "Microsoft Edge PDF Viewer" },
+        { name: "WebKit built-in PDF" },
       ],
       hardwareConcurrency: 8,
       deviceMemory: 8,
-    }, { 
-      userAgent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:133.0) Gecko/20100101 Firefox/133.0",
+    },
+    {
+      userAgent:
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:133.0) Gecko/20100101 Firefox/133.0",
       viewport: { width: 1710, height: 1107 },
       deviceScaleFactor: 2,
       isMobile: false,
-      locale: 'en-US',
-      timezoneId: 'America/New_York',
+      locale: "en-US",
+      timezoneId: "America/New_York",
       plugins: [
-        { name: 'PDF Viewer' },
-        { name: 'Chrome PDF Viewer' },
-        { name: 'Chromium PDF Viewer' },
-        { name: 'Microsoft Edge PDF Viewer' },
-        { name: 'WebKit built-in PDF' },
+        { name: "PDF Viewer" },
+        { name: "Chrome PDF Viewer" },
+        { name: "Chromium PDF Viewer" },
+        { name: "Microsoft Edge PDF Viewer" },
+        { name: "WebKit built-in PDF" },
       ],
       hardwareConcurrency: 8,
       deviceMemory: 8,
-    }, { 
-      userAgent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Cypress/13.17.0 Chrome/118.0.5993.159 Electron/27.3.10 Safari/537.36",
+    },
+    {
+      userAgent:
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Cypress/13.17.0 Chrome/118.0.5993.159 Electron/27.3.10 Safari/537.36",
       viewport: { width: 1710, height: 1107 },
       deviceScaleFactor: 2,
       isMobile: false,
-      locale: 'en-US',
-      timezoneId: 'America/New_York',
+      locale: "en-US",
+      timezoneId: "America/New_York",
       plugins: [
-        { name: 'PDF Viewer' },
-        { name: 'Chrome PDF Viewer' },
-        { name: 'Chromium PDF Viewer' },
-        { name: 'Microsoft Edge PDF Viewer' },
-        { name: 'WebKit built-in PDF' },
+        { name: "PDF Viewer" },
+        { name: "Chrome PDF Viewer" },
+        { name: "Chromium PDF Viewer" },
+        { name: "Microsoft Edge PDF Viewer" },
+        { name: "WebKit built-in PDF" },
       ],
       hardwareConcurrency: 8,
       deviceMemory: 8,
@@ -177,7 +196,7 @@ const runBotTests = async () => {
     if (!passed) allTestsPassed = false;
   };
   function sleep(ms: number) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+    return new Promise((resolve) => setTimeout(resolve, ms));
   }
   const browser = await chromium.launch({ headless: true });
 
@@ -188,9 +207,9 @@ const runBotTests = async () => {
       for (const bot of bots) {
         const context = await browser.newContext(bot);
         const page = await context.newPage();
-        await page.goto('http://localhost:3000', { waitUntil: 'load' });
-        const firstButton = page.locator('button').first();
-        await firstButton.waitFor({ state: 'attached' });
+        await page.goto("http://localhost:3000", { waitUntil: "load" });
+        const firstButton = page.locator("button").first();
+        await firstButton.waitFor({ state: "attached" });
       }
       await sleep(2000); // Wait for the last visit to be sent to the server
       const fingerprints = await fetch(`${apiUrl}/dashboard/fingerprints`, {
@@ -202,21 +221,26 @@ const runBotTests = async () => {
       console.log("views", views.status);
       // return {}
       return {
-        fingerprints: fingerprints.status !== 200 ? null : await fingerprints.json(),
+        fingerprints:
+          fingerprints.status !== 200 ? null : await fingerprints.json(),
         views: views.status !== 200 ? null : await views.json(),
-      }
+      };
     };
 
-    const {fingerprints, views} = await runBotTests(token as string);
-    if(fingerprints === null) {
+    const { fingerprints, views } = await runBotTests(token as string);
+    if (fingerprints === null) {
       throw new Error("Failed to fetch fingerprints data");
     }
     // if(views === null) {
     //   throw new Error("Failed to fetch views data");
     // }
-    logResult("Test: fingerprints length validation, fingerprints: " + fingerprints.length, fingerprints.length >= bots.length);
+    logResult(
+      "Test: fingerprints length validation, fingerprints: " +
+        fingerprints.length,
+      fingerprints.length >= bots.length,
+    );
     // logResult("Test: views length validation, views: " + views.length, views.length >= bots.length);
-    if(fingerprints.length < bots.length) {
+    if (fingerprints.length < bots.length) {
       process.exit(1);
     }
     // if(views.length < bots.length) {
@@ -225,10 +249,13 @@ const runBotTests = async () => {
 
     // Step : Validate Fingerprints
     const validateFingerprints = (fingerprints: any[]): boolean => {
-      return fingerprints.every((el) => el.lucia_user_id === fingerprints[0].lucia_user_id);
+      return fingerprints.every(
+        (el) => el.lucia_user_id === fingerprints[0].lucia_user_id,
+      );
     };
 
-    const fingerprintValidationPassed: boolean = validateFingerprints(fingerprints);
+    const fingerprintValidationPassed: boolean =
+      validateFingerprints(fingerprints);
     // logResult("Test: fingerprint consistency test", fingerprintValidationPassed);
     // if (!fingerprintValidationPassed) throw new Error("Fingerprints are inconsistent");
 
@@ -238,7 +265,8 @@ const runBotTests = async () => {
     }
     process.exit(0);
   } catch (error: unknown) {
-    const errorMessage = error instanceof Error ? error.message : "Unknown error";
+    const errorMessage =
+      error instanceof Error ? error.message : "Unknown error";
     console.error(`${redLight} Test suite failed: ${errorMessage}`);
     process.exit(1);
   } finally {
