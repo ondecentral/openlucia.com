@@ -92,6 +92,9 @@ export default function DashboardDemo() {
       ads_clicked: apiVisitor.ads_clicked,
       click_ids: apiVisitor.click_ids,
       total_visits: apiVisitor.total_visits,
+      mobile_views: apiVisitor.mobile_views ?? sampleVisitor.mobile_views,
+      tablet_views: apiVisitor.tablet_views ?? sampleVisitor.tablet_views,
+      computer_views: apiVisitor.computer_views ?? sampleVisitor.computer_views,
       // Keep mocked data for fields not available in API
       wallet_address: sampleVisitor.wallet_address,
       wallet_type: sampleVisitor.wallet_type,
@@ -130,6 +133,10 @@ export default function DashboardDemo() {
     totalUSDTRewards: dashboardStats.totalUSDTRewards,
     totalSOLRewards: dashboardStats.totalSOLRewards,
     totalETHRewards: dashboardStats.totalETHRewards,
+    // Add device view totals from API
+    totalMobileViews: apiStats?.totalMobileViews ?? 0,
+    totalTabletViews: apiStats?.totalTabletViews ?? 0,
+    totalComputerViews: apiStats?.totalComputerViews ?? 0,
   };
 
   // Determine loading state - show loading indicator when either API is loading initially
@@ -320,6 +327,9 @@ export default function DashboardDemo() {
                         totalETHRewards={displayStats.totalETHRewards}
                         totalAdsClicked={displayStats.totalAdsClicked}
                         totalClickIds={displayStats.totalClickIds}
+                        totalMobileViews={displayStats.totalMobileViews}
+                        totalTabletViews={displayStats.totalTabletViews}
+                        totalComputerViews={displayStats.totalComputerViews}
                       />
                     </>
                   ) : (
@@ -337,6 +347,9 @@ export default function DashboardDemo() {
                       totalETHRewards={displayStats.totalETHRewards}
                       totalAdsClicked={displayStats.totalAdsClicked}
                       totalClickIds={displayStats.totalClickIds}
+                      totalMobileViews={displayStats.totalMobileViews}
+                      totalTabletViews={displayStats.totalTabletViews}
+                      totalComputerViews={displayStats.totalComputerViews}
                     />
                   )}
                 </div>

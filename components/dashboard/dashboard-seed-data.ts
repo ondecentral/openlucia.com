@@ -86,6 +86,9 @@ export interface VisitorData {
   ads_clicked: number;
   click_ids: number;
   total_visits: number;
+  mobile_views: number;
+  tablet_views: number;
+  computer_views: number;
   ip_addresses: IPAddress[];
   wallets: Wallet[];
   rewards: Rewards;
@@ -432,6 +435,9 @@ export const sampleVisitors: VisitorData[] = [
     ads_clicked: 15,
     click_ids: 15,
     total_visits: 89,
+    mobile_views: 32,
+    tablet_views: 8,
+    computer_views: 49,
     ip_addresses: [
       {
         ip: "***.***0.100.42",
@@ -626,6 +632,9 @@ export const sampleVisitors: VisitorData[] = [
     ads_clicked: 45,
     click_ids: 45,
     total_visits: 234,
+    mobile_views: 187,
+    tablet_views: 12,
+    computer_views: 35,
     ip_addresses: [
       {
         ip: "***.***3.113.42",
@@ -878,6 +887,9 @@ export const sampleVisitors: VisitorData[] = [
     ads_clicked: 22,
     click_ids: 23,
     total_visits: 156,
+    mobile_views: 45,
+    tablet_views: 23,
+    computer_views: 88,
     ip_addresses: [
       {
         ip: "***.***2.2.123",
@@ -1033,6 +1045,9 @@ export const sampleVisitors: VisitorData[] = [
     ads_clicked: 2,
     click_ids: 2,
     total_visits: 127,
+    mobile_views: 18,
+    tablet_views: 5,
+    computer_views: 104,
     ip_addresses: [
       {
         ip: "***.***2.182.92",
@@ -1182,6 +1197,9 @@ export const sampleVisitors: VisitorData[] = [
     ads_clicked: 8,
     click_ids: 8,
     total_visits: 45,
+    mobile_views: 7,
+    tablet_views: 3,
+    computer_views: 35,
     ip_addresses: [
       {
         ip: "***.***7.16.142",
@@ -1345,6 +1363,9 @@ export const sampleVisitors: VisitorData[] = [
     ads_clicked: 28,
     click_ids: 29,
     total_visits: 198,
+    mobile_views: 34,
+    tablet_views: 15,
+    computer_views: 149,
     ip_addresses: [
       {
         ip: "***.***8.16.96",

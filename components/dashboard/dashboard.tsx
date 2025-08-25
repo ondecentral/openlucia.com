@@ -32,6 +32,9 @@ interface DashboardProps {
   totalETHRewards: string;
   totalAdsClicked: number;
   totalClickIds: number;
+  totalMobileViews: number;
+  totalTabletViews: number;
+  totalComputerViews: number;
 }
 
 /**
@@ -49,6 +52,9 @@ const Dashboard: React.FC<DashboardProps> = ({
   totalETHRewards,
   totalAdsClicked,
   totalClickIds,
+  totalMobileViews,
+  totalTabletViews,
+  totalComputerViews,
 }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [notification, setNotification] = useState<{
@@ -108,24 +114,24 @@ const Dashboard: React.FC<DashboardProps> = ({
     () => [
       {
         title: "MOBILE VIEWS",
-        value: 2847, // Hardcoded value
+        value: totalMobileViews,
         icon: <Smartphone className="h-5 w-5 text-orange-500" />,
         tooltip: "+18.2% (24h)",
       },
       {
         title: "TABLET VIEWS",
-        value: 40, // Hardcoded value
+        value: totalTabletViews,
         icon: <Tablet className="h-5 w-5 text-orange-500" />,
         tooltip: "-18.2% (24h)",
       },
       {
         title: "COMPUTER VIEWS",
-        value: 1953, // Hardcoded value
+        value: totalComputerViews,
         icon: <Monitor className="h-5 w-5 text-orange-500" />,
         tooltip: "+9.7% (24h)",
       },
     ],
-    [],
+    [totalMobileViews, totalTabletViews, totalComputerViews],
   );
 
   // Navigate through the rewards carousel

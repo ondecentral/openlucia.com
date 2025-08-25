@@ -24,6 +24,9 @@ export interface DashboardStats {
   totalETHRewards: string;
   totalAdsClicked: number;
   totalClickIds: number;
+  totalMobileViews: number;
+  totalTabletViews: number;
+  totalComputerViews: number;
 }
 
 /**
@@ -102,6 +105,39 @@ export async function getDashboardStats(): Promise<DashboardStats> {
 
     const clickStats = clicksQuery.rows[0] || { total_clicks: 0, ad_clicks: 0 };
 
+    // Get device type statistics based on screen size and touch capabilities
+    const deviceStatsQuery = await query(
+      `
+      SELECT 
+        COUNT(CASE 
+          WHEN (f.device_data->>'touch' = 'true') 
+          OR (f.screen_data->'width')::int < 768 
+          THEN 1 
+        END) as mobile_views,
+        COUNT(CASE 
+          WHEN (f.device_data->>'touch' != 'true' OR f.device_data->>'touch' IS NULL)
+          AND (f.screen_data->'width')::int >= 768 
+          AND (f.screen_data->'width')::int < 1024 
+          THEN 1 
+        END) as tablet_views,
+        COUNT(CASE 
+          WHEN (f.device_data->>'touch' != 'true' OR f.device_data->>'touch' IS NULL)
+          AND (f.screen_data->'width')::int >= 1024 
+          THEN 1 
+        END) as computer_views
+      FROM fingerprints f
+      INNER JOIN page_view pv ON f.id = pv.fingerprint_id  
+      WHERE pv.client_id = $1
+    `,
+      [clientId],
+    );
+
+    const deviceStats = deviceStatsQuery.rows[0] || {
+      mobile_views: 0,
+      tablet_views: 0,
+      computer_views: 0,
+    };
+
     return {
       totalVisits: parseInt(stats.total_visits) || 0,
       totalIncognitoVisits:
@@ -114,6 +150,9 @@ export async function getDashboardStats(): Promise<DashboardStats> {
       totalETHRewards: "0", // Mock for now - would need rewards system
       totalAdsClicked: parseInt(clickStats.ad_clicks) || 0,
       totalClickIds: parseInt(clickStats.total_clicks) || 0,
+      totalMobileViews: parseInt(deviceStats.mobile_views) || 0,
+      totalTabletViews: parseInt(deviceStats.tablet_views) || 0,
+      totalComputerViews: parseInt(deviceStats.computer_views) || 0,
     };
   } catch (error) {
     console.error("Error fetching dashboard stats:", error);
@@ -130,6 +169,9 @@ export async function getDashboardStats(): Promise<DashboardStats> {
       totalETHRewards: "0",
       totalAdsClicked: 0,
       totalClickIds: 0,
+      totalMobileViews: 0,
+      totalTabletViews: 0,
+      totalComputerViews: 0,
     };
   }
 }

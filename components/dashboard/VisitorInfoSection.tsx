@@ -63,24 +63,24 @@ const VisitorInfoSection: React.FC<VisitorInfoSectionProps> = ({
     () => [
       {
         title: "MOBILE VIEWS",
-        value: 211, // Hardcoded value
+        value: visitor.mobile_views,
         icon: <Smartphone className="h-5 w-5 text-orange-500" />,
         tooltip: "+18.2% (24h)",
       },
       {
         title: "TABLET VIEWS",
-        value: 2, // Hardcoded value
+        value: visitor.tablet_views,
         icon: <Tablet className="h-5 w-5 text-orange-500" />,
         tooltip: "+18.2% (24h)",
       },
       {
         title: "COMPUTER VIEWS",
-        value: 154, // Hardcoded value
+        value: visitor.computer_views,
         icon: <Monitor className="h-5 w-5 text-orange-500" />,
         tooltip: "+9.7% (24h)",
       },
     ],
-    [],
+    [visitor.mobile_views, visitor.tablet_views, visitor.computer_views],
   );
 
   // Navigate through the visits carousel
