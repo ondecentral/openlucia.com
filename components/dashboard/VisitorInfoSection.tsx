@@ -162,9 +162,13 @@ const VisitorInfoSection: React.FC<VisitorInfoSectionProps> = ({
 
       <section className="grid grid-cols-1 md:grid-cols-3 gap-1.5 p-1">
         <div className="border border-gray-200 rounded-lg p-1.5">
-          <h3 className="text-base font-semibold text-gray-600 mb-3 flex items-center justify-center gap-2 border-b border-gray-200 pb-2">
-            <Mail className="text-orange-500 w-4 h-4" /> Associated Emails
-          </h3>
+          <div className="flex items-center gap-2 mb-3 border-b border-gray-200 pb-2">
+            <h3 className="text-base font-semibold text-gray-600 flex items-center gap-2">
+              <Mail className="text-orange-500 w-4 h-4" /> Associated Emails
+            </h3>
+            <DemoDataLabel onShowNotification={onShowDemoNotification} />
+          </div>
+
           <div className="space-y-2 max-h-[120px] overflow-y-auto">
             {visitor.associated_emails.map((email, index) => (
               <div
