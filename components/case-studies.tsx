@@ -198,25 +198,26 @@ import Link from "@/components/tracked-link";
 
 export default function CaseStudies() {
   return (
-    <div className="mx-auto py-12 pb-20 max-w-6xl px-4 sm:px-6">
+    <div className="mx-auto max-w-6xl px-4 py-12 pb-20 sm:px-6">
       {/* Header section */}
       <div className="mx-auto max-w-3xl pb-12 text-center">
         <div className="-mx-0.5 flex justify-center -space-x-3">
-          <span className="rounded-full outline outline-stone-300 px-1.5 text-stone-500 text-sm mb-4">
+          <span className="mb-4 rounded-full px-1.5 text-sm text-stone-500 outline outline-stone-300">
             Case Studies
           </span>
         </div>
-        <h2 className="animate-[gradient_6s_linear_infinite] bg-[linear-gradient(to_right,theme(colors.orange.300),theme(colors.orange.500),theme(colors.orange.400),theme(colors.orange.500),theme(colors.orange.300))] bg-[length:200%_auto] bg-clip-text pb-4 font-nacelle text-3xl font-semibold text-transparent md:text-4xl">
+        <h2 className="font-nacelle animate-[gradient_6s_linear_infinite] bg-[linear-gradient(to_right,theme(colors.orange.300),theme(colors.orange.500),theme(colors.orange.400),theme(colors.orange.500),theme(colors.orange.300))] bg-[length:200%_auto] bg-clip-text pb-4 text-3xl font-semibold text-transparent md:text-4xl">
           Meet Lucia Attribution
         </h2>
-        <p className="text-lg text-indigo-200/65">
-          Stuck tracking fragmented data? Unlock clarity to focus on what drives results and scale confidently.
+        <p className="text-indigo-200/65 text-lg">
+          Stuck tracking fragmented data? Unlock clarity to focus on what drives
+          results and scale confidently.
         </p>
       </div>
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
         {/* Problem 1 */}
-        <div className="col-span-1 md:col-span-2 bg-stone-100 outline outline-stone-200 rounded-md p-4">
+        <div className="col-span-1 rounded-md bg-stone-100 p-4 outline outline-stone-200 md:col-span-2">
           <div className="flex items-baseline gap-2.5">
             {/* Icon */}
             <svg
@@ -234,11 +235,11 @@ export default function CaseStudies() {
                 strokeLinejoin="round"
               />
             </svg>
-            <div className="flex flex-col text-left w-full">
-              <span className="text-stone-900 text-lg font-semibold">
+            <div className="flex w-full flex-col text-left">
+              <span className="text-lg font-semibold text-stone-900">
                 Centralized Exchange
               </span>
-              <span className="text-stone-500 break-words whitespace-normal">
+              <span className="whitespace-normal break-words text-stone-500">
                 This Centralized Exchange typically does not use paid ads, but
                 uses organic content and exchange listing news to do marketing
                 even if its organic. However, there is still a cost to marketing
@@ -249,7 +250,7 @@ export default function CaseStudies() {
         </div>
 
         {/* Problem 2 */}
-        <div className="bg-stone-100 outline outline-stone-200 rounded-md p-4">
+        <div className="rounded-md bg-stone-100 p-4 outline outline-stone-200">
           <div className="flex items-baseline gap-2.5">
             {/* Icon */}
             <svg
@@ -267,11 +268,11 @@ export default function CaseStudies() {
                 strokeLinejoin="round"
               />
             </svg>
-            <div className="flex flex-col text-left w-full">
-              <span className="text-stone-900 text-lg font-semibold">
+            <div className="flex w-full flex-col text-left">
+              <span className="text-lg font-semibold text-stone-900">
                 Crypto Wallet Company
               </span>
-              <span className="text-stone-500 break-words whitespace-normal">
+              <span className="whitespace-normal break-words text-stone-500">
                 A pioneering crypto wallet company sought to expand its user
                 base by targeting audiences on Telegram and Discord,
                 acknowledging the dominance of these platforms within the crypto
@@ -282,7 +283,7 @@ export default function CaseStudies() {
         </div>
 
         {/* Problem 3 */}
-        <div className="bg-stone-100 outline outline-stone-200 rounded-md p-4">
+        <div className="rounded-md bg-stone-100 p-4 outline outline-stone-200">
           <div className="flex items-baseline gap-2.5">
             {/* Icon */}
             <svg
@@ -300,11 +301,11 @@ export default function CaseStudies() {
                 strokeLinejoin="round"
               />
             </svg>
-            <div className="flex flex-col text-left w-full">
-              <span className="text-stone-900 text-lg font-semibold">
+            <div className="flex w-full flex-col text-left">
+              <span className="text-lg font-semibold text-stone-900">
                 De-Fi Platform
               </span>
-              <span className="text-stone-500 break-words whitespace-normal">
+              <span className="whitespace-normal break-words text-stone-500">
                 A DeFi platform for trading perpetual swaps aimed to optimize
                 its marketing strategy, acknowledging the shift in crypto user
                 behavior towards community-driven platforms.
@@ -314,7 +315,7 @@ export default function CaseStudies() {
         </div>
 
         {/* Problem 4 */}
-        <div className="bg-stone-100 outline outline-stone-200 rounded-md p-4">
+        <div className="rounded-md bg-stone-100 p-4 outline outline-stone-200">
           <div className="flex items-baseline gap-2.5">
             {/* Icon */}
             <svg
@@ -332,11 +333,11 @@ export default function CaseStudies() {
                 strokeLinejoin="round"
               />
             </svg>
-            <div className="flex flex-col text-left w-full">
-              <span className="text-stone-900 text-lg font-semibold">
+            <div className="flex w-full flex-col text-left">
+              <span className="text-lg font-semibold text-stone-900">
                 L1 Blockchain
               </span>
-              <span className="text-stone-500 break-words whitespace-normal">
+              <span className="whitespace-normal break-words text-stone-500">
                 This project currently is live on mainnet. But they are not a
                 market leader compared to Solana or Ethereum. They have a number
                 of channels where they post, do partnership announcements. Those
@@ -349,8 +350,8 @@ export default function CaseStudies() {
         {/* Problem 5 */}
         {/* <div className="bg-stone-100 outline outline-stone-200 rounded-md p-4">
           <div className="flex items-baseline gap-2.5"> */}
-            {/* Icon */}
-            {/* <svg
+        {/* Icon */}
+        {/* <svg
               className="fill-current stroke-stone-500 text-transparent"
               width={16}
               height={16}
@@ -369,19 +370,19 @@ export default function CaseStudies() {
               <span className="text-stone-900 text-lg font-semibold">
                 Textile Manufactuer
               </span> */}
-              {/* <span className="text-stone-500 break-words whitespace-normal">
+        {/* <span className="text-stone-500 break-words whitespace-normal">
                 A large-scale manufacturer creates a novel process where instead
                 of using plastic materials, they use biodegradable PLA
                 (poly-lactic acid) to be used fashion forward apparel. This
                 company has several workstreams */}
-              {/* </span> */}
-            {/* </div> */}
-          {/* </div> */}
+        {/* </span> */}
+        {/* </div> */}
+        {/* </div> */}
         {/* </div> */}
       </div>
-      <div className="flex justify-center mt-10">
+      <div className="mt-10 flex justify-center">
         <Link
-          className="btn w-full outline outline-1 outline-slate-300 bg-transparent text-stone-800 shadow hover:drop-shadow-lg hover:outline-2 hover:outline-orange-500 hover:bg-orange-50 sm:ml-4 sm:w-auto"
+          className="btn w-full bg-transparent text-stone-800 shadow outline outline-1 outline-slate-300 hover:bg-orange-50 hover:outline-2 hover:outline-orange-500 hover:drop-shadow-lg sm:ml-4 sm:w-auto"
           href="https://lucia-protocol.notion.site/Lucia-Ad-Attribution-Case-Studies-862e0f534eed441b9478366060a3b22b?pvs=25"
           target="_blank"
           aria-label="View Case Studies"
@@ -392,4 +393,3 @@ export default function CaseStudies() {
     </div>
   );
 }
-

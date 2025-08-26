@@ -1,5 +1,5 @@
-import React from 'react';
-import { Info, Smartphone, Monitor } from 'lucide-react';
+import React from "react";
+import { Info, Smartphone, Monitor } from "lucide-react";
 
 interface DeviceViewsCarouselProps {
   currentDevice: {
@@ -7,16 +7,19 @@ interface DeviceViewsCarouselProps {
     value: number;
     icon: React.ReactNode;
   };
-  onNavigate: (direction: 'prev' | 'next') => void;
+  onNavigate: (direction: "prev" | "next") => void;
 }
 
-const DeviceViewsCarousel: React.FC<DeviceViewsCarouselProps> = ({ currentDevice, onNavigate }) => {
+const DeviceViewsCarousel: React.FC<DeviceViewsCarouselProps> = ({
+  currentDevice,
+  onNavigate,
+}) => {
   return (
-    <div className="p-3 border-r border-b md:border-b-0 border-gray-200 relative">
+    <div className="relative border-b border-r border-gray-200 p-3 md:border-b-0">
       <div className="flex items-center justify-center gap-4">
         <button
-          onClick={() => onNavigate('prev')}
-          className="text-gray-400 hover:text-gray-600 transition-colors"
+          onClick={() => onNavigate("prev")}
+          className="text-gray-400 transition-colors hover:text-gray-600"
           aria-label="Previous device type"
         >
           <svg
@@ -35,10 +38,12 @@ const DeviceViewsCarousel: React.FC<DeviceViewsCarouselProps> = ({ currentDevice
             />
           </svg>
         </button>
-        <p className="text-xs text-gray-400 font-semibold tracking-wider">{currentDevice.title}</p>
+        <p className="text-xs font-semibold tracking-wider text-gray-400">
+          {currentDevice.title}
+        </p>
         <button
-          onClick={() => onNavigate('next')}
-          className="text-gray-400 hover:text-gray-600 transition-colors"
+          onClick={() => onNavigate("next")}
+          className="text-gray-400 transition-colors hover:text-gray-600"
           aria-label="Next device type"
         >
           <svg
@@ -58,7 +63,7 @@ const DeviceViewsCarousel: React.FC<DeviceViewsCarouselProps> = ({ currentDevice
           </svg>
         </button>
       </div>
-      <div className="flex justify-center items-center gap-2 mt-1">
+      <div className="mt-1 flex items-center justify-center gap-2">
         {currentDevice.icon}
         <p className="text-sm font-semibold text-gray-600">
           {currentDevice.value.toLocaleString()}

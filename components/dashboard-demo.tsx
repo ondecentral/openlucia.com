@@ -1,38 +1,41 @@
-'use client';
+"use client";
 
-import { useState, useEffect, useRef } from 'react';
-import { Code2, Info, Loader2, AlertCircle } from 'lucide-react';
-import Dashboard from './dashboard/dashboard';
-import { sampleVisitors, dashboardStats } from './dashboard/dashboard-seed-data';
-import { useDashboardStats, useVisitors } from '@/lib/dashboard-api';
-import { VisitorData } from './dashboard/dashboard-seed-data';
-import DeveloperView from './dashboard/developer-view';
+import { useState, useEffect, useRef } from "react";
+import { Code2, Info, Loader2, AlertCircle } from "lucide-react";
+import Dashboard from "./dashboard/dashboard";
+import {
+  sampleVisitors,
+  dashboardStats,
+} from "./dashboard/dashboard-seed-data";
+import { useDashboardStats, useVisitors } from "@/lib/dashboard-api";
+import { VisitorData } from "./dashboard/dashboard-seed-data";
+import DeveloperView from "./dashboard/developer-view";
 import {
   BottomRightPopup,
   WarningModal,
   AcceptModal,
   CancelModal,
   ConfirmModal,
-} from '@/components/opt-out';
+} from "@/components/opt-out";
 
 // Loading indicator component
 const LoadingIndicator = () => (
-  <div className="flex flex-col items-center justify-center py-16 space-y-4">
-    <Loader2 className="w-8 h-8 animate-spin text-orange-500" />
+  <div className="flex flex-col items-center justify-center space-y-4 py-16">
+    <Loader2 className="h-8 w-8 animate-spin text-orange-500" />
     <div className="text-center">
-      <p className="text-gray-600 font-medium">Loading dashboard data...</p>
-      <p className="text-sm text-gray-400 mt-1">Fetching real-time analytics</p>
+      <p className="font-medium text-gray-600">Loading dashboard data...</p>
+      <p className="mt-1 text-sm text-gray-400">Fetching real-time analytics</p>
     </div>
   </div>
 );
 
 // Error indicator component
 const ErrorIndicator = () => (
-  <div className="flex flex-col items-center justify-center py-16 space-y-4">
-    <AlertCircle className="w-8 h-8 text-red-500" />
+  <div className="flex flex-col items-center justify-center space-y-4 py-16">
+    <AlertCircle className="h-8 w-8 text-red-500" />
     <div className="text-center">
-      <p className="text-gray-600 font-medium">Unable to load live data</p>
-      <p className="text-sm text-gray-400 mt-1">Showing demo data instead</p>
+      <p className="font-medium text-gray-600">Unable to load live data</p>
+      <p className="mt-1 text-sm text-gray-400">Showing demo data instead</p>
     </div>
   </div>
 );
@@ -49,7 +52,11 @@ export default function DashboardDemo() {
   const tooltipRef = useRef<HTMLDivElement>(null);
 
   // Fetch real API data
-  const { stats: apiStats, loading: statsLoading, error: statsError } = useDashboardStats();
+  const {
+    stats: apiStats,
+    loading: statsLoading,
+    error: statsError,
+  } = useDashboardStats();
   const {
     visitors: apiVisitors,
     loading: visitorsLoading,
@@ -58,9 +65,9 @@ export default function DashboardDemo() {
 
   // Utility function to ensure IP addresses are obscured (safety measure)
   const obscureIPAddress = (ip: string): string => {
-    if (!ip) return '***.***.0.0';
-    const parts = ip.split('.');
-    if (parts.length !== 4) return '***.***.0.0';
+    if (!ip) return "***.***.0.0";
+    const parts = ip.split(".");
+    if (parts.length !== 4) return "***.***.0.0";
     return `***.***.${parts[2]}.${parts[3]}`;
   };
 
@@ -94,10 +101,12 @@ export default function DashboardDemo() {
       transactions: sampleVisitor.transactions,
       risk_level: sampleVisitor.risk_level,
       vpn: sampleVisitor.vpn,
-      ip_addresses: (apiVisitor.ip_addresses || sampleVisitor.ip_addresses).map(ipAddr => ({
-        ...ipAddr,
-        ip: obscureIPAddress(ipAddr.ip),
-      })),
+      ip_addresses: (apiVisitor.ip_addresses || sampleVisitor.ip_addresses).map(
+        (ipAddr) => ({
+          ...ipAddr,
+          ip: obscureIPAddress(ipAddr.ip),
+        }),
+      ),
       wallets: sampleVisitor.wallets,
       rewards: sampleVisitor.rewards,
     };
@@ -106,12 +115,16 @@ export default function DashboardDemo() {
   // Use API stats when available, fall back to mock data
   const displayStats = {
     totalVisits: apiStats?.totalVisits ?? dashboardStats.totalVisits,
-    totalIncognitoVisits: apiStats?.totalIncognitoVisits ?? dashboardStats.totalIncognitoVisits,
+    totalIncognitoVisits:
+      apiStats?.totalIncognitoVisits ?? dashboardStats.totalIncognitoVisits,
     totalUniqueIPs: apiStats?.totalUniqueIPs ?? dashboardStats.totalUniqueIPs,
     totalUniqueGeolocations:
-      apiStats?.totalUniqueGeolocations ?? dashboardStats.totalUniqueGeolocations,
-    totalWalletsDetected: apiStats?.totalWalletsDetected ?? dashboardStats.totalWalletsDetected,
-    totalAdsClicked: apiStats?.totalAdsClicked ?? dashboardStats.totalAdsClicked,
+      apiStats?.totalUniqueGeolocations ??
+      dashboardStats.totalUniqueGeolocations,
+    totalWalletsDetected:
+      apiStats?.totalWalletsDetected ?? dashboardStats.totalWalletsDetected,
+    totalAdsClicked:
+      apiStats?.totalAdsClicked ?? dashboardStats.totalAdsClicked,
     totalClickIds: apiStats?.totalClickIds ?? dashboardStats.totalClickIds,
     // Keep mocked reward data since API returns "0" for these
     totalUSDTRewards: dashboardStats.totalUSDTRewards,
@@ -131,23 +144,27 @@ export default function DashboardDemo() {
     !apiVisitors.length;
 
   // Use API visitors if available, otherwise fall back to sample data (but only show after loading)
-  const displayVisitors = mergedVisitors.length > 0 ? mergedVisitors : sampleVisitors.slice(0, 8);
+  const displayVisitors =
+    mergedVisitors.length > 0 ? mergedVisitors : sampleVisitors.slice(0, 8);
 
   // Handle clicking outside to close tooltip
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (tooltipRef.current && !tooltipRef.current.contains(event.target as Node)) {
+      if (
+        tooltipRef.current &&
+        !tooltipRef.current.contains(event.target as Node)
+      ) {
         setShowTooltip(false);
         setIsTooltipPinned(false);
       }
     };
 
     if (isTooltipPinned) {
-      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener("mousedown", handleClickOutside);
     }
 
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isTooltipPinned]);
 
@@ -188,87 +205,91 @@ export default function DashboardDemo() {
     <section className="relative">
       <div className="mx-auto max-w-6xl px-1 sm:px-6">
         <div className="text-center">
-          <div className="border-b [border-image:linear-gradient(to_right,transparent,theme(colors.stone.300/.8),transparent)1] py-6">
+          <div className="border-b py-6 [border-image:linear-gradient(to_right,transparent,theme(colors.stone.300/.8),transparent)1]">
             {/* Dashboard Content */}
-            <div className="relative bg-white rounded-lg shadow-lg border border-gray-200">
+            <div className="relative rounded-lg border border-gray-200 bg-white shadow-lg">
               {/* Dashboard Header */}
-              <div className="flex flex-col sm:grid sm:grid-cols-3 items-center p-2 border-b border-gray-200 gap-2 sm:gap-0">
+              <div className="flex flex-col items-center gap-2 border-b border-gray-200 p-2 sm:grid sm:grid-cols-3 sm:gap-0">
                 {/* Center section - DEMO VERSION on top for mobile */}
-                <div className="flex items-center gap-1 justify-center w-full sm:col-start-2 order-1 sm:order-2">
-                  <div className="relative group">
+                <div className="order-1 flex w-full items-center justify-center gap-1 sm:order-2 sm:col-start-2">
+                  <div className="group relative">
                     <div
-                      className="rounded-full text-xs font-medium cursor-help hover:bg-gray-400 transition-colors flex items-center justify-center"
-                      onMouseEnter={() => !isTooltipPinned && setShowTooltip(true)}
-                      onMouseLeave={() => !isTooltipPinned && setShowTooltip(false)}
+                      className="flex cursor-help items-center justify-center rounded-full text-xs font-medium transition-colors hover:bg-gray-400"
+                      onMouseEnter={() =>
+                        !isTooltipPinned && setShowTooltip(true)
+                      }
+                      onMouseLeave={() =>
+                        !isTooltipPinned && setShowTooltip(false)
+                      }
                       onClick={() => {
                         setIsTooltipPinned(!isTooltipPinned);
                         setShowTooltip(!isTooltipPinned);
                       }}
                     >
-                      <Info className="w-3 h-3 text-gray-400 cursor-help" />
+                      <Info className="h-3 w-3 cursor-help text-gray-400" />
                     </div>
                     {showTooltip && (
                       <div
                         ref={tooltipRef}
-                        className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-1 px-2 py-1 bg-gray-800 text-white text-xs rounded opacity-100 transition-opacity duration-200 whitespace-nowrap z-[9999]"
+                        className="absolute bottom-full left-1/2 z-[9999] mb-1 -translate-x-1/2 transform whitespace-nowrap rounded bg-gray-800 px-2 py-1 text-xs text-white opacity-100 transition-opacity duration-200"
                       >
                         Full functionality available Q3 2025
-                        <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-3 border-r-3 border-t-3 border-transparent border-t-gray-800"></div>
+                        <div className="border-l-3 border-r-3 border-t-3 absolute left-1/2 top-full h-0 w-0 -translate-x-1/2 transform border-transparent border-t-gray-800"></div>
                       </div>
                     )}
                   </div>
-                  <div className="text-gray-400 text-sm flex items-center gap-2">
+                  <div className="flex items-center gap-2 text-sm text-gray-400">
                     DEMO VERSION
                     {(statsLoading || visitorsLoading) && (
-                      <Loader2 className="w-3 h-3 animate-spin text-orange-500" />
+                      <Loader2 className="h-3 w-3 animate-spin text-orange-500" />
                     )}
                   </div>
                 </div>
 
                 {/* Bottom row container for mobile */}
-                <div className="flex justify-between items-center w-full sm:hidden order-2">
+                <div className="order-2 flex w-full items-center justify-between sm:hidden">
                   {/* Left side - Code icon and toggle */}
                   <div className="flex items-center gap-3">
-                    <Code2 className="w-4 h-4 text-gray-500" />
-                    <label className="relative inline-flex items-center cursor-pointer">
+                    <Code2 className="h-4 w-4 text-gray-500" />
+                    <label className="relative inline-flex cursor-pointer items-center">
                       <input
                         type="checkbox"
-                        className="sr-only peer"
+                        className="peer sr-only"
                         checked={isDeveloper}
-                        onChange={e => setIsDeveloper(e.target.checked)}
+                        onChange={(e) => setIsDeveloper(e.target.checked)}
                       />
-                      <div className="w-11 h-6 bg-gray-200 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-500"></div>
+                      <div className="peer h-6 w-11 rounded-full bg-gray-200 after:absolute after:left-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-orange-500 peer-checked:after:translate-x-full peer-checked:after:border-white"></div>
                     </label>
                   </div>
 
                   {/* Right side - Demo opt out button */}
                   <button
                     onClick={handleOptOutClick}
-                    className="px-3 py-1 text-sm text-gray-400 border border-orange-500 hover:bg-gray-700 hover:text-white rounded transition-colors"
+                    className="rounded border border-orange-500 px-3 py-1 text-sm text-gray-400 transition-colors hover:bg-gray-700 hover:text-white"
                   >
                     DEMO OPT OUT
                   </button>
                 </div>
 
                 {/* Desktop layout - Left section */}
-                <div className="hidden sm:flex items-center gap-3 w-full sm:w-auto justify-start order-2 sm:order-1">
-                  <Code2 className="w-4 h-4 text-gray-500" />
-                  <label className="relative inline-flex items-center cursor-pointer">
+                <div className="order-2 hidden w-full items-center justify-start gap-3 sm:order-1 sm:flex sm:w-auto">
+                  <Code2 className="h-4 w-4 text-gray-500" />
+                  <label className="relative inline-flex cursor-pointer items-center">
                     <input
                       type="checkbox"
-                      className="sr-only peer"
+                      className="peer sr-only"
                       checked={isDeveloper}
-                      onChange={e => setIsDeveloper(e.target.checked)}
+                      onChange={(e) => setIsDeveloper(e.target.checked)}
                     />
-                    <div className="w-11 h-6 bg-gray-200 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-500"></div>
+                    <div className="peer h-6 w-11 rounded-full bg-gray-200 after:absolute after:left-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-orange-500 peer-checked:after:translate-x-full peer-checked:after:border-white"></div>
                   </label>
                 </div>
 
                 {/* Desktop layout - Right section */}
-                <div className="hidden sm:flex justify-end w-full sm:w-auto order-3">
+                <div className="order-3 hidden w-full justify-end sm:flex sm:w-auto">
                   <button
                     onClick={handleOptOutClick}
-                    className="px-3 py-1 text-sm text-gray-400 border border-orange-500 hover:bg-gray-700 hover:text-white rounded transition-colors"
+                    className="rounded border border-orange-500 px-3 py-1 text-sm text-gray-400 transition-colors hover:bg-gray-700 hover:text-white"
                   >
                     DEMO OPT OUT
                   </button>
@@ -290,7 +311,9 @@ export default function DashboardDemo() {
                         totalVisits={displayStats.totalVisits}
                         totalIncognitoVisits={displayStats.totalIncognitoVisits}
                         totalUniqueIPs={displayStats.totalUniqueIPs}
-                        totalUniqueGeolocations={displayStats.totalUniqueGeolocations}
+                        totalUniqueGeolocations={
+                          displayStats.totalUniqueGeolocations
+                        }
                         totalWalletsDetected={displayStats.totalWalletsDetected}
                         totalUSDTRewards={displayStats.totalUSDTRewards}
                         totalSOLRewards={displayStats.totalSOLRewards}
@@ -305,7 +328,9 @@ export default function DashboardDemo() {
                       totalVisits={displayStats.totalVisits}
                       totalIncognitoVisits={displayStats.totalIncognitoVisits}
                       totalUniqueIPs={displayStats.totalUniqueIPs}
-                      totalUniqueGeolocations={displayStats.totalUniqueGeolocations}
+                      totalUniqueGeolocations={
+                        displayStats.totalUniqueGeolocations
+                      }
                       totalWalletsDetected={displayStats.totalWalletsDetected}
                       totalUSDTRewards={displayStats.totalUSDTRewards}
                       totalSOLRewards={displayStats.totalSOLRewards}
@@ -322,8 +347,12 @@ export default function DashboardDemo() {
       </div>
 
       {/* Popups and Modals */}
-      {showPopup && <BottomRightPopup onAccept={handleAccept} onDeny={handleDeny} />}
-      {showWarning && <WarningModal onConfirm={handleConfirm} onCancel={handleCancel} />}
+      {showPopup && (
+        <BottomRightPopup onAccept={handleAccept} onDeny={handleDeny} />
+      )}
+      {showWarning && (
+        <WarningModal onConfirm={handleConfirm} onCancel={handleCancel} />
+      )}
       {showAcceptModal && <AcceptModal onBack={handleBack} />}
       {showCancelModal && <CancelModal onBack={handleBack} />}
       {showConfirmModal && <ConfirmModal onBack={handleBack} />}

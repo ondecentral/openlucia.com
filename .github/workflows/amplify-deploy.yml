@@ -37,59 +37,59 @@ jobs:
       NEXT_TELEMETRY_DISABLED: 1
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: 20
-        cache: 'npm'
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
 
-    - name: Install dependencies
-      run: npm ci
+      - name: Install dependencies
+        run: npm ci
 
-    - name: Run linting
-      run: npm run lint
+      - name: Run linting
+        run: npm run lint
 
-    - name: Test database connection
-      run: |
-        npx ts-node -e "
-        import { testConnection } from './lib/database';
-        testConnection().then(result => {
-          console.log('Database test result:', result);
-          if (!result.success) process.exit(1);
-        }).catch(err => {
-          console.error('Database test failed:', err);
-          process.exit(1);
-        });
-        "
+      - name: Test database connection
+        run: |
+          npx ts-node -e "
+          import { testConnection } from './lib/database';
+          testConnection().then(result => {
+            console.log('Database test result:', result);
+            if (!result.success) process.exit(1);
+          }).catch(err => {
+            console.error('Database test failed:', err);
+            process.exit(1);
+          });
+          "
 
-    - name: Build project
-      run: npm run build
-      env:
-        NODE_ENV: production
+      - name: Build project
+        run: npm run build
+        env:
+          NODE_ENV: production
 
-    - name: Install Playwright (if needed)
-      run: |
-        if ! npm list playwright &> /dev/null; then
-          npm install playwright
-        fi
-        npx playwright install
+      - name: Install Playwright (if needed)
+        run: |
+          if ! npm list playwright &> /dev/null; then
+            npm install playwright
+          fi
+          npx playwright install
 
-    - name: Run bot tests
-      run: npm run test:bot
-      continue-on-error: true
+      - name: Run bot tests
+        run: npm run test:bot
+        continue-on-error: true
 
   notify-amplify:
     needs: test
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'
-    
+
     steps:
-    - name: Trigger Amplify deployment
-      run: |
-        echo "✅ Tests passed! Amplify will automatically deploy this commit."
-        echo "Branch: ${{ github.ref_name }}"
-        echo "Commit: ${{ github.sha }}"
-        echo "Environment: ${{ github.ref_name == 'main' && 'production' || 'staging' }}"
+      - name: Trigger Amplify deployment
+        run: |
+          echo "✅ Tests passed! Amplify will automatically deploy this commit."
+          echo "Branch: ${{ github.ref_name }}"
+          echo "Commit: ${{ github.sha }}"
+          echo "Environment: ${{ github.ref_name == 'main' && 'production' || 'staging' }}"

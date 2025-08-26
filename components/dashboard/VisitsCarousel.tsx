@@ -1,5 +1,5 @@
-import React from 'react';
-import { Info, Users, EyeOff } from 'lucide-react';
+import React from "react";
+import { Info, Users, EyeOff } from "lucide-react";
 
 interface VisitsCarouselProps {
   currentVisit: {
@@ -7,16 +7,19 @@ interface VisitsCarouselProps {
     value: number;
     icon: React.ReactNode;
   };
-  onNavigate: (direction: 'prev' | 'next') => void;
+  onNavigate: (direction: "prev" | "next") => void;
 }
 
-const VisitsCarousel: React.FC<VisitsCarouselProps> = ({ currentVisit, onNavigate }) => {
+const VisitsCarousel: React.FC<VisitsCarouselProps> = ({
+  currentVisit,
+  onNavigate,
+}) => {
   return (
-    <div className="p-3 border-r border-b md:border-b-0 border-gray-200 relative">
+    <div className="relative border-b border-r border-gray-200 p-3 md:border-b-0">
       <div className="flex items-center justify-center gap-4">
         <button
-          onClick={() => onNavigate('prev')}
-          className="text-gray-400 hover:text-gray-600 transition-colors"
+          onClick={() => onNavigate("prev")}
+          className="text-gray-400 transition-colors hover:text-gray-600"
           aria-label="Previous visit type"
         >
           <svg
@@ -35,10 +38,12 @@ const VisitsCarousel: React.FC<VisitsCarouselProps> = ({ currentVisit, onNavigat
             />
           </svg>
         </button>
-        <p className="text-xs text-gray-400 font-semibold tracking-wider">{currentVisit.title}</p>
+        <p className="text-xs font-semibold tracking-wider text-gray-400">
+          {currentVisit.title}
+        </p>
         <button
-          onClick={() => onNavigate('next')}
-          className="text-gray-400 hover:text-gray-600 transition-colors"
+          onClick={() => onNavigate("next")}
+          className="text-gray-400 transition-colors hover:text-gray-600"
           aria-label="Next visit type"
         >
           <svg
@@ -58,9 +63,11 @@ const VisitsCarousel: React.FC<VisitsCarouselProps> = ({ currentVisit, onNavigat
           </svg>
         </button>
       </div>
-      <div className="flex justify-center items-center gap-2 mt-1">
+      <div className="mt-1 flex items-center justify-center gap-2">
         {currentVisit.icon}
-        <p className="text-sm font-semibold text-gray-600">{currentVisit.value.toLocaleString()}</p>
+        <p className="text-sm font-semibold text-gray-600">
+          {currentVisit.value.toLocaleString()}
+        </p>
       </div>
     </div>
   );

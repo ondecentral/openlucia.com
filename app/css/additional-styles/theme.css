@@ -20,7 +20,9 @@
 }
 
 .hljs-keyword {
-  color: rgb(251 146 60) !important; /* orange for keywords like import, from, etc. */
+  color: rgb(
+    251 146 60
+  ) !important; /* orange for keywords like import, from, etc. */
 }
 
 .hljs-string {
@@ -36,11 +38,15 @@
 }
 
 .hljs-function {
-  color: rgb(253 186 116) !important; /* secondary orange for function calls like .init */
+  color: rgb(
+    253 186 116
+  ) !important; /* secondary orange for function calls like .init */
 }
 
 .hljs-title {
-  color: rgb(229 231 235) !important; /* white/grey for identifiers like LuciaSDK */
+  color: rgb(
+    229 231 235
+  ) !important; /* white/grey for identifiers like LuciaSDK */
 }
 
 .hljs-params {
@@ -48,7 +54,9 @@
 }
 
 .hljs-property {
-  color: rgb(134 239 172) !important; /* green for object properties like apiKey */
+  color: rgb(
+    134 239 172
+  ) !important; /* green for object properties like apiKey */
 }
 
 .hljs-variable {
@@ -106,7 +114,9 @@
 }
 
 .language-bash .hljs-built_in {
-  color: rgb(134 239 172) !important; /* green for bash built-ins like npm, yarn */
+  color: rgb(
+    134 239 172
+  ) !important; /* green for bash built-ins like npm, yarn */
 }
 
 .language-bash .hljs-comment {

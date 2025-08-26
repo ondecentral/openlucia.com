@@ -1,6 +1,6 @@
-import React, { ReactNode } from 'react';
-import { Info } from 'lucide-react';
-import DemoDataTooltip from './DemoDataTooltip';
+import React, { ReactNode } from "react";
+import { Info } from "lucide-react";
+import DemoDataTooltip from "./DemoDataTooltip";
 
 interface StatCardProps {
   title: string;
@@ -17,23 +17,27 @@ const StatCard: React.FC<StatCardProps> = ({
   value,
   icon,
   tooltip,
-  className = '',
+  className = "",
   isDemoData = false,
   onShowDemoNotification,
 }) => {
   return (
-    <div className={`p-3 border-r border-b md:border-b-0 border-gray-200 relative ${className}`}>
-      <p className="text-xs text-gray-400 font-semibold tracking-wider">{title}</p>
-      <div className="flex justify-center items-center gap-2 mt-1">
+    <div
+      className={`relative border-b border-r border-gray-200 p-3 md:border-b-0 ${className}`}
+    >
+      <p className="text-xs font-semibold tracking-wider text-gray-400">
+        {title}
+      </p>
+      <div className="mt-1 flex items-center justify-center gap-2">
         {icon}
         <p className="text-sm font-semibold text-gray-600">{value}</p>
       </div>
 
       {/* Tooltip - either regular tooltip or demo data tooltip */}
       {tooltip && (
-        <div className="absolute bottom-2 left-2 group">
-          <Info className="w-3 h-3 text-gray-400 cursor-help" />
-          <div className="absolute bottom-full left-0 mb-1 px-2 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10">
+        <div className="group absolute bottom-2 left-2">
+          <Info className="h-3 w-3 cursor-help text-gray-400" />
+          <div className="absolute bottom-full left-0 z-10 mb-1 whitespace-nowrap rounded bg-gray-800 px-2 py-1 text-xs text-white opacity-0 transition-opacity group-hover:opacity-100">
             {tooltip}
           </div>
         </div>

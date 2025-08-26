@@ -66,14 +66,14 @@ export default function UseCases() {
         {/* Section header */}
         <div className="mx-auto max-w-3xl pb-12 text-center">
           <div className="-mx-0.5 flex justify-center -space-x-3">
-            <span className="rounded-full outline outline-stone-300 px-1.5 text-stone-500 text-sm mb-4">
+            <span className="mb-4 rounded-full px-1.5 text-sm text-stone-500 outline outline-stone-300">
               Case Studies
             </span>
           </div>
-          <h2 className="animate-[gradient_6s_linear_infinite] bg-[linear-gradient(to_right,theme(colors.orange.300),theme(colors.orange.500),theme(colors.orange.400),theme(colors.orange.500),theme(colors.orange.300))] bg-[length:200%_auto] bg-clip-text pb-4 font-nacelle text-3xl font-semibold text-transparent md:text-4xl">
+          <h2 className="font-nacelle animate-[gradient_6s_linear_infinite] bg-[linear-gradient(to_right,theme(colors.orange.300),theme(colors.orange.500),theme(colors.orange.400),theme(colors.orange.500),theme(colors.orange.300))] bg-[length:200%_auto] bg-clip-text pb-4 text-3xl font-semibold text-transparent md:text-4xl">
             Answers to all your questions are now less than a minute away
           </h2>
-          <p className="text-lg text-indigo-200/65">
+          <p className="text-indigo-200/65 text-lg">
             We provide tech-first solutions that empower decision-makers to
             build healthier and happier workspaces from anywhere in the world.
           </p>
@@ -82,7 +82,7 @@ export default function UseCases() {
         <div>
           {/* Buttons */}
           <div className="flex justify-center pb-12 max-md:hidden md:pb-16">
-            <div className="relative inline-flex flex-wrap justify-center rounded-lg bg-white drop-shadow-2xl p-1.5">
+            <div className="relative inline-flex flex-wrap justify-center rounded-lg bg-white p-1.5 drop-shadow-2xl">
               {/* Button #1 */}
               <button
                 className={`flex h-8 flex-1 items-center gap-2.5 whitespace-nowrap rounded-lg px-3 text-sm font-medium transition-colors focus-visible:outline-none ${category === 1 ? "relative bg-stone-800 text-white before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:border before:border-transparent before:[mask-composite:exclude_!important] before:[mask:linear-gradient(white_0_0)_padding-box,_linear-gradient(white_0_0)]" : "opacity-65 transition-opacity hover:opacity-90"}`}
@@ -93,7 +93,7 @@ export default function UseCases() {
               </button>
               {/* Button #2 */}
               <button
-                className={`flex h-8 flex-1 items-center gap-2.5 whitespace-nowrap rounded-lg px-3 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-200 ${category === 2 ? "relative  bg-stone-800 text-white before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:border before:border-transparent before: before:[mask-composite:exclude_!important] before:[mask:linear-gradient(white_0_0)_padding-box,_linear-gradient(white_0_0)]" : "opacity-65 transition-opacity hover:opacity-90"}`}
+                className={`flex h-8 flex-1 items-center gap-2.5 whitespace-nowrap rounded-lg px-3 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-200 ${category === 2 ? "before: relative bg-stone-800 text-white before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:border before:border-transparent before:[mask-composite:exclude_!important] before:[mask:linear-gradient(white_0_0)_padding-box,_linear-gradient(white_0_0)]" : "opacity-65 transition-opacity hover:opacity-90"}`}
                 aria-pressed={category === 2}
                 onClick={() => setCategory(2)}
               >
@@ -117,7 +117,7 @@ export default function UseCases() {
               </button>
               {/* Button #3 */}
               <button
-                className={`flex h-8 flex-1 items-center gap-2.5 whitespace-nowrap rounded-lg px-3 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-200 ${category === 3 ? "relative  bg-stone-800 text-white before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:border before:border-transparent before: before:[mask-composite:exclude_!important] before:[mask:linear-gradient(white_0_0)_padding-box,_linear-gradient(white_0_0)]" : "opacity-65 transition-opacity hover:opacity-90"}`}
+                className={`flex h-8 flex-1 items-center gap-2.5 whitespace-nowrap rounded-lg px-3 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-200 ${category === 3 ? "before: relative bg-stone-800 text-white before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:border before:border-transparent before:[mask-composite:exclude_!important] before:[mask:linear-gradient(white_0_0)_padding-box,_linear-gradient(white_0_0)]" : "opacity-65 transition-opacity hover:opacity-90"}`}
                 aria-pressed={category === 3}
                 onClick={() => setCategory(3)}
               >
@@ -140,7 +140,7 @@ export default function UseCases() {
               </button>
               {/* Button #4 */}
               <button
-                className={`flex h-8 flex-1 items-center gap-2.5 whitespace-nowrap rounded-lg px-3 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-200 ${category === 4 ? "relative  bg-stone-800 text-white before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:border before:border-transparent before: before:[mask-composite:exclude_!important] before:[mask:linear-gradient(white_0_0)_padding-box,_linear-gradient(white_0_0)]" : "opacity-65 transition-opacity hover:opacity-90"}`}
+                className={`flex h-8 flex-1 items-center gap-2.5 whitespace-nowrap rounded-lg px-3 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-200 ${category === 4 ? "before: relative bg-stone-800 text-white before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:border before:border-transparent before:[mask-composite:exclude_!important] before:[mask:linear-gradient(white_0_0)_padding-box,_linear-gradient(white_0_0)]" : "opacity-65 transition-opacity hover:opacity-90"}`}
                 aria-pressed={category === 4}
                 onClick={() => setCategory(4)}
               >
@@ -163,7 +163,7 @@ export default function UseCases() {
               </button>
               {/* Button #5 */}
               <button
-                className={`flex h-8 flex-1 items-center gap-2.5 whitespace-nowrap rounded-lg px-3 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-200 ${category === 5 ? "relative  bg-stone-800 text-white before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:border before:border-transparent before: before:[mask-composite:exclude_!important] before:[mask:linear-gradient(white_0_0)_padding-box,_linear-gradient(white_0_0)]" : "opacity-65 transition-opacity hover:opacity-90"}`}
+                className={`flex h-8 flex-1 items-center gap-2.5 whitespace-nowrap rounded-lg px-3 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-200 ${category === 5 ? "before: relative bg-stone-800 text-white before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:border before:border-transparent before:[mask-composite:exclude_!important] before:[mask:linear-gradient(white_0_0)_padding-box,_linear-gradient(white_0_0)]" : "opacity-65 transition-opacity hover:opacity-90"}`}
                 aria-pressed={category === 5}
                 onClick={() => setCategory(5)}
               >
@@ -186,7 +186,7 @@ export default function UseCases() {
               </button>
               {/* Button #5 */}
               <button
-                className={`flex h-8 flex-1 items-center gap-2.5 whitespace-nowrap rounded-lg px-3 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-200 ${category === 6 ? "relative  bg-stone-800 text-white before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:border before:border-transparent before: before:[mask-composite:exclude_!important] before:[mask:linear-gradient(white_0_0)_padding-box,_linear-gradient(white_0_0)]" : "opacity-65 transition-opacity hover:opacity-90"}`}
+                className={`flex h-8 flex-1 items-center gap-2.5 whitespace-nowrap rounded-lg px-3 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-200 ${category === 6 ? "before: relative bg-stone-800 text-white before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:border before:border-transparent before:[mask-composite:exclude_!important] before:[mask:linear-gradient(white_0_0)_padding-box,_linear-gradient(white_0_0)]" : "opacity-65 transition-opacity hover:opacity-90"}`}
                 aria-pressed={category === 6}
                 onClick={() => setCategory(6)}
               >
@@ -242,7 +242,7 @@ export function UseCase({
 }) {
   return (
     <article
-      className={`relative rounded-2xl p-5 before:border-stone-200 backdrop-blur-sm transition-opacity before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:border before:[mask-composite:exclude_!important] before:[mask:linear-gradient(white_0_0)_padding-box,_linear-gradient(white_0_0)] ${!useCase.categories.includes(category) ? "opacity-30" : ""}`}
+      className={`relative rounded-2xl p-5 backdrop-blur-sm transition-opacity before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:border before:border-stone-200 before:[mask-composite:exclude_!important] before:[mask:linear-gradient(white_0_0)_padding-box,_linear-gradient(white_0_0)] ${!useCase.categories.includes(category) ? "opacity-30" : ""}`}
     >
       <div className="flex flex-col gap-4">
         {/* Card title */}
@@ -255,7 +255,7 @@ export function UseCase({
         </header>
         <div>
           <Image
-            className="inline-flex shrink-0 aspect-video"
+            className="inline-flex aspect-video shrink-0"
             src={useCase.img}
             width={400}
             height={150}
@@ -265,7 +265,7 @@ export function UseCase({
         <div className="flex items-center gap-3">
           <div className="max-w-xs sm:flex sm:max-w-none sm:justify-center">
             <Link
-              className="btn w-full outline outline-offset-2 outline-1 outline-slate-300 bg-transparent text-stone-800 shadow hover:drop-shadow-lg hover:outline-4 hover:outline-orange-500 hover:bg-orange-50 sm:ml-4 sm:w-auto"
+              className="btn w-full bg-transparent text-stone-800 shadow outline outline-1 outline-offset-2 outline-slate-300 hover:bg-orange-50 hover:outline-4 hover:outline-orange-500 hover:drop-shadow-lg sm:ml-4 sm:w-auto"
               href={useCase.link}
               target="_blank"
               aria-label="Learn More Use Case"

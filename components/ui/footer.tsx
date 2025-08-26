@@ -5,7 +5,7 @@ import Link from "@/components/tracked-link";
 export default function Footer({ border = false }: { border?: boolean }) {
   return (
     <footer>
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 pb-4">
+      <div className="mx-auto max-w-6xl px-4 pb-4 sm:px-6">
         {/* Top area: Blocks */}
         <div
           className={`grid gap-10 py-8 sm:grid-cols-12 md:py-12 ${border ? "border-t [border-image:linear-gradient(to_right,transparent,theme(colors.slate.200),transparent)1]" : ""}`}
@@ -219,8 +219,11 @@ export default function Footer({ border = false }: { border?: boolean }) {
       </div>
 
       {/* Big text */}
-      <div className="relative mt-0 h-24 md:-mt-16 md:h-60 w-full" aria-hidden="true">
-        <div className="pointer-events-none absolute left-1/2 -z-10 -translate-x-1/2 text-center text-9xl md:text-[348px] font-bold leading-none before:bg-gradient-to-b before:from-gray-200 before:to-gray-100/30 before:to-80% before:bg-clip-text before:text-transparent before:content-['Lucia'] after:absolute after:inset-0 after:bg-stone-300/70 after:bg-clip-text after:text-transparent after:mix-blend-darken after:content-['Lucia'] after:[text-shadow:0_1px_0_white]"></div>
+      <div
+        className="relative mt-0 h-24 w-full md:-mt-16 md:h-60"
+        aria-hidden="true"
+      >
+        <div className="pointer-events-none absolute left-1/2 -z-10 -translate-x-1/2 text-center text-9xl font-bold leading-none before:bg-gradient-to-b before:from-gray-200 before:to-gray-100/30 before:to-80% before:bg-clip-text before:text-transparent before:content-['Lucia'] after:absolute after:inset-0 after:bg-stone-300/70 after:bg-clip-text after:text-transparent after:mix-blend-darken after:content-['Lucia'] after:[text-shadow:0_1px_0_white] md:text-[348px]"></div>
         {/* Glow */}
         <div
           className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-2/3"

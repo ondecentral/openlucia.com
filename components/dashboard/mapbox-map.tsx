@@ -1,9 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react';
-import mapboxgl from 'mapbox-gl';
-import 'mapbox-gl/dist/mapbox-gl.css';
+import React, { useEffect, useRef, useState } from "react";
+import mapboxgl from "mapbox-gl";
+import "mapbox-gl/dist/mapbox-gl.css";
 
 // You'll need to set this in your environment variables
-mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || '';
+mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || "";
 
 interface MapboxMapProps {
   location?: string;
@@ -13,12 +13,14 @@ interface MapboxMapProps {
 
 const MapboxMap: React.FC<MapboxMapProps> = ({
   location,
-  className = '',
+  className = "",
   circleRadius = 500, // Default 500 meter radius
 }) => {
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<mapboxgl.Map | null>(null);
-  const [coordinates, setCoordinates] = useState<[number, number]>([-74.006, 40.7128]); // Default to NYC
+  const [coordinates, setCoordinates] = useState<[number, number]>([
+    -74.006, 40.7128,
+  ]); // Default to NYC
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -41,15 +43,15 @@ const MapboxMap: React.FC<MapboxMapProps> = ({
             response = await fetch(
               `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodedLocation}.json?access_token=${mapboxgl.accessToken}`,
               {
-                method: 'GET',
+                method: "GET",
                 headers: {
-                  Accept: 'application/json',
+                  Accept: "application/json",
                 },
                 signal: controller.signal,
-              }
+              },
             );
           } catch (error) {
-            console.error('Error in geocoding process:', error);
+            console.error("Error in geocoding process:", error);
             return;
           }
 
@@ -84,7 +86,7 @@ const MapboxMap: React.FC<MapboxMapProps> = ({
 
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
-      style: 'mapbox://styles/mapbox/streets-v12',
+      style: "mapbox://styles/mapbox/streets-v12",
       center: coordinates,
       zoom: 15,
       pitch: 60, // More dramatic 3D tilt
@@ -94,47 +96,47 @@ const MapboxMap: React.FC<MapboxMapProps> = ({
     });
 
     // Disable telemetry/analytics
-    map.current.on('load', () => {
+    map.current.on("load", () => {
       if (map.current) {
         // Enable 3D buildings
         map.current.addLayer({
-          id: '3d-buildings',
-          source: 'composite',
-          'source-layer': 'building',
-          filter: ['==', 'extrude', 'true'],
-          type: 'fill-extrusion',
+          id: "3d-buildings",
+          source: "composite",
+          "source-layer": "building",
+          filter: ["==", "extrude", "true"],
+          type: "fill-extrusion",
           minzoom: 15,
           paint: {
-            'fill-extrusion-color': '#aaa',
-            'fill-extrusion-height': [
-              'interpolate',
-              ['linear'],
-              ['zoom'],
+            "fill-extrusion-color": "#aaa",
+            "fill-extrusion-height": [
+              "interpolate",
+              ["linear"],
+              ["zoom"],
               15,
               0,
               15.05,
-              ['get', 'height'],
+              ["get", "height"],
             ],
-            'fill-extrusion-base': [
-              'interpolate',
-              ['linear'],
-              ['zoom'],
+            "fill-extrusion-base": [
+              "interpolate",
+              ["linear"],
+              ["zoom"],
               15,
               0,
               15.05,
-              ['get', 'min_height'],
+              ["get", "min_height"],
             ],
-            'fill-extrusion-opacity': 0.8,
+            "fill-extrusion-opacity": 0.8,
           },
         });
 
         // Add location circle source and layers
-        map.current.addSource('location-circle', {
-          type: 'geojson',
+        map.current.addSource("location-circle", {
+          type: "geojson",
           data: {
-            type: 'Feature',
+            type: "Feature",
             geometry: {
-              type: 'Point',
+              type: "Point",
               coordinates: coordinates,
             },
             properties: {},
@@ -143,14 +145,14 @@ const MapboxMap: React.FC<MapboxMapProps> = ({
 
         // Add the filled circle layer
         map.current.addLayer({
-          id: 'location-circle-fill',
-          type: 'circle',
-          source: 'location-circle',
+          id: "location-circle-fill",
+          type: "circle",
+          source: "location-circle",
           paint: {
-            'circle-radius': [
-              'interpolate',
-              ['linear'],
-              ['zoom'],
+            "circle-radius": [
+              "interpolate",
+              ["linear"],
+              ["zoom"],
               8,
               circleRadius / 50, // At zoom 8, radius = circleRadius/50 pixels
               12,
@@ -160,24 +162,24 @@ const MapboxMap: React.FC<MapboxMapProps> = ({
               20,
               circleRadius / 8, // At zoom 20, radius = circleRadius/8 pixels
             ],
-            'circle-color': '#f97316', // Orange color to match theme
-            'circle-opacity': 0.3,
-            'circle-stroke-width': 2,
-            'circle-stroke-color': '#f97316',
-            'circle-stroke-opacity': 0.8,
+            "circle-color": "#f97316", // Orange color to match theme
+            "circle-opacity": 0.3,
+            "circle-stroke-width": 2,
+            "circle-stroke-color": "#f97316",
+            "circle-stroke-opacity": 0.8,
           },
         });
 
         // Add a perimeter outline layer for better visibility
         map.current.addLayer({
-          id: 'location-circle-outline',
-          type: 'circle',
-          source: 'location-circle',
+          id: "location-circle-outline",
+          type: "circle",
+          source: "location-circle",
           paint: {
-            'circle-radius': [
-              'interpolate',
-              ['linear'],
-              ['zoom'],
+            "circle-radius": [
+              "interpolate",
+              ["linear"],
+              ["zoom"],
               8,
               circleRadius / 50,
               12,
@@ -187,17 +189,17 @@ const MapboxMap: React.FC<MapboxMapProps> = ({
               20,
               circleRadius / 8,
             ],
-            'circle-color': 'transparent',
-            'circle-stroke-width': 3,
-            'circle-stroke-color': '#ea580c', // Darker orange for perimeter
-            'circle-stroke-opacity': 1,
+            "circle-color": "transparent",
+            "circle-stroke-width": 3,
+            "circle-stroke-color": "#ea580c", // Darker orange for perimeter
+            "circle-stroke-opacity": 1,
           },
         });
       }
     });
 
     // Add navigation controls
-    map.current.addControl(new mapboxgl.NavigationControl(), 'top-right');
+    map.current.addControl(new mapboxgl.NavigationControl(), "top-right");
 
     // Cleanup function
     return () => {
@@ -219,12 +221,12 @@ const MapboxMap: React.FC<MapboxMapProps> = ({
       });
 
       // Update the circle source with new coordinates
-      const source = map.current.getSource('location-circle');
-      if (source && source.type === 'geojson') {
+      const source = map.current.getSource("location-circle");
+      if (source && source.type === "geojson") {
         (source as mapboxgl.GeoJSONSource).setData({
-          type: 'Feature',
+          type: "Feature",
           geometry: {
-            type: 'Point',
+            type: "Point",
             coordinates: coordinates,
           },
           properties: {},
@@ -235,11 +237,16 @@ const MapboxMap: React.FC<MapboxMapProps> = ({
 
   if (!mapboxgl.accessToken) {
     return (
-      <div className={`bg-gray-100 flex items-center justify-center ${className}`}>
-        <div className="text-center p-1">
-          <p className="text-gray-500 text-sm">Mapbox access token not configured</p>
-          <p className="text-gray-400 text-xs">
-            Please set NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN in your environment variables
+      <div
+        className={`flex items-center justify-center bg-gray-100 ${className}`}
+      >
+        <div className="p-1 text-center">
+          <p className="text-sm text-gray-500">
+            Mapbox access token not configured
+          </p>
+          <p className="text-xs text-gray-400">
+            Please set NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN in your environment
+            variables
           </p>
         </div>
       </div>
@@ -249,14 +256,14 @@ const MapboxMap: React.FC<MapboxMapProps> = ({
   return (
     <div className={`relative ${className}`}>
       {isLoading && (
-        <div className="absolute inset-0 bg-gray-100 flex items-center justify-center z-10">
+        <div className="absolute inset-0 z-10 flex items-center justify-center bg-gray-100">
           <div className="text-center">
-            <div className="animate-spin h-8 w-8 border-b-2 border-orange-500 mx-auto"></div>
-            <p className="text-gray-500 text-sm mt-2">Loading map...</p>
+            <div className="mx-auto h-8 w-8 animate-spin border-b-2 border-orange-500"></div>
+            <p className="mt-2 text-sm text-gray-500">Loading map...</p>
           </div>
         </div>
       )}
-      <div ref={mapContainer} className="w-full h-full rounded-b-lg" />
+      <div ref={mapContainer} className="h-full w-full rounded-b-lg" />
     </div>
   );
 };

@@ -1,6 +1,6 @@
-import React from 'react';
-import { Info } from 'lucide-react';
-import DemoDataTooltip from './DemoDataTooltip';
+import React from "react";
+import { Info } from "lucide-react";
+import DemoDataTooltip from "./DemoDataTooltip";
 
 interface RewardsCarouselProps {
   currentReward: {
@@ -8,7 +8,7 @@ interface RewardsCarouselProps {
     value: string;
     icon: React.ReactNode;
   };
-  onNavigate: (direction: 'prev' | 'next') => void;
+  onNavigate: (direction: "prev" | "next") => void;
   onShowDemoNotification?: () => void;
 }
 
@@ -18,11 +18,11 @@ const RewardsCarousel: React.FC<RewardsCarouselProps> = ({
   onShowDemoNotification,
 }) => {
   return (
-    <div className="p-3 md:border-r border-b md:border-b-0 border-gray-200 relative">
+    <div className="relative border-b border-gray-200 p-3 md:border-b-0 md:border-r">
       <div className="flex items-center justify-center gap-4">
         <button
-          onClick={() => onNavigate('prev')}
-          className="text-gray-400 hover:text-gray-600 transition-colors"
+          onClick={() => onNavigate("prev")}
+          className="text-gray-400 transition-colors hover:text-gray-600"
           aria-label="Previous reward"
         >
           <svg
@@ -41,10 +41,12 @@ const RewardsCarousel: React.FC<RewardsCarouselProps> = ({
             />
           </svg>
         </button>
-        <p className="text-xs text-gray-400 font-semibold tracking-wider">REWARDS DISTRIBUTED</p>
+        <p className="text-xs font-semibold tracking-wider text-gray-400">
+          REWARDS DISTRIBUTED
+        </p>
         <button
-          onClick={() => onNavigate('next')}
-          className="text-gray-400 hover:text-gray-600 transition-colors"
+          onClick={() => onNavigate("next")}
+          className="text-gray-400 transition-colors hover:text-gray-600"
           aria-label="Next reward"
         >
           <svg
@@ -64,9 +66,11 @@ const RewardsCarousel: React.FC<RewardsCarouselProps> = ({
           </svg>
         </button>
       </div>
-      <div className="flex justify-center items-center gap-2 mt-1">
+      <div className="mt-1 flex items-center justify-center gap-2">
         {currentReward.icon}
-        <p className="text-sm font-semibold text-gray-600">{currentReward.value}</p>
+        <p className="text-sm font-semibold text-gray-600">
+          {currentReward.value}
+        </p>
       </div>
 
       {/* Demo Data Tooltip */}

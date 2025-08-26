@@ -1,8 +1,8 @@
 "use client";
 
-import { AnchorHTMLAttributes } from 'react';
-import Link from 'next/link';
-import LuciaSDK from 'lucia-sdk';
+import { AnchorHTMLAttributes } from "react";
+import Link from "next/link";
+import LuciaSDK from "lucia-sdk";
 
 interface TrackedLinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
   trackingName?: string;
@@ -15,10 +15,25 @@ interface TrackedLinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
 }
 
 export default function TrackedLink({
-  onClick, trackingName, id, children, 'aria-label': ariaLabel, href, prefetch, replace, scroll, shallow, ...props
+  onClick,
+  trackingName,
+  id,
+  children,
+  "aria-label": ariaLabel,
+  href,
+  prefetch,
+  replace,
+  scroll,
+  shallow,
+  ...props
 }: TrackedLinkProps) {
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    const linkName = trackingName || id || ariaLabel || (typeof children === 'string' ? children : '') || 'unnamed-link';
+    const linkName =
+      trackingName ||
+      id ||
+      ariaLabel ||
+      (typeof children === "string" ? children : "") ||
+      "unnamed-link";
 
     // Track the click
     LuciaSDK.buttonClick(linkName);
@@ -44,4 +59,4 @@ export default function TrackedLink({
       {children}
     </Link>
   );
-};
+}
