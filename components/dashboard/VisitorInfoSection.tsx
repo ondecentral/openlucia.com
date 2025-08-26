@@ -15,6 +15,7 @@ import {
   Monitor,
   Globe,
   Tablet,
+  Sun,
 } from 'lucide-react';
 import { VisitorData } from './dashboard-seed-data';
 import {
@@ -26,13 +27,19 @@ import {
 import VisitsCarousel from './VisitsCarousel';
 import DeviceViewsCarousel from './DeviceViewsCarousel';
 import StatCard from './StatCard';
+import DemoDataLabel from './DemoDataLabel';
 
 interface VisitorInfoSectionProps {
   visitor: VisitorData;
   onCopyToClipboard: (text: string) => void;
+  onShowDemoNotification: () => void;
 }
 
-const VisitorInfoSection: React.FC<VisitorInfoSectionProps> = ({ visitor, onCopyToClipboard }) => {
+const VisitorInfoSection: React.FC<VisitorInfoSectionProps> = ({
+  visitor,
+  onCopyToClipboard,
+  onShowDemoNotification,
+}) => {
   const [visitsIndex, setVisitsIndex] = useState<number>(0);
   const [deviceViewsIndex, setDeviceViewsIndex] = useState<number>(0);
 
@@ -43,13 +50,11 @@ const VisitorInfoSection: React.FC<VisitorInfoSectionProps> = ({ visitor, onCopy
         title: 'TOTAL VISITS',
         value: visitor.total_visits,
         icon: <Users className="w-5 h-5 text-orange-500" />,
-        tooltip: '+12.4% (24h)',
       },
       {
         title: 'INCOGNITO VISITS',
         value: visitor.incognito_sessions,
         icon: <EyeOff className="w-5 h-5 text-orange-500" />,
-        tooltip: '-5.2% (24h)',
       },
     ],
     [visitor.total_visits, visitor.incognito_sessions]
@@ -62,19 +67,16 @@ const VisitorInfoSection: React.FC<VisitorInfoSectionProps> = ({ visitor, onCopy
         title: 'MOBILE VIEWS',
         value: 211, // Hardcoded value
         icon: <Smartphone className="w-5 h-5 text-orange-500" />,
-        tooltip: '+18.2% (24h)',
       },
       {
         title: 'TABLET VIEWS',
         value: 2, // Hardcoded value
         icon: <Tablet className="w-5 h-5 text-orange-500" />,
-        tooltip: '+18.2% (24h)',
       },
       {
         title: 'COMPUTER VIEWS',
         value: 154, // Hardcoded value
         icon: <Monitor className="w-5 h-5 text-orange-500" />,
-        tooltip: '+9.7% (24h)',
       },
     ],
     []
@@ -108,15 +110,17 @@ const VisitorInfoSection: React.FC<VisitorInfoSectionProps> = ({ visitor, onCopy
           title="ADS CLICKED"
           value={visitor.ads_clicked}
           icon={<Target className="w-5 h-5 text-orange-500" />}
-          tooltip="+8.7% (24h)"
           className="border-r md:border-b-0"
+          isDemoData={true}
+          onShowDemoNotification={onShowDemoNotification}
         />
         <StatCard
           title="CLICK IDS"
           value={visitor.click_ids}
           icon={<Fingerprint className="w-5 h-5 text-orange-500" />}
-          tooltip="+12.4% (24h)"
           className=""
+          isDemoData={true}
+          onShowDemoNotification={onShowDemoNotification}
         />
       </section>
       {/* Wallets, valuation, most active, and IP addresses section */}
@@ -125,7 +129,8 @@ const VisitorInfoSection: React.FC<VisitorInfoSectionProps> = ({ visitor, onCopy
           title="WALLETS"
           value={visitor.wallets.length}
           icon={<Wallet className="w-5 h-5 text-orange-500" />}
-          tooltip="+18.9% (24h)"
+          isDemoData={true}
+          onShowDemoNotification={onShowDemoNotification}
         />
         <StatCard
           title="VALUATION"
@@ -135,21 +140,22 @@ const VisitorInfoSection: React.FC<VisitorInfoSectionProps> = ({ visitor, onCopy
               {getValuationEmoji(getVisitorTotalUsd(visitor.wallets))}
             </span>
           }
-          tooltip={`Wallet valuation: ${getValuationLabel(getVisitorTotalUsd(visitor.wallets))} ($${getVisitorTotalUsd(visitor.wallets).toLocaleString()})`}
           className="border-r md:border-b-0"
+          isDemoData={true}
+          onShowDemoNotification={onShowDemoNotification}
         />
         <StatCard
           title="MOST ACTIVE"
-          value="N/A"
-          icon={<span className="text-2xl"></span>}
-          tooltip="Coming soon!"
+          value="Coming Soon"
+          icon={<Sun className="w-5 h-5 text-orange-500" />}
           className="border-r md:border-b-0 text-gray-400"
+          isDemoData={true}
+          onShowDemoNotification={onShowDemoNotification}
         />
         <StatCard
           title="IP ADDRESSES"
           value={visitor.ip_addresses.length}
           icon={<Network className="w-5 h-5 text-orange-500" />}
-          tooltip="+3.8% (24h)"
           className=""
         />
       </section>
@@ -207,9 +213,12 @@ const VisitorInfoSection: React.FC<VisitorInfoSectionProps> = ({ visitor, onCopy
         </div>
 
         <div className="border border-gray-200 rounded-lg p-1.5">
-          <h3 className="text-base font-semibold text-gray-600 mb-3 flex items-center justify-center gap-2 border-b border-gray-200 pb-2">
-            <Wallet className="text-orange-500 w-4 h-4" /> Wallet Addresses
-          </h3>
+          <div className="flex items-center gap-2 mb-3 border-b border-gray-200 pb-2">
+            <h3 className="text-base font-semibold text-gray-600 flex items-center gap-2">
+              <Wallet className="text-orange-500 w-4 h-4" /> Wallet Addresses
+            </h3>
+            <DemoDataLabel onShowNotification={onShowDemoNotification} />
+          </div>
           <div className="space-y-2 max-h-[120px] overflow-y-auto ">
             {visitor.wallets.map((wallet, index) => (
               <div

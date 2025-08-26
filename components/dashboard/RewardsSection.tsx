@@ -3,18 +3,27 @@ import { CreditCard, Receipt, Copy, ExternalLink, Info } from 'lucide-react';
 import { TokenUSDT, TokenETH, TokenSOL } from '@web3icons/react';
 import { VisitorData, RewardTransaction } from './dashboard-seed-data';
 import { getExplorerUrlForTx } from './utils';
+import DemoDataLabel from './DemoDataLabel';
 
 interface RewardsSectionProps {
   visitor: VisitorData;
   onCopyToClipboard: (text: string) => void;
+  onShowDemoNotification: () => void;
 }
 
-const RewardsSection: React.FC<RewardsSectionProps> = ({ visitor, onCopyToClipboard }) => {
+const RewardsSection: React.FC<RewardsSectionProps> = ({
+  visitor,
+  onCopyToClipboard,
+  onShowDemoNotification,
+}) => {
   return (
     <div className="mt-4  p-3 relative">
-      <h3 className="text-base font-semibold text-gray-600 mb-3 flex items-center gap-2">
-        <CreditCard className="text-orange-500 w-4 h-4" /> Rewards Received
-      </h3>
+      <div className="flex items-center gap-2 mb-3">
+        <h3 className="text-base font-semibold text-gray-600 flex items-center gap-2">
+          <CreditCard className="text-orange-500 w-4 h-4" /> Rewards Received
+        </h3>
+        <DemoDataLabel onShowNotification={onShowDemoNotification} />
+      </div>
 
       <div className="grid grid-cols-3 gap-4 mb-4">
         <div className="text-center p-3 bg-gray-50 rounded-lg">
@@ -52,9 +61,12 @@ const RewardsSection: React.FC<RewardsSectionProps> = ({ visitor, onCopyToClipbo
       </div>
 
       <div className="pt-3">
-        <h4 className="text-sm font-semibold text-gray-600 mb-2 flex items-center gap-2">
-          <Receipt className="text-orange-500 w-3 h-3" /> Recent Reward Transactions
-        </h4>
+        <div className="flex items-center gap-2 mb-2">
+          <h4 className="text-sm font-semibold text-gray-600 flex items-center gap-2">
+            <Receipt className="text-orange-500 w-3 h-3" /> Recent Reward Transactions
+          </h4>
+          <DemoDataLabel onShowNotification={onShowDemoNotification} />
+        </div>
         <div className="max-h-[120px] overflow-y-auto border border-gray-200 rounded-lg">
           <div className="space-y-1 p-1">
             {visitor.rewards?.transactions?.map((transaction: RewardTransaction) => (
@@ -103,13 +115,6 @@ const RewardsSection: React.FC<RewardsSectionProps> = ({ visitor, onCopyToClipbo
               </div>
             ))}
           </div>
-        </div>
-      </div>
-
-      <div className="absolute bottom-2 left-2 group">
-        <Info className="w-3 h-3 text-gray-400 cursor-help" />
-        <div className="absolute bottom-full left-0 mb-1 px-2 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10">
-          +25.7% (24h)
         </div>
       </div>
     </div>

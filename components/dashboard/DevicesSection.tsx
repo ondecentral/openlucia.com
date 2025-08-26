@@ -3,12 +3,17 @@ import { ChevronDown, ChevronRight, Smartphone, Monitor, Tablet, Copy } from 'lu
 import { VisitorData, Device } from './dashboard-seed-data';
 import MapboxMap from './mapbox-map';
 import { getDeviceIcon, getOSIcon } from './utils';
+import DemoDataTooltip from './DemoDataTooltip';
 
 interface DeviceHistorySectionProps {
   visitor: VisitorData;
+  onShowDemoNotification: () => void;
 }
 
-const DevicesSection: React.FC<DeviceHistorySectionProps> = ({ visitor }) => {
+const DevicesSection: React.FC<DeviceHistorySectionProps> = ({
+  visitor,
+  onShowDemoNotification,
+}) => {
   const [expandedDevices, setExpandedDevices] = useState<Set<string>>(new Set());
   const [deviceIPIndex, setDeviceIPIndex] = useState<Record<string, number>>({});
 
@@ -235,7 +240,13 @@ const DevicesSection: React.FC<DeviceHistorySectionProps> = ({ visitor }) => {
                         <li
                           className={`flex justify-between items-center p-1.5 border-b ${currentIP.vpn_detected ? 'bg-red-50' : 'bg-green-50'}`}
                         >
-                          <span className="text-gray-500">VPN</span>
+                          <div className="flex items-center gap-2">
+                            <span className="text-gray-500">VPN</span>
+                            <DemoDataTooltip
+                              onShowDemoNotification={onShowDemoNotification}
+                              inline={true}
+                            />
+                          </div>
                           <span
                             className={`font-semibold ${currentIP.vpn_detected ? 'text-red-600' : 'text-green-600'}`}
                           >
@@ -245,7 +256,13 @@ const DevicesSection: React.FC<DeviceHistorySectionProps> = ({ visitor }) => {
                         <li
                           className={`flex justify-between items-center p-1.5 ${device.incognito ? 'bg-red-50' : 'bg-green-50'}`}
                         >
-                          <span className="text-gray-500">Incognito Mode</span>
+                          <div className="flex items-center gap-2">
+                            <span className="text-gray-500">Incognito Mode</span>
+                            <DemoDataTooltip
+                              onShowDemoNotification={onShowDemoNotification}
+                              inline={true}
+                            />
+                          </div>
                           <span
                             className={`font-semibold ${device.incognito ? 'text-red-600' : 'text-green-600'}`}
                           >

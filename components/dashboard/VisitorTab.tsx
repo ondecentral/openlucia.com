@@ -15,6 +15,7 @@ interface VisitorTabProps {
   onNavigateWallet: (direction: 'prev' | 'next') => void;
   onToggleTokens: () => void;
   onCopyToClipboard: (text: string) => void;
+  onShowDemoNotification: () => void;
 }
 
 const VisitorTab: React.FC<VisitorTabProps> = ({
@@ -26,6 +27,7 @@ const VisitorTab: React.FC<VisitorTabProps> = ({
   onNavigateWallet,
   onToggleTokens,
   onCopyToClipboard,
+  onShowDemoNotification,
 }) => {
   return (
     <div className="border border-gray-200 rounded-lg overflow-hidden">
@@ -38,13 +40,21 @@ const VisitorTab: React.FC<VisitorTabProps> = ({
 
       {isExpanded && (
         <div className="border-t border-gray-200">
-          <VisitorInfoSection visitor={visitor} onCopyToClipboard={onCopyToClipboard} />
+          <VisitorInfoSection
+            visitor={visitor}
+            onCopyToClipboard={onCopyToClipboard}
+            onShowDemoNotification={onShowDemoNotification}
+          />
 
-          <RewardsSection visitor={visitor} onCopyToClipboard={onCopyToClipboard} />
+          <RewardsSection
+            visitor={visitor}
+            onCopyToClipboard={onCopyToClipboard}
+            onShowDemoNotification={onShowDemoNotification}
+          />
 
           <div className="grid grid-cols-1 lg:grid-cols-2">
             <div className="lg:border-r border-gray-200">
-              <DevicesSection visitor={visitor} />
+              <DevicesSection visitor={visitor} onShowDemoNotification={onShowDemoNotification} />
             </div>
 
             <div className="lg:col-span-1">
@@ -55,6 +65,7 @@ const VisitorTab: React.FC<VisitorTabProps> = ({
                 onNavigateWallet={onNavigateWallet}
                 onToggleTokens={onToggleTokens}
                 onCopyToClipboard={onCopyToClipboard}
+                onShowDemoNotification={onShowDemoNotification}
               />
             </div>
           </div>
