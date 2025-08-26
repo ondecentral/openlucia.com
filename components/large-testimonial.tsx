@@ -31,14 +31,21 @@ export default function LargeTestimonial() {
               />
             </div>
             <p className="text-2xl font-bold text-stone-900">
-            "Lucia Protocol's ad attribution has given us {" "}
-              <em className="italic text-stone-500">clear insights into our marketing performance</em>.
-              It's a powerful tool that helps us optimize our ad spend and drive better results."
+              &quot;Lucia Protocol&apos;s ad attribution has given us{" "}
+              <em className="italic text-stone-500">
+                clear insights into our marketing performance
+              </em>
+              . It&apos;s a powerful tool that helps us optimize our ad spend
+              and drive better results.&quot;
             </p>
             <div className="text-sm font-medium text-stone-500">
               <span className="text-stone-700">Jasper</span>{" "}
               <span className="text-stone-400">/</span>{" "}
-              <Link className="text-orange-500" href="#0" aria-label="CTO at Coinsub">
+              <Link
+                className="text-orange-500"
+                href="#0"
+                aria-label="CTO at Coinsub"
+              >
                 CTO at Coinsub
               </Link>
             </div>

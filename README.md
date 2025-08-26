@@ -38,7 +38,6 @@ This project includes Mapbox integration for displaying visitor locations on the
    ```
 4. Restart your development server
 
-
 ### Learn More
 
 To learn more about Next.js, take a look at the following resources:

@@ -26,8 +26,6 @@ export default function DefaultLayout({
 
     // Track a page view
     LuciaSDK.pageView(window.location.pathname);
-    // Track Twitter conversion
-    trackTwitterConversion();
   }, []);
 
   return (

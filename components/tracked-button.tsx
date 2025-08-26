@@ -1,15 +1,25 @@
-import { ButtonHTMLAttributes } from 'react';
-import LuciaSDK from 'lucia-sdk';
+import { ButtonHTMLAttributes } from "react";
+import LuciaSDK from "lucia-sdk";
 
 interface TrackedButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   trackingName?: string;
 }
 
 export default function TrackedButton({
-  onClick, trackingName, id, children, 'aria-label': ariaLabel, ...props
+  onClick,
+  trackingName,
+  id,
+  children,
+  "aria-label": ariaLabel,
+  ...props
 }: TrackedButtonProps) {
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const buttonName = trackingName || id || ariaLabel || (typeof children === 'string' ? children : '') || 'unnamed-button';
+    const buttonName =
+      trackingName ||
+      id ||
+      ariaLabel ||
+      (typeof children === "string" ? children : "") ||
+      "unnamed-button";
 
     // Track the click
     LuciaSDK.buttonClick(buttonName);
@@ -21,13 +31,8 @@ export default function TrackedButton({
   };
 
   return (
-    <button
-      onClick={handleClick}
-      id={id}
-      aria-label={ariaLabel}
-      {...props}
-    >
+    <button onClick={handleClick} id={id} aria-label={ariaLabel} {...props}>
       {children}
     </button>
   );
-};
+}

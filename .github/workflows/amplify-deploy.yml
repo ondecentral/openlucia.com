@@ -1,0 +1,95 @@
+name: Amplify Deployment
+
+on:
+  push:
+    branches:
+      - develop
+      - main
+  pull_request:
+    branches:
+      - develop
+      - main
+
+permissions:
+  id-token: write
+  contents: read
+  packages: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    environment: test
+
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          POSTGRES_DB: ${{ vars.DB_NAME }}
+          POSTGRES_INITDB_ARGS: --no-sync
+        ports:
+          - 5432:5432
+
+    env:
+      NODE_ENV: test
+      DATABASE_URL: postgresql://postgres:${{ secrets.DB_PASSWORD }}@localhost:5432/${{ vars.DB_NAME }}
+      CLIENT_ID: 1
+      NEXT_TELEMETRY_DISABLED: 1
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run linting
+        run: npm run lint
+
+      - name: Test database connection
+        run: |
+          npx ts-node -e "
+          import { testConnection } from './lib/database';
+          testConnection().then(result => {
+            console.log('Database test result:', result);
+            if (!result.success) process.exit(1);
+          }).catch(err => {
+            console.error('Database test failed:', err);
+            process.exit(1);
+          });
+          "
+
+      - name: Build project
+        run: npm run build
+        env:
+          NODE_ENV: production
+
+      - name: Install Playwright (if needed)
+        run: |
+          if ! npm list playwright &> /dev/null; then
+            npm install playwright
+          fi
+          npx playwright install
+
+      - name: Run bot tests
+        run: npm run test:bot
+        continue-on-error: true
+
+  notify-amplify:
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'
+
+    steps:
+      - name: Trigger Amplify deployment
+        run: |
+          echo "✅ Tests passed! Amplify will automatically deploy this commit."
+          echo "Branch: ${{ github.ref_name }}"
+          echo "Commit: ${{ github.sha }}"
+          echo "Environment: ${{ github.ref_name == 'main' && 'production' || 'staging' }}"

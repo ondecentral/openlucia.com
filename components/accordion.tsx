@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from 'react';
-import Button from '@/components/tracked-button';
+import { useState } from "react";
+import Button from "@/components/tracked-button";
 
 interface AccordionProps {
   title: string;
@@ -20,12 +20,12 @@ const Accordion: React.FC<AccordionProps> = ({ title, content }) => {
       <Button
         aria-label={`Toggle ${title} accordion`}
         onClick={toggleAccordion}
-        className="flex justify-between items-center w-full py-4 px-4 text-left focus:outline-none"
+        className="flex w-full items-center justify-between px-4 py-4 text-left focus:outline-none"
       >
         <span className="text-lg font-medium">{title}</span>
         <svg
           className={`transform transition-transform duration-300 ${
-            isOpen ? 'rotate-180' : 'rotate-0'
+            isOpen ? "rotate-180" : "rotate-0"
           }`}
           xmlns="http://www.w3.org/2000/svg"
           width="20"
@@ -44,8 +44,8 @@ const Accordion: React.FC<AccordionProps> = ({ title, content }) => {
       </Button>
 
       <div
-        className={`transition-all duration-300 ease-in-out overflow-hidden ${
-          isOpen ? 'max-h-screen' : 'max-h-0'
+        className={`overflow-hidden transition-all duration-300 ease-in-out ${
+          isOpen ? "max-h-screen" : "max-h-0"
         }`}
       >
         <div className="p-4 text-gray-600">{content}</div>

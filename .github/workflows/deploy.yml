@@ -61,59 +61,59 @@ jobs:
       NEXT_PUBLIC_API_KEY: ${{ secrets.API_KEY }}
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: 20
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
 
-    - name: Install frontend dependencies
-      run: npm ci
+      - name: Install frontend dependencies
+        run: npm ci
 
-    - name: Install Playwright Browsers
-      run: |
-        if ! npm list playwright; then
-          echo "Playwright is not installed, installing Playwright..."
-          npm install playwright
-        fi
-        npx playwright install
+      - name: Install Playwright Browsers
+        run: |
+          if ! npm list playwright; then
+            echo "Playwright is not installed, installing Playwright..."
+            npm install playwright
+          fi
+          npx playwright install
 
-    - name: Run database seeds
-      run: |
-        docker exec ${{ job.services.api.id }} node seeds/index.js
+      - name: Run database seeds
+        run: |
+          docker exec ${{ job.services.api.id }} node seeds/index.js
 
-    - name: Run authenticate to get token
-      run: |
-        TOKEN=$(npx -y ts-node test/authenticate.ts)
-        if [ -z "$TOKEN" ]; then
-          echo "Failed to generate TOKEN"
-          exit 1
-        fi
-        echo "TOKEN=$TOKEN" >> $GITHUB_ENV
-      env:
-        NODE_ENV: test
+      - name: Run authenticate to get token
+        run: |
+          TOKEN=$(npx -y ts-node test/authenticate.ts)
+          if [ -z "$TOKEN" ]; then
+            echo "Failed to generate TOKEN"
+            exit 1
+          fi
+          echo "TOKEN=$TOKEN" >> $GITHUB_ENV
+        env:
+          NODE_ENV: test
 
-    - name: Build frontend project
-      run: |
-        npm run build
-      env:
-        NODE_ENV: ${{ github.ref_name == 'main' && 'production' || (github.ref_name == 'develop' && 'staging' || 'dev') }}
+      - name: Build frontend project
+        run: |
+          npm run build
+        env:
+          NODE_ENV: ${{ github.ref_name == 'main' && 'production' || (github.ref_name == 'develop' && 'staging' || 'dev') }}
 
-    - name: Run bot-test
-      run: |
-        npm start &
-        SERVER_PID=$!
-        echo "Waiting for the server to start..."
-        # Wait for the server to be ready (replace the curl URL with your app's health check or main endpoint)
-        until curl -s http://localhost:3000 > /dev/null; do
-          sleep 5
-        done
-        echo "Server is up. Running Playwright tests..."
-        npm run test:bot  # Replace with your Playwright test command
-        # Kill the server after tests complete
-        kill $SERVER_PID
+      - name: Run bot-test
+        run: |
+          npm start &
+          SERVER_PID=$!
+          echo "Waiting for the server to start..."
+          # Wait for the server to be ready (replace the curl URL with your app's health check or main endpoint)
+          until curl -s http://localhost:3000 > /dev/null; do
+            sleep 5
+          done
+          echo "Server is up. Running Playwright tests..."
+          npm run test:bot  # Replace with your Playwright test command
+          # Kill the server after tests complete
+          kill $SERVER_PID
 
   deploy:
     needs: bot-test
@@ -121,34 +121,44 @@ jobs:
     environment: ${{ github.ref_name == 'main' && 'production' || 'staging' }}
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: 20
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
 
-    - name: Install frontend dependencies
-      run: npm ci
+      - name: Install frontend dependencies
+        run: npm ci
 
-    - name: Build frontend project
-      run: |
-        npm run build
-      env:
-        NEXT_PUBLIC_API_KEY: ${{ secrets.API_KEY }}
-        NEXT_PUBLIC_BASE_URL: ${{ vars.BASE_URL }}
-        NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN: ${{ secrets.MAPBOX_TOKEN }}
+      - name: Build frontend project
+        run: |
+          npm run build
+        env:
+          NEXT_PUBLIC_API_KEY: ${{ secrets.API_KEY }}
+          NEXT_PUBLIC_BASE_URL: ${{ vars.BASE_URL }}
+          NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN: ${{ secrets.MAPBOX_TOKEN }}
 
-    - name: Deploy to S3
-      uses: aws-actions/configure-aws-credentials@v3
-      with:
-        role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
-        role-session-name: GitHub_to_AWS_via_FederatedOIDC
-        aws-region: us-east-1
+      - name: Deploy to S3
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          role-session-name: GitHub_to_AWS_via_FederatedOIDC
+          aws-region: us-east-1
 
-    - name: Sync S3 bucket
-      run: aws s3 sync ./dist s3://${{ secrets.S3_BUCKET_NAME }} --delete
+      # Note: S3 deployment replaced by Amplify
+      # Keep this workflow for testing and manual deployments if needed
+      - name: Archive build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-files
+          path: .next/
+          retention-days: 7
 
-    - name: Invalidate CloudFront cache
-      run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"
+    # Optional: Deploy to S3 for backup or alternative hosting
+    # - name: Sync S3 bucket
+    #   run: aws s3 sync ./.next s3://${{ secrets.S3_BUCKET_NAME }} --delete
+    #
+    # - name: Invalidate CloudFront cache
+    #   run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"

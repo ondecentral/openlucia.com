@@ -1,14 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-
 import Image from "next/image";
-import PlanetImg from "@/public/images/planet.png";
-import PlanetOverlayImg from "@/public/images/planet-overlay.svg";
-import PlanetTagImg01 from "@/public/images/planet-tag-01.png";
-import PlanetTagImg02 from "@/public/images/planet-tag-02.png";
-import PlanetTagImg03 from "@/public/images/planet-tag-03.png";
-import PlanetTagImg04 from "@/public/images/planet-tag-04.png";
 import Button from "@/components/tracked-button";
 
 export default function FeaturesPlanet() {
@@ -40,7 +33,7 @@ export default function FeaturesPlanet() {
 
   // Conditionally render the img element based on the selected keyFeature
   const currentFeature = keyFeatures.find((feature) =>
-    feature.keyFeature.includes(keyFeature)
+    feature.keyFeature.includes(keyFeature),
   );
 
   return (
@@ -48,29 +41,32 @@ export default function FeaturesPlanet() {
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="py-12 md:py-20">
           {/* Section header */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center mb-20">
+          <div className="mb-20 grid grid-cols-1 items-center gap-10 md:grid-cols-2">
             {/* Left Column: Content */}
             <div className="flex flex-col justify-start">
-              <div className="-mx-0.5 flex -space-x-3 mb-4">
-                <span className="rounded-full outline outline-stone-700 px-1.5 text-stone-300 text-sm">
+              <div className="-mx-0.5 mb-4 flex -space-x-3">
+                <span className="rounded-full px-1.5 text-sm text-stone-300 outline outline-stone-700">
                   Features
                 </span>
               </div>
               <h2
                 // className="text-3xl font-bold text-stone-200 md:text-4xl mb-4"
-                className="animate-[gradient_6s_linear_infinite] bg-[linear-gradient(to_right,theme(colors.orange.300),theme(colors.orange.500),theme(colors.orange.400),theme(colors.orange.500),theme(colors.orange.300))] bg-[length:200%_auto] bg-clip-text pb-4 font-nacelle text-3xl font-semibold text-transparent md:text-4xl"
+                className="font-nacelle animate-[gradient_6s_linear_infinite] bg-[linear-gradient(to_right,theme(colors.orange.300),theme(colors.orange.500),theme(colors.orange.400),theme(colors.orange.500),theme(colors.orange.300))] bg-[length:200%_auto] bg-clip-text pb-4 text-3xl font-semibold text-transparent md:text-4xl"
               >
-                Web3-Centric Marketing Campaigns: Designed with KOLs, DOAs and Protocols in mind
+                Web3-Centric Marketing Campaigns: Designed with KOLs, DOAs and
+                Protocols in mind
               </h2>
-              <span className="text-stone-400 text-lg mb-4">
-                Our platform leverages next-level technology to deliver data-driven predictions and trends that keep you ahead of the curve.
+              <span className="mb-4 text-lg text-stone-400">
+                Our platform leverages next-level technology to deliver
+                data-driven predictions and trends that keep you ahead of the
+                curve.
               </span>
 
               {/* Button container */}
-              <div className="flex flex-col gap-y-4 justify-center mt-8">
+              <div className="mt-8 flex flex-col justify-center gap-y-4">
                 {/* Button #1 */}
                 <Button
-                  className={`flex h-8 flex-1 items-center gap-2.5 whitespace-nowrap rounded-lg p-6 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-200 ${keyFeature === 1 ? "relative  bg-stone-800 outline outline-stone-700 before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:border before:border-transparent before: before:[mask-composite:exclude_!important] before:[mask:linear-gradient(white_0_0)_padding-box,_linear-gradient(white_0_0)]" : "opacity-65 transition-opacity hover:opacity-90 hover:bg-stone-800 hover:outline hover:outline-stone-700"}`}
+                  className={`flex h-8 flex-1 items-center gap-2.5 whitespace-nowrap rounded-lg p-6 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-200 ${keyFeature === 1 ? "before: relative bg-stone-800 outline outline-stone-700 before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:border before:border-transparent before:[mask-composite:exclude_!important] before:[mask:linear-gradient(white_0_0)_padding-box,_linear-gradient(white_0_0)]" : "opacity-65 transition-opacity hover:bg-stone-800 hover:opacity-90 hover:outline hover:outline-stone-700"}`}
                   aria-pressed={keyFeature === 1}
                   aria-label="Supported Platforms"
                   onClick={() => setKeyFeature(1)}
@@ -84,19 +80,21 @@ export default function FeaturesPlanet() {
                   >
                     <path d="M.062 10.003a1 1 0 0 1 1.947.455c-.019.08.01.152.078.19l5.83 3.333c.052.03.115.03.168 0l5.83-3.333a.163.163 0 0 0 .078-.188 1 1 0 0 1 1.947-.459 2.161 2.161 0 0 1-1.032 2.384l-5.83 3.331a2.168 2.168 0 0 1-2.154 0l-5.83-3.331a2.162 2.162 0 0 1-1.032-2.382Zm7.854-7.981-5.83 3.332a.17.17 0 0 0 0 .295l5.828 3.33c.054.031.118.031.17.002l5.83-3.333a.17.17 0 0 0 0-.294L8.085 2.023a.172.172 0 0 0-.17-.001Z" />
                   </svg>
-                  <div className="flex flex-col ml-2 text-left w-full">
-                    <span className="text-white text-lg font-semibold">
+                  <div className="ml-2 flex w-full flex-col text-left">
+                    <span className="text-lg font-semibold text-white">
                       Seamless Integration
                     </span>
-                    <span className="text-stone-500 break-words whitespace-normal">
-                      Integration with major social media platforms (e.g. Twitter, Discord, Telegram, LinkedIn, and Google) for comprehensive data collection.
+                    <span className="whitespace-normal break-words text-stone-500">
+                      Integration with major social media platforms (e.g.
+                      Twitter, Discord, Telegram, LinkedIn, and Google) for
+                      comprehensive data collection.
                     </span>
                   </div>
                 </Button>
 
                 {/* Button #2 */}
                 <Button
-                  className={`flex h-8 flex-1 items-center gap-2.5 whitespace-nowrap rounded-lg p-6 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-200 ${keyFeature === 2 ? "relative  bg-stone-800 outline outline-stone-700 before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:border before:border-transparent before: before:[mask-composite:exclude_!important] before:[mask:linear-gradient(white_0_0)_padding-box,_linear-gradient(white_0_0)]" : "opacity-65 transition-opacity hover:opacity-90 hover:bg-stone-800 hover:outline hover:outline-stone-700"}`}
+                  className={`flex h-8 flex-1 items-center gap-2.5 whitespace-nowrap rounded-lg p-6 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-200 ${keyFeature === 2 ? "before: relative bg-stone-800 outline outline-stone-700 before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:border before:border-transparent before:[mask-composite:exclude_!important] before:[mask:linear-gradient(white_0_0)_padding-box,_linear-gradient(white_0_0)]" : "opacity-65 transition-opacity hover:bg-stone-800 hover:opacity-90 hover:outline hover:outline-stone-700"}`}
                   aria-pressed={keyFeature === 2}
                   aria-label="Real-time Metrics"
                   onClick={() => setKeyFeature(2)}
@@ -110,19 +108,21 @@ export default function FeaturesPlanet() {
                   >
                     <path d="M6.5 3.5a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0ZM9 6.855A3.502 3.502 0 0 0 8 0a3.5 3.5 0 0 0-1 6.855v1.656L5.534 9.65a3.5 3.5 0 1 0 1.229 1.578L8 10.267l1.238.962a3.5 3.5 0 1 0 1.229-1.578L9 8.511V6.855Z" />
                   </svg>
-                  <div className="flex flex-col ml-2 text-left w-full">
-                    <span className="text-white text-lg font-semibold">
+                  <div className="ml-2 flex w-full flex-col text-left">
+                    <span className="text-lg font-semibold text-white">
                       Real-time Metrics
                     </span>
-                    <span className="text-stone-500 break-words whitespace-normal">
-                      Comprehensive suite of insights derived from SDK, designed to enhance your understanding of user engagement and conversion metrics.
+                    <span className="whitespace-normal break-words text-stone-500">
+                      Comprehensive suite of insights derived from SDK, designed
+                      to enhance your understanding of user engagement and
+                      conversion metrics.
                     </span>
                   </div>
                 </Button>
 
                 {/* Button #3 */}
                 <Button
-                  className={`flex h-8 flex-1 items-center gap-2.5 whitespace-nowrap rounded-lg p-6 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-200 ${keyFeature === 3 ? "relative  bg-stone-800 outline outline-stone-700 before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:border before:border-transparent before: before:[mask-composite:exclude_!important] before:[mask:linear-gradient(white_0_0)_padding-box,_linear-gradient(white_0_0)]" : "opacity-65 transition-opacity hover:opacity-90 hover:bg-stone-800 hover:outline hover:outline-stone-700"}`}
+                  className={`flex h-8 flex-1 items-center gap-2.5 whitespace-nowrap rounded-lg p-6 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-200 ${keyFeature === 3 ? "before: relative bg-stone-800 outline outline-stone-700 before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:border before:border-transparent before:[mask-composite:exclude_!important] before:[mask:linear-gradient(white_0_0)_padding-box,_linear-gradient(white_0_0)]" : "opacity-65 transition-opacity hover:bg-stone-800 hover:opacity-90 hover:outline hover:outline-stone-700"}`}
                   aria-pressed={keyFeature === 3}
                   aria-label="AI-Driven Insights"
                   onClick={() => setKeyFeature(3)}
@@ -136,24 +136,27 @@ export default function FeaturesPlanet() {
                   >
                     <path d="M2.428 10c.665-1.815 1.98-3.604 3.44-4.802-.6-1.807-1.443-3.079-2.29-3.18-1.91-.227-2.246 2.04-.174 2.962a1 1 0 1 1-.813 1.827C-1.407 5.028-.589-.491 3.815.032c1.605.191 2.925 1.811 3.79 4.07.979-.427 1.937-.51 2.735-.092.818.429 1.143 1.123 1.294 2.148.015.1.022.149.043.32.542-.537 1.003-.797 1.693-.622.64.162.894.493 1.195 1.147l.018.04a1 1 0 0 1 1.133 1.61c-.46.47-1.12.574-1.744.398a1.661 1.661 0 0 1-.87-.592 2.127 2.127 0 0 1-.224-.349 3.225 3.225 0 0 1-.55.477c-.377.253-.8.368-1.259.267-.993-.218-1.21-.779-1.367-2.05-.027-.22-.033-.262-.046-.353-.067-.452-.144-.617-.244-.67-.225-.118-.665-.013-1.206.278.297 1.243.475 2.587.516 3.941H15a1 1 0 0 1 0 2H8.68l-.025.285c-.173 1.918-.906 3.381-2.654 3.668-1.5.246-3.013-.47-3.677-1.858-.29-.637-.39-1.35-.342-2.095H1a1 1 0 0 1 0-2h1.428Zm2.11 0h2.175a18.602 18.602 0 0 0-.284-2.577c-.205.202-.408.42-.606.654A9.596 9.596 0 0 0 4.537 10Z" />
                   </svg>
-                  <div className="flex flex-col ml-2 text-left w-full">
-                    <span className="text-white text-lg font-semibold">
+                  <div className="ml-2 flex w-full flex-col text-left">
+                    <span className="text-lg font-semibold text-white">
                       AI-Driven Insights
                     </span>
-                    <span className="text-stone-500 break-words whitespace-normal">
-                      Leverage AI for deeper understanding and optimization of ad campaigns.
+                    <span className="whitespace-normal break-words text-stone-500">
+                      Leverage AI for deeper understanding and optimization of
+                      ad campaigns.
                     </span>
                   </div>
-                  </Button>
+                </Button>
               </div>
             </div>
 
             {/* Right Column: Image */}
             <div className="w-full">
-              <img
-                src={currentFeature?.img}
-                alt={currentFeature?.alt}
-                className="w-full h-full object-cover"
+              <Image
+                src={currentFeature?.img || ""}
+                alt={currentFeature?.alt || ""}
+                width={600}
+                height={400}
+                className="h-full w-full object-cover"
               />
             </div>
           </div>
@@ -203,7 +206,8 @@ export default function FeaturesPlanet() {
                 <span>Hybrid Ecosystems</span>
               </h3>
               <p className="text-[15px] text-stone-400">
-                Bridging Web2 and Web3 for unified insights across all ecosystems.
+                Bridging Web2 and Web3 for unified insights across all
+                ecosystems.
               </p>
             </article>
             {/* <article>

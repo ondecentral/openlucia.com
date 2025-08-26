@@ -6,11 +6,11 @@ const password: string = process.env.TEST_CLIENT_PASSWORD || "!Password1";
 const greenLight: string = "\x1b[32m✔\x1b[0m"; // Green checkmark
 const redLight: string = "\x1b[31m✘\x1b[0m"; // Red cross
 const logResult = (testName: string, passed: boolean): void => {
-    console.log(`${passed ? greenLight : redLight} ${testName}`);
+  console.log(`${passed ? greenLight : redLight} ${testName}`);
 };
 
 const authenticate = async () => {
-  const dotenv = require('dotenv');
+  const dotenv = require("dotenv");
   dotenv.config();
   try {
     // console.log("Running authenticate...");
@@ -19,8 +19,8 @@ const authenticate = async () => {
 
     // Login
     const loginResponse = await fetch(`${apiUrl}/oauth/login`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
     });
 
