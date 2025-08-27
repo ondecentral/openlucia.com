@@ -27,7 +27,7 @@ interface WalletDetailsSectionProps {
   onShowDemoNotification: () => void;
 }
 
-const WalletDetailsSection: React.FC = ({
+const WalletDetailsSection: React.FC<WalletDetailsSectionProps> = ({
   visitor,
   walletIndex,
   expandedTokens,

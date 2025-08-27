@@ -35,7 +35,7 @@ interface VisitorInfoSectionProps {
   onShowDemoNotification: () => void;
 }
 
-const VisitorInfoSection: React.FC = ({
+const VisitorInfoSection: React.FC<VisitorInfoSectionProps> = ({
   visitor,
   onCopyToClipboard,
   onShowDemoNotification,
@@ -65,17 +65,17 @@ const VisitorInfoSection: React.FC = ({
     () => [
       {
         title: "MOBILE VIEWS",
-        value: 211, // Hardcoded value
+        value: visitor.mobile_views, // Hardcoded value
         icon: <Smartphone className="h-5 w-5 text-orange-500" />,
       },
       {
         title: "TABLET VIEWS",
-        value: 2, // Hardcoded value
+        value: visitor.tablet_views, // Hardcoded value
         icon: <Tablet className="h-5 w-5 text-orange-500" />,
       },
       {
         title: "COMPUTER VIEWS",
-        value: 154, // Hardcoded value
+        value: visitor.computer_views, // Hardcoded value
         icon: <Monitor className="h-5 w-5 text-orange-500" />,
       },
     ],
@@ -149,7 +149,7 @@ const VisitorInfoSection: React.FC = ({
         />
         <StatCard
           title="MOST ACTIVE"
-          value="Coming Soon"
+          value="Afternoon"
           icon={<Sun className="h-5 w-5 text-orange-500" />}
           className="border-r text-gray-400 md:border-b-0"
           isDemoData={true}

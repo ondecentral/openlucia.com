@@ -21,7 +21,7 @@ export interface Device {
   type: string;
   os: string;
   os_version: string;
-  browsers: Array;
+  browsers: Array<{ name: string; version: string }>;
   incognito: boolean;
   ip_addresses: IPAddress[];
   first_seen: string;

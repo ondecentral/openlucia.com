@@ -12,7 +12,7 @@ interface RewardsCarouselProps {
   onShowDemoNotification?: () => void;
 }
 
-const RewardsCarousel: React.FC = ({
+const RewardsCarousel: React.FC<RewardsCarouselProps> = ({
   currentReward,
   onNavigate,
   onShowDemoNotification,

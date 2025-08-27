@@ -17,9 +17,16 @@ interface DeviceHistorySectionProps {
   onShowDemoNotification: () => void;
 }
 
-const DevicesSection: React.FC = ({ visitor, onShowDemoNotification }) => {
-  const [expandedDevices, setExpandedDevices] = useState<Set>(new Set());
-  const [deviceIPIndex, setDeviceIPIndex] = useState<Record>({});
+const DevicesSection: React.FC<DeviceHistorySectionProps> = ({
+  visitor,
+  onShowDemoNotification,
+}) => {
+  const [expandedDevices, setExpandedDevices] = useState<Set<string>>(
+    new Set(),
+  );
+  const [deviceIPIndex, setDeviceIPIndex] = useState<Record<string, number>>(
+    {},
+  );
 
   // Toggle device expansion
   const toggleDevice = (deviceId: string) => {

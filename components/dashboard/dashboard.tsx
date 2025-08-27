@@ -43,7 +43,7 @@ interface DashboardProps {
 /**
  * Demo dashboard for data collected by the Lucia SDK.
  */
-const Dashboard: React.FC = ({
+const Dashboard: React.FC<DashboardProps> = ({
   visitors,
   totalVisits,
   totalIncognitoVisits,
@@ -64,9 +64,9 @@ const Dashboard: React.FC = ({
     message: string;
     visible: boolean;
   }>({ message: "", visible: false });
-  const [expandedTabs, setExpandedTabs] = useState<Set>(new Set());
-  const [expandedTokens, setExpandedTokens] = useState<Set>(new Set());
-  const [walletIndex, setWalletIndex] = useState<Record>({});
+  const [expandedTabs, setExpandedTabs] = useState<Set<string>>(new Set());
+  const [expandedTokens, setExpandedTokens] = useState<Set<string>>(new Set());
+  const [walletIndex, setWalletIndex] = useState<Record<string, number>>({});
   const [rewardsIndex, setRewardsIndex] = useState<number>(0);
   const [visitsIndex, setVisitsIndex] = useState<number>(0);
   const [deviceViewsIndex, setDeviceViewsIndex] = useState<number>(0);
@@ -116,17 +116,17 @@ const Dashboard: React.FC = ({
     () => [
       {
         title: "MOBILE VIEWS",
-        value: 2847, // Hardcoded value
+        value: totalMobileViews, // Hardcoded value
         icon: <Smartphone className="h-5 w-5 text-orange-500" />,
       },
       {
         title: "TABLET VIEWS",
-        value: 40, // Hardcoded value
+        value: totalTabletViews, // Hardcoded value
         icon: <Tablet className="h-5 w-5 text-orange-500" />,
       },
       {
         title: "COMPUTER VIEWS",
-        value: 1953, // Hardcoded value
+        value: totalComputerViews, // Hardcoded value
         icon: <Monitor className="h-5 w-5 text-orange-500" />,
       },
     ],
