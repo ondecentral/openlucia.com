@@ -12,7 +12,7 @@ interface StatCardProps {
   onShowDemoNotification?: () => void;
 }
 
-const StatCard: React.FC<StatCardProps> = ({
+const StatCard: React.FC = ({
   title,
   value,
   icon,

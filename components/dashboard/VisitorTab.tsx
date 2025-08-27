@@ -18,7 +18,7 @@ interface VisitorTabProps {
   onShowDemoNotification: () => void;
 }
 
-const VisitorTab: React.FC<VisitorTabProps> = ({
+const VisitorTab: React.FC = ({
   visitor,
   isExpanded,
   walletIndex,

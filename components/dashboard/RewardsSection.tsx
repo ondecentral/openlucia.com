@@ -11,7 +11,7 @@ interface RewardsSectionProps {
   onShowDemoNotification: () => void;
 }
 
-const RewardsSection: React.FC<RewardsSectionProps> = ({
+const RewardsSection: React.FC = ({
   visitor,
   onCopyToClipboard,
   onShowDemoNotification,

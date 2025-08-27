@@ -35,12 +35,15 @@ interface DashboardProps {
   totalETHRewards: string;
   totalAdsClicked: number;
   totalClickIds: number;
+  totalMobileViews: number;
+  totalTabletViews: number;
+  totalComputerViews: number;
 }
 
 /**
  * Demo dashboard for data collected by the Lucia SDK.
  */
-const Dashboard: React.FC<DashboardProps> = ({
+const Dashboard: React.FC = ({
   visitors,
   totalVisits,
   totalIncognitoVisits,
@@ -52,15 +55,18 @@ const Dashboard: React.FC<DashboardProps> = ({
   totalETHRewards,
   totalAdsClicked,
   totalClickIds,
+  totalMobileViews,
+  totalTabletViews,
+  totalComputerViews,
 }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [notification, setNotification] = useState<{
     message: string;
     visible: boolean;
   }>({ message: "", visible: false });
-  const [expandedTabs, setExpandedTabs] = useState<Set<string>>(new Set());
-  const [expandedTokens, setExpandedTokens] = useState<Set<string>>(new Set());
-  const [walletIndex, setWalletIndex] = useState<Record<string, number>>({});
+  const [expandedTabs, setExpandedTabs] = useState<Set>(new Set());
+  const [expandedTokens, setExpandedTokens] = useState<Set>(new Set());
+  const [walletIndex, setWalletIndex] = useState<Record>({});
   const [rewardsIndex, setRewardsIndex] = useState<number>(0);
   const [visitsIndex, setVisitsIndex] = useState<number>(0);
   const [deviceViewsIndex, setDeviceViewsIndex] = useState<number>(0);

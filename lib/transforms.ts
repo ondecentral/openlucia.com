@@ -571,6 +571,12 @@ export function transformToVisitorData(
     click.button?.includes("ad"),
   ).length;
 
+  // Calculate device view statistics based on current device type and visit count
+  const currentDeviceType = getDeviceType();
+  const mobileViews = currentDeviceType === "Mobile" ? totalVisits : 0;
+  const tabletViews = currentDeviceType === "Tablet" ? totalVisits : 0;
+  const computerViews = currentDeviceType === "Computer" ? totalVisits : 0;
+
   // Risk calculation
   const riskLevel = calculateRiskLevel({
     hasVpn: locationInfo.vpn_detected || false,
@@ -657,6 +663,9 @@ export function transformToVisitorData(
     ads_clicked: adsClicked,
     click_ids: button_clicks.length,
     total_visits: totalVisits,
+    mobile_views: mobileViews,
+    tablet_views: tabletViews,
+    computer_views: computerViews,
     ip_addresses: ipAddresses,
     wallets: wallets,
     rewards: hasRealWallet ? generateMockRewards() : mockWalletData.rewards,

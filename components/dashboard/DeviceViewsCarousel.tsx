@@ -10,10 +10,7 @@ interface DeviceViewsCarouselProps {
   onNavigate: (direction: "prev" | "next") => void;
 }
 
-const DeviceViewsCarousel: React.FC<DeviceViewsCarouselProps> = ({
-  currentDevice,
-  onNavigate,
-}) => {
+const DeviceViewsCarousel: React.FC = ({ currentDevice, onNavigate }) => {
   return (
     <div className="relative border-b border-r border-gray-200 p-3 md:border-b-0">
       <div className="flex items-center justify-center gap-4">

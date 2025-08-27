@@ -10,10 +10,7 @@ interface VisitsCarouselProps {
   onNavigate: (direction: "prev" | "next") => void;
 }
 
-const VisitsCarousel: React.FC<VisitsCarouselProps> = ({
-  currentVisit,
-  onNavigate,
-}) => {
+const VisitsCarousel: React.FC = ({ currentVisit, onNavigate }) => {
   return (
     <div className="relative border-b border-r border-gray-200 p-3 md:border-b-0">
       <div className="flex items-center justify-center gap-4">

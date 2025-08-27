@@ -35,7 +35,7 @@ interface VisitorInfoSectionProps {
   onShowDemoNotification: () => void;
 }
 
-const VisitorInfoSection: React.FC<VisitorInfoSectionProps> = ({
+const VisitorInfoSection: React.FC = ({
   visitor,
   onCopyToClipboard,
   onShowDemoNotification,
