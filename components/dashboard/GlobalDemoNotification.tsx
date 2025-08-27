@@ -56,8 +56,8 @@ const GlobalDemoNotification: React.FC<GlobalDemoNotificationProps> = ({
           </span>
         </div>
         <p className="mb-3">
-          While we do collect this information, it's currently not live. To see
-          a live example please request a full demo.
+          While we do collect this information, it&apos;s currently not live. To
+          see a live example please request a full demo.
         </p>
         <p className="text-xs text-gray-400">
           Wallet addresses, balances, transactions, and rewards shown are demo

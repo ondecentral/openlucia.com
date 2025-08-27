@@ -19,9 +19,7 @@ import RewardsCarousel from "./RewardsCarousel";
 import VisitsCarousel from "./VisitsCarousel";
 import DeviceViewsCarousel from "./DeviceViewsCarousel";
 import VisitorTab from "./VisitorTab";
-import DemoDataLabel from "./DemoDataLabel";
 import GlobalDemoNotification from "./GlobalDemoNotification";
-import DemoDataTooltip from "./DemoDataTooltip";
 
 interface DashboardProps {
   visitors: VisitorData[];
@@ -130,7 +128,7 @@ const Dashboard: React.FC<DashboardProps> = ({
         icon: <Monitor className="h-5 w-5 text-orange-500" />,
       },
     ],
-    [],
+    [totalMobileViews, totalTabletViews, totalComputerViews],
   );
 
   // Navigate through the rewards carousel

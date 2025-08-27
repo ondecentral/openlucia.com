@@ -9,7 +9,6 @@ import "aos/dist/aos.css";
 import Header from "@/components/ui/header";
 import Footer from "@/components/ui/footer";
 import TwitterPixel from "@/components/TwitterPixel";
-import { trackTwitterConversion } from "@/utils/twitter-tracking";
 
 export default function DefaultLayout({
   children,

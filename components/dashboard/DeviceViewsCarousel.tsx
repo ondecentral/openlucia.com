@@ -1,5 +1,4 @@
 import React from "react";
-import { Info, Smartphone, Monitor } from "lucide-react";
 
 interface DeviceViewsCarouselProps {
   currentDevice: {

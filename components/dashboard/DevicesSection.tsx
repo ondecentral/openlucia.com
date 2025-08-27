@@ -1,15 +1,8 @@
 import React, { useState } from "react";
-import {
-  ChevronDown,
-  ChevronRight,
-  Smartphone,
-  Monitor,
-  Tablet,
-  Copy,
-} from "lucide-react";
+import { ChevronDown, ChevronRight } from "lucide-react";
 import { VisitorData, Device } from "./dashboard-seed-data";
 import MapboxMap from "./mapbox-map";
-import { getDeviceIcon, getOSIcon } from "./utils";
+import { getDeviceIcon, getOSIcon, formatDate } from "./utils";
 import DemoDataTooltip from "./DemoDataTooltip";
 
 interface DeviceHistorySectionProps {
@@ -144,18 +137,21 @@ const DevicesSection: React.FC<DeviceHistorySectionProps> = ({
                       <ul className="space-y-2 text-sm">
                         <li className="flex items-center justify-between">
                           <span className="text-gray-500">Device Type</span>
-                          <span className="font-medium">{device.type}</span>
+                          <span className="flex items-center gap-1 font-medium">
+                            {getDeviceIcon(device.type)} {device.type}
+                          </span>
                         </li>
                         <li className="flex items-center justify-between">
                           <span className="text-gray-500">OS Version</span>
                           <span className="font-medium">
-                            {device.os_version}
+                            {getOSIcon(device.os)}
+                            {device.os} {device.os_version}
                           </span>
                         </li>
                         <li className="flex items-center justify-between">
                           <span className="text-gray-500">First Seen</span>
                           <span className="font-medium">
-                            {device.first_seen}
+                            {formatDate(device.first_seen)}
                           </span>
                         </li>
                         <li className="flex items-center justify-between">

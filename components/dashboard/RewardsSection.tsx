@@ -1,5 +1,5 @@
 import React from "react";
-import { CreditCard, Receipt, Copy, ExternalLink, Info } from "lucide-react";
+import { CreditCard, Receipt, Copy, ExternalLink } from "lucide-react";
 import { TokenUSDT, TokenETH, TokenSOL } from "@web3icons/react";
 import { VisitorData, RewardTransaction } from "./dashboard-seed-data";
 import { getExplorerUrlForTx } from "./utils";

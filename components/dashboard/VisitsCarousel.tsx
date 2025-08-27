@@ -1,5 +1,4 @@
 import React from "react";
-import { Info, Users, EyeOff } from "lucide-react";
 
 interface VisitsCarouselProps {
   currentVisit: {

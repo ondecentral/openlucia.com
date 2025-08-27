@@ -211,3 +211,36 @@ export const getDeviceIcon = (deviceType: string) => {
       return <Monitor className="h-4 w-4 text-orange-500" />;
   }
 };
+
+export const formatDate = (dateString: string): string => {
+  // Handle relative time strings (like "Now", "5 minutes ago", etc.)
+  if (
+    dateString === "Now" ||
+    dateString.includes("ago") ||
+    dateString.includes("minute") ||
+    dateString.includes("hour") ||
+    dateString.includes("day") ||
+    dateString.includes("week")
+  ) {
+    return dateString;
+  }
+
+  try {
+    const date = new Date(dateString);
+    // Check if the date is valid
+    if (isNaN(date.getTime())) {
+      return dateString; // Return original string if invalid
+    }
+
+    return date.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
+    });
+  } catch {
+    return dateString; // Return original string if parsing fails
+  }
+};

@@ -10,10 +10,8 @@ import {
   Target,
   Fingerprint,
   Network,
-  Info,
   Smartphone,
   Monitor,
-  Globe,
   Tablet,
   Sun,
 } from "lucide-react";
@@ -22,7 +20,6 @@ import {
   getExplorerUrlForAddress,
   getVisitorTotalUsd,
   getValuationEmoji,
-  getValuationLabel,
 } from "./utils";
 import VisitsCarousel from "./VisitsCarousel";
 import DeviceViewsCarousel from "./DeviceViewsCarousel";
@@ -79,7 +76,7 @@ const VisitorInfoSection: React.FC<VisitorInfoSectionProps> = ({
         icon: <Monitor className="h-5 w-5 text-orange-500" />,
       },
     ],
-    [],
+    [visitor.mobile_views, visitor.tablet_views, visitor.computer_views],
   );
 
   // Navigate through the visits carousel

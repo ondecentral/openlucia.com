@@ -1,5 +1,4 @@
 import React from "react";
-import { Info } from "lucide-react";
 import DemoDataTooltip from "./DemoDataTooltip";
 
 interface RewardsCarouselProps {
