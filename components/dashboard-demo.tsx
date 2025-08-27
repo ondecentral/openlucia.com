@@ -112,6 +112,7 @@ export default function DashboardDemo() {
       ),
       wallets: sampleVisitor.wallets,
       rewards: sampleVisitor.rewards,
+      devices: apiVisitor.devices || sampleVisitor.devices, // Use API devices if available, otherwise fall back to sample
     };
   });
 

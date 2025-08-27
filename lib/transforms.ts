@@ -545,11 +545,15 @@ export function transformToVisitorData(
 
   // Determine device type from device capabilities and screen size
   const getDeviceType = (): string => {
-    if (deviceData.touch) return "Mobile";
-
     const width = screenData.width || 0;
-    if (width < 768) return "Mobile";
-    if (width < 1024) return "Tablet";
+
+    // Mobile: touch = true OR width < 768
+    if (deviceData.touch || width < 768) return "Mobile";
+
+    // Tablet: touch != true AND width >= 768 AND width < 1024
+    if (width >= 768 && width < 1024) return "Tablet";
+
+    // Computer: touch != true AND width >= 1024
     return "Computer";
   };
 
@@ -562,20 +566,21 @@ export function transformToVisitorData(
   const ipAddresses = extractIPAddresses(fingerprint);
   const incognitoSessions =
     browserData.incognito_sessions || (browserData.incognito ? 1 : 0);
-  // Count visits correctly: sessions + fingerprints without sessions
   const sessionIds = new Set(
     page_views.map((pv) => pv.session_id).filter((id) => id),
   );
-  const totalVisits = sessionIds.size > 0 ? sessionIds.size : 1; // At least 1 visit (the fingerprint itself)
+  const totalVisits = sessionIds.size > 0 ? sessionIds.size : 1;
   const adsClicked = button_clicks.filter((click) =>
     click.button?.includes("ad"),
   ).length;
 
-  // Calculate device view statistics based on current device type and visit count
+  // Calculate device view statistics based on actual device characteristics
   const currentDeviceType = getDeviceType();
-  const mobileViews = currentDeviceType === "Mobile" ? totalVisits : 0;
-  const tabletViews = currentDeviceType === "Tablet" ? totalVisits : 0;
-  const computerViews = currentDeviceType === "Computer" ? totalVisits : 0;
+  const pageViewCount = page_views.length || 1;
+
+  const mobileViews = currentDeviceType === "Mobile" ? pageViewCount : 0;
+  const tabletViews = currentDeviceType === "Tablet" ? pageViewCount : 0;
+  const computerViews = currentDeviceType === "Computer" ? pageViewCount : 0;
 
   // Risk calculation
   const riskLevel = calculateRiskLevel({
@@ -603,6 +608,9 @@ export function transformToVisitorData(
     return `${Math.floor(diffMins / 1440)} days ago`;
   };
 
+  // Create devices based on the actual device type and page views
+  // For now, create one device per visitor since each fingerprint represents one device session
+  // In the future, this could be enhanced to aggregate multiple fingerprints per visitor
   const devices: Device[] = [
     {
       id: `device_${fingerprint.id}`,

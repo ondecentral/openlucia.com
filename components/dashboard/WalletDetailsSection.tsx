@@ -73,52 +73,53 @@ const WalletDetailsSection: React.FC<WalletDetailsSectionProps> = ({
           </h2>
         </div>
         <section>
-          <div className="mb-3 flex items-center gap-2">
-            <h3 className="flex items-center gap-2 text-base font-semibold text-gray-600">
-              <Wallet className="h-4 w-4 text-orange-500" /> Wallet Details
-            </h3>
-            <DemoDataLabel onShowNotification={onShowDemoNotification} />
-          </div>
-
-          {visitor.wallets.length > 1 && (
-            <div className="mb-3 flex items-center gap-2">
-              <button
-                onClick={() => onNavigateWallet("prev")}
-                disabled={visitor.wallets.length <= 1}
-                className="text-gray-400 transition-colors hover:text-gray-600 disabled:cursor-not-allowed disabled:text-gray-200"
-                title="Previous wallet"
-              >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                  <path
-                    d="M15 18L9 12L15 6"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </button>
-              <span className="text-xs text-gray-500">
-                {walletIndex + 1} of {visitor.wallets.length}
-              </span>
-              <button
-                onClick={() => onNavigateWallet("next")}
-                disabled={visitor.wallets.length <= 1}
-                className="text-gray-400 transition-colors hover:text-gray-600 disabled:cursor-not-allowed disabled:text-gray-200"
-                title="Next wallet"
-              >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                  <path
-                    d="M9 18L15 12L9 6"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </button>
+          <div className="mb-1.5 flex items-center justify-between gap-2">
+            <div className="flex items-center gap-2">
+              <h3 className="flex items-center gap-2 text-base font-semibold text-gray-600">
+                <Wallet className="h-4 w-4 text-orange-500" /> Wallet Details
+              </h3>
+              <DemoDataLabel onShowNotification={onShowDemoNotification} />
             </div>
-          )}
+            {visitor.wallets.length > 1 && (
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => onNavigateWallet("prev")}
+                  disabled={visitor.wallets.length <= 1}
+                  className="text-gray-400 transition-colors hover:text-gray-600 disabled:cursor-not-allowed disabled:text-gray-200"
+                  title="Previous wallet"
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <path
+                      d="M15 18L9 12L15 6"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </button>
+                <span className="text-xs text-gray-500">
+                  {walletIndex + 1} of {visitor.wallets.length}
+                </span>
+                <button
+                  onClick={() => onNavigateWallet("next")}
+                  disabled={visitor.wallets.length <= 1}
+                  className="text-gray-400 transition-colors hover:text-gray-600 disabled:cursor-not-allowed disabled:text-gray-200"
+                  title="Next wallet"
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <path
+                      d="M9 18L15 12L9 6"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </button>
+              </div>
+            )}
+          </div>
 
           <div className="rounded-lg border border-gray-200 p-1.5">
             <ul className="space-y-2 text-sm">
@@ -217,7 +218,7 @@ const WalletDetailsSection: React.FC<WalletDetailsSectionProps> = ({
       </section>
 
       <section className="p-1">
-        <div className="mb-2 flex items-center gap-2">
+        <div className="mb-1.5 flex items-center gap-2">
           <h3 className="flex items-center gap-2 text-base font-semibold text-gray-600">
             <DollarSign className="h-4 w-4 text-orange-500" /> Wallet Holdings
           </h3>
@@ -264,7 +265,7 @@ const WalletDetailsSection: React.FC<WalletDetailsSectionProps> = ({
       </section>
 
       <section className="p-1 pt-0">
-        <div className="mb-2 flex items-center gap-2">
+        <div className="mb-1.5 flex items-center gap-2">
           <h3 className="flex items-center gap-2 text-base font-semibold text-gray-600">
             <Receipt className="h-4 w-4 text-orange-500" /> Recent Transactions
           </h3>
