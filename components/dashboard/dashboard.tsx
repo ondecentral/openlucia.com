@@ -69,6 +69,7 @@ const Dashboard: React.FC<DashboardProps> = ({
   const [visitsIndex, setVisitsIndex] = useState<number>(0);
   const [deviceViewsIndex, setDeviceViewsIndex] = useState<number>(0);
   const [showDemoNotification, setShowDemoNotification] = useState(false);
+  const [demoSource, setDemoSource] = useState<string | null>(null);
 
   // Rewards to be displayed in the rewards carousel
   const rewards = useMemo(
@@ -203,7 +204,15 @@ const Dashboard: React.FC<DashboardProps> = ({
   };
 
   // Show demo notification
-  const handleShowDemoNotification = () => {
+  const handleShowDemoNotification = (source?: string) => {
+    if (source) {
+      setDemoSource(source);
+      if (typeof window !== "undefined") {
+        try {
+          window.sessionStorage.setItem("lucia_demo_source", source);
+        } catch {}
+      }
+    }
     setShowDemoNotification(true);
   };
 
@@ -253,11 +262,13 @@ const Dashboard: React.FC<DashboardProps> = ({
             icon={<Wallet className="h-5 w-5 text-orange-500" />}
             isDemoData={true}
             onShowDemoNotification={handleShowDemoNotification}
+            demoSource="total_wallets_detected"
           />
           <RewardsCarousel
             currentReward={rewards[rewardsIndex]}
             onNavigate={navigateRewards}
             onShowDemoNotification={handleShowDemoNotification}
+            demoSource="rewards_distributed"
           />
 
           <StatCard
@@ -265,16 +276,12 @@ const Dashboard: React.FC<DashboardProps> = ({
             value={totalAdsClicked}
             icon={<MousePointerClick className="h-5 w-5 text-orange-500" />}
             className="border-r md:border-b-0"
-            isDemoData={true}
-            onShowDemoNotification={handleShowDemoNotification}
           />
           <StatCard
             title="TOTAL CLICK IDS"
             value={totalClickIds}
             icon={<Hash className="h-5 w-5 text-orange-500" />}
             className=""
-            isDemoData={true}
-            onShowDemoNotification={handleShowDemoNotification}
           />
         </section>
 
@@ -319,6 +326,7 @@ const Dashboard: React.FC<DashboardProps> = ({
       <GlobalDemoNotification
         isVisible={showDemoNotification}
         onClose={handleCloseDemoNotification}
+        source={demoSource || undefined}
       />
     </main>
   );

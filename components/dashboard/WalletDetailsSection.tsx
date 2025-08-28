@@ -78,7 +78,10 @@ const WalletDetailsSection: React.FC<WalletDetailsSectionProps> = ({
               <h3 className="flex items-center gap-2 text-base font-semibold text-gray-600">
                 <Wallet className="h-4 w-4 text-orange-500" /> Wallet Details
               </h3>
-              <DemoDataLabel onShowNotification={onShowDemoNotification} />
+              <DemoDataLabel
+                source="wallet_details"
+                onShowNotification={onShowDemoNotification}
+              />
             </div>
             {visitor.wallets.length > 1 && (
               <div className="flex items-center gap-2">
@@ -222,7 +225,10 @@ const WalletDetailsSection: React.FC<WalletDetailsSectionProps> = ({
           <h3 className="flex items-center gap-2 text-base font-semibold text-gray-600">
             <DollarSign className="h-4 w-4 text-orange-500" /> Wallet Holdings
           </h3>
-          <DemoDataLabel onShowNotification={onShowDemoNotification} />
+          <DemoDataLabel
+            source="wallet_holdings"
+            onShowNotification={onShowDemoNotification}
+          />
         </div>
         <div
           onClick={onToggleTokens}
@@ -269,7 +275,10 @@ const WalletDetailsSection: React.FC<WalletDetailsSectionProps> = ({
           <h3 className="flex items-center gap-2 text-base font-semibold text-gray-600">
             <Receipt className="h-4 w-4 text-orange-500" /> Recent Transactions
           </h3>
-          <DemoDataLabel onShowNotification={onShowDemoNotification} />
+          <DemoDataLabel
+            source="recent_transactions"
+            onShowNotification={onShowDemoNotification}
+          />
         </div>
         <div className="overflow-hidden rounded-lg border border-gray-200">
           <ul className="divide-y divide-gray-200 text-sm">

@@ -5,18 +5,20 @@ import { Info } from "lucide-react";
 
 interface DemoDataLabelProps {
   className?: string;
-  onShowNotification: () => void;
+  source?: string;
+  onShowNotification: (source?: string) => void;
 }
 
 const DemoDataLabel: React.FC<DemoDataLabelProps> = ({
   className = "",
+  source,
   onShowNotification,
 }) => {
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const handleMouseEnter = () => {
     timeoutRef.current = setTimeout(() => {
-      onShowNotification();
+      onShowNotification(source);
     }, 600);
   };
 

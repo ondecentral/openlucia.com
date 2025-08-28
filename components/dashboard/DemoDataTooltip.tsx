@@ -2,21 +2,23 @@ import React, { useRef } from "react";
 import { Info } from "lucide-react";
 
 interface DemoDataTooltipProps {
-  onShowDemoNotification: () => void;
+  onShowDemoNotification: (source?: string) => void;
   className?: string;
   inline?: boolean; // New prop to control positioning mode
+  source?: string;
 }
 
 const DemoDataTooltip: React.FC<DemoDataTooltipProps> = ({
   onShowDemoNotification,
   className = "",
   inline = false,
+  source,
 }) => {
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const handleMouseEnter = () => {
     timeoutRef.current = setTimeout(() => {
-      onShowDemoNotification();
+      onShowDemoNotification(source);
     }, 600);
   };
 

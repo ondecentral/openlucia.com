@@ -113,6 +113,7 @@ const VisitorInfoSection: React.FC<VisitorInfoSectionProps> = ({
           className="border-r md:border-b-0"
           isDemoData={true}
           onShowDemoNotification={onShowDemoNotification}
+          demoSource="ads_clicked"
         />
         <StatCard
           title="CLICK IDS"
@@ -121,6 +122,7 @@ const VisitorInfoSection: React.FC<VisitorInfoSectionProps> = ({
           className=""
           isDemoData={true}
           onShowDemoNotification={onShowDemoNotification}
+          demoSource="click_ids"
         />
       </section>
       {/* Wallets, valuation, most active, and IP addresses section */}
@@ -131,6 +133,7 @@ const VisitorInfoSection: React.FC<VisitorInfoSectionProps> = ({
           icon={<Wallet className="h-5 w-5 text-orange-500" />}
           isDemoData={true}
           onShowDemoNotification={onShowDemoNotification}
+          demoSource="wallets_count"
         />
         <StatCard
           title="VALUATION"
@@ -143,6 +146,7 @@ const VisitorInfoSection: React.FC<VisitorInfoSectionProps> = ({
           className="border-r md:border-b-0"
           isDemoData={true}
           onShowDemoNotification={onShowDemoNotification}
+          demoSource="valuation"
         />
         <StatCard
           title="MOST ACTIVE"
@@ -151,6 +155,7 @@ const VisitorInfoSection: React.FC<VisitorInfoSectionProps> = ({
           className="border-r text-gray-400 md:border-b-0"
           isDemoData={true}
           onShowDemoNotification={onShowDemoNotification}
+          demoSource="most_active"
         />
         <StatCard
           title="IP ADDRESSES"
@@ -166,7 +171,10 @@ const VisitorInfoSection: React.FC<VisitorInfoSectionProps> = ({
             <h3 className="flex items-center gap-2 text-base font-semibold text-gray-600">
               <Mail className="h-4 w-4 text-orange-500" /> Associated Emails
             </h3>
-            <DemoDataLabel onShowNotification={onShowDemoNotification} />
+            <DemoDataLabel
+              source="associated_emails"
+              onShowNotification={onShowDemoNotification}
+            />
           </div>
 
           <div className="max-h-[120px] space-y-2 overflow-y-auto">
@@ -227,7 +235,10 @@ const VisitorInfoSection: React.FC<VisitorInfoSectionProps> = ({
             <h3 className="flex items-center gap-2 text-base font-semibold text-gray-600">
               <Wallet className="h-4 w-4 text-orange-500" /> Wallet Addresses
             </h3>
-            <DemoDataLabel onShowNotification={onShowDemoNotification} />
+            <DemoDataLabel
+              source="wallet_addresses"
+              onShowNotification={onShowDemoNotification}
+            />
           </div>
           <div className="max-h-[120px] space-y-2 overflow-y-auto">
             {visitor.wallets.map((wallet, index) => (

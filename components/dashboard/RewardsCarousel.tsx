@@ -8,13 +8,15 @@ interface RewardsCarouselProps {
     icon: React.ReactNode;
   };
   onNavigate: (direction: "prev" | "next") => void;
-  onShowDemoNotification?: () => void;
+  onShowDemoNotification?: (source?: string) => void;
+  demoSource?: string;
 }
 
 const RewardsCarousel: React.FC<RewardsCarouselProps> = ({
   currentReward,
   onNavigate,
   onShowDemoNotification,
+  demoSource,
 }) => {
   return (
     <div className="relative border-b border-gray-200 p-3 md:border-b-0 md:border-r">
@@ -74,7 +76,10 @@ const RewardsCarousel: React.FC<RewardsCarouselProps> = ({
 
       {/* Demo Data Tooltip */}
       {onShowDemoNotification && (
-        <DemoDataTooltip onShowDemoNotification={onShowDemoNotification} />
+        <DemoDataTooltip
+          onShowDemoNotification={onShowDemoNotification}
+          source={demoSource}
+        />
       )}
     </div>
   );

@@ -8,11 +8,13 @@ import Logo from "@/public/images/logo.svg";
 interface GlobalDemoNotificationProps {
   isVisible: boolean;
   onClose: () => void;
+  source?: string;
 }
 
 const GlobalDemoNotification: React.FC<GlobalDemoNotificationProps> = ({
   isVisible,
   onClose,
+  source,
 }) => {
   // Auto-hide after 15 seconds when notification becomes visible
   useEffect(() => {
@@ -68,9 +70,20 @@ const GlobalDemoNotification: React.FC<GlobalDemoNotificationProps> = ({
       {/* Button */}
       <div className="flex justify-center">
         <button
-          onClick={() =>
-            window.open("https://ads.clickinsights.xyz/contact", "_blank")
-          }
+          onClick={() => {
+            try {
+              const stored =
+                typeof window !== "undefined"
+                  ? window.sessionStorage.getItem("lucia_demo_source")
+                  : null;
+              const s = source || stored || "unknown";
+              const url = new URL("https://ads.clickinsights.xyz/contact");
+              url.searchParams.set("demo_source", s);
+              window.open(url.toString(), "_blank");
+            } catch {
+              window.open("https://ads.clickinsights.xyz/contact", "_blank");
+            }
+          }}
           className="btn flex w-full items-center justify-center gap-2 bg-orange-500 py-2 text-sm text-white shadow outline outline-1 outline-orange-500 hover:bg-orange-400 hover:outline-2 hover:outline-orange-400 hover:drop-shadow-lg"
         >
           <ExternalLink className="h-4 w-4" />

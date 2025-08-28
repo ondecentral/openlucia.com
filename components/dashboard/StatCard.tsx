@@ -9,7 +9,8 @@ interface StatCardProps {
   tooltip?: string;
   className?: string;
   isDemoData?: boolean;
-  onShowDemoNotification?: () => void;
+  onShowDemoNotification?: (source?: string) => void;
+  demoSource?: string;
 }
 
 const StatCard: React.FC<StatCardProps> = ({
@@ -20,6 +21,7 @@ const StatCard: React.FC<StatCardProps> = ({
   className = "",
   isDemoData = false,
   onShowDemoNotification,
+  demoSource,
 }) => {
   return (
     <div
@@ -45,7 +47,10 @@ const StatCard: React.FC<StatCardProps> = ({
 
       {/* Demo Data Tooltip */}
       {isDemoData && onShowDemoNotification && (
-        <DemoDataTooltip onShowDemoNotification={onShowDemoNotification} />
+        <DemoDataTooltip
+          onShowDemoNotification={onShowDemoNotification}
+          source={demoSource}
+        />
       )}
     </div>
   );
