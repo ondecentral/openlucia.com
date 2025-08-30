@@ -1,5 +1,5 @@
 import React from "react";
-import { Info } from "lucide-react";
+import DemoDataTooltip from "./DemoDataTooltip";
 
 interface RewardsCarouselProps {
   currentReward: {
@@ -8,11 +8,15 @@ interface RewardsCarouselProps {
     icon: React.ReactNode;
   };
   onNavigate: (direction: "prev" | "next") => void;
+  onShowDemoNotification?: (source?: string) => void;
+  demoSource?: string;
 }
 
 const RewardsCarousel: React.FC<RewardsCarouselProps> = ({
   currentReward,
   onNavigate,
+  onShowDemoNotification,
+  demoSource,
 }) => {
   return (
     <div className="relative border-b border-gray-200 p-3 md:border-b-0 md:border-r">
@@ -69,12 +73,14 @@ const RewardsCarousel: React.FC<RewardsCarouselProps> = ({
           {currentReward.value}
         </p>
       </div>
-      <div className="group absolute bottom-2 left-2">
-        <Info className="h-3 w-3 cursor-help text-gray-400" />
-        <div className="absolute bottom-full left-0 z-10 mb-1 whitespace-nowrap rounded bg-gray-800 px-2 py-1 text-xs text-white opacity-0 transition-opacity group-hover:opacity-100">
-          +18.9% (24h)
-        </div>
-      </div>
+
+      {/* Demo Data Tooltip */}
+      {onShowDemoNotification && (
+        <DemoDataTooltip
+          onShowDemoNotification={onShowDemoNotification}
+          source={demoSource}
+        />
+      )}
     </div>
   );
 };

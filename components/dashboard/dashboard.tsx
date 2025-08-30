@@ -19,6 +19,7 @@ import RewardsCarousel from "./RewardsCarousel";
 import VisitsCarousel from "./VisitsCarousel";
 import DeviceViewsCarousel from "./DeviceViewsCarousel";
 import VisitorTab from "./VisitorTab";
+import GlobalDemoNotification from "./GlobalDemoNotification";
 
 interface DashboardProps {
   visitors: VisitorData[];
@@ -67,6 +68,8 @@ const Dashboard: React.FC<DashboardProps> = ({
   const [rewardsIndex, setRewardsIndex] = useState<number>(0);
   const [visitsIndex, setVisitsIndex] = useState<number>(0);
   const [deviceViewsIndex, setDeviceViewsIndex] = useState<number>(0);
+  const [showDemoNotification, setShowDemoNotification] = useState(false);
+  const [demoSource, setDemoSource] = useState<string | null>(null);
 
   // Rewards to be displayed in the rewards carousel
   const rewards = useMemo(
@@ -97,13 +100,11 @@ const Dashboard: React.FC<DashboardProps> = ({
         title: "TOTAL VISITS",
         value: totalVisits,
         icon: <Users className="h-5 w-5 text-orange-500" />,
-        tooltip: "+12.4% (24h)",
       },
       {
         title: "INCOGNITO VISITS",
         value: totalIncognitoVisits,
         icon: <EyeOff className="h-5 w-5 text-orange-500" />,
-        tooltip: "-5.2% (24h)",
       },
     ],
     [totalVisits, totalIncognitoVisits],
@@ -114,21 +115,18 @@ const Dashboard: React.FC<DashboardProps> = ({
     () => [
       {
         title: "MOBILE VIEWS",
-        value: totalMobileViews,
+        value: totalMobileViews, // Hardcoded value
         icon: <Smartphone className="h-5 w-5 text-orange-500" />,
-        tooltip: "+18.2% (24h)",
       },
       {
         title: "TABLET VIEWS",
-        value: totalTabletViews,
+        value: totalTabletViews, // Hardcoded value
         icon: <Tablet className="h-5 w-5 text-orange-500" />,
-        tooltip: "-18.2% (24h)",
       },
       {
         title: "COMPUTER VIEWS",
-        value: totalComputerViews,
+        value: totalComputerViews, // Hardcoded value
         icon: <Monitor className="h-5 w-5 text-orange-500" />,
-        tooltip: "+9.7% (24h)",
       },
     ],
     [totalMobileViews, totalTabletViews, totalComputerViews],
@@ -205,6 +203,24 @@ const Dashboard: React.FC<DashboardProps> = ({
     setWalletIndex((prev) => ({ ...prev, [visitorId]: newIndex }));
   };
 
+  // Show demo notification
+  const handleShowDemoNotification = (source?: string) => {
+    if (source) {
+      setDemoSource(source);
+      if (typeof window !== "undefined") {
+        try {
+          window.sessionStorage.setItem("lucia_demo_source", source);
+        } catch {}
+      }
+    }
+    setShowDemoNotification(true);
+  };
+
+  // Close demo notification
+  const handleCloseDemoNotification = () => {
+    setShowDemoNotification(false);
+  };
+
   return (
     <main className="w-full">
       {notification.visible && (
@@ -228,14 +244,12 @@ const Dashboard: React.FC<DashboardProps> = ({
             title="TOTAL UNIQUE IP ADDRESSES"
             value={totalUniqueIPs}
             icon={<Network className="h-5 w-5 text-orange-500" />}
-            tooltip="+8.7% (24h)"
             className="border-r md:border-b-0"
           />
           <StatCard
             title="TOTAL UNIQUE GEOLOCATIONS"
             value={totalUniqueGeolocations}
             icon={<Globe className="h-5 w-5 text-orange-500" />}
-            tooltip="+15.3% (24h)"
             className="border-r md:border-b-0"
           />
         </section>
@@ -246,25 +260,27 @@ const Dashboard: React.FC<DashboardProps> = ({
             title="TOTAL WALLETS DETECTED"
             value={totalWalletsDetected}
             icon={<Wallet className="h-5 w-5 text-orange-500" />}
-            tooltip="+23.1% (24h)"
+            isDemoData={true}
+            onShowDemoNotification={handleShowDemoNotification}
+            demoSource="total_wallets_detected"
           />
           <RewardsCarousel
             currentReward={rewards[rewardsIndex]}
             onNavigate={navigateRewards}
+            onShowDemoNotification={handleShowDemoNotification}
+            demoSource="rewards_distributed"
           />
 
           <StatCard
             title="TOTAL ADS CLICKED"
             value={totalAdsClicked}
             icon={<MousePointerClick className="h-5 w-5 text-orange-500" />}
-            tooltip="+7.3% (24h)"
             className="border-r md:border-b-0"
           />
           <StatCard
             title="TOTAL CLICK IDS"
             value={totalClickIds}
             icon={<Hash className="h-5 w-5 text-orange-500" />}
-            tooltip="+9.1% (24h)"
             className=""
           />
         </section>
@@ -299,11 +315,19 @@ const Dashboard: React.FC<DashboardProps> = ({
                   })
                 }
                 onCopyToClipboard={copyToClipboard}
+                onShowDemoNotification={handleShowDemoNotification}
               />
             ))}
           </div>
         </section>
       </div>
+
+      {/* Global Demo Notification */}
+      <GlobalDemoNotification
+        isVisible={showDemoNotification}
+        onClose={handleCloseDemoNotification}
+        source={demoSource || undefined}
+      />
     </main>
   );
 };

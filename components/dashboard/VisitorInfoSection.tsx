@@ -10,31 +10,32 @@ import {
   Target,
   Fingerprint,
   Network,
-  Info,
   Smartphone,
   Monitor,
-  Globe,
   Tablet,
+  Sun,
 } from "lucide-react";
 import { VisitorData } from "./dashboard-seed-data";
 import {
   getExplorerUrlForAddress,
   getVisitorTotalUsd,
   getValuationEmoji,
-  getValuationLabel,
 } from "./utils";
 import VisitsCarousel from "./VisitsCarousel";
 import DeviceViewsCarousel from "./DeviceViewsCarousel";
 import StatCard from "./StatCard";
+import DemoDataLabel from "./DemoDataLabel";
 
 interface VisitorInfoSectionProps {
   visitor: VisitorData;
   onCopyToClipboard: (text: string) => void;
+  onShowDemoNotification: () => void;
 }
 
 const VisitorInfoSection: React.FC<VisitorInfoSectionProps> = ({
   visitor,
   onCopyToClipboard,
+  onShowDemoNotification,
 }) => {
   const [visitsIndex, setVisitsIndex] = useState<number>(0);
   const [deviceViewsIndex, setDeviceViewsIndex] = useState<number>(0);
@@ -46,13 +47,11 @@ const VisitorInfoSection: React.FC<VisitorInfoSectionProps> = ({
         title: "TOTAL VISITS",
         value: visitor.total_visits,
         icon: <Users className="h-5 w-5 text-orange-500" />,
-        tooltip: "+12.4% (24h)",
       },
       {
         title: "INCOGNITO VISITS",
         value: visitor.incognito_sessions,
         icon: <EyeOff className="h-5 w-5 text-orange-500" />,
-        tooltip: "-5.2% (24h)",
       },
     ],
     [visitor.total_visits, visitor.incognito_sessions],
@@ -63,21 +62,18 @@ const VisitorInfoSection: React.FC<VisitorInfoSectionProps> = ({
     () => [
       {
         title: "MOBILE VIEWS",
-        value: visitor.mobile_views,
+        value: visitor.mobile_views, // Hardcoded value
         icon: <Smartphone className="h-5 w-5 text-orange-500" />,
-        tooltip: "+18.2% (24h)",
       },
       {
         title: "TABLET VIEWS",
-        value: visitor.tablet_views,
+        value: visitor.tablet_views, // Hardcoded value
         icon: <Tablet className="h-5 w-5 text-orange-500" />,
-        tooltip: "+18.2% (24h)",
       },
       {
         title: "COMPUTER VIEWS",
-        value: visitor.computer_views,
+        value: visitor.computer_views, // Hardcoded value
         icon: <Monitor className="h-5 w-5 text-orange-500" />,
-        tooltip: "+9.7% (24h)",
       },
     ],
     [visitor.mobile_views, visitor.tablet_views, visitor.computer_views],
@@ -114,15 +110,19 @@ const VisitorInfoSection: React.FC<VisitorInfoSectionProps> = ({
           title="ADS CLICKED"
           value={visitor.ads_clicked}
           icon={<Target className="h-5 w-5 text-orange-500" />}
-          tooltip="+8.7% (24h)"
           className="border-r md:border-b-0"
+          isDemoData={true}
+          onShowDemoNotification={onShowDemoNotification}
+          demoSource="ads_clicked"
         />
         <StatCard
           title="CLICK IDS"
           value={visitor.click_ids}
           icon={<Fingerprint className="h-5 w-5 text-orange-500" />}
-          tooltip="+12.4% (24h)"
           className=""
+          isDemoData={true}
+          onShowDemoNotification={onShowDemoNotification}
+          demoSource="click_ids"
         />
       </section>
       {/* Wallets, valuation, most active, and IP addresses section */}
@@ -131,7 +131,9 @@ const VisitorInfoSection: React.FC<VisitorInfoSectionProps> = ({
           title="WALLETS"
           value={visitor.wallets.length}
           icon={<Wallet className="h-5 w-5 text-orange-500" />}
-          tooltip="+18.9% (24h)"
+          isDemoData={true}
+          onShowDemoNotification={onShowDemoNotification}
+          demoSource="wallets_count"
         />
         <StatCard
           title="VALUATION"
@@ -141,30 +143,40 @@ const VisitorInfoSection: React.FC<VisitorInfoSectionProps> = ({
               {getValuationEmoji(getVisitorTotalUsd(visitor.wallets))}
             </span>
           }
-          tooltip={`Wallet valuation: ${getValuationLabel(getVisitorTotalUsd(visitor.wallets))} ($${getVisitorTotalUsd(visitor.wallets).toLocaleString()})`}
           className="border-r md:border-b-0"
+          isDemoData={true}
+          onShowDemoNotification={onShowDemoNotification}
+          demoSource="valuation"
         />
         <StatCard
           title="MOST ACTIVE"
-          value="N/A"
-          icon={<span className="text-2xl"></span>}
-          tooltip="Coming soon!"
+          value="Afternoon"
+          icon={<Sun className="h-5 w-5 text-orange-500" />}
           className="border-r text-gray-400 md:border-b-0"
+          isDemoData={true}
+          onShowDemoNotification={onShowDemoNotification}
+          demoSource="most_active"
         />
         <StatCard
           title="IP ADDRESSES"
           value={visitor.ip_addresses.length}
           icon={<Network className="h-5 w-5 text-orange-500" />}
-          tooltip="+3.8% (24h)"
           className=""
         />
       </section>
 
       <section className="grid grid-cols-1 gap-1.5 p-1 md:grid-cols-3">
         <div className="rounded-lg border border-gray-200 p-1.5">
-          <h3 className="mb-3 flex items-center justify-center gap-2 border-b border-gray-200 pb-2 text-base font-semibold text-gray-600">
-            <Mail className="h-4 w-4 text-orange-500" /> Associated Emails
-          </h3>
+          <div className="mb-3 flex items-center gap-2 border-b border-gray-200 pb-2">
+            <h3 className="flex items-center gap-2 text-base font-semibold text-gray-600">
+              <Mail className="h-4 w-4 text-orange-500" /> Associated Emails
+            </h3>
+            <DemoDataLabel
+              source="associated_emails"
+              onShowNotification={onShowDemoNotification}
+            />
+          </div>
+
           <div className="max-h-[120px] space-y-2 overflow-y-auto">
             {visitor.associated_emails.map((email, index) => (
               <div
@@ -219,9 +231,15 @@ const VisitorInfoSection: React.FC<VisitorInfoSectionProps> = ({
         </div>
 
         <div className="rounded-lg border border-gray-200 p-1.5">
-          <h3 className="mb-3 flex items-center justify-center gap-2 border-b border-gray-200 pb-2 text-base font-semibold text-gray-600">
-            <Wallet className="h-4 w-4 text-orange-500" /> Wallet Addresses
-          </h3>
+          <div className="mb-3 flex items-center gap-2 border-b border-gray-200 pb-2">
+            <h3 className="flex items-center gap-2 text-base font-semibold text-gray-600">
+              <Wallet className="h-4 w-4 text-orange-500" /> Wallet Addresses
+            </h3>
+            <DemoDataLabel
+              source="wallet_addresses"
+              onShowNotification={onShowDemoNotification}
+            />
+          </div>
           <div className="max-h-[120px] space-y-2 overflow-y-auto">
             {visitor.wallets.map((wallet, index) => (
               <div

@@ -15,6 +15,7 @@ import {
   getWalletTotalUsd,
   getValuationEmoji,
 } from "./utils";
+import DemoDataLabel from "./DemoDataLabel";
 
 interface WalletDetailsSectionProps {
   visitor: VisitorData;
@@ -23,6 +24,7 @@ interface WalletDetailsSectionProps {
   onNavigateWallet: (direction: "prev" | "next") => void;
   onToggleTokens: () => void;
   onCopyToClipboard: (text: string) => void;
+  onShowDemoNotification: () => void;
 }
 
 const WalletDetailsSection: React.FC<WalletDetailsSectionProps> = ({
@@ -32,6 +34,7 @@ const WalletDetailsSection: React.FC<WalletDetailsSectionProps> = ({
   onNavigateWallet,
   onToggleTokens,
   onCopyToClipboard,
+  onShowDemoNotification,
 }) => {
   const currentWallet = visitor.wallets[walletIndex] || visitor.wallets[0];
   const transactions = currentWallet?.transactions || visitor.transactions;
@@ -70,10 +73,16 @@ const WalletDetailsSection: React.FC<WalletDetailsSectionProps> = ({
           </h2>
         </div>
         <section>
-          <div className="flex items-center justify-between">
-            <h3 className="mb-2 flex items-center justify-between gap-2 text-base font-semibold text-gray-600">
-              <Wallet className="h-4 w-4 text-orange-500" /> Wallet Details
-            </h3>
+          <div className="mb-1.5 flex items-center justify-between gap-2">
+            <div className="flex items-center gap-2">
+              <h3 className="flex items-center gap-2 text-base font-semibold text-gray-600">
+                <Wallet className="h-4 w-4 text-orange-500" /> Wallet Details
+              </h3>
+              <DemoDataLabel
+                source="wallet_details"
+                onShowNotification={onShowDemoNotification}
+              />
+            </div>
             {visitor.wallets.length > 1 && (
               <div className="flex items-center gap-2">
                 <button
@@ -212,10 +221,14 @@ const WalletDetailsSection: React.FC<WalletDetailsSectionProps> = ({
       </section>
 
       <section className="p-1">
-        <div className="mb-2 flex items-center justify-start">
-          <h3 className="flex items-center justify-start gap-2 text-base font-semibold text-gray-600">
+        <div className="mb-1.5 flex items-center gap-2">
+          <h3 className="flex items-center gap-2 text-base font-semibold text-gray-600">
             <DollarSign className="h-4 w-4 text-orange-500" /> Wallet Holdings
           </h3>
+          <DemoDataLabel
+            source="wallet_holdings"
+            onShowNotification={onShowDemoNotification}
+          />
         </div>
         <div
           onClick={onToggleTokens}
@@ -258,9 +271,15 @@ const WalletDetailsSection: React.FC<WalletDetailsSectionProps> = ({
       </section>
 
       <section className="p-1 pt-0">
-        <h3 className="mb-2 flex items-center gap-2 text-base font-semibold text-gray-600">
-          <Receipt className="h-4 w-4 text-orange-500" /> Recent Transactions
-        </h3>
+        <div className="mb-1.5 flex items-center gap-2">
+          <h3 className="flex items-center gap-2 text-base font-semibold text-gray-600">
+            <Receipt className="h-4 w-4 text-orange-500" /> Recent Transactions
+          </h3>
+          <DemoDataLabel
+            source="recent_transactions"
+            onShowNotification={onShowDemoNotification}
+          />
+        </div>
         <div className="overflow-hidden rounded-lg border border-gray-200">
           <ul className="divide-y divide-gray-200 text-sm">
             {transactions.map((transaction) => (

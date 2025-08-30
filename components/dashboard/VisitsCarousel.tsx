@@ -1,12 +1,10 @@
 import React from "react";
-import { Info, Users, EyeOff } from "lucide-react";
 
 interface VisitsCarouselProps {
   currentVisit: {
     title: string;
     value: number;
     icon: React.ReactNode;
-    tooltip: string;
   };
   onNavigate: (direction: "prev" | "next") => void;
 }
@@ -69,12 +67,6 @@ const VisitsCarousel: React.FC<VisitsCarouselProps> = ({
         <p className="text-sm font-semibold text-gray-600">
           {currentVisit.value.toLocaleString()}
         </p>
-      </div>
-      <div className="group absolute bottom-2 left-2">
-        <Info className="h-3 w-3 cursor-help text-gray-400" />
-        <div className="absolute bottom-full left-0 z-10 mb-1 whitespace-nowrap rounded bg-gray-800 px-2 py-1 text-xs text-white opacity-0 transition-opacity group-hover:opacity-100">
-          {currentVisit.tooltip}
-        </div>
       </div>
     </div>
   );

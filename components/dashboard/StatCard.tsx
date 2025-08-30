@@ -1,12 +1,16 @@
 import React, { ReactNode } from "react";
 import { Info } from "lucide-react";
+import DemoDataTooltip from "./DemoDataTooltip";
 
 interface StatCardProps {
   title: string;
   value?: string | number;
   icon: ReactNode;
-  tooltip: string;
+  tooltip?: string;
   className?: string;
+  isDemoData?: boolean;
+  onShowDemoNotification?: (source?: string) => void;
+  demoSource?: string;
 }
 
 const StatCard: React.FC<StatCardProps> = ({
@@ -15,6 +19,9 @@ const StatCard: React.FC<StatCardProps> = ({
   icon,
   tooltip,
   className = "",
+  isDemoData = false,
+  onShowDemoNotification,
+  demoSource,
 }) => {
   return (
     <div
@@ -27,12 +34,24 @@ const StatCard: React.FC<StatCardProps> = ({
         {icon}
         <p className="text-sm font-semibold text-gray-600">{value}</p>
       </div>
-      <div className="group absolute bottom-2 left-2">
-        <Info className="h-3 w-3 cursor-help text-gray-400" />
-        <div className="absolute bottom-full left-0 z-10 mb-1 whitespace-nowrap rounded bg-gray-800 px-2 py-1 text-xs text-white opacity-0 transition-opacity group-hover:opacity-100">
-          {tooltip}
+
+      {/* Tooltip - either regular tooltip or demo data tooltip */}
+      {tooltip && (
+        <div className="group absolute bottom-2 left-2">
+          <Info className="h-3 w-3 cursor-help text-gray-400" />
+          <div className="absolute bottom-full left-0 z-10 mb-1 whitespace-nowrap rounded bg-gray-800 px-2 py-1 text-xs text-white opacity-0 transition-opacity group-hover:opacity-100">
+            {tooltip}
+          </div>
         </div>
-      </div>
+      )}
+
+      {/* Demo Data Tooltip */}
+      {isDemoData && onShowDemoNotification && (
+        <DemoDataTooltip
+          onShowDemoNotification={onShowDemoNotification}
+          source={demoSource}
+        />
+      )}
     </div>
   );
 };

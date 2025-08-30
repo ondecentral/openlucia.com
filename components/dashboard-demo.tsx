@@ -112,6 +112,7 @@ export default function DashboardDemo() {
       ),
       wallets: sampleVisitor.wallets,
       rewards: sampleVisitor.rewards,
+      devices: apiVisitor.devices || sampleVisitor.devices, // Use API devices if available, otherwise fall back to sample
     };
   });
 
@@ -218,38 +219,38 @@ export default function DashboardDemo() {
               {/* Dashboard Header */}
               <div className="flex flex-col items-center gap-2 border-b border-gray-200 p-2 sm:grid sm:grid-cols-3 sm:gap-0">
                 {/* Center section - DEMO VERSION on top for mobile */}
-                <div className="order-1 flex w-full justify-center sm:order-2 sm:col-start-2">
+                <div className="order-1 flex w-full items-center justify-center gap-1 sm:order-2 sm:col-start-2">
+                  <div className="group relative">
+                    <div
+                      className="flex cursor-help items-center justify-center rounded-full text-xs font-medium transition-colors hover:bg-gray-400"
+                      onMouseEnter={() =>
+                        !isTooltipPinned && setShowTooltip(true)
+                      }
+                      onMouseLeave={() =>
+                        !isTooltipPinned && setShowTooltip(false)
+                      }
+                      onClick={() => {
+                        setIsTooltipPinned(!isTooltipPinned);
+                        setShowTooltip(!isTooltipPinned);
+                      }}
+                    >
+                      <Info className="h-3 w-3 cursor-help text-gray-400" />
+                    </div>
+                    {showTooltip && (
+                      <div
+                        ref={tooltipRef}
+                        className="absolute bottom-full left-1/2 z-[9999] mb-1 -translate-x-1/2 transform whitespace-nowrap rounded bg-gray-800 px-2 py-1 text-xs text-white opacity-100 transition-opacity duration-200"
+                      >
+                        Full functionality available Q3 2025
+                        <div className="border-l-3 border-r-3 border-t-3 absolute left-1/2 top-full h-0 w-0 -translate-x-1/2 transform border-transparent border-t-gray-800"></div>
+                      </div>
+                    )}
+                  </div>
                   <div className="flex items-center gap-2 text-sm text-gray-400">
                     DEMO VERSION
                     {(statsLoading || visitorsLoading) && (
                       <Loader2 className="h-3 w-3 animate-spin text-orange-500" />
                     )}
-                    <div className="group relative">
-                      <div
-                        className="flex cursor-help items-center justify-center rounded-full text-xs font-medium transition-colors hover:bg-gray-400"
-                        onMouseEnter={() =>
-                          !isTooltipPinned && setShowTooltip(true)
-                        }
-                        onMouseLeave={() =>
-                          !isTooltipPinned && setShowTooltip(false)
-                        }
-                        onClick={() => {
-                          setIsTooltipPinned(!isTooltipPinned);
-                          setShowTooltip(!isTooltipPinned);
-                        }}
-                      >
-                        <Info className="h-3 w-3 cursor-help text-gray-400" />
-                      </div>
-                      {showTooltip && (
-                        <div
-                          ref={tooltipRef}
-                          className="absolute bottom-full left-1/2 z-[9999] mb-1 -translate-x-1/2 transform whitespace-nowrap rounded bg-gray-800 px-2 py-1 text-xs text-white opacity-100 transition-opacity duration-200"
-                        >
-                          Full functionality available Q3 2025
-                          <div className="border-l-3 border-r-3 border-t-3 absolute left-1/2 top-full h-0 w-0 -translate-x-1/2 transform border-transparent border-t-gray-800"></div>
-                        </div>
-                      )}
-                    </div>
                   </div>
                 </div>
 

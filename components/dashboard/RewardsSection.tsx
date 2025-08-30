@@ -1,23 +1,29 @@
 import React from "react";
-import { CreditCard, Receipt, Copy, ExternalLink, Info } from "lucide-react";
+import { CreditCard, Receipt, Copy, ExternalLink } from "lucide-react";
 import { TokenUSDT, TokenETH, TokenSOL } from "@web3icons/react";
 import { VisitorData, RewardTransaction } from "./dashboard-seed-data";
 import { getExplorerUrlForTx } from "./utils";
+import DemoDataLabel from "./DemoDataLabel";
 
 interface RewardsSectionProps {
   visitor: VisitorData;
   onCopyToClipboard: (text: string) => void;
+  onShowDemoNotification: () => void;
 }
 
 const RewardsSection: React.FC<RewardsSectionProps> = ({
   visitor,
   onCopyToClipboard,
+  onShowDemoNotification,
 }) => {
   return (
     <div className="relative mt-4 p-3">
-      <h3 className="mb-3 flex items-center gap-2 text-base font-semibold text-gray-600">
-        <CreditCard className="h-4 w-4 text-orange-500" /> Rewards Received
-      </h3>
+      <div className="mb-3 flex items-center gap-2">
+        <h3 className="flex items-center gap-2 text-base font-semibold text-gray-600">
+          <CreditCard className="h-4 w-4 text-orange-500" /> Rewards Received
+        </h3>
+        <DemoDataLabel onShowNotification={onShowDemoNotification} />
+      </div>
 
       <div className="mb-4 grid grid-cols-3 gap-4">
         <div className="rounded-lg bg-gray-50 p-3 text-center">
@@ -61,10 +67,13 @@ const RewardsSection: React.FC<RewardsSectionProps> = ({
       </div>
 
       <div className="pt-3">
-        <h4 className="mb-2 flex items-center gap-2 text-sm font-semibold text-gray-600">
-          <Receipt className="h-3 w-3 text-orange-500" /> Recent Reward
-          Transactions
-        </h4>
+        <div className="mb-2 flex items-center gap-2">
+          <h4 className="flex items-center gap-2 text-sm font-semibold text-gray-600">
+            <Receipt className="h-3 w-3 text-orange-500" /> Recent Reward
+            Transactions
+          </h4>
+          <DemoDataLabel onShowNotification={onShowDemoNotification} />
+        </div>
         <div className="max-h-[120px] overflow-y-auto rounded-lg border border-gray-200">
           <div className="space-y-1 p-1">
             {visitor.rewards?.transactions?.map(
@@ -121,13 +130,6 @@ const RewardsSection: React.FC<RewardsSectionProps> = ({
               ),
             )}
           </div>
-        </div>
-      </div>
-
-      <div className="group absolute bottom-2 left-2">
-        <Info className="h-3 w-3 cursor-help text-gray-400" />
-        <div className="absolute bottom-full left-0 z-10 mb-1 whitespace-nowrap rounded bg-gray-800 px-2 py-1 text-xs text-white opacity-0 transition-opacity group-hover:opacity-100">
-          +25.7% (24h)
         </div>
       </div>
     </div>

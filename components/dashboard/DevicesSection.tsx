@@ -1,21 +1,19 @@
 import React, { useState } from "react";
-import {
-  ChevronDown,
-  ChevronRight,
-  Smartphone,
-  Monitor,
-  Tablet,
-  Copy,
-} from "lucide-react";
+import { ChevronDown, ChevronRight } from "lucide-react";
 import { VisitorData, Device } from "./dashboard-seed-data";
 import MapboxMap from "./mapbox-map";
-import { getDeviceIcon, getOSIcon } from "./utils";
+import { getDeviceIcon, getOSIcon, formatDate } from "./utils";
+import DemoDataTooltip from "./DemoDataTooltip";
 
 interface DeviceHistorySectionProps {
   visitor: VisitorData;
+  onShowDemoNotification: () => void;
 }
 
-const DevicesSection: React.FC<DeviceHistorySectionProps> = ({ visitor }) => {
+const DevicesSection: React.FC<DeviceHistorySectionProps> = ({
+  visitor,
+  onShowDemoNotification,
+}) => {
   const [expandedDevices, setExpandedDevices] = useState<Set<string>>(
     new Set(),
   );
@@ -139,18 +137,21 @@ const DevicesSection: React.FC<DeviceHistorySectionProps> = ({ visitor }) => {
                       <ul className="space-y-2 text-sm">
                         <li className="flex items-center justify-between">
                           <span className="text-gray-500">Device Type</span>
-                          <span className="font-medium">{device.type}</span>
+                          <span className="flex items-center gap-1 font-medium">
+                            {getDeviceIcon(device.type)} {device.type}
+                          </span>
                         </li>
                         <li className="flex items-center justify-between">
                           <span className="text-gray-500">OS Version</span>
                           <span className="font-medium">
-                            {device.os_version}
+                            {getOSIcon(device.os)}
+                            {device.os} {device.os_version}
                           </span>
                         </li>
                         <li className="flex items-center justify-between">
                           <span className="text-gray-500">First Seen</span>
                           <span className="font-medium">
-                            {device.first_seen}
+                            {formatDate(device.first_seen)}
                           </span>
                         </li>
                         <li className="flex items-center justify-between">
@@ -273,7 +274,13 @@ const DevicesSection: React.FC<DeviceHistorySectionProps> = ({ visitor }) => {
                         <li
                           className={`flex items-center justify-between border-b p-1.5 ${currentIP.vpn_detected ? "bg-red-50" : "bg-green-50"}`}
                         >
-                          <span className="text-gray-500">VPN</span>
+                          <div className="flex items-center gap-2">
+                            <span className="text-gray-500">VPN</span>
+                            <DemoDataTooltip
+                              onShowDemoNotification={onShowDemoNotification}
+                              inline={true}
+                            />
+                          </div>
                           <span
                             className={`font-semibold ${currentIP.vpn_detected ? "text-red-600" : "text-green-600"}`}
                           >
@@ -285,7 +292,15 @@ const DevicesSection: React.FC<DeviceHistorySectionProps> = ({ visitor }) => {
                         <li
                           className={`flex items-center justify-between p-1.5 ${device.incognito ? "bg-red-50" : "bg-green-50"}`}
                         >
-                          <span className="text-gray-500">Incognito Mode</span>
+                          <div className="flex items-center gap-2">
+                            <span className="text-gray-500">
+                              Incognito Mode
+                            </span>
+                            <DemoDataTooltip
+                              onShowDemoNotification={onShowDemoNotification}
+                              inline={true}
+                            />
+                          </div>
                           <span
                             className={`font-semibold ${device.incognito ? "text-red-600" : "text-green-600"}`}
                           >
