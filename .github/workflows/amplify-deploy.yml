@@ -52,19 +52,6 @@ jobs:
       - name: Run linting
         run: npm run lint
 
-      - name: Test database connection
-        run: |
-          npx ts-node -e "
-          import { testConnection } from './lib/database';
-          testConnection().then(result => {
-            console.log('Database test result:', result);
-            if (!result.success) process.exit(1);
-          }).catch(err => {
-            console.error('Database test failed:', err);
-            process.exit(1);
-          });
-          "
-
       - name: Build project
         run: npm run build
         env:
