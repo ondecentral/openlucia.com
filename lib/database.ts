@@ -22,10 +22,10 @@ export function getPool(): Pool {
       idleTimeoutMillis: 30000, // Close idle connections after 30 seconds
       connectionTimeoutMillis: 2000, // Return error after 2 seconds if connection cannot be established
       // SSL configuration - accept self-signed certificates
-      ssl: {
-        rejectUnauthorized: false,
-        checkServerIdentity: () => undefined,
-      },
+      // ssl: {
+      //   rejectUnauthorized: false,
+      //   checkServerIdentity: () => undefined,
+      // },
     });
 
     // Handle pool errors

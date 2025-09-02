@@ -245,7 +245,8 @@ export interface WalletRow {
 
 // Aggregated data interface for visitor transformation
 export interface VisitorAggregateRow {
-  fingerprint: FingerprintRow;
+  fingerprint: FingerprintRow; // Primary fingerprint (most recent)
+  fingerprints?: FingerprintRow[]; // All fingerprints for this user
   lucia_user?: LuciaUserRow;
   page_views: PageViewRow[];
   button_clicks: ButtonClickRow[];
@@ -608,27 +609,71 @@ export function transformToVisitorData(
     return `${Math.floor(diffMins / 1440)} days ago`;
   };
 
-  // Create devices based on the actual device type and page views
-  // For now, create one device per visitor since each fingerprint represents one device session
-  // In the future, this could be enhanced to aggregate multiple fingerprints per visitor
-  const devices: Device[] = [
-    {
-      id: `device_${fingerprint.id}`,
-      type: getDeviceType(),
-      os: agentInfo.os,
-      os_version: agentInfo.osVersion,
-      browsers: [
-        {
-          name: agentInfo.browser,
-          version: agentInfo.browserVersion,
-        },
-      ],
-      incognito: browserData.incognito || false,
-      ip_addresses: ipAddresses,
-      first_seen: fingerprint.createdAt,
-      last_seen: fingerprint.updatedAt,
-    },
-  ];
+  // Create devices from all fingerprints for this user
+  const allFingerprints = aggregate.fingerprints || [fingerprint];
+  const deviceMap = new Map<string, Device>();
+
+  allFingerprints.forEach((fp) => {
+    const fpDeviceData = parseDeviceData(fp.device_data);
+    const fpBrowserData = parseBrowserData(fp.browser_data);
+    const fpScreenData = parseScreenData(fp.screen_data || fp.data?.screen);
+    const fpAgentInfo = parseAgentDataToInfo(fp.agent_data);
+    const fpIpAddresses = extractIPAddresses(fp);
+
+    const getDeviceTypeForFp = (): string => {
+      const width = fpScreenData.width || 0;
+      if (fpDeviceData.touch || width < 768) return "Mobile";
+      if (width >= 768 && width < 1024) return "Tablet";
+      return "Computer";
+    };
+
+    // Create device key based on device characteristics
+    const deviceKey = `${fpAgentInfo.os}_${fpAgentInfo.osVersion}_${getDeviceTypeForFp()}_${fpScreenData.width}`;
+    
+    if (!deviceMap.has(deviceKey)) {
+      deviceMap.set(deviceKey, {
+        id: `device_${fp.id}`,
+        type: getDeviceTypeForFp(),
+        os: fpAgentInfo.os,
+        os_version: fpAgentInfo.osVersion,
+        browsers: [],
+        incognito: fpBrowserData.incognito || false,
+        ip_addresses: fpIpAddresses,
+        first_seen: fp.createdAt,
+        last_seen: fp.updatedAt,
+      });
+    }
+
+    // Add browser if not already present
+    const device = deviceMap.get(deviceKey)!;
+    const browserExists = device.browsers.some(b => 
+      b.name === fpAgentInfo.browser && b.version === fpAgentInfo.browserVersion
+    );
+    
+    if (!browserExists) {
+      device.browsers.push({
+        name: fpAgentInfo.browser,
+        version: fpAgentInfo.browserVersion,
+      });
+    }
+
+    // Update last seen if this fingerprint is more recent
+    if (new Date(fp.updatedAt) > new Date(device.last_seen)) {
+      device.last_seen = fp.updatedAt;
+    }
+
+    // Update first seen if this fingerprint is older
+    if (new Date(fp.createdAt) < new Date(device.first_seen)) {
+      device.first_seen = fp.createdAt;
+    }
+
+    // Update incognito status if any session was incognito
+    if (fpBrowserData.incognito) {
+      device.incognito = true;
+    }
+  });
+
+  const devices = Array.from(deviceMap.values());
 
   return {
     visitor_id: fingerprint.profileHash.substring(0, 16), // Limit to 16 symbols
