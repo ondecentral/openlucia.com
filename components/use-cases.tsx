@@ -62,7 +62,7 @@ export default function UseCases() {
 
   return (
     <div className="mx-auto max-w-6xl px-4 sm:px-6">
-      <div className="border-t py-12 [border-image:linear-gradient(to_right,transparent,theme(colors.slate.400/.25),transparent)1] md:py-20">
+      <div className="border-t py-12 [border-image:linear-gradient(to_right,transparent,theme(colors.blue.400/.25),transparent)1] md:py-20">
         {/* Section header */}
         <div className="mx-auto max-w-3xl pb-12 text-center">
           <div className="-mx-0.5 flex justify-center -space-x-3">

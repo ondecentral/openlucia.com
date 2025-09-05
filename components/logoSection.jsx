@@ -10,28 +10,28 @@ const LogoSection = () => {
       autoFill={true}
     >
       <Image
-        src="/images/coinsub.svg"
+        src="/images/nillion.svg"
         alt="Logo 1"
         width={120}
         height={40}
         className="mr-40"
       />
       <Image
-        src="/images/cube3.svg"
+        src="/images/lucky-sea.svg"
         alt="Logo 2"
         width={120}
         height={40}
         className="mr-40"
       />
       <Image
-        src="/images/fractal-id.svg"
+        src="/images/og.svg"
         alt="Logo 3"
         width={120}
         height={40}
         className="mr-40"
       />
       <Image
-        src="/images/movement_labs.svg"
+        src="/images/other-partner.png"
         alt="Logo 4"
         width={120}
         height={40}

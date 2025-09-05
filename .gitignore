@@ -29,3 +29,4 @@ yarn-error.log*
 .env
 
 .early.coverage
+new_landing_style

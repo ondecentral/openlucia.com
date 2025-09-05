@@ -36,8 +36,8 @@ const DemoDataLabel: React.FC<DemoDataLabelProps> = ({
       onMouseLeave={handleMouseLeave}
     >
       <div className="flex items-center gap-1.5">
-        <Info className="h-3 w-3 text-gray-400 transition-colors group-hover:text-orange-500" />
-        <span className="text-xs font-semibold tracking-wider text-gray-400 transition-colors group-hover:text-orange-500">
+        <Info className="h-3 w-3 text-gray-400 transition-colors group-hover:text-[#0029FF]" />
+        <span className="text-xs font-semibold tracking-wider text-gray-400 transition-colors group-hover:text-[#0029FF]">
           DEMO DATA
         </span>
       </div>

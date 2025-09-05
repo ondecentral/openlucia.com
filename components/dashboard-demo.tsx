@@ -213,7 +213,7 @@ export default function DashboardDemo() {
     <section className="relative">
       <div className="mx-auto max-w-6xl px-1 sm:px-6">
         <div className="text-center">
-          <div className="border-b py-6 [border-image:linear-gradient(to_right,transparent,theme(colors.stone.300/.8),transparent)1]">
+          <div className="border-b py-6 [border-image:linear-gradient(to_right,transparent,theme(colors.blue.300/.8),transparent)1]">
             {/* Dashboard Content */}
             <div className="relative rounded-lg border border-gray-200 bg-white shadow-lg">
               {/* Dashboard Header */}

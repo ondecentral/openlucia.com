@@ -46,12 +46,12 @@ const VisitorInfoSection: React.FC<VisitorInfoSectionProps> = ({
       {
         title: "TOTAL VISITS",
         value: visitor.total_visits,
-        icon: <Users className="h-5 w-5 text-orange-500" />,
+        icon: <Users className="h-5 w-5" style={{ color: "#0029FF" }} />,
       },
       {
         title: "INCOGNITO VISITS",
         value: visitor.incognito_sessions,
-        icon: <EyeOff className="h-5 w-5 text-orange-500" />,
+        icon: <EyeOff className="h-5 w-5" style={{ color: "#0029FF" }} />,
       },
     ],
     [visitor.total_visits, visitor.incognito_sessions],
@@ -63,17 +63,17 @@ const VisitorInfoSection: React.FC<VisitorInfoSectionProps> = ({
       {
         title: "MOBILE VIEWS",
         value: visitor.mobile_views, // Hardcoded value
-        icon: <Smartphone className="h-5 w-5 text-orange-500" />,
+        icon: <Smartphone className="h-5 w-5" style={{ color: "#0029FF" }} />,
       },
       {
         title: "TABLET VIEWS",
         value: visitor.tablet_views, // Hardcoded value
-        icon: <Tablet className="h-5 w-5 text-orange-500" />,
+        icon: <Tablet className="h-5 w-5" style={{ color: "#0029FF" }} />,
       },
       {
         title: "COMPUTER VIEWS",
         value: visitor.computer_views, // Hardcoded value
-        icon: <Monitor className="h-5 w-5 text-orange-500" />,
+        icon: <Monitor className="h-5 w-5" style={{ color: "#0029FF" }} />,
       },
     ],
     [visitor.mobile_views, visitor.tablet_views, visitor.computer_views],
@@ -109,7 +109,7 @@ const VisitorInfoSection: React.FC<VisitorInfoSectionProps> = ({
         <StatCard
           title="ADS CLICKED"
           value={visitor.ads_clicked}
-          icon={<Target className="h-5 w-5 text-orange-500" />}
+          icon={<Target className="h-5 w-5" style={{ color: "#0029FF" }} />}
           className="border-r md:border-b-0"
           isDemoData={true}
           onShowDemoNotification={onShowDemoNotification}
@@ -118,7 +118,9 @@ const VisitorInfoSection: React.FC<VisitorInfoSectionProps> = ({
         <StatCard
           title="CLICK IDS"
           value={visitor.click_ids}
-          icon={<Fingerprint className="h-5 w-5 text-orange-500" />}
+          icon={
+            <Fingerprint className="h-5 w-5" style={{ color: "#0029FF" }} />
+          }
           className=""
           isDemoData={true}
           onShowDemoNotification={onShowDemoNotification}
@@ -130,7 +132,7 @@ const VisitorInfoSection: React.FC<VisitorInfoSectionProps> = ({
         <StatCard
           title="WALLETS"
           value={visitor.wallets.length}
-          icon={<Wallet className="h-5 w-5 text-orange-500" />}
+          icon={<Wallet className="h-5 w-5" style={{ color: "#0029FF" }} />}
           isDemoData={true}
           onShowDemoNotification={onShowDemoNotification}
           demoSource="wallets_count"
@@ -151,7 +153,7 @@ const VisitorInfoSection: React.FC<VisitorInfoSectionProps> = ({
         <StatCard
           title="MOST ACTIVE"
           value="Afternoon"
-          icon={<Sun className="h-5 w-5 text-orange-500" />}
+          icon={<Sun className="h-5 w-5" style={{ color: "#0029FF" }} />}
           className="border-r text-gray-400 md:border-b-0"
           isDemoData={true}
           onShowDemoNotification={onShowDemoNotification}
@@ -160,7 +162,7 @@ const VisitorInfoSection: React.FC<VisitorInfoSectionProps> = ({
         <StatCard
           title="IP ADDRESSES"
           value={visitor.ip_addresses.length}
-          icon={<Network className="h-5 w-5 text-orange-500" />}
+          icon={<Network className="h-5 w-5" style={{ color: "#0029FF" }} />}
           className=""
         />
       </section>
@@ -169,7 +171,8 @@ const VisitorInfoSection: React.FC<VisitorInfoSectionProps> = ({
         <div className="rounded-lg border border-gray-200 p-1.5">
           <div className="mb-3 flex items-center gap-2 border-b border-gray-200 pb-2">
             <h3 className="flex items-center gap-2 text-base font-semibold text-gray-600">
-              <Mail className="h-4 w-4 text-orange-500" /> Associated Emails
+              <Mail className="h-4 w-4" style={{ color: "#0029FF" }} />{" "}
+              Associated Emails
             </h3>
             <DemoDataLabel
               source="associated_emails"
@@ -200,7 +203,8 @@ const VisitorInfoSection: React.FC<VisitorInfoSectionProps> = ({
 
         <div className="rounded-lg border border-gray-200 p-1.5">
           <h3 className="mb-3 flex items-center justify-center gap-2 border-b border-gray-200 pb-2 text-base font-semibold text-gray-600">
-            <MapPin className="h-4 w-4 text-orange-500" /> IP Addresses
+            <MapPin className="h-4 w-4" style={{ color: "#0029FF" }} /> IP
+            Addresses
           </h3>
           <div className="max-h-[120px] space-y-2 overflow-y-auto">
             {visitor.ip_addresses.map((ipData, index) => (
@@ -233,7 +237,8 @@ const VisitorInfoSection: React.FC<VisitorInfoSectionProps> = ({
         <div className="rounded-lg border border-gray-200 p-1.5">
           <div className="mb-3 flex items-center gap-2 border-b border-gray-200 pb-2">
             <h3 className="flex items-center gap-2 text-base font-semibold text-gray-600">
-              <Wallet className="h-4 w-4 text-orange-500" /> Wallet Addresses
+              <Wallet className="h-4 w-4" style={{ color: "#0029FF" }} /> Wallet
+              Addresses
             </h3>
             <DemoDataLabel
               source="wallet_addresses"
@@ -252,7 +257,7 @@ const VisitorInfoSection: React.FC<VisitorInfoSectionProps> = ({
                       {wallet.address.slice(0, 6)}...{wallet.address.slice(-4)}
                     </div>
                     {wallet.ens_domain && (
-                      <div className="text-xs text-orange-500">
+                      <div className="text-xs text-[#0029FF]">
                         {wallet.ens_domain}
                       </div>
                     )}
@@ -269,7 +274,7 @@ const VisitorInfoSection: React.FC<VisitorInfoSectionProps> = ({
                       href={getExplorerUrlForAddress(wallet.address)}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="ml-2 text-gray-400 transition-colors hover:text-orange-500"
+                      className="ml-2 text-gray-400 transition-colors hover:text-[#0029FF]"
                       title="View on explorer"
                     >
                       <ExternalLink className="h-3 w-3" />

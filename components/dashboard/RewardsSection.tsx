@@ -20,7 +20,8 @@ const RewardsSection: React.FC<RewardsSectionProps> = ({
     <div className="relative mt-4 p-3">
       <div className="mb-3 flex items-center gap-2">
         <h3 className="flex items-center gap-2 text-base font-semibold text-gray-600">
-          <CreditCard className="h-4 w-4 text-orange-500" /> Rewards Received
+          <CreditCard className="h-4 w-4" style={{ color: "#0029FF" }} />{" "}
+          Rewards Received
         </h3>
         <DemoDataLabel onShowNotification={onShowDemoNotification} />
       </div>
@@ -69,8 +70,8 @@ const RewardsSection: React.FC<RewardsSectionProps> = ({
       <div className="pt-3">
         <div className="mb-2 flex items-center gap-2">
           <h4 className="flex items-center gap-2 text-sm font-semibold text-gray-600">
-            <Receipt className="h-3 w-3 text-orange-500" /> Recent Reward
-            Transactions
+            <Receipt className="h-3 w-3" style={{ color: "#0029FF" }} /> Recent
+            Reward Transactions
           </h4>
           <DemoDataLabel onShowNotification={onShowDemoNotification} />
         </div>
@@ -111,7 +112,7 @@ const RewardsSection: React.FC<RewardsSectionProps> = ({
                       href={getExplorerUrlForTx(transaction.txHash)}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-gray-400 transition-colors hover:text-orange-500"
+                      className="text-gray-400 transition-colors hover:text-[#0029FF]"
                       title="View on explorer"
                       onClick={(e) => e.stopPropagation()}
                     >

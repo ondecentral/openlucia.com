@@ -34,7 +34,7 @@ const DemoDataTooltip: React.FC<DemoDataTooltipProps> = ({
     return (
       <div className={`group relative inline-block ${className}`}>
         <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-          <Info className="h-3 w-3 cursor-pointer text-gray-400 transition-colors group-hover:text-orange-500" />
+          <Info className="h-3 w-3 cursor-pointer text-gray-400 transition-colors group-hover:text-[#0029FF]" />
         </div>
         <div className="absolute bottom-full left-1/2 z-10 mb-1 -translate-x-1/2 transform whitespace-nowrap rounded bg-gray-800 px-2 py-1 text-xs text-white opacity-0 transition-opacity group-hover:opacity-100">
           DEMO DATA
@@ -47,7 +47,7 @@ const DemoDataTooltip: React.FC<DemoDataTooltipProps> = ({
   return (
     <div className={`group absolute bottom-2 right-2 ${className}`}>
       <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-        <Info className="h-3 w-3 cursor-pointer text-gray-400 transition-colors group-hover:text-orange-500" />
+        <Info className="h-3 w-3 cursor-pointer text-gray-400 transition-colors group-hover:text-[#0029FF]" />
       </div>
       <div className="absolute bottom-full right-0 z-10 mb-1 whitespace-nowrap rounded bg-gray-800 px-2 py-1 text-xs text-white opacity-0 transition-opacity group-hover:opacity-100">
         DEMO DATA

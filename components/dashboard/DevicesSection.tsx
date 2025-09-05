@@ -169,7 +169,7 @@ const DevicesSection: React.FC<DeviceHistorySectionProps> = ({
                     <div className="mb-2 rounded-lg border border-gray-200 p-1.5">
                       <div className="flex items-center justify-center">
                         <h4 className="mb-2 flex items-center gap-2 text-sm font-medium text-gray-600">
-                          <span className="text-orange-500">🌐</span> Browsers
+                          <span className="text-[#0029FF]">🌐</span> Browsers
                         </h4>
                       </div>
                       <div className="max-h-[120px] space-y-2 overflow-y-auto">
