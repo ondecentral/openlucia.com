@@ -23,7 +23,7 @@ export default function FeaturesPlanet() {
       keyFeature: [2],
     },
     {
-      img: "../images/Metrics-cropped.svg",
+      img: "../images/Content.svg",
       alt: "Feature 3",
       width: "100%",
       height: "100%",

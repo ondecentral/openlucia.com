@@ -21,7 +21,7 @@ import {
 // Loading indicator component
 const LoadingIndicator = () => (
   <div className="flex flex-col items-center justify-center space-y-4 py-16">
-    <Loader2 className="h-8 w-8 animate-spin text-orange-500" />
+    <Loader2 className="h-8 w-8 animate-spin text-blue-500" />
     <div className="text-center">
       <p className="font-medium text-gray-600">Loading dashboard data...</p>
       <p className="mt-1 text-sm text-gray-400">Fetching real-time analytics</p>
@@ -249,7 +249,7 @@ export default function DashboardDemo() {
                   <div className="flex items-center gap-2 text-sm text-gray-400">
                     DEMO VERSION
                     {(statsLoading || visitorsLoading) && (
-                      <Loader2 className="h-3 w-3 animate-spin text-orange-500" />
+                      <Loader2 className="h-3 w-3 animate-spin text-blue-500" />
                     )}
                   </div>
                 </div>
@@ -266,14 +266,14 @@ export default function DashboardDemo() {
                         checked={isDeveloper}
                         onChange={(e) => setIsDeveloper(e.target.checked)}
                       />
-                      <div className="peer h-6 w-11 rounded-full bg-gray-200 after:absolute after:left-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-orange-500 peer-checked:after:translate-x-full peer-checked:after:border-white"></div>
+                      <div className="peer h-6 w-11 rounded-full bg-gray-200 after:absolute after:left-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-blue-500 peer-checked:after:translate-x-full peer-checked:after:border-white"></div>
                     </label>
                   </div>
 
                   {/* Right side - Demo opt out button */}
                   <button
                     onClick={handleOptOutClick}
-                    className="rounded border border-orange-500 px-3 py-1 text-sm text-gray-400 transition-colors hover:bg-gray-700 hover:text-white"
+                    className="rounded border border-blue-500 px-3 py-1 text-sm text-gray-400 transition-colors hover:bg-gray-700 hover:text-white"
                   >
                     DEMO OPT OUT
                   </button>
@@ -289,7 +289,7 @@ export default function DashboardDemo() {
                       checked={isDeveloper}
                       onChange={(e) => setIsDeveloper(e.target.checked)}
                     />
-                    <div className="peer h-6 w-11 rounded-full bg-gray-200 after:absolute after:left-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-orange-500 peer-checked:after:translate-x-full peer-checked:after:border-white"></div>
+                    <div className="peer h-6 w-11 rounded-full bg-gray-200 after:absolute after:left-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-blue-500 peer-checked:after:translate-x-full peer-checked:after:border-white"></div>
                   </label>
                 </div>
 
@@ -297,7 +297,7 @@ export default function DashboardDemo() {
                 <div className="order-3 hidden w-full justify-end sm:flex sm:w-auto">
                   <button
                     onClick={handleOptOutClick}
-                    className="rounded border border-orange-500 px-3 py-1 text-sm text-gray-400 transition-colors hover:bg-gray-700 hover:text-white"
+                    className="rounded border border-blue-500 px-3 py-1 text-sm text-gray-400 transition-colors hover:bg-gray-700 hover:text-white"
                   >
                     DEMO OPT OUT
                   </button>

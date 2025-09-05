@@ -24,10 +24,10 @@ export default function HeroHome() {
             {/* Section header */}
             <div className="text-center md:pb-4">
               <div
-                className="mb-6 border-t [border-image:linear-gradient(to_right,transparent,theme(colors.blue.300/.8),transparent)1]"
+                className="mb-3 border-t [border-image:linear-gradient(to_right,transparent,theme(colors.blue.300/.8),transparent)1]"
                 data-aos="zoom-y-out"
               >
-                <div className="-mx-0.5 flex justify-center py-1">
+                <div className="mt-3 flex justify-center py-1">
                   <span className="rounded-full bg-blue-400 px-2 text-white">
                     AI model coming soon!
                   </span>
@@ -45,7 +45,7 @@ export default function HeroHome() {
               <div className="mx-auto max-w-3xl">
                 <div className="relative py-1 before:absolute before:inset-0 before:border-b before:[border-image:linear-gradient(to_right,transparent,theme(colors.blue.300/.8),transparent)1]">
                   <p
-                    className="font-space-grotesk mb-8 text-xl font-light"
+                    className="font-space-grotesk mb-4 text-xl font-light"
                     data-aos="zoom-y-out"
                     data-aos-delay={300}
                   >
@@ -53,7 +53,7 @@ export default function HeroHome() {
                     and why.
                   </p>
                   <div
-                    className="mx-auto max-w-xs sm:flex sm:max-w-none sm:justify-center"
+                    className="mx-auto mb-3 max-w-xs sm:flex sm:max-w-none sm:justify-center"
                     data-aos="zoom-y-out"
                     data-aos-delay={450}
                   >

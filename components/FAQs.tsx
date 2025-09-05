@@ -4,11 +4,11 @@ export default function FAQs() {
   return (
     <div className="mx-auto max-w-6xl px-4 pb-20 sm:px-6">
       {/* Header section */}
-      <div className="mx-auto max-w-3xl pb-12 text-center">
+      <div className="mx-auto max-w-5xl pb-12 text-center">
         <h2
           data-aos="zoom-y-out"
           data-aos-delay={150}
-          className="pb-4 text-3xl font-extralight text-black md:text-5xl"
+          className="font-space-grotesk pb-4 text-5xl font-medium text-black md:text-5xl"
         >
           We&apos;re here to answer all your questions.
         </h2>

@@ -22,7 +22,7 @@ const Accordion: React.FC<AccordionProps> = ({ title, content }) => {
         onClick={toggleAccordion}
         className="flex w-full items-center justify-between px-4 py-4 text-left focus:outline-none"
       >
-        <span className="text-lg font-medium">{title}</span>
+        <span className="font-space-grotesk text-xl font-medium">{title}</span>
         <svg
           className={`transform transition-transform duration-300 ${
             isOpen ? "rotate-180" : "rotate-0"
@@ -48,7 +48,7 @@ const Accordion: React.FC<AccordionProps> = ({ title, content }) => {
           isOpen ? "max-h-screen" : "max-h-0"
         }`}
       >
-        <div className="p-4 text-gray-600">{content}</div>
+        <div className="p-4 text-slate-500">{content}</div>
       </div>
     </div>
   );
