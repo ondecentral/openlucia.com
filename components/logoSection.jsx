@@ -31,7 +31,7 @@ const LogoSection = () => {
         className="mr-40"
       />
       <Image
-        src="/images/other-partner.png"
+        src="/images/other-partners.png"
         alt="Logo 4"
         width={120}
         height={40}
