@@ -64,7 +64,7 @@ export default function HeroHome() {
                     >
                       <span className="relative inline-flex items-center">
                         Request Demo{" "}
-                        <span className="ml-1 tracking-normal text-orange-100 transition-transform group-hover:translate-x-0.5">
+                        <span className="ml-1 tracking-normal transition-transform group-hover:translate-x-0.5">
                           <svg
                             width={20}
                             height={20}
