@@ -76,7 +76,8 @@ const WalletDetailsSection: React.FC<WalletDetailsSectionProps> = ({
           <div className="mb-1.5 flex items-center justify-between gap-2">
             <div className="flex items-center gap-2">
               <h3 className="flex items-center gap-2 text-base font-semibold text-gray-600">
-                <Wallet className="h-4 w-4 text-orange-500" /> Wallet Details
+                <Wallet className="h-4 w-4" style={{ color: "#0029FF" }} />{" "}
+                Wallet Details
               </h3>
               <DemoDataLabel
                 source="wallet_details"
@@ -163,7 +164,7 @@ const WalletDetailsSection: React.FC<WalletDetailsSectionProps> = ({
                     )}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-gray-400 transition-colors hover:text-orange-500"
+                    className="text-gray-400 transition-colors hover:text-[#0029FF]"
                     title="View on explorer"
                   >
                     <ExternalLink className="h-4 w-4" />
@@ -173,7 +174,7 @@ const WalletDetailsSection: React.FC<WalletDetailsSectionProps> = ({
               <li className="flex items-center justify-between gap-1.5">
                 <span className="text-gray-500">ENS/SNS Domain</span>
                 <div className="flex items-center gap-1.5">
-                  <span className="font-medium text-orange-500">
+                  <span className="font-medium text-[#0029FF]">
                     {currentWallet?.ens_domain || visitor.ens_domain}
                   </span>
                   <button
@@ -223,7 +224,8 @@ const WalletDetailsSection: React.FC<WalletDetailsSectionProps> = ({
       <section className="p-1">
         <div className="mb-1.5 flex items-center gap-2">
           <h3 className="flex items-center gap-2 text-base font-semibold text-gray-600">
-            <DollarSign className="h-4 w-4 text-orange-500" /> Wallet Holdings
+            <DollarSign className="h-4 w-4" style={{ color: "#0029FF" }} />{" "}
+            Wallet Holdings
           </h3>
           <DemoDataLabel
             source="wallet_holdings"
@@ -273,7 +275,8 @@ const WalletDetailsSection: React.FC<WalletDetailsSectionProps> = ({
       <section className="p-1 pt-0">
         <div className="mb-1.5 flex items-center gap-2">
           <h3 className="flex items-center gap-2 text-base font-semibold text-gray-600">
-            <Receipt className="h-4 w-4 text-orange-500" /> Recent Transactions
+            <Receipt className="h-4 w-4" style={{ color: "#0029FF" }} /> Recent
+            Transactions
           </h3>
           <DemoDataLabel
             source="recent_transactions"

@@ -10,6 +10,8 @@ module.exports = {
       fontFamily: {
         inter: ["Inter", "sans-serif"],
         mono: ["Roboto Mono", "monospace"],
+        "space-grotesk": ["Space Grotesk", "sans-serif"],
+        "asap-condensed": ["Asap Condensed", "sans-serif"],
       },
       fontSize: {
         xs: ["0.75rem", { lineHeight: "1.5" }],

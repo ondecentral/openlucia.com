@@ -99,12 +99,12 @@ const Dashboard: React.FC<DashboardProps> = ({
       {
         title: "TOTAL VISITS",
         value: totalVisits,
-        icon: <Users className="h-5 w-5 text-orange-500" />,
+        icon: <Users className="h-5 w-5" style={{ color: "#0029FF" }} />,
       },
       {
         title: "INCOGNITO VISITS",
         value: totalIncognitoVisits,
-        icon: <EyeOff className="h-5 w-5 text-orange-500" />,
+        icon: <EyeOff className="h-5 w-5" style={{ color: "#0029FF" }} />,
       },
     ],
     [totalVisits, totalIncognitoVisits],
@@ -116,17 +116,17 @@ const Dashboard: React.FC<DashboardProps> = ({
       {
         title: "MOBILE VIEWS",
         value: totalMobileViews, // Hardcoded value
-        icon: <Smartphone className="h-5 w-5 text-orange-500" />,
+        icon: <Smartphone className="h-5 w-5" style={{ color: "#0029FF" }} />,
       },
       {
         title: "TABLET VIEWS",
         value: totalTabletViews, // Hardcoded value
-        icon: <Tablet className="h-5 w-5 text-orange-500" />,
+        icon: <Tablet className="h-5 w-5" style={{ color: "#0029FF" }} />,
       },
       {
         title: "COMPUTER VIEWS",
         value: totalComputerViews, // Hardcoded value
-        icon: <Monitor className="h-5 w-5 text-orange-500" />,
+        icon: <Monitor className="h-5 w-5" style={{ color: "#0029FF" }} />,
       },
     ],
     [totalMobileViews, totalTabletViews, totalComputerViews],
@@ -243,13 +243,13 @@ const Dashboard: React.FC<DashboardProps> = ({
           <StatCard
             title="TOTAL UNIQUE IP ADDRESSES"
             value={totalUniqueIPs}
-            icon={<Network className="h-5 w-5 text-orange-500" />}
+            icon={<Network className="h-5 w-5" style={{ color: "#0029FF" }} />}
             className="border-r md:border-b-0"
           />
           <StatCard
             title="TOTAL UNIQUE GEOLOCATIONS"
             value={totalUniqueGeolocations}
-            icon={<Globe className="h-5 w-5 text-orange-500" />}
+            icon={<Globe className="h-5 w-5" style={{ color: "#0029FF" }} />}
             className="border-r md:border-b-0"
           />
         </section>
@@ -259,7 +259,7 @@ const Dashboard: React.FC<DashboardProps> = ({
           <StatCard
             title="TOTAL WALLETS DETECTED"
             value={totalWalletsDetected}
-            icon={<Wallet className="h-5 w-5 text-orange-500" />}
+            icon={<Wallet className="h-5 w-5" style={{ color: "#0029FF" }} />}
             isDemoData={true}
             onShowDemoNotification={handleShowDemoNotification}
             demoSource="total_wallets_detected"
@@ -274,13 +274,18 @@ const Dashboard: React.FC<DashboardProps> = ({
           <StatCard
             title="TOTAL ADS CLICKED"
             value={totalAdsClicked}
-            icon={<MousePointerClick className="h-5 w-5 text-orange-500" />}
+            icon={
+              <MousePointerClick
+                className="h-5 w-5"
+                style={{ color: "#0029FF" }}
+              />
+            }
             className="border-r md:border-b-0"
           />
           <StatCard
             title="TOTAL CLICK IDS"
             value={totalClickIds}
-            icon={<Hash className="h-5 w-5 text-orange-500" />}
+            icon={<Hash className="h-5 w-5" style={{ color: "#0029FF" }} />}
             className=""
           />
         </section>

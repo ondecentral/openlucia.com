@@ -54,6 +54,7 @@ export default function TrackedLink({
       onClick={handleClick}
       id={id}
       aria-label={ariaLabel}
+      target="_blank"
       {...props}
     >
       {children}

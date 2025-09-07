@@ -6,33 +6,14 @@ export default function Header() {
   return (
     <header className="fixed top-2 z-30 w-full md:top-6">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="relative flex h-14 items-center justify-between gap-3 rounded-2xl bg-white/90 px-3 shadow-lg shadow-black/[0.03] backdrop-blur-sm before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:border before:border-transparent before:[mask-composite:exclude_!important] before:[mask:linear-gradient(white_0_0)_padding-box,_linear-gradient(white_0_0)] before:[background:linear-gradient(theme(colors.gray.100),theme(colors.gray.200))_border-box]">
+        <div className="relative flex h-14 items-center justify-between gap-3 rounded-2xl bg-white px-3 shadow-lg shadow-black/[0.03]">
           {/* Site branding */}
-          <div className="flex flex-1 items-center gap-2">
-            <Image
-              src={Logo}
-              width={40}
-              height={40}
-              alt="Lucia Protocol Logo"
-            />
-            <span className="text-lg font-medium">Lucia Protocol</span>
+          <div className="flex flex-col items-center p-2">
+            <Image src={Logo} width={125} alt="Lucia Protocol Logo" />
+            <span className="font-asap-condensed hidden text-sm sm:block">
+              The Web3 Intelligence Layer
+            </span>
           </div>
-
-          {/* Nav links */}
-          {/* <div className="flex flex-row gap-4">
-            <Link href="/about">
-              About Us
-            </Link>
-            <Link href="/products">
-              Products
-            </Link>
-            <Link href="/whitepaper">
-              Whitepaper
-            </Link>
-            <Link href="/team">
-              Developers
-            </Link>
-          </div> */}
 
           {/* Desktop sign in links */}
           <ul className="flex flex-1 items-center justify-end gap-3">
@@ -40,7 +21,7 @@ export default function Header() {
               <Link
                 href="https://ads.clickinsights.xyz/login"
                 target="_blank"
-                className="btn-sm bg-white text-gray-800 shadow hover:bg-gray-50"
+                className="btn-sm bg-white text-gray-800 outline-offset-[-1px] hover:bg-gray-50 hover:outline hover:outline-1 hover:outline-blue-400"
                 aria-label="Login"
               >
                 Login

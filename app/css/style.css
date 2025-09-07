@@ -2,7 +2,7 @@
 @import "tailwindcss/components";
 
 /* Additional styles */
-/* Additional styles */
+@import "additional-styles/custom-fonts.css";
 @import "additional-styles/utility-patterns.css";
 @import "additional-styles/theme.css";
 

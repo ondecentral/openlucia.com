@@ -57,7 +57,7 @@ export const getWalletIcon = (type: string) => {
     case "trezor":
       return <WalletTrezor size={24} variant="branded" />;
     default:
-      return <Wallet className="h-6 w-6 text-orange-500" />;
+      return <Wallet className="h-6 w-6" style={{ color: "#0029FF" }} />;
   }
 };
 
@@ -83,7 +83,10 @@ export const getTokenIcon = (symbol: string, size: number = 24) => {
       return <TokenRAY size={size} variant="branded" />;
     default:
       return (
-        <Wallet className={`w-${size / 4} h-${size / 4} text-orange-500`} />
+        <Wallet
+          className={`w-${size / 4} h-${size / 4}`}
+          style={{ color: "#0029FF" }}
+        />
       );
   }
 };
@@ -203,12 +206,12 @@ export const getOSIcon = (os: string) => {
 export const getDeviceIcon = (deviceType: string) => {
   switch (deviceType.toLowerCase()) {
     case "mobile":
-      return <Smartphone className="h-4 w-4 text-orange-500" />;
+      return <Smartphone className="h-4 w-4" style={{ color: "#0029FF" }} />;
     case "tablet":
-      return <Tablet className="h-4 w-4 text-orange-500" />;
+      return <Tablet className="h-4 w-4" style={{ color: "#0029FF" }} />;
     case "computer":
     default:
-      return <Monitor className="h-4 w-4 text-orange-500" />;
+      return <Monitor className="h-4 w-4" style={{ color: "#0029FF" }} />;
   }
 };
 
