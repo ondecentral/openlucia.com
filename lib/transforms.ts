@@ -629,7 +629,7 @@ export function transformToVisitorData(
 
     // Create device key based on device characteristics
     const deviceKey = `${fpAgentInfo.os}_${fpAgentInfo.osVersion}_${getDeviceTypeForFp()}_${fpScreenData.width}`;
-    
+
     if (!deviceMap.has(deviceKey)) {
       deviceMap.set(deviceKey, {
         id: `device_${fp.id}`,
@@ -646,10 +646,12 @@ export function transformToVisitorData(
 
     // Add browser if not already present
     const device = deviceMap.get(deviceKey)!;
-    const browserExists = device.browsers.some(b => 
-      b.name === fpAgentInfo.browser && b.version === fpAgentInfo.browserVersion
+    const browserExists = device.browsers.some(
+      (b) =>
+        b.name === fpAgentInfo.browser &&
+        b.version === fpAgentInfo.browserVersion,
     );
-    
+
     if (!browserExists) {
       device.browsers.push({
         name: fpAgentInfo.browser,

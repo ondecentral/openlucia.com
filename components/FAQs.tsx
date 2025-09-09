@@ -8,7 +8,7 @@ export default function FAQs() {
         <h2
           data-aos="zoom-y-out"
           data-aos-delay={150}
-          className="font-space-grotesk pb-4 text-5xl font-medium text-black md:text-5xl"
+          className="pb-4 font-space-grotesk text-5xl font-medium text-black md:text-5xl"
         >
           We&apos;re here to answer all your questions.
         </h2>
