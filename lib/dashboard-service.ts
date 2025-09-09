@@ -228,14 +228,16 @@ export async function getVisitors(
       ORDER BY latest_activity DESC
       LIMIT $${searchParams.length + 1} OFFSET $${searchParams.length + 2}
     `,
-      [...searchParams, limit, offset]
+      [...searchParams, limit, offset],
     );
 
     if (recentFingerprintsQuery.rows.length === 0) {
       return { visitors: [], total: 0, page, limit };
     }
 
-    const luciaUserIds = recentFingerprintsQuery.rows.map(row => row.lucia_user_id);
+    const luciaUserIds = recentFingerprintsQuery.rows.map(
+      (row) => row.lucia_user_id,
+    );
 
     // Get total count for pagination (count unique lucia_user_ids with search)
     const countQuery = await query(
@@ -245,7 +247,7 @@ export async function getVisitors(
       INNER JOIN page_view pv ON f.id = pv.fingerprint_id
       WHERE pv.client_id = $1 AND f.lucia_user_id IS NOT NULL ${searchCondition}
     `,
-      searchParams
+      searchParams,
     );
 
     const total = parseInt(countQuery.rows[0]?.total) || 0;
@@ -258,7 +260,7 @@ export async function getVisitors(
       WHERE f.lucia_user_id = ANY($1)
       ORDER BY f.lucia_user_id, f."createdAt" DESC
     `,
-      [luciaUserIds]
+      [luciaUserIds],
     );
 
     // Get all fingerprint IDs for these users
@@ -274,7 +276,7 @@ export async function getVisitors(
       SELECT * FROM lucia_user 
       WHERE id = ANY($1)
     `,
-      [luciaUserIds]
+      [luciaUserIds],
     );
 
     // Step 4: Get page views for ALL their fingerprints (across all clients they've visited)
@@ -284,7 +286,7 @@ export async function getVisitors(
       WHERE fingerprint_id = ANY($1)
       ORDER BY created_at DESC
     `,
-      [allFingerprintIds]
+      [allFingerprintIds],
     );
 
     // Step 5: Get button clicks for ALL their fingerprints
@@ -294,12 +296,12 @@ export async function getVisitors(
       WHERE fingerprint_id = ANY($1)
       ORDER BY created_at DESC
     `,
-      [allFingerprintIds]
+      [allFingerprintIds],
     );
 
     // Step 6: Group fingerprints by lucia_user_id and create one visitor per user
     const visitorMap = new Map<number, VisitorAggregateRow>();
-    
+
     // Group all fingerprints by lucia_user_id
     const fingerprintsByUser = new Map<number, FingerprintRow[]>();
     fingerprintsQuery.rows.forEach((fingerprint) => {
@@ -309,12 +311,14 @@ export async function getVisitors(
       }
       fingerprintsByUser.get(luciaUserId)!.push(fingerprint);
     });
-    
+
     // Create visitor aggregates with all fingerprints
     fingerprintsByUser.forEach((userFingerprints, luciaUserId) => {
-      const lucia_user = luciaUsersQuery.rows.find((lu) => lu.id === luciaUserId);
+      const lucia_user = luciaUsersQuery.rows.find(
+        (lu) => lu.id === luciaUserId,
+      );
       const mostRecentFingerprint = userFingerprints[0]; // Already ordered by createdAt DESC
-      
+
       visitorMap.set(luciaUserId, {
         fingerprint: mostRecentFingerprint, // Primary fingerprint
         fingerprints: userFingerprints, // All fingerprints for this user
@@ -327,16 +331,22 @@ export async function getVisitors(
 
     // Add page views and button clicks for each visitor
     pageViewsQuery.rows.forEach((pageView) => {
-      const fingerprint = fingerprintsQuery.rows.find(f => f.id === pageView.fingerprint_id);
+      const fingerprint = fingerprintsQuery.rows.find(
+        (f) => f.id === pageView.fingerprint_id,
+      );
       if (fingerprint && visitorMap.has(fingerprint.lucia_user_id!)) {
         visitorMap.get(fingerprint.lucia_user_id!)!.page_views.push(pageView);
       }
     });
 
     buttonClicksQuery.rows.forEach((buttonClick) => {
-      const fingerprint = fingerprintsQuery.rows.find(f => f.id === buttonClick.fingerprint_id);
+      const fingerprint = fingerprintsQuery.rows.find(
+        (f) => f.id === buttonClick.fingerprint_id,
+      );
       if (fingerprint && visitorMap.has(fingerprint.lucia_user_id!)) {
-        visitorMap.get(fingerprint.lucia_user_id!)!.button_clicks.push(buttonClick);
+        visitorMap
+          .get(fingerprint.lucia_user_id!)!
+          .button_clicks.push(buttonClick);
       }
     });
 
@@ -366,7 +376,7 @@ export async function getVisitorById(
       WHERE f."profileHash" LIKE $1 AND f.lucia_user_id IS NOT NULL
       LIMIT 1
     `,
-      [`${visitorId}%`]
+      [`${visitorId}%`],
     );
 
     if (fingerprintQuery.rows.length === 0) {
@@ -383,11 +393,11 @@ export async function getVisitorById(
       WHERE lucia_user_id = $1
       ORDER BY "createdAt" DESC
     `,
-      [luciaUserId]
+      [luciaUserId],
     );
 
     const allFingerprints = allFingerprintsQuery.rows;
-    const allFingerprintIds = allFingerprints.map(f => f.id);
+    const allFingerprintIds = allFingerprints.map((f) => f.id);
 
     // Step 3: Get associated data for ALL fingerprints of this user
     const [luciaUserQuery, pageViewsQuery, buttonClicksQuery] =
@@ -396,7 +406,7 @@ export async function getVisitorById(
           `
           SELECT * FROM lucia_user WHERE id = $1
         `,
-          [luciaUserId]
+          [luciaUserId],
         ),
 
         query<PageViewRow>(
@@ -405,7 +415,7 @@ export async function getVisitorById(
           WHERE fingerprint_id = ANY($1)
           ORDER BY created_at DESC
         `,
-          [allFingerprintIds]
+          [allFingerprintIds],
         ),
 
         query<ButtonClickRow>(
@@ -414,7 +424,7 @@ export async function getVisitorById(
           WHERE fingerprint_id = ANY($1)
           ORDER BY created_at DESC
         `,
-          [allFingerprintIds]
+          [allFingerprintIds],
         ),
       ]);
 

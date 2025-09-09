@@ -10,7 +10,7 @@ export default function Header() {
           {/* Site branding */}
           <div className="flex flex-col items-center p-2">
             <Image src={Logo} width={125} alt="Lucia Protocol Logo" />
-            <span className="font-asap-condensed hidden text-sm sm:block">
+            <span className="hidden font-asap-condensed text-sm sm:block">
               The Web3 Intelligence Layer
             </span>
           </div>

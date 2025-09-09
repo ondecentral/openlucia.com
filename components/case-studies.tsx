@@ -10,7 +10,7 @@ export default function CaseStudies() {
             Case Studies
           </span>
         </div>
-        <h2 className="font-space-grotesk animate-[gradient_6s_linear_infinite] bg-[linear-gradient(to_right,#6A98FF,#2563EB,#153885)] bg-[length:200%_auto] bg-clip-text pb-4 text-3xl font-semibold text-transparent md:text-4xl">
+        <h2 className="animate-[gradient_6s_linear_infinite] bg-[linear-gradient(to_right,#6A98FF,#2563EB,#153885)] bg-[length:200%_auto] bg-clip-text pb-4 font-space-grotesk text-3xl font-semibold text-transparent md:text-4xl">
           Web3 Attribution and Behavioral Intelligence
         </h2>
         <p className="text-xl font-normal leading-7 text-slate-400">
