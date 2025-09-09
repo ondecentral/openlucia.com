@@ -19,7 +19,7 @@ export default function Header() {
           <ul className="flex flex-1 items-center justify-end gap-3">
             <li>
               <Link
-                href="https://ads.clickinsights.xyz/login"
+                href="https://ads.clickinsights.xyz/"
                 target="_blank"
                 className="btn-sm bg-white text-gray-800 outline-offset-[-1px] hover:bg-gray-50 hover:outline hover:outline-1 hover:outline-blue-400"
                 aria-label="Login"
