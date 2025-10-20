@@ -24,6 +24,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="scroll-smooth">
+      <head>
+        <link rel="icon" href="/images/luica-icon.png" type="image/png" />
+        <link
+          rel="shortcut icon"
+          href="/images/luica-icon.png"
+          type="image/png"
+        />
+        <link rel="apple-touch-icon" href="/images/luica-icon.png" />
+      </head>
       <body
         className={`${dm_sans.variable} font-dm_sans bg-stone-50 tracking-tight text-stone-900 antialiased`}
       >

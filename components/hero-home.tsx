@@ -61,11 +61,11 @@ export default function HeroHome() {
                   >
                     <Link
                       className="btn group mb-4 w-full bg-gradient-to-r from-blue-400 via-blue-600 to-blue-900 bg-[length:100%_100%] bg-[bottom] font-inter font-semibold leading-7 text-white shadow hover:bg-[length:100%_150%] sm:mb-0 sm:w-auto"
-                      href={`${appUrl}/contact`}
-                      aria-label="Request Demo Hero"
+                      href="https://dex.luciaprotocol.com"
+                      aria-label="Live Demo Hero"
                     >
                       <span className="relative inline-flex items-center">
-                        Request Demo{" "}
+                        Live Demo{" "}
                         <span className="ml-1 tracking-normal transition-transform group-hover:translate-x-0.5">
                           <svg
                             width={20}
@@ -87,11 +87,11 @@ export default function HeroHome() {
                     </Link>
                     <Link
                       className="btn w-full rounded-lg bg-white/75 font-inter font-semibold leading-7 text-slate-700 shadow shadow-[0px_1px_2px_0px_rgba(16,24,40,0.05)] outline outline-1 outline-blue-400 hover:outline-2 hover:drop-shadow-lg sm:ml-4 sm:w-auto"
-                      href={appUrl}
+                      href={`${appUrl}/contact`}
                       target="_blank"
-                      aria-label="Learn More Hero"
+                      aria-label="contact us button"
                     >
-                      Learn More
+                      Contact Us
                     </Link>
                   </div>
                 </div>

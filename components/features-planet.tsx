@@ -53,7 +53,7 @@ export default function FeaturesPlanet() {
                 // className="text-3xl font-bold text-stone-200 md:text-4xl mb-4"
                 className="font-nacelle animate-[gradient_6s_linear_infinite] bg-[linear-gradient(to_right,#F4E292,#0E34F9)] bg-[length:200%_auto] bg-clip-text pb-4 text-3xl font-semibold text-transparent md:text-4xl"
               >
-                Web3-Centric Marketing Campaigns: Designed with KOLs, DOAs and
+                Web3-Centric Marketing Campaigns: Designed with KOLs, DAOs and
                 Protocols in mind
               </h2>
               <span className="mb-4 text-lg font-normal text-slate-400">

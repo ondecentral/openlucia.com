@@ -17,21 +17,14 @@ const LogoSection = () => {
         className="mr-40"
       />
       <Image
-        src="/images/lucky-sea.svg"
+        src="/images/umi.svg"
         alt="Logo 2"
         width={120}
         height={40}
         className="mr-40"
       />
       <Image
-        src="/images/og.svg"
-        alt="Logo 3"
-        width={120}
-        height={40}
-        className="mr-40"
-      />
-      <Image
-        src="/images/other-partners.png"
+        src="/images/on_hive.png"
         alt="Logo 4"
         width={120}
         height={40}
