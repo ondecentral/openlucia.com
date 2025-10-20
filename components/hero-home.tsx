@@ -61,11 +61,11 @@ export default function HeroHome() {
                   >
                     <Link
                       className="btn group mb-4 w-full bg-gradient-to-r from-blue-400 via-blue-600 to-blue-900 bg-[length:100%_100%] bg-[bottom] font-inter font-semibold leading-7 text-white shadow hover:bg-[length:100%_150%] sm:mb-0 sm:w-auto"
-                      href="https://dex.luciaprotocol.com"
-                      aria-label="Live Demo Hero"
+                      href="https://ads.clickinsights.xyz/"
+                      aria-label="Request Demo Hero"
                     >
                       <span className="relative inline-flex items-center">
-                        Live Demo{" "}
+                        Get Started{" "}
                         <span className="ml-1 tracking-normal transition-transform group-hover:translate-x-0.5">
                           <svg
                             width={20}
