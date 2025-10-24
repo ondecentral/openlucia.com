@@ -12,7 +12,7 @@ const dm_sans = DM_Sans({
 
 if (typeof window !== "undefined") {
   LuciaSDK.init({
-    debugURL: process.env.NEXT_PUBLIC_BASE_URL || "",
+    debugURL: process.env.NEXT_PUBLIC_API_URL || "",
     apiKey: process.env.NEXT_PUBLIC_API_KEY || "",
   });
 }

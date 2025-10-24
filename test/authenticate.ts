@@ -15,7 +15,7 @@ const authenticate = async () => {
   try {
     // console.log("Running authenticate...");
     // Signup
-    const apiUrl: string = `${process.env.NEXT_PUBLIC_BASE_URL}/api`;
+    const apiUrl: string = `${process.env.NEXT_PUBLIC_API_URL}/api`;
 
     // Login
     const loginResponse = await fetch(`${apiUrl}/oauth/login`, {

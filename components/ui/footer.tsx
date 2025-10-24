@@ -2,6 +2,8 @@ import Image from "next/image";
 import Logo from "@/public/images/logo.svg";
 import Link from "@/components/tracked-link";
 
+const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? "";
+
 export default function Footer({ border = false }: { border?: boolean }) {
   return (
     <footer>
@@ -51,7 +53,7 @@ export default function Footer({ border = false }: { border?: boolean }) {
               <li>
                 <Link
                   className="text-slate-600 transition hover:text-gray-900"
-                  href="https://ads.clickinsights.xyz/contact"
+                  href={`${appUrl}/contact`}
                   target="_blank"
                   aria-label="Request Demo Footer"
                 >
