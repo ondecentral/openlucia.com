@@ -2,6 +2,8 @@ import Image from "next/image";
 import Logo from "@/public/images/logo.svg";
 import Link from "@/components/tracked-link";
 
+const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? "";
+
 export default function Header() {
   return (
     <header className="fixed top-2 z-30 w-full md:top-6">
@@ -19,7 +21,7 @@ export default function Header() {
           <ul className="flex flex-1 items-center justify-end gap-3">
             <li>
               <Link
-                href="https://ads.clickinsights.xyz/"
+                href={appUrl}
                 target="_blank"
                 className="btn-sm bg-white text-gray-800 outline-offset-[-1px] hover:bg-gray-50 hover:outline hover:outline-1 hover:outline-blue-400"
                 aria-label="Login"
@@ -29,7 +31,7 @@ export default function Header() {
             </li>
             <li>
               <Link
-                href="https://ads.clickinsights.xyz/contact"
+                href={`${appUrl}/contact`}
                 target="_blank"
                 className="btn-sm bg-gray-800 text-gray-200 shadow hover:bg-gray-900"
                 aria-label="Request Demo Header"

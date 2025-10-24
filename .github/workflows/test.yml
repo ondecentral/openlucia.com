@@ -107,7 +107,7 @@ jobs:
           else
             echo "NODE_ENV=dev" >> $GITHUB_ENV
           fi
-          echo "NEXT_PUBLIC_BASE_URL=http://127.0.0.1:${{vars.NODE_PORT}}" >> $GITHUB_ENV
+          echo "NEXT_PUBLIC_API_URL=http://127.0.0.1:${{vars.NODE_PORT}}" >> $GITHUB_ENV
 
       - name: Install Playwright Browsers
         run: |

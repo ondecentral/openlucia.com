@@ -2,6 +2,8 @@ import Image from "next/image";
 
 import Link from "@/components/tracked-link";
 
+const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? "";
+
 export default function Cta() {
   return (
     <section>
@@ -25,7 +27,7 @@ export default function Cta() {
             <div className="mx-auto max-w-xs sm:flex sm:max-w-none sm:justify-center">
               <Link
                 className="btn group mb-4 w-full bg-[#F6E490] shadow sm:mb-0 sm:w-auto"
-                href="https://ads.clickinsights.xyz/contact"
+                href={`${appUrl}/contact`}
                 target="_blank"
                 aria-label="Request Demo CTA"
               >

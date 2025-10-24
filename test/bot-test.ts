@@ -3,7 +3,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const runBotTests = async () => {
-  const apiUrl: string = `${process.env.NEXT_PUBLIC_BASE_URL}/api`;
+  const apiUrl: string = `${process.env.NEXT_PUBLIC_API_URL}/api`;
   const greenLight: string = "\x1b[32m✔\x1b[0m"; // Green checkmark
   const redLight: string = "\x1b[31m✘\x1b[0m"; // Red cross
   let allTestsPassed: boolean = true;

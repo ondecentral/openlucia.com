@@ -11,6 +11,8 @@ interface GlobalDemoNotificationProps {
   source?: string;
 }
 
+const appUrl = process.env.NEXT_PUBLIC_APP_URL;
+
 const GlobalDemoNotification: React.FC<GlobalDemoNotificationProps> = ({
   isVisible,
   onClose,
@@ -94,7 +96,7 @@ const GlobalDemoNotification: React.FC<GlobalDemoNotificationProps> = ({
                   ? window.sessionStorage.getItem("lucia_demo_source")
                   : null;
               const s = source || stored || "unknown";
-              const url = new URL("https://ads.clickinsights.xyz/contact");
+              const url = new URL(`${appUrl}/contact`);
               url.searchParams.set("demo_source", s);
               console.log("Opening URL:", url.toString()); // Debug log
 
@@ -122,7 +124,7 @@ const GlobalDemoNotification: React.FC<GlobalDemoNotificationProps> = ({
                 document.body.removeChild(link);
               }
             } catch (error) {
-              window.open("https://ads.clickinsights.xyz/contact", "_blank");
+              window.open(`${appUrl}/contact`, "_blank");
             }
           }}
           className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-md py-2 text-sm text-white shadow outline outline-1 transition-all duration-300 hover:outline-2 hover:drop-shadow-lg"

@@ -9,7 +9,7 @@ const genApiKey = async () => {
   };
   try {
     // Step 1: Generating api key
-    const apiUrl: string = `${process.env.NEXT_PUBLIC_BASE_URL}/api`;
+    const apiUrl: string = `${process.env.NEXT_PUBLIC_API_URL}/api`;
     const keyResponse = await (
       await fetch(`${apiUrl}/key`, {
         method: "POST",

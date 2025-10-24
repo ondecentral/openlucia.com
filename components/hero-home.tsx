@@ -6,6 +6,8 @@ import Link from "@/components/tracked-link";
 
 import DashboardDemo from "./dashboard-demo";
 
+const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? "";
+
 export default function HeroHome() {
   const sectionStyle = {
     backgroundImage: `url('../images/bg_img.png')`,
@@ -59,7 +61,7 @@ export default function HeroHome() {
                   >
                     <Link
                       className="btn group mb-4 w-full bg-gradient-to-r from-blue-400 via-blue-600 to-blue-900 bg-[length:100%_100%] bg-[bottom] font-inter font-semibold leading-7 text-white shadow hover:bg-[length:100%_150%] sm:mb-0 sm:w-auto"
-                      href="https://ads.clickinsights.xyz/contact"
+                      href={`${appUrl}/contact`}
                       aria-label="Request Demo Hero"
                     >
                       <span className="relative inline-flex items-center">
@@ -85,7 +87,7 @@ export default function HeroHome() {
                     </Link>
                     <Link
                       className="btn w-full rounded-lg bg-white/75 font-inter font-semibold leading-7 text-slate-700 shadow shadow-[0px_1px_2px_0px_rgba(16,24,40,0.05)] outline outline-1 outline-blue-400 hover:outline-2 hover:drop-shadow-lg sm:ml-4 sm:w-auto"
-                      href="https://ads.clickinsights.xyz"
+                      href={appUrl}
                       target="_blank"
                       aria-label="Learn More Hero"
                     >
