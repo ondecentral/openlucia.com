@@ -12,21 +12,8 @@
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^7.1.0",
     "@fortawesome/free-brands-svg-icons": "^7.1.0",
-    "@fortawesome/free-regular-svg-icons": "^7.1.0",
-    "@fortawesome/free-solid-svg-icons": "^7.1.0",
     "@fortawesome/react-fontawesome": "^3.1.1",
-    "@headlessui/react": "^2.2.9",
-    "@react-three/drei": "^10.7.7",
-    "@react-three/fiber": "^9.4.2",
-    "@splinetool/react-spline": "^4.1.0",
-    "@splinetool/runtime": "^1.12.28",
     "@tailwindcss/forms": "^0.5.11",
-    "@types/aos": "^3.0.7",
-    "@types/highlight.js": "^9.12.4",
-    "@types/mapbox-gl": "^3.4.1",
-    "@types/pg": "^8.16.0",
-    "@types/redis": "^4.0.10",
-    "@web3icons/core": "^4.0.43",
     "@web3icons/react": "^4.1.9",
     "aos": "^3.0.0-beta.6",
     "autoprefixer": "^10.4.23",
@@ -42,23 +29,24 @@
     "react-dom": "^19.2.3",
     "react-fast-marquee": "^1.6.5",
     "redis": "^5.10.0",
-    "tailwindcss": "^3.4.19",
-    "three": "^0.169.0",
-    "typescript": "^5.9.3"
+    "tailwindcss": "^3.4.19"
   },
   "devDependencies": {
+    "@types/aos": "^3.0.7",
+    "@types/highlight.js": "^9.12.4",
+    "@types/mapbox-gl": "^3.4.1",
     "@types/node": "^20.19.27",
+    "@types/pg": "^8.16.0",
     "@types/react": "^19.2.7",
-    "@types/react-dom": "^19.2.3",
-    "cross-env": "^7.0.3",
+    "@types/redis": "^4.0.10",
     "cypress": "^13.17.0",
     "eslint": "9.39.2",
     "eslint-config-next": "15.4.7",
     "playwright": "^1.49.1",
     "postcss": "^8.5.6",
-    "prettier-plugin-tailwindcss": "^0.6.14",
     "prettier": "^3.7.4",
+    "prettier-plugin-tailwindcss": "^0.6.14",
     "ts-node": "^10.9.2",
-    "typescript": "^5.8.2"
+    "typescript": "^5.9.3"
   }
 }
