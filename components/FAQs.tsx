@@ -16,15 +16,15 @@ export default function FAQs() {
       <div className="md:px-48">
         <Accordion
           title="How can I get started with a demo of your platform?"
-          content={`To get started with a demo, simply reach out via our Contact Us page. We’ll schedule a personalized walkthrough of our platform, highlighting key features, use cases, and integration capabilities.`}
+          content="Contact us to schedule a personalized walkthrough of features, use cases, and integrations."
         />
         <Accordion
           title="What is Web3 attribution?"
-          content="Web3 ad attribution refers to tracking and analyzing the performance of digital ad campaigns using decentralized technologies, such as blockchain. Unlike traditional methods, Web3 ad attribution offers greater transparency, immutability, and control over how advertising data is collected and shared."
+          content="Track ad performance using blockchain for greater transparency, immutability, and data control."
         />
         <Accordion
           title="What are the benefits of decentralized attribution?"
-          content="Decentralized attribution provides increased transparency, better data security, and reduced reliance on third-party intermediaries. It ensures that data is tamper-proof and verifiable on the blockchain, offering advertisers full ownership and control of their campaign performance metrics."
+          content="Increased transparency, better security, and tamper-proof, verifiable metrics without third-party intermediaries."
         />
         <Accordion
           title="Can I integrate your platform with my existing tech stack?"

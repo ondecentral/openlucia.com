@@ -23,13 +23,6 @@ const LogoSection = () => {
         height={40}
         className="mr-40"
       />
-      <Image
-        src="/images/on_hive.png"
-        alt="Logo 4"
-        width={120}
-        height={40}
-        className="mr-40"
-      />
       {/* Add more logos as needed */}
     </Marquee>
   );

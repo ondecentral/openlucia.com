@@ -14,8 +14,8 @@ export default function CaseStudies() {
           Web3 Attribution and Behavioral Intelligence
         </h2>
         <p className="text-xl font-normal leading-7 text-slate-400">
-          Stuck tracking fragmented data? Unlock clarity to focus on what drives
-          results and scale confidently.
+          Move beyond fragmented data. Get clarity on what drives results and
+          scale with confidence.
         </p>
       </div>
 
@@ -28,10 +28,8 @@ export default function CaseStudies() {
                 Centralized Exchange
               </span>
               <span className="whitespace-normal break-words text-slate-500">
-                This Centralized Exchange typically does not use paid ads, but
-                uses organic content and exchange listing news to do marketing
-                even if its organic. However, there is still a cost to marketing
-                (there is no such thing as free lunch)
+                Leveraged organic content and listing news for cost-effective
+                marketing despite no paid ad budget.
               </span>
             </div>
           </div>
@@ -45,10 +43,8 @@ export default function CaseStudies() {
                 Crypto Wallet Company
               </span>
               <span className="whitespace-normal break-words text-slate-500">
-                A pioneering crypto wallet company sought to expand its user
-                base by targeting audiences on Telegram and Discord,
-                acknowledging the dominance of these platforms within the crypto
-                community.
+                Expanded user base by targeting crypto-native audiences on
+                Telegram and Discord.
               </span>
             </div>
           </div>
@@ -62,9 +58,8 @@ export default function CaseStudies() {
                 De-Fi Platform
               </span>
               <span className="whitespace-normal break-words text-slate-500">
-                A DeFi platform for trading perpetual swaps aimed to optimize
-                its marketing strategy, acknowledging the shift in crypto user
-                behavior towards community-driven platforms.
+                Optimized marketing by recognizing the shift toward
+                community-driven platforms for perpetual swaps.
               </span>
             </div>
           </div>
@@ -78,10 +73,8 @@ export default function CaseStudies() {
                 L1 Blockchain
               </span>
               <span className="whitespace-normal break-words text-slate-500">
-                This project currently is live on mainnet. But they are not a
-                market leader compared to Solana or Ethereum. They have a number
-                of channels where they post, do partnership announcements. Those
-                would be YT, X, Discord, TG
+                Not yet a market leader, but actively building presence through
+                partnerships on X, Discord, and Telegram.
               </span>
             </div>
           </div>

@@ -53,13 +53,11 @@ export default function FeaturesPlanet() {
                 // className="text-3xl font-bold text-stone-200 md:text-4xl mb-4"
                 className="font-nacelle animate-[gradient_6s_linear_infinite] bg-[linear-gradient(to_right,#F4E292,#0E34F9)] bg-[length:200%_auto] bg-clip-text pb-4 text-3xl font-semibold text-transparent md:text-4xl"
               >
-                Web3-Centric Marketing Campaigns: Designed with KOLs, DAOs and
-                Protocols in mind
+                Web3-Centric Marketing for KOLs, DAOs, and Protocols
               </h2>
               <span className="mb-4 text-lg font-normal text-slate-400">
-                Our platform leverages next-level technology to deliver
-                data-driven predictions and trends that keep you ahead of the
-                curve.
+                Leverage advanced technology for data-driven predictions that
+                keep you ahead.
               </span>
 
               {/* Button container */}
@@ -85,9 +83,9 @@ export default function FeaturesPlanet() {
                       Seamless Integration
                     </span>
                     <span className="whitespace-normal break-words font-normal text-slate-400">
-                      Integration with major social media platforms (e.g.
-                      Twitter, Discord, Telegram, LinkedIn, and Google) for
-                      comprehensive data collection.
+                      Connect with major social platforms—Twitter, Discord,
+                      Telegram, LinkedIn, and Google—for complete data
+                      collection.
                     </span>
                   </div>
                 </Button>
@@ -113,9 +111,8 @@ export default function FeaturesPlanet() {
                       Real-time Metrics
                     </span>
                     <span className="whitespace-normal break-words font-normal text-slate-400">
-                      Comprehensive suite of insights derived from SDK, designed
-                      to enhance your understanding of user engagement and
-                      conversion metrics.
+                      SDK-powered insights to enhance user engagement and
+                      conversion tracking.
                     </span>
                   </div>
                 </Button>
@@ -141,8 +138,7 @@ export default function FeaturesPlanet() {
                       AI-Driven Insights
                     </span>
                     <span className="whitespace-normal break-words font-normal text-slate-400">
-                      Leverage AI for deeper understanding and optimization of
-                      ad campaigns.
+                      AI-powered optimization for smarter ad campaigns.
                     </span>
                   </div>
                 </Button>
@@ -185,8 +181,7 @@ export default function FeaturesPlanet() {
                 </span>
               </h3>
               <p className="text-[15px] font-normal text-slate-400">
-                Bridging Web2 and Web3 for unified insights across all
-                ecosystems.
+                Unified insights across Web2 and Web3.
               </p>
             </article>
 
@@ -212,7 +207,7 @@ export default function FeaturesPlanet() {
                 </span>
               </h3>
               <p className="text-[15px] font-normal text-slate-400">
-                From startups to leading exchanges, we scale with you.
+                From startups to exchanges, we scale with you.
               </p>
             </article>
             <article>
@@ -237,9 +232,7 @@ export default function FeaturesPlanet() {
                 </span>
               </h3>
               <p className="text-[15px] font-normal text-slate-400">
-                Our dedicated support team is available around the clock,
-                ensuring you get the help you need whenever you need it—day or
-                night.
+                Round-the-clock assistance whenever you need it.
               </p>
             </article>
           </div>
