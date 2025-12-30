@@ -1,21 +1,12 @@
-"use client";
-
-import "./css/style.css";
 import { DM_Sans } from "next/font/google";
-import LuciaSDK from "lucia-sdk";
+import Script from "next/script";
+import "./css/style.css";
 
 const dm_sans = DM_Sans({
   subsets: ["latin"],
   variable: "--font-dm_sans",
   display: "swap",
 });
-
-if (typeof window !== "undefined") {
-  LuciaSDK.init({
-    debugURL: process.env.NEXT_PUBLIC_API_URL || "",
-    apiKey: process.env.NEXT_PUBLIC_API_KEY || "",
-  });
-}
 
 export default function RootLayout({
   children,
@@ -32,6 +23,12 @@ export default function RootLayout({
           type="image/png"
         />
         <link rel="apple-touch-icon" href="/images/luica-icon.png" />
+        <Script
+          src="https://cdn.luciaprotocol.com/lucia-sdk-latest.min.js"
+          data-api-key={process.env.NEXT_PUBLIC_API_KEY}
+          data-debug-url={process.env.NEXT_PUBLIC_API_URL}
+          strategy="beforeInteractive"
+        />
       </head>
       <body
         className={`${dm_sans.variable} font-dm_sans bg-stone-50 tracking-tight text-stone-900 antialiased`}
