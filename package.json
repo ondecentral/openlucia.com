@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "next dev --webpack",
+    "build": "next build --webpack",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "test:bot": "ts-node test/bot-test.ts"
   },
   "dependencies": {
@@ -22,11 +22,11 @@
     "lucia-sdk": "^0.9.9",
     "lucide-react": "^0.536.0",
     "mapbox-gl": "^3.17.0",
-    "next": "^15.5.9",
+    "next": "16.1.1",
     "pg": "^8.16.3",
     "postcss-import": "^16.1.1",
-    "react": "^19.2.3",
-    "react-dom": "^19.2.3",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
     "react-fast-marquee": "^1.6.5",
     "redis": "^5.10.0",
     "tailwindcss": "^3.4.19"
@@ -37,16 +37,19 @@
     "@types/mapbox-gl": "^3.4.1",
     "@types/node": "^20.19.27",
     "@types/pg": "^8.16.0",
-    "@types/react": "^19.2.7",
+    "@types/react": "19.2.7",
     "@types/redis": "^4.0.10",
     "cypress": "^13.17.0",
     "eslint": "9.39.2",
-    "eslint-config-next": "15.4.7",
+    "eslint-config-next": "16.1.1",
     "playwright": "^1.49.1",
     "postcss": "^8.5.6",
     "prettier": "^3.7.4",
     "prettier-plugin-tailwindcss": "^0.6.14",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
+  },
+  "overrides": {
+    "@types/react": "19.2.7"
   }
 }

@@ -1,8 +1,20 @@
-import { useEffect, useState, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 const useMasonry = () => {
   const masonryContainer = useRef<HTMLDivElement | null>(null);
   const [items, setItems] = useState<ChildNode[]>([]);
+
+  const elementLeft = useCallback((el: HTMLElement) => {
+    return el.getBoundingClientRect().left;
+  }, []);
+
+  const elementTop = useCallback((el: HTMLElement) => {
+    return el.getBoundingClientRect().top + window.scrollY;
+  }, []);
+
+  const elementBottom = useCallback((el: HTMLElement) => {
+    return el.getBoundingClientRect().bottom + window.scrollY;
+  }, []);
 
   useEffect(() => {
     if (masonryContainer.current) {
@@ -47,19 +59,7 @@ const useMasonry = () => {
     return () => {
       window.removeEventListener("resize", handleMasonry);
     };
-  }, [items]);
-
-  const elementLeft = (el: HTMLElement) => {
-    return el.getBoundingClientRect().left;
-  };
-
-  const elementTop = (el: HTMLElement) => {
-    return el.getBoundingClientRect().top + window.scrollY;
-  };
-
-  const elementBottom = (el: HTMLElement) => {
-    return el.getBoundingClientRect().bottom + window.scrollY;
-  };
+  }, [items, elementLeft, elementTop, elementBottom]);
 
   return masonryContainer;
 };
