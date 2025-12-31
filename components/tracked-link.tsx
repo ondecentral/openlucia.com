@@ -1,8 +1,8 @@
 "use client";
 
-import { AnchorHTMLAttributes } from "react";
-import Link from "next/link";
 import LuciaSDK from "lucia-sdk";
+import Link from "next/link";
+import { AnchorHTMLAttributes } from "react";
 
 interface TrackedLinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
   trackingName?: string;

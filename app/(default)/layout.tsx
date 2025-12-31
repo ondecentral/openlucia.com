@@ -6,9 +6,9 @@ import LuciaSDK from "lucia-sdk";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
-import Header from "@/components/ui/header";
-import Footer from "@/components/ui/footer";
 import TwitterPixel from "@/components/TwitterPixel";
+import Footer from "@/components/ui/footer";
+import Header from "@/components/ui/header";
 
 export default function DefaultLayout({
   children,

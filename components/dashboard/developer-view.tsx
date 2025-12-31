@@ -9,27 +9,32 @@ const DeveloperView = () => {
     <div className="text-left font-mono text-sm lg:p-6">
       <div className="mb-6">
         <h3 className="mb-4 text-lg font-semibold text-gray-800">
-          Install the Lucia-Browser-SDK:
+          Add the Lucia SDK to your application:
         </h3>
         <CodeBlock
-          code={`$ npm install lucia-sdk
-# or
-$ yarn add lucia-sdk`}
-          language="bash"
+          code={`<script
+  src="https://cdn.luciaprotocol.com/lucia-sdk-latest.min.js"
+  data-api-key="your-api-key-here">
+</script>`}
+          language="html"
         />
+        <p className="mt-2 text-xs text-gray-500">
+          The SDK auto-initializes when loaded with the data-api-key attribute.
+        </p>
       </div>
 
-      {/* INITIALIZE EXAMPLE */}
+      {/* OPTIONAL CONFIG EXAMPLE */}
       <div className="mb-6">
         <h3 className="mb-4 text-lg font-semibold text-gray-800">
-          Initialize the SDK in your application:
+          Optional: Enable click tracking
         </h3>
         <CodeBlock
-          code={`import LuciaSDK from 'lucia-sdk';
-// Get your API Key from https://ads.clickinsights.xyz
-LuciaSDK.init({
-  apiKey: import.meta.env.VITE_CLICKINSIGHTS_API_KEY
-});`}
+          code={`<script
+  src="https://cdn.luciaprotocol.com/lucia-sdk-latest.min.js"
+  data-api-key="your-api-key-here"
+  data-auto-track-clicks="true">
+</script>`}
+          language="html"
         />
       </div>
 
@@ -60,7 +65,7 @@ async function handleWalletLogin({ connectedAccount, walletName }: WalletLoginPa
       case "Phantom": {
         const solBalance = await connection.getBalance(new PublicKey(connectedAccount));
         const tokenAccount = await fetchTokenAccounts();
-        
+
         // Track user information including balances
         await LuciaSDK.userInfo(connectedAccount, {
           solBalance,
