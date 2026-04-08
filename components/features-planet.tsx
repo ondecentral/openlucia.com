@@ -37,7 +37,10 @@ export default function FeaturesPlanet() {
   );
 
   return (
-    <section className="relative before:absolute before:inset-0 before:-z-20 before:bg-[#0F172A]">
+    <section
+      id="features"
+      className="relative before:absolute before:inset-0 before:-z-20 before:bg-[#0F172A]"
+    >
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="py-12 md:py-20">
           {/* Section header */}
@@ -53,11 +56,11 @@ export default function FeaturesPlanet() {
                 // className="text-3xl font-bold text-stone-200 md:text-4xl mb-4"
                 className="font-nacelle animate-[gradient_6s_linear_infinite] bg-[linear-gradient(to_right,#F4E292,#0E34F9)] bg-[length:200%_auto] bg-clip-text pb-4 text-3xl font-semibold text-transparent md:text-4xl"
               >
-                Web3-Centric Marketing for KOLs, DAOs, and Protocols
+                Growth Intelligence for Teams That Scale Profitably
               </h2>
               <span className="mb-4 text-lg font-normal text-slate-400">
-                Leverage advanced technology for data-driven predictions that
-                keep you ahead.
+                Turn fragmented customer signals into high-confidence decisions
+                that improve CAC:LTV across acquisition and retention.
               </span>
 
               {/* Button container */}
@@ -83,9 +86,8 @@ export default function FeaturesPlanet() {
                       Seamless Integration
                     </span>
                     <span className="whitespace-normal break-words font-normal text-slate-400">
-                      Connect with major social platforms—Twitter, Discord,
-                      Telegram, LinkedIn, and Google—for complete data
-                      collection.
+                      Connect ad platforms, product analytics, CRM, and messaging
+                      tools into one reliable growth signal layer.
                     </span>
                   </div>
                 </Button>
@@ -111,8 +113,8 @@ export default function FeaturesPlanet() {
                       Real-time Metrics
                     </span>
                     <span className="whitespace-normal break-words font-normal text-slate-400">
-                      SDK-powered insights to enhance user engagement and
-                      conversion tracking.
+                      Monitor funnel health, conversion velocity, and ROI in real
+                      time to reallocate spend faster.
                     </span>
                   </div>
                 </Button>
@@ -138,7 +140,8 @@ export default function FeaturesPlanet() {
                       AI-Driven Insights
                     </span>
                     <span className="whitespace-normal break-words font-normal text-slate-400">
-                      AI-powered optimization for smarter ad campaigns.
+                      AI surfaces underperforming campaigns, recommends fixes,
+                      and scales what drives profitable growth.
                     </span>
                   </div>
                 </Button>

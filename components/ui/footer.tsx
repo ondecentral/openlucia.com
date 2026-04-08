@@ -17,14 +17,14 @@ export default function Footer({ border = false }: { border?: boolean }) {
             <div className="flex items-center justify-start">
               {/* Site branding */}
               <div className="flex flex-col items-center p-2">
-                <Image src={Logo} width={125} alt="Lucia Protocol Logo" />
+                <Image src={Logo} width={125} alt="Lucia AI Logo" />
                 <span className="font-asap-condensed text-sm">
                   The Web3 Intelligence Layer
                 </span>
               </div>
             </div>
             <div className="text-sm text-slate-600">
-              &copy; Luciaprotocol.com - All rights reserved.
+              &copy; openlucia.com - All rights reserved.
             </div>
           </div>
 

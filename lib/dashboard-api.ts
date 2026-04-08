@@ -108,7 +108,7 @@ export async function fetchVisitor(visitorId: string): Promise<VisitorData> {
 /**
  * Hook for using dashboard data with loading states
  */
-export function useDashboardStats() {
+export function useDashboardStats(enabled = true) {
   const [stats, setStats] = React.useState<DashboardStats | null>(null);
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
@@ -127,8 +127,13 @@ export function useDashboardStats() {
   };
 
   React.useEffect(() => {
+    if (!enabled) {
+      setLoading(false);
+      setError(null);
+      return;
+    }
     loadStats();
-  }, []);
+  }, [enabled]);
 
   return { stats, loading, error, reload: loadStats };
 }
@@ -142,6 +147,7 @@ export function useVisitors(
     limit?: number;
     search?: string;
   } = {},
+  enabled = true,
 ) {
   const [visitors, setVisitors] = React.useState<VisitorData[]>([]);
   const [total, setTotal] = React.useState(0);
@@ -168,8 +174,15 @@ export function useVisitors(
   );
 
   React.useEffect(() => {
+    if (!enabled) {
+      setLoading(false);
+      setError(null);
+      setVisitors([]);
+      setTotal(0);
+      return;
+    }
     loadVisitors();
-  }, [loadVisitors]);
+  }, [enabled, loadVisitors]);
 
   return {
     visitors,

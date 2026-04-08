@@ -1,6 +1,6 @@
 const firstName: string = "tester";
 const lastName: string = "tester";
-const email: string = "seeduser@luciaprotocol.com";
+const email: string = "seeduser@openlucia.com";
 const password: string = process.env.TEST_CLIENT_PASSWORD || "!Password1";
 
 const greenLight: string = "\x1b[32m✔\x1b[0m"; // Green checkmark

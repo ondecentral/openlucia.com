@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --webpack",
+    "dev": "next dev --webpack -p 5151",
     "build": "next build --webpack",
-    "start": "next start",
+    "start": "next start -p 5151",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "test:bot": "ts-node test/bot-test.ts"
   },

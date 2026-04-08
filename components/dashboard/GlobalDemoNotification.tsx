@@ -54,7 +54,7 @@ const GlobalDemoNotification: React.FC<GlobalDemoNotificationProps> = ({
           Powered by:
         </div>
         <div className="flex items-center gap-2">
-          <Image src={Logo} width={75} alt="Lucia Protocol Logo" />
+          <Image src={Logo} width={75} alt="Lucia AI Logo" />
         </div>
       </div>
 
