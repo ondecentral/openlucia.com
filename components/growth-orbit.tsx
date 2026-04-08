@@ -18,28 +18,33 @@ type OrbitStep = {
 
 const steps: OrbitStep[] = [
   {
-    label: "Unify visitor and customer data with accurate cross-device identity resolution.",
-    className: "left-1/2 top-0 -translate-x-1/2",
+    label: "Unify visitor + customer data across devices.",
+    className:
+      "left-1/2 top-[10%] -translate-x-1/2 md:left-1/2 md:top-0 md:-translate-x-1/2",
     icon: DatabaseZap,
   },
   {
-    label: "Launch autonomous campaigns and track channel-level ROI in real time.",
-    className: "right-[18%] top-[17%]",
+    label: "Auto-launch campaigns and track ROI live.",
+    className:
+      "left-[72%] top-[27%] -translate-x-1/2 -translate-y-1/2 md:right-[18%] md:top-[17%] md:translate-x-0 md:translate-y-0",
     icon: Megaphone,
   },
   {
-    label: "Map every user journey back to campaign touchpoints and conversion impact.",
-    className: "right-[2%] top-[calc(50%-28px)]",
+    label: "Map journeys to campaigns and conversions.",
+    className:
+      "left-[84%] top-1/2 -translate-x-1/2 -translate-y-1/2 md:right-[2%] md:top-[calc(50%-28px)] md:translate-x-0 md:translate-y-0",
     icon: GitBranch,
   },
   {
-    label: "AI surfaces weak campaigns, recommends fixes, and scales top performers.",
-    className: "right-[18%] bottom-[17%]",
+    label: "AI fixes weak campaigns and scales winners.",
+    className:
+      "left-[72%] top-[73%] -translate-x-1/2 -translate-y-1/2 md:right-[18%] md:bottom-[17%] md:top-auto md:translate-x-0 md:translate-y-0",
     icon: Bot,
   },
   {
-    label: "Maximize conversion, ROI, and customer lifetime value across every growth loop.",
-    className: "left-1/2 bottom-0 -translate-x-1/2",
+    label: "Maximize conversion, ROI, and lifetime value.",
+    className:
+      "left-1/2 top-[88%] -translate-x-1/2 -translate-y-1/2 md:left-1/2 md:bottom-0 md:top-auto md:-translate-x-1/2 md:translate-y-0",
     icon: ChartNoAxesCombined,
   },
 ];
@@ -80,13 +85,13 @@ export default function GrowthOrbit() {
         </span>
       </div>
 
-      <div className="relative mx-auto h-[540px] w-full max-w-4xl">
+      <div className="relative mx-auto h-[620px] w-full max-w-4xl md:h-[540px]">
         <div className="absolute left-1/2 top-1/2 h-[320px] w-[320px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-slate-300/60" />
         <div className="absolute left-1/2 top-1/2 h-[200px] w-[200px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-slate-200/70" />
 
-        <div className="absolute left-[3%] top-1/2 -translate-y-1/2 rounded-full border border-slate-300 bg-white px-4 py-2 text-sm text-slate-700 shadow-sm">
+        <div className="mx-auto mb-5 w-fit rounded-full border border-slate-300 bg-white px-3 py-1.5 text-xs text-slate-700 shadow-sm md:absolute md:left-[3%] md:top-1/2 md:mb-0 md:-translate-y-1/2 md:px-4 md:py-2 md:text-sm">
           <span className="mr-2 inline-block h-2 w-2 rounded-full bg-blue-500" />
-          Trigger: New qualified growth opportunity
+          Trigger: Qualified growth signal
         </div>
 
         <div className="absolute left-1/2 top-1/2 flex h-28 w-28 -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center rounded-full border-2 border-blue-600 bg-white text-center shadow-sm">
@@ -111,7 +116,7 @@ export default function GrowthOrbit() {
                   : "pointer-events-none translate-y-2 opacity-0"
               }`}
             >
-              <div className="flex w-[190px] flex-col items-center text-center">
+              <div className="flex w-[96px] flex-col items-center text-center md:w-[190px]">
                 <div
                   className={`flex h-14 w-14 items-center justify-center rounded-full border-2 bg-white shadow-sm transition-all ${
                     isActive
@@ -121,7 +126,9 @@ export default function GrowthOrbit() {
                 >
                   <Icon className="h-5 w-5" />
                 </div>
-                <p className="mt-3 text-sm leading-snug text-slate-700">{step.label}</p>
+                <p className="mt-2 text-[11px] leading-snug text-slate-700 md:mt-3 md:text-sm">
+                  {step.label}
+                </p>
               </div>
             </div>
           );
