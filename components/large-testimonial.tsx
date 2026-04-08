@@ -31,7 +31,7 @@ export default function LargeTestimonial() {
               />
             </div>
             <p className="text-2xl font-bold text-stone-900">
-              &quot;Lucia Protocol&apos;s ad attribution has given us{" "}
+              &quot;Lucia AI&apos;s ad attribution has given us{" "}
               <em className="italic text-stone-500">
                 clear insights into our marketing performance
               </em>

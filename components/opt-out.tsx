@@ -21,7 +21,7 @@ export const AcceptModal: React.FC<{ onBack: () => void }> = ({ onBack }) => (
       {/* Header with Logo */}
       <div className="mb-4 flex items-center justify-center gap-2 border-b border-gray-300 pb-1">
         <div className="flex flex-col items-center p-2">
-          <Image src={Logo} width={100} alt="Lucia Protocol Logo" />
+          <Image src={Logo} width={100} alt="Lucia AI Logo" />
           <span className="font-asap-condensed text-sm">
             The Web3 Intelligence Layer
           </span>
@@ -62,7 +62,7 @@ export const WarningModal: React.FC<WarningModalProps> = ({
       {/* Header with Logo */}
       <div className="mb-4 flex items-center justify-center gap-2 border-b border-gray-300 pb-1">
         <div className="flex flex-col items-center p-2">
-          <Image src={Logo} width={125} alt="Lucia Protocol Logo" />
+          <Image src={Logo} width={125} alt="Lucia AI Logo" />
           <span className="font-asap-condensed text-sm">
             The Web3 Intelligence Layer
           </span>
@@ -108,7 +108,7 @@ export const CancelModal: React.FC<{ onBack: () => void }> = ({ onBack }) => (
       {/* Header with Logo */}
       <div className="mb-4 flex items-center justify-center gap-2 border-b border-gray-300 pb-1">
         <div className="flex flex-col items-center p-2">
-          <Image src={Logo} width={100} alt="Lucia Protocol Logo" />
+          <Image src={Logo} width={100} alt="Lucia AI Logo" />
           <span className="font-asap-condensed text-sm">
             The Web3 Intelligence Layer
           </span>
@@ -146,7 +146,7 @@ export const ConfirmModal: React.FC<{ onBack: () => void }> = ({ onBack }) => (
       {/* Header with Logo */}
       <div className="mb-4 flex items-center justify-center gap-2 border-b border-gray-300 pb-1">
         <div className="flex flex-col items-center p-2">
-          <Image src={Logo} width={100} alt="Lucia Protocol Logo" />
+          <Image src={Logo} width={100} alt="Lucia AI Logo" />
           <span className="font-asap-condensed text-sm">
             The Web3 Intelligence Layer
           </span>
@@ -186,7 +186,7 @@ export const BottomRightPopup: React.FC<PopupProps> = ({
     {/* Header with Logo */}
     <div className="mb-1 flex items-center justify-center gap-2 border-b border-gray-300 pb-1">
       <div className="flex flex-col items-center p-2">
-        <Image src={Logo} width={100} alt="Lucia Protocol Logo" />
+        <Image src={Logo} width={100} alt="Lucia AI Logo" />
         <span className="font-asap-condensed text-sm">
           The Web3 Intelligence Layer
         </span>

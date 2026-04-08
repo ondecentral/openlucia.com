@@ -11,7 +11,7 @@ export default function Header() {
         <div className="relative flex h-14 items-center justify-between gap-3 rounded-2xl bg-white px-3 shadow-lg shadow-black/[0.03]">
           {/* Site branding */}
           <div className="flex flex-col items-center p-2">
-            <Image src={Logo} width={125} alt="Lucia Protocol Logo" />
+            <Image src={Logo} width={125} alt="Lucia AI Logo" />
             <span className="hidden font-asap-condensed text-sm sm:block">
               The Web3 Intelligence Layer
             </span>

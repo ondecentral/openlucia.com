@@ -37,7 +37,10 @@ export default function FeaturesPlanet() {
   );
 
   return (
-    <section className="relative before:absolute before:inset-0 before:-z-20 before:bg-[#0F172A]">
+    <section
+      id="features"
+      className="relative before:absolute before:inset-0 before:-z-20 before:bg-[#0F172A]"
+    >
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="py-12 md:py-20">
           {/* Section header */}

@@ -6,8 +6,6 @@ import Link from "@/components/tracked-link";
 
 import DashboardDemo from "./dashboard-demo";
 
-const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? "";
-
 export default function HeroHome() {
   const sectionStyle = {
     backgroundImage: `url('../images/bg_img.png')`,
@@ -87,7 +85,7 @@ export default function HeroHome() {
                     </Link>
                     <Link
                       className="btn w-full rounded-lg bg-white/75 font-inter font-semibold leading-7 text-slate-700 shadow shadow-[0px_1px_2px_0px_rgba(16,24,40,0.05)] outline outline-1 outline-blue-400 hover:outline-2 hover:drop-shadow-lg sm:ml-4 sm:w-auto"
-                      href={`${appUrl}/contact`}
+                      href="https://app.luciaprotocol.com/contact"
                       target="_blank"
                       aria-label="contact us button"
                     >

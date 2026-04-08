@@ -22,7 +22,7 @@ export default function Cta() {
 
           <div className="px-4 py-12 md:px-12 md:py-20">
             <h2 className="text-space-grotesk mb-6 text-3xl font-medium text-white [border-image:linear-gradient(to_right,transparent,theme(colors.blue.700/.7),transparent)1] md:mb-12 md:text-4xl">
-              Get started with Lucia Protocol
+              Get started with Lucia AI
             </h2>
             <div className="mx-auto max-w-xs sm:flex sm:max-w-none sm:justify-center">
               <Link

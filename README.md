@@ -1,4 +1,4 @@
-# Lucia Protocol v2.0
+# Lucia AI v2.0
 
 ## Usage
 
