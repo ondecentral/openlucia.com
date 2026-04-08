@@ -1,6 +1,6 @@
 export const metadata = {
-  title: "The Web3 Intelligence Layer",
-  description: "Ultimate attribution Platform",
+  title: "The Autonomous Growth OS",
+  description: "Ultimate User Acquisition Platform",
 };
 
 import Hero from "@/components/hero-home";

@@ -11,7 +11,7 @@ export default function Header() {
           <div className="flex flex-col items-center p-2">
             <Image src={Logo} width={125} alt="Lucia AI Logo" />
             <span className="hidden font-asap-condensed text-sm sm:block">
-              The Web3 Intelligence Layer
+              The Autonomous Growth OS
             </span>
           </div>
 

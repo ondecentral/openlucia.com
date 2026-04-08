@@ -23,7 +23,7 @@ export const AcceptModal: React.FC<{ onBack: () => void }> = ({ onBack }) => (
         <div className="flex flex-col items-center p-2">
           <Image src={Logo} width={100} alt="Lucia AI Logo" />
           <span className="font-asap-condensed text-sm">
-            The Web3 Intelligence Layer
+            The Autonomous Growth OS
           </span>
         </div>
       </div>
@@ -64,7 +64,7 @@ export const WarningModal: React.FC<WarningModalProps> = ({
         <div className="flex flex-col items-center p-2">
           <Image src={Logo} width={125} alt="Lucia AI Logo" />
           <span className="font-asap-condensed text-sm">
-            The Web3 Intelligence Layer
+            The Autonomous Growth OS
           </span>
         </div>
       </div>
@@ -110,7 +110,7 @@ export const CancelModal: React.FC<{ onBack: () => void }> = ({ onBack }) => (
         <div className="flex flex-col items-center p-2">
           <Image src={Logo} width={100} alt="Lucia AI Logo" />
           <span className="font-asap-condensed text-sm">
-            The Web3 Intelligence Layer
+            The Autonomous Growth OS
           </span>
         </div>
       </div>
@@ -148,7 +148,7 @@ export const ConfirmModal: React.FC<{ onBack: () => void }> = ({ onBack }) => (
         <div className="flex flex-col items-center p-2">
           <Image src={Logo} width={100} alt="Lucia AI Logo" />
           <span className="font-asap-condensed text-sm">
-            The Web3 Intelligence Layer
+            The Autonomous Growth OS
           </span>
         </div>
       </div>
@@ -188,7 +188,7 @@ export const BottomRightPopup: React.FC<PopupProps> = ({
       <div className="flex flex-col items-center p-2">
         <Image src={Logo} width={100} alt="Lucia AI Logo" />
         <span className="font-asap-condensed text-sm">
-          The Web3 Intelligence Layer
+          The Autonomous Growth OS
         </span>
       </div>
     </div>

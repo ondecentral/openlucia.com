@@ -19,7 +19,7 @@ export default function Footer({ border = false }: { border?: boolean }) {
               <div className="flex flex-col items-center p-2">
                 <Image src={Logo} width={125} alt="Lucia AI Logo" />
                 <span className="font-asap-condensed text-sm">
-                  The Web3 Intelligence Layer
+                  The Autonomous Growth OS
                 </span>
               </div>
             </div>
