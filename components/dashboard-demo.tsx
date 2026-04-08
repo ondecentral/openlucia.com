@@ -41,7 +41,7 @@ const ErrorIndicator = () => (
 );
 
 export default function DashboardDemo() {
-  const [isDeveloper, setIsDeveloper] = useState(false);
+  const [isDeveloper, setIsDeveloper] = useState(true);
   const [showPopup, setShowPopup] = useState(false);
   const [showWarning, setShowWarning] = useState(false);
   const [showAcceptModal, setShowAcceptModal] = useState(false);

@@ -29,7 +29,7 @@ const steps: OrbitStep[] = [
   },
   {
     label: "Map every user journey back to campaign touchpoints and conversion impact.",
-    className: "right-0 top-1/2 -translate-y-1/2",
+    className: "right-[2%] top-[calc(50%-28px)]",
     icon: GitBranch,
   },
   {
