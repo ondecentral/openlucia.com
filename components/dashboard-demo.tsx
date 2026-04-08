@@ -41,6 +41,7 @@ const ErrorIndicator = () => (
 );
 
 export default function DashboardDemo() {
+  const LIVE_DASHBOARD_ENABLED = false;
   const [isDeveloper, setIsDeveloper] = useState(true);
   const [showPopup, setShowPopup] = useState(false);
   const [showWarning, setShowWarning] = useState(false);
@@ -56,12 +57,12 @@ export default function DashboardDemo() {
     stats: apiStats,
     loading: statsLoading,
     error: statsError,
-  } = useDashboardStats();
+  } = useDashboardStats(LIVE_DASHBOARD_ENABLED);
   const {
     visitors: apiVisitors,
     loading: visitorsLoading,
     error: visitorsError,
-  } = useVisitors({ limit: 8 });
+  } = useVisitors({ limit: 8 }, LIVE_DASHBOARD_ENABLED);
 
   // Utility function to ensure IP addresses are obscured (safety measure)
   const obscureIPAddress = (ip: string): string => {

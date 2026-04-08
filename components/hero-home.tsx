@@ -27,21 +27,7 @@ export default function HeroHome() {
                 className="mb-3 border-t [border-image:linear-gradient(to_right,transparent,theme(colors.blue.300/.8),transparent)1]"
                 data-aos="zoom-y-out"
               >
-                <div className="mt-3 flex justify-center py-1">
-                  <span className="rounded-full bg-blue-400 px-2 text-white">
-                    AI model coming soon!
-                  </span>
-                </div>
               </div>
-              <h1
-                className="mb-6 border-y px-4 py-2 font-space-grotesk text-3xl font-bold text-black [border-image:linear-gradient(to_right,transparent,theme(colors.blue.300/.8),transparent)1] sm:px-0 sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl"
-                data-aos="zoom-y-out"
-                data-aos-delay={150}
-              >
-                Behavioral Intelligence
-                <br />
-                <span className="font-light">Powered by AI</span>
-              </h1>
               <div className="mx-auto max-w-3xl">
                 <div className="relative py-1 before:absolute before:inset-0 before:border-b before:[border-image:linear-gradient(to_right,transparent,theme(colors.blue.300/.8),transparent)1]">
                   <p
