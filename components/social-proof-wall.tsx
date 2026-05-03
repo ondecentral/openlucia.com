@@ -18,13 +18,12 @@ type ProofItem = {
 export const SOCIAL_PROOF_ITEMS: ProofItem[] = [
   {
     id: "proof-01",
-    type: "chat",
+    type: "instagram",
     author: "Lena / Growth Lead",
     handle: "@lena",
     message: "ROAS jumped 43% in 8 days. Keep this running.",
     detail: "sent 9:41 PM",
     platform: "Instagram",
-    type: "instagram",
     layoutClass: "w-full min-h-[180px]",
   },
   {
@@ -103,13 +102,12 @@ export const SOCIAL_PROOF_ITEMS: ProofItem[] = [
   },
   {
     id: "proof-09",
-    type: "chat",
+    type: "instagram",
     author: "Eva / UA Manager",
     handle: "@eva",
     message: "The anomaly alert saved us before burnout spend kicked in.",
     detail: "Instagram DM 11:02",
     platform: "Instagram",
-    type: "instagram",
     layoutClass: "w-full min-h-[148px]",
   },
   {
@@ -188,13 +186,12 @@ export const SOCIAL_PROOF_ITEMS: ProofItem[] = [
   },
   {
     id: "proof-17",
-    type: "chat",
+    type: "instagram",
     author: "Sam / Paid Social",
     handle: "@sam",
     message: "We finally know which creatives print money.",
     detail: "Instagram DM 08:05",
     platform: "Instagram",
-    type: "instagram",
     layoutClass: "w-full min-h-[145px]",
   },
   {
