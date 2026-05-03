@@ -10,6 +10,7 @@ import FeaturesPlanet from "@/components/features-planet";
 import Cta from "@/components/cta";
 import FAQs from "@/components/FAQs";
 import CaseStudies from "@/components/case-studies";
+import SocialProofWall from "@/components/social-proof-wall";
 
 export default function Home() {
   return (
@@ -19,6 +20,7 @@ export default function Home() {
       <Hero />
       <FeaturesPlanet />
       <CaseStudies />
+      <SocialProofWall />
       {/* <UseCases /> */}
       <FAQs />
       <Cta />
