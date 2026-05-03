@@ -7,3 +7,19 @@
 @import "additional-styles/theme.css";
 
 @import "tailwindcss/utilities";
+
+@keyframes proof-column-scroll {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
+.proof-column-track {
+  animation-name: proof-column-scroll;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  will-change: transform;
+}
